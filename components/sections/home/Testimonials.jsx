@@ -26,7 +26,7 @@ const TESTIMONIALS = [
 
 export default function Testimonials() {
   return (
-    <section className="section-container py-12 sm:py-16 flex flex-col items-center justify-center">
+    <section className="section-container flex flex-col items-center justify-center">
       <div className="mb-10 flex flex-col items-center gap-4 px-2 text-center sm:mb-12 lg:mb-16">
         <h3 className="section-sub-heading">Testimonials</h3>
         <h2 className="text-gold-gradient">What Our Clients Say</h2>

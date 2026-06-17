@@ -4,7 +4,7 @@ import listYourPropertyImage from "@/public/images/landingpage/LuxuryHome.png";
 
 export default function ListYourProperty() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
         <div className="flex w-full min-w-0 flex-col gap-4 lg:max-w-xl">
           <h3 className="section-sub-heading !tracking-[3.3px]">

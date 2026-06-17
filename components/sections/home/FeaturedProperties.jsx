@@ -51,7 +51,7 @@ const FILTER_BUTTONS = [
 
 const FeaturedProperties = () => {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex w-full min-w-0 flex-col gap-4 lg:max-w-3xl">
           <h3 className="section-sub-heading">Featured Properties</h3>

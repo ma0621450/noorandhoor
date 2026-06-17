@@ -26,7 +26,7 @@ const COMMITMENTS = [
 
 export default function Commitments() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="flex flex-col items-center gap-6 px-2 text-center sm:gap-8">
         <h2 className="text-gold-gradient max-w-full">
           Our Core Commitments to You

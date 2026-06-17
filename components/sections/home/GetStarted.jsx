@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function GetStarted() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="flex flex-col items-center justify-center gap-4 px-4 text-center">
         <h3 className="section-sub-heading">Get Started today</h3>
         <h2 className="text-gold-gradient">speak to our team</h2>

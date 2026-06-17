@@ -53,7 +53,7 @@ const OFF_PLAN_LAUNCHES = [
 
 export default function OffPlanLaunches() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
         <div className="flex min-w-0 flex-col gap-4">
           <h3 className="section-sub-heading">Our Launches</h3>

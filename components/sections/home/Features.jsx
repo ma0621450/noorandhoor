@@ -20,7 +20,7 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="mb-10 flex flex-col items-center gap-6 px-2 text-center sm:mb-12 sm:gap-8">
         <h3 className="section-sub-heading !tracking-[3.3px]">
           Buy • Rent • Sell

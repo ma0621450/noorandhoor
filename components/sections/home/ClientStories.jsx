@@ -13,7 +13,7 @@ const CLIENT_STORIES = [
 
 export default function ClientStories() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-stretch lg:gap-12">
         <div className="min-w-0 max-w-full shrink-0 lg:max-w-[500px]">
           <h3 className="section-sub-heading mb-4">Client Stories</h3>

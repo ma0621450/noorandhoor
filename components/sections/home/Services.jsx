@@ -27,7 +27,7 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="flex flex-col gap-10 xl:flex-row xl:items-start xl:justify-between xl:gap-16">
         <div className="flex min-w-0 flex-col gap-4 xl:max-w-[445px] xl:shrink-0">
           <h3 className="section-sub-heading">Our Services</h3>

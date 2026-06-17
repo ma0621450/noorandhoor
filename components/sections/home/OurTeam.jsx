@@ -33,7 +33,7 @@ const TEAM_MEMBERS = [
 
 export default function OurTeam() {
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="mb-10 flex flex-col items-center gap-4 px-2 text-center sm:mb-12 lg:mb-16">
         <h2 className="text-gold-gradient">The Minds Behind Our Success</h2>
         <div className="h-[4px] w-25 bg-[#B3813D]" />

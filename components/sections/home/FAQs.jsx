@@ -76,7 +76,7 @@ export default function FAQs() {
   };
 
   return (
-    <section className="section-container py-12 sm:py-16">
+    <section className="section-container">
       <div className="mb-10 flex flex-col items-center gap-4 px-2 text-center sm:mb-12">
         <h3 className="section-sub-heading !tracking-widest">
           Frequently ask Questions
