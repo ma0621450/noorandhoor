@@ -1,0 +1,94 @@
+"use client";
+
+import LocationCard from "@/components/ui/LocationCard";
+import { useRef, useState } from "react";
+import villasImage from "@/public/images/buy/villas.png";
+import apartmentsImage from "@/public/images/buy/apartments.png";
+import townhousesImage from "@/public/images/buy/townhouses.png";
+import penthouseImage from "@/public/images/buy/penthouse.png";
+import otherPropertiesImage from "@/public/images/buy/otherproperties.png";
+
+const CATEGORIES = [
+  { image: villasImage, name: "Villas", propertyCount: 12 },
+  { image: apartmentsImage, name: "Apartments", propertyCount: 284 },
+  { image: townhousesImage, name: "Town Houses", propertyCount: 50 },
+  { image: penthouseImage, name: "Penthouses", propertyCount: 32 },
+  { image: otherPropertiesImage, name: "Other Properties", propertyCount: 24 },
+];
+
+export default function PropertyCategories() {
+  const scrollRef = useRef(null);
+  const dragState = useRef({ startX: 0, scrollLeft: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handlePointerDown = (event) => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    container.setPointerCapture(event.pointerId);
+    setIsDragging(true);
+    dragState.current = {
+      startX: event.pageX,
+      scrollLeft: container.scrollLeft,
+    };
+  };
+
+  const handlePointerMove = (event) => {
+    if (!isDragging) return;
+
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const distance = event.pageX - dragState.current.startX;
+    container.scrollLeft = dragState.current.scrollLeft - distance;
+  };
+
+  const handlePointerUp = (event) => {
+    const container = scrollRef.current;
+    if (container?.hasPointerCapture(event.pointerId)) {
+      container.releasePointerCapture(event.pointerId);
+    }
+    setIsDragging(false);
+  };
+
+  return (
+    <section className="section-container">
+      <div className="flex flex-col items-center gap-4 text-center">
+        <h3 className="section-sub-heading text-[#B3813D]">Categories</h3>
+        <h2 className="text-gold-gradient">Property Categories</h2>
+        <div className="h-[3px] w-16 bg-[#B3813D]" />
+        <p className="max-w-[520px] text-sm md:text-base">
+          Tailored architecture to match your intent
+        </p>
+      </div>
+
+      <div
+        ref={scrollRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        className={`mt-8 lg:mt-12
+  flex touch-none
+  gap-4 md:gap-6 lg:gap-8
+  px-4 md:px-6 lg:px-0
+  overflow-x-auto
+  pb-2
+  select-none
+  [-ms-overflow-style:none]
+  [scrollbar-width:none]
+  [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+      >
+        {CATEGORIES.map((category) => (
+          <LocationCard
+            key={category.name}
+            image={category.image}
+            name={category.name}
+            propertyCount={category.propertyCount}
+            width={300}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}

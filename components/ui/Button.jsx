@@ -9,6 +9,8 @@ const Button = ({
       "bg-[#ba8a44] text-white hover:bg-[#ba8a44]/80",
     secondary:
       "border border-[#ba8a44] text-white bg-transparent hover:bg-[#ba8a44]/10",
+      outline:
+      "border border-[#ba8a44] text-[#ba8a44] bg-transparent hover:bg-[#ba8a44]/10"
   };
 
   return (

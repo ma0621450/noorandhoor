@@ -1,13 +1,16 @@
 import Image from "next/image";
 
-const LocationCard = ({ image, name, propertyCount }) => {
+const LocationCard = ({ image, name, propertyCount, width = 250 }) => {
   return (
-    <article className="relative h-[450px] w-[250px] shrink-0 overflow-hidden rounded-md">
+    <article
+      className="relative h-[450px] shrink-0 overflow-hidden rounded-md"
+      style={{ width }}
+    >
       <Image
         src={image}
         alt={name}
         fill
-        sizes="250px"
+        sizes={`${width}px`}
         draggable={false}
         className="pointer-events-none object-cover object-center"
       />

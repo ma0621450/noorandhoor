@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import logo from "@/public/svgs/logo.svg";
 import Button from "@/components/ui/Button";
@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button";
 const NAV_ITEMS = [
   {
     label: "Buy",
+    href: "/buy",
     links: ["Apartments", "Villas", "Penthouses", "Townhouses"],
   },
   {
@@ -38,49 +39,86 @@ const NAV_ITEMS = [
   },
 ];
 
-function NavItem({ item }) {
-  const [isOpen, setIsOpen] = useState(false);
+const NAV_LINK_CLASS =
+  "text-sm font-medium uppercase tracking-wide !text-white transition-colors duration-300 ease-in-out hover:!text-[#ba8a44] group-hover:!text-[#ba8a44]";
+
+function NavItem({ item, openId, setOpenId }) {
+  const ref = useRef(null);
+  const isOpen = openId === item.label;
+
+  const toggle = () => setOpenId(isOpen ? null : item.label);
+  const close = () => setOpenId(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event) => {
+      if (!ref.current?.contains(event.target)) {
+        setOpenId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, setOpenId]);
 
   if (!item.links) {
     return (
-      <Link
-        href={item.href}
-        className="text-sm font-medium uppercase tracking-wide text-white transition-colors hover:text-[#ba8a44]"
-      >
+      <Link href={item.href} className={NAV_LINK_CLASS}>
         {item.label}
       </Link>
     );
   }
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <button
-        type="button"
-        className="flex cursor-pointer items-center gap-1 text-sm font-medium uppercase tracking-wide text-white transition-colors hover:text-[#ba8a44]"
-        onClick={() => setIsOpen((open) => !open)}
-      >
-        {item.label}
-        <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-          strokeWidth={2}
-        />
-      </button>
+    <div ref={ref} className="group relative">
+      <div className="flex items-center gap-1">
+        {item.href ? (
+          <Link
+            href={item.href}
+            className={`${NAV_LINK_CLASS} ${isOpen ? "!text-[#ba8a44]" : ""}`}
+          >
+            {item.label}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            className={`cursor-pointer ${NAV_LINK_CLASS} ${isOpen ? "!text-[#ba8a44]" : ""}`}
+            onClick={toggle}
+          >
+            {item.label}
+          </button>
+        )}
+        <button
+          type="button"
+          className="cursor-pointer text-white transition-colors duration-300 ease-in-out group-hover:text-[#ba8a44] hover:text-[#ba8a44]"
+          onClick={toggle}
+          aria-expanded={isOpen}
+          aria-label={`${item.label} menu`}
+        >
+          <ChevronDown
+            className={`h-4 w-4 transition-all duration-300 ease-in-out ${
+              isOpen ? "rotate-180 text-[#ba8a44]" : ""
+            }`}
+            strokeWidth={2}
+          />
+        </button>
+      </div>
 
       {isOpen && (
-        <div className="absolute left-0 top-full z-50 mt-3 min-w-[180px] overflow-hidden rounded-md border border-white/10 bg-[#141414]/95 backdrop-blur-md">
-          {item.links.map((link) => (
-            <Link
-              key={link}
-              href="#"
-              className="block px-4 py-2.5 text-sm text-white transition-colors hover:bg-[#ba8a44]/20 hover:text-[#ba8a44]"
-            >
-              {link}
-            </Link>
-          ))}
+        <div className="absolute left-0 top-full z-50 pt-3">
+          <div className="min-w-[180px] overflow-hidden rounded-md border border-white/10 bg-[#141414]/95 backdrop-blur-md">
+            {item.links.map((link) => (
+              <Link
+                key={link}
+                href="#"
+                className="block px-4 py-2.5 text-sm !text-white transition-colors duration-300 ease-in-out hover:bg-[#ba8a44]/20 hover:!text-[#ba8a44]"
+                onClick={close}
+              >
+                {link}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -94,7 +132,7 @@ function MobileNavItem({ item, onClose }) {
     return (
       <Link
         href={item.href}
-        className="block w-full border-b border-white/10 py-4 text-sm font-medium uppercase tracking-wide text-white transition-colors hover:text-[#ba8a44]"
+        className="block w-full border-b border-white/10 py-4 text-sm font-medium uppercase tracking-wide !text-white transition-colors duration-300 ease-in-out hover:!text-[#ba8a44]"
         onClick={onClose}
       >
         {item.label}
@@ -102,19 +140,32 @@ function MobileNavItem({ item, onClose }) {
     );
   }
 
+  const labelClassName = `${NAV_LINK_CLASS} ${isOpen ? "!text-[#ba8a44]" : ""}`;
+
   return (
     <div className="w-full border-b border-white/10">
-      <button
-        type="button"
-        className="flex w-full cursor-pointer items-center justify-between py-4 text-sm font-medium uppercase tracking-wide text-white transition-colors hover:text-[#ba8a44]"
-        onClick={() => setIsOpen((open) => !open)}
-      >
-        {item.label}
-        <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-          strokeWidth={2}
-        />
-      </button>
+      <div className="flex w-full items-center justify-between py-4">
+        {item.href ? (
+          <Link href={item.href} className={labelClassName} onClick={onClose}>
+            {item.label}
+          </Link>
+        ) : (
+          <span className={labelClassName}>{item.label}</span>
+        )}
+        <button
+          type="button"
+          className="cursor-pointer transition-colors duration-300 ease-in-out hover:text-[#ba8a44]"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-label={`Toggle ${item.label} submenu`}
+        >
+          <ChevronDown
+            className={`h-4 w-4 transition-all duration-300 ease-in-out ${
+              isOpen ? "rotate-180 text-[#ba8a44]" : "text-white"
+            }`}
+            strokeWidth={2}
+          />
+        </button>
+      </div>
 
       {isOpen && (
         <div className="flex flex-col gap-3 pb-4 pl-4">
@@ -122,7 +173,7 @@ function MobileNavItem({ item, onClose }) {
             <Link
               key={link}
               href="#"
-              className="text-sm text-white/90 transition-colors hover:text-[#ba8a44]"
+              className="text-sm !text-white/90 transition-colors duration-300 ease-in-out hover:!text-[#ba8a44]"
               onClick={onClose}
             >
               {link}
@@ -137,6 +188,7 @@ function MobileNavItem({ item, onClose }) {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -202,7 +254,12 @@ export default function Header() {
 
         <nav className="hidden items-center gap-6 min-[1072px]:flex xl:gap-8">
           {NAV_ITEMS.map((item) => (
-            <NavItem key={item.label} item={item} />
+            <NavItem
+              key={item.label}
+              item={item}
+              openId={openDropdown}
+              setOpenId={setOpenDropdown}
+            />
           ))}
         </nav>
 
