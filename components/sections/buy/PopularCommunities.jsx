@@ -26,23 +26,33 @@ const COMMUNITIES = [
     title: "Dubai Islands",
     subtitle: "Waterfront",
     description: "Diverse Development, Hotels, Residential",
-  }
+  },
+  {
+    id: 4,
+    image: penthouseImage,
+    title: "Jumeirah Golf Estates",
+    subtitle: "Waterfront",
+    description: "Premium Golf Two Championship Courses, Earth Villas",
+  },
 ];
 
 export default function PopularCommunities() {
   return (
     <section className="section-container">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-gold-gradient">Popular Communities</h2>
 
-        <Button variant="secondary" className="w-full shrink-0 sm:w-auto">
+        <Button
+          variant="secondary"
+          className="h-[58px] w-full shrink-0 rounded-md sm:w-[234px]"
+        >
           View More
         </Button>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-10">
+      <div className="mt-10 flex gap-10 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {COMMUNITIES.map((community) => (
-          <CommunityCard key={community.id} {...community} />
+          <CommunityCard key={community.id} {...community} width={346} />
         ))}
       </div>
     </section>

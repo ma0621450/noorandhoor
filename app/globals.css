@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
 :root {
+  --gold: #ba8a44;
+  --gold-light: #eec876;
+  --gold-mid: #d6a85e;
+  --gold-dark: #b3813d;
   --gold-gradient: linear-gradient(
     22deg,
     #eec876 13.91%,
-    /* #ba8a44 70.09%, */
+    #ba8a44 70.09%,
     #b3813d 86.09%
   );
+  --btn-gradient: linear-gradient(90deg, #bc8741 0%, #d6a85e 100%);
 }
 
 @theme inline {
   --color-background: #111;
-  --color-foreground: #F5F5F5;
+  --color-foreground: #f5f5f5;
   --color-primary: var(--gold-gradient);
   --font-heading: var(--font-abhaya-libre);
   --font-body: var(--font-montserrat);
@@ -29,6 +34,14 @@
     -webkit-text-fill-color: transparent;
   }
 
+  .btn-gold {
+    background-image: var(--btn-gradient);
+  }
+
+  .section-divider {
+    @apply mx-auto h-px w-16;
+    background: var(--gold-gradient);
+  }
 }
 
 @layer base {
@@ -36,6 +49,22 @@
   *::before,
   *::after {
     box-sizing: border-box;
+  }
+
+  button,
+  [role="button"],
+  a,
+  summary,
+  label[for],
+  select,
+  input[type="submit"],
+  input[type="button"] {
+    cursor: pointer;
+  }
+
+  select option {
+    background-color: #111;
+    color: #f5f5f5;
   }
 }
 
@@ -48,6 +77,32 @@ h1 {
   line-height: 1.15;
 }
 
+/* Allow page/section headings to opt out of the global hero h1 rules */
+h1.detail-heading {
+  text-align: left;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 640px) {
+  h1.detail-heading {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1.detail-heading {
+    font-size: 46px;
+    line-height: 48px;
+  }
+}
+
+h1.detail-heading.text-gold-gradient {
+  -webkit-text-fill-color: transparent;
+}
+
 h2 {
   text-transform: uppercase;
   font-family: var(--font-heading);
@@ -56,20 +111,47 @@ h2 {
   line-height: 1.15;
 }
 
+/* Detail page section titles (About, Documents, etc.) — body font, sentence case */
+h2.detail-section-title,
+h3.detail-section-title {
+  text-align: left;
+  text-transform: none;
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+  -webkit-text-fill-color: currentColor;
+}
+
 .section-container {
-  @apply max-w-7xl mx-auto py-16 px-4;
+  @apply mx-auto w-full max-w-[1280px] px-4 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16;
+}
+
+.section-full {
+  @apply w-full;
+}
+
+.section-inner {
+  @apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10;
 }
 
 .section-sub-heading {
-  @apply text-white font-normal !font-body text-sm uppercase tracking-wider;
+  @apply text-sm font-normal uppercase tracking-[2.2px] text-white !font-body;
 }
+
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-body);
+  overflow-x: hidden;
 }
 
-a{
+a {
   text-decoration: none;
   color: var(--color-foreground);
 }

@@ -18,8 +18,8 @@ const FEATURED_BUY_PROPERTIES = [
   {
     id: 2,
     image: apartmentsImage,
-    title: "Aljada Residence",
-    location: "Aljada, Sharjah",
+    title: "Saadiyat Island Penthouse",
+    location: "Saadiyat Island Abu Dubai",
     features: { bedroom: 6, bathroom: 2, area: 2900 },
     price: 45000000,
     featured: true,
@@ -27,19 +27,19 @@ const FEATURED_BUY_PROPERTIES = [
   {
     id: 3,
     image: villasImage,
-    title: "Palm Jumeirah Villa",
-    location: "Palm Jumeirah, Dubai",
-    features: { bedroom: 5, bathroom: 4, area: 4200 },
-    price: 18500000,
+    title: "Aljada Luxury Mansion",
+    location: "Aljada, Sharjah",
+    features: { bedroom: 6, bathroom: 2, area: 2900 },
+    price: 45000000,
     featured: true,
   },
   {
     id: 4,
     image: otherPropertiesImage,
-    title: "Dubai Marina Apartment",
-    location: "Dubai Marina, Dubai",
-    features: { bedroom: 3, bathroom: 2, area: 1800 },
-    price: 3200000,
+    title: "Al Zorah Beachfront Villa",
+    location: "Al Zorah, Ajman",
+    features: { bedroom: 6, bathroom: 2, area: 2900 },
+    price: 45000000,
     featured: true,
   },
 ];
@@ -47,25 +47,27 @@ const FEATURED_BUY_PROPERTIES = [
 export default function FeaturedBuyProperties() {
   return (
     <section className="section-container">
-      <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex min-w-0 flex-col gap-4">
           <h3 className="section-sub-heading">Featured Properties</h3>
-          <h2 className="text-gold-gradient max-w-[640px]">
+          <h2 className="text-gold-gradient max-w-[530px]">
             Featured Buy Property
           </h2>
         </div>
 
         <Button
           variant="secondary"
-          className="w-full shrink-0 sm:w-auto lg:self-end"
+          className="h-[58px] w-full shrink-0 rounded-md sm:w-[234px] lg:self-end"
         >
           View Properties
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-4">
+      <div className="flex gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible xl:grid-cols-4 [&::-webkit-scrollbar]:hidden">
         {FEATURED_BUY_PROPERTIES.map((property) => (
-          <PropertyCard key={property.id} property={property} />
+          <div key={property.id} className="min-w-[257px] sm:min-w-0">
+            <PropertyCard property={property} />
+          </div>
         ))}
       </div>
     </section>

@@ -9,11 +9,11 @@ import penthouseImage from "@/public/images/buy/penthouse.png";
 import otherPropertiesImage from "@/public/images/buy/otherproperties.png";
 
 const CATEGORIES = [
-  { image: villasImage, name: "Villas", propertyCount: 12 },
-  { image: apartmentsImage, name: "Apartments", propertyCount: 284 },
-  { image: townhousesImage, name: "Town Houses", propertyCount: 50 },
-  { image: penthouseImage, name: "Penthouses", propertyCount: 32 },
-  { image: otherPropertiesImage, name: "Other Properties", propertyCount: 24 },
+  { image: villasImage, name: "Villas", propertyCount: 13 },
+  { image: apartmentsImage, name: "Apartments", propertyCount: 13 },
+  { image: townhousesImage, name: "Town Houses", propertyCount: 16 },
+  { image: penthouseImage, name: "Penthouses", propertyCount: 18 },
+  { image: otherPropertiesImage, name: "Other Properties", propertyCount: 18 },
 ];
 
 export default function PropertyCategories() {
@@ -54,10 +54,10 @@ export default function PropertyCategories() {
   return (
     <section className="section-container">
       <div className="flex flex-col items-center gap-4 text-center">
-        <h3 className="section-sub-heading text-[#B3813D]">Categories</h3>
+        <h3 className="section-sub-heading !text-[#B3813D]">Categories</h3>
         <h2 className="text-gold-gradient">Property Categories</h2>
-        <div className="h-[3px] w-16 bg-[#B3813D]" />
-        <p className="max-w-[520px] text-sm md:text-base">
+        <div className="section-divider" />
+        <p className="max-w-[346px] text-sm text-[#f5f5f5] md:text-base">
           Tailored architecture to match your intent
         </p>
       </div>
@@ -68,16 +68,7 @@ export default function PropertyCategories() {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className={`mt-8 lg:mt-12
-  flex touch-none
-  gap-4 md:gap-6 lg:gap-8
-  px-4 md:px-6 lg:px-0
-  overflow-x-auto
-  pb-2
-  select-none
-  [-ms-overflow-style:none]
-  [scrollbar-width:none]
-  [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        className={`mt-8 flex touch-none select-none gap-10 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] lg:mt-12 [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
       >
         {CATEGORIES.map((category) => (
           <LocationCard
@@ -85,7 +76,7 @@ export default function PropertyCategories() {
             image={category.image}
             name={category.name}
             propertyCount={category.propertyCount}
-            width={300}
+            width={290}
           />
         ))}
       </div>

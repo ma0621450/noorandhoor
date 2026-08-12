@@ -2,49 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import logo from "@/public/svgs/logo.svg";
 import Button from "@/components/ui/Button";
-
-const NAV_ITEMS = [
-  {
-    label: "Buy",
-    href: "/buy",
-    links: ["Apartments", "Villas", "Penthouses", "Townhouses"],
-  },
-  {
-    label: "Rent",
-    links: ["Residential", "Commercial", "Short Stay"],
-  },
-  {
-    label: "Sell",
-    links: ["List Property", "Property Valuation", "Seller Guide"],
-  },
-  {
-    label: "Off Plan",
-    links: ["New Launches", "Payment Plans", "Developers"],
-  },
-  {
-    label: "Developers",
-    links: ["Emaar", "Damac", "Sobha", "Azizi"],
-  },
-  {
-    label: "Services",
-    links: ["Property Management", "Mortgage Services", "Golden Visa"],
-  },
-  {
-    label: "About",
-    href: "#about",
-  },
-];
+import { NAV_ITEMS } from "@/components/layout/navData";
+import NavDropdownMenu from "@/components/layout/NavDropdownMenu";
 
 const NAV_LINK_CLASS =
   "text-sm font-medium uppercase tracking-wide !text-white transition-colors duration-300 ease-in-out hover:!text-[#ba8a44] group-hover:!text-[#ba8a44]";
 
-function NavItem({ item, openId, setOpenId }) {
+function NavItem({ item, openId, setOpenId, pathname }) {
   const ref = useRef(null);
   const isOpen = openId === item.label;
+  const isActive =
+    item.label === "Buy" &&
+    (pathname === "/buy" || pathname?.startsWith("/buy/"));
 
   const toggle = () => setOpenId(isOpen ? null : item.label);
   const close = () => setOpenId(null);
@@ -71,19 +45,24 @@ function NavItem({ item, openId, setOpenId }) {
   }
 
   return (
-    <div ref={ref} className="group relative">
-      <div className="flex items-center gap-1">
+    <div
+      ref={ref}
+      className="group relative"
+      onMouseEnter={() => setOpenId(item.label)}
+      onMouseLeave={() => setOpenId(null)}
+    >
+      <div className="relative flex items-center gap-1 pb-1">
         {item.href ? (
           <Link
             href={item.href}
-            className={`${NAV_LINK_CLASS} ${isOpen ? "!text-[#ba8a44]" : ""}`}
+            className={`${NAV_LINK_CLASS} ${isOpen || isActive ? "!text-[#ba8a44]" : ""}`}
           >
             {item.label}
           </Link>
         ) : (
           <button
             type="button"
-            className={`cursor-pointer ${NAV_LINK_CLASS} ${isOpen ? "!text-[#ba8a44]" : ""}`}
+            className={`cursor-pointer ${NAV_LINK_CLASS} ${isOpen || isActive ? "!text-[#ba8a44]" : ""}`}
             onClick={toggle}
           >
             {item.label}
@@ -98,27 +77,19 @@ function NavItem({ item, openId, setOpenId }) {
         >
           <ChevronDown
             className={`h-4 w-4 transition-all duration-300 ease-in-out ${
-              isOpen ? "rotate-180 text-[#ba8a44]" : ""
-            }`}
+              isOpen || isActive ? "rotate-0 text-[#ba8a44]" : ""
+            } ${isOpen ? "rotate-180" : ""}`}
             strokeWidth={2}
           />
         </button>
+        {isActive && (
+          <span className="absolute inset-x-0 -bottom-0.5 h-[2px] bg-[#ba8a44]" />
+        )}
       </div>
 
       {isOpen && (
         <div className="absolute left-0 top-full z-50 pt-3">
-          <div className="min-w-[180px] overflow-hidden rounded-md border border-white/10 bg-[#141414]/95 backdrop-blur-md">
-            {item.links.map((link) => (
-              <Link
-                key={link}
-                href="#"
-                className="block px-4 py-2.5 text-sm !text-white transition-colors duration-300 ease-in-out hover:bg-[#ba8a44]/20 hover:!text-[#ba8a44]"
-                onClick={close}
-              >
-                {link}
-              </Link>
-            ))}
-          </div>
+          <NavDropdownMenu links={item.links} onNavigate={close} />
         </div>
       )}
     </div>
@@ -168,17 +139,8 @@ function MobileNavItem({ item, onClose }) {
       </div>
 
       {isOpen && (
-        <div className="flex flex-col gap-3 pb-4 pl-4">
-          {item.links.map((link) => (
-            <Link
-              key={link}
-              href="#"
-              className="text-sm !text-white/90 transition-colors duration-300 ease-in-out hover:!text-[#ba8a44]"
-              onClick={onClose}
-            >
-              {link}
-            </Link>
-          ))}
+        <div className="pb-4">
+          <NavDropdownMenu links={item.links} onNavigate={onClose} />
         </div>
       )}
     </div>
@@ -186,6 +148,7 @@ function MobileNavItem({ item, onClose }) {
 }
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -237,53 +200,56 @@ export default function Header() {
 
       <header
         className={`fixed top-0 z-[100] w-full transition-colors duration-300 ${
-          scrolled || mobileOpen ? "bg-[#111]" : "bg-transparent"
+          scrolled || mobileOpen || pathname?.startsWith("/buy/")
+            ? "bg-[#111]"
+            : "bg-transparent"
         }`}
       >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 lg:px-6">
-        <Link href="/" className="shrink-0">
-          <Image
-            src={logo}
-            alt="Noor & Hoor Properties"
-            height={64}
-            width={200}
-            className="h-16 w-auto lg:h-21"
-            priority
-          />
-        </Link>
-
-        <nav className="hidden items-center gap-6 min-[1072px]:flex xl:gap-8">
-          {NAV_ITEMS.map((item) => (
-            <NavItem
-              key={item.label}
-              item={item}
-              openId={openDropdown}
-              setOpenId={setOpenDropdown}
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 lg:px-6">
+          <Link href="/" className="shrink-0">
+            <Image
+              src={logo}
+              alt="Noor & Hoor Properties"
+              height={64}
+              width={200}
+              className="h-16 w-auto lg:h-21"
+              priority
             />
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link href="#contact" className="hidden sm:inline-flex">
-            <Button
-              variant="primary"
-              className="gap-2 px-5 py-2.5 text-xs lg:px-6 lg:py-3 lg:text-sm"
-            >
-              <span>Contact Us</span>
-              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
-            </Button>
           </Link>
 
-          <button
-            type="button"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            className="cursor-pointer text-white min-[1072px]:hidden"
-            onClick={() => setMobileOpen((open) => !open)}
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <nav className="hidden items-center gap-6 min-[1072px]:flex xl:gap-8">
+            {NAV_ITEMS.map((item) => (
+              <NavItem
+                key={item.label}
+                item={item}
+                openId={openDropdown}
+                setOpenId={setOpenDropdown}
+                pathname={pathname}
+              />
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Link href="#contact" className="hidden sm:inline-flex">
+              <Button
+                variant="primary"
+                className="gap-2 px-5 py-2.5 text-xs lg:px-6 lg:py-3 lg:text-sm"
+              >
+                <span>Contact Us</span>
+                <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+              </Button>
+            </Link>
+
+            <button
+              type="button"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              className="cursor-pointer text-white min-[1072px]:hidden"
+              onClick={() => setMobileOpen((open) => !open)}
+            >
+              {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
-      </div>
       </header>
     </>
   );

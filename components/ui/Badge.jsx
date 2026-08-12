@@ -2,7 +2,7 @@ import React from "react";
 
 const Badge = ({ children, variant = "gold" }) => {
   const styles = {
-    gold: "bg-[#ba8a44] text-white",
+    gold: "bg-[#ba8a44] text-white shadow-sm",
     dark: "bg-white/10 text-black",
     outline: "border border-[#ba8a44] text-[#ba8a44] bg-transparent",
   };
