@@ -1,19 +1,13 @@
-import ApartmentsHero from "@/components/sections/apartments/ApartmentsHero";
-import ApartmentHomes from "@/components/sections/apartments/ApartmentHomes";
-import BuyGetStarted from "@/components/sections/buy/BuyGetStarted";
+import CategoryListingPage from "@/components/sections/buy-category/CategoryListingPage";
+import { getCategory } from "@/components/sections/buy-category/categoryConfig";
+
+const category = getCategory("apartments");
 
 export const metadata = {
-  title: "Buy Apartments | Noor and Hoor",
-  description:
-    "Discover luxury apartments in the UAE. Curated collection of the world's most prestigious properties.",
+  title: category.metaTitle,
+  description: category.metaDescription,
 };
 
 export default function BuyApartmentsPage() {
-  return (
-    <div className="w-full overflow-x-clip">
-      <ApartmentsHero />
-      <ApartmentHomes />
-      <BuyGetStarted />
-    </div>
-  );
+  return <CategoryListingPage categoryKey="apartments" />;
 }

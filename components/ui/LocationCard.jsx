@@ -1,9 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 
-const LocationCard = ({ image, name, propertyCount, width = 290 }) => {
-  return (
+const LocationCard = ({
+  image,
+  name,
+  propertyCount,
+  subtitle,
+  width = 290,
+  href,
+}) => {
+  const caption =
+    subtitle ||
+    (propertyCount != null ? `${propertyCount} Properties` : null);
+
+  const content = (
     <article
-      className="group relative h-[450px] shrink-0 cursor-pointer overflow-hidden rounded-md transition-transform duration-200 hover:scale-[1.02]"
+      className="group relative h-[450px] shrink-0 cursor-pointer overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02]"
       style={{ width }}
     >
       <Image
@@ -15,21 +27,31 @@ const LocationCard = ({ image, name, propertyCount, width = 290 }) => {
         className="pointer-events-none object-cover object-center transition-transform duration-300 group-hover:scale-105"
       />
 
-      <div className="pointer-events-none absolute inset-0 rounded-md border border-[#B3813D] transition-colors group-hover:border-[#eec876]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 rounded-[10px] border border-[rgba(212,175,55,0.6)] transition-colors group-hover:border-[#eec876]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
-      <div className="absolute bottom-6 left-4 flex items-stretch gap-3">
-        <div className="w-[3px] shrink-0 bg-[#B3813D]" />
-        <div className="flex flex-col gap-1">
-          <h3 className="!font-accent text-3xl font-normal uppercase leading-9">
+      <div className="absolute bottom-[17px] left-4 flex items-stretch gap-3">
+        <div className="w-[2px] shrink-0 bg-[#E9C349]" />
+        <div className="flex flex-col gap-[7px]">
+          <h3 className="!font-accent text-[clamp(1.5rem,2.2vw,2rem)] font-normal uppercase leading-9 text-white">
             {name}
           </h3>
-          <p className="text-xs font-medium uppercase tracking-wider text-[#B3813D]">
-            {propertyCount} Properties
-          </p>
+          {caption && (
+            <p className="text-[11px] font-normal uppercase tracking-[0.98px] text-[#E9C349]">
+              {caption}
+            </p>
+          )}
         </div>
       </div>
     </article>
+  );
+
+  if (!href) return content;
+
+  return (
+    <Link href={href} className="shrink-0" aria-label={`Browse ${name}`}>
+      {content}
+    </Link>
   );
 };
 

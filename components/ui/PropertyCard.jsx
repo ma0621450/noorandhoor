@@ -6,7 +6,7 @@ const PropertyCard = ({ property, badge = "Featured" }) => {
   const { image, title, location, features, price, featured } = property;
 
   return (
-    <article className="group flex w-full max-w-[257px] cursor-pointer flex-col overflow-hidden rounded-xl border border-[#ba8a44] bg-[#121212] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] sm:max-w-none">
+    <article className="group flex w-full max-w-[257px] cursor-pointer flex-col overflow-hidden rounded-[9.5px] border border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] sm:max-w-none">
       <div className="relative aspect-[257/217] w-full overflow-hidden">
         <Image
           src={image}
@@ -30,11 +30,11 @@ const PropertyCard = ({ property, badge = "Featured" }) => {
         </button>
       </div>
 
-      <div className="flex flex-col gap-2 px-4 py-4">
-        <h3 className="!font-accent mb-1 text-sm font-normal uppercase text-white">
+      <div className="flex flex-col gap-[6px] px-4 py-4">
+        <h3 className="!font-accent mb-0.5 text-sm font-normal uppercase text-[#f5f5f5]">
           {title}
         </h3>
-        <p className="text-xs font-medium text-white">{location}</p>
+        <p className="text-xs font-medium text-[#f5f5f5]">{location}</p>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white">
           <span className="flex items-center gap-1.5">
@@ -55,11 +55,8 @@ const PropertyCard = ({ property, badge = "Featured" }) => {
           </span>
         </div>
 
-        <p className="text-xl font-bold">
-          <span className="!font-accent text-[#ba8a44]">AED </span>
-          <span className="!font-accent text-white">
-            {price.toLocaleString()}
-          </span>
+        <p className="!font-accent text-lg font-bold text-[#E9C349]">
+          AED {price.toLocaleString()}
         </p>
       </div>
     </article>

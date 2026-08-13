@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { Search, Home, Shield } from "lucide-react";
-import heroImage from "@/public/images/buy/hero/buy-hero.jpg";
 import googleLogo from "@/public/svgs/googlelogo.svg";
 import Dropdown, { DropdownGroup } from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
+import HeroBackgroundCarousel, {
+  HeroCarouselDots,
+} from "@/components/ui/HeroBackgroundCarousel";
 
 const TRUST_SIGNALS = [
   { icon: "home", text: "100+ Properties" },
@@ -78,56 +80,48 @@ function TrustIcon({ type }) {
 export default function ApartmentsHero() {
   return (
     <section className="relative isolate z-20 h-svh min-h-[691px] w-full overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src={heroImage}
-          alt=""
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-black/65" />
-      </div>
+      <HeroBackgroundCarousel overlayClassName="bg-black/65">
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-8 px-4 pt-24 pb-8 text-center sm:gap-[38px] sm:px-8 lg:px-20">
+          <h1 className="text-gold-gradient max-w-[1100px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            Discover Luxury Apartments in the UAE.
+          </h1>
 
-      <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-8 px-4 pt-24 pb-8 text-center sm:gap-[38px] sm:px-8 lg:px-20">
-        <h1 className="text-gold-gradient max-w-[1100px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-          Discover Luxury Apartments in the UAE.
-        </h1>
+          <p className="max-w-[720px] text-sm leading-[1.5] text-[#f5f5f5] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] sm:text-base md:text-lg lg:text-xl lg:leading-[30px]">
+            Curated collection of the world&apos;s most prestigious properties.
+            Experience unparalleled luxury and timeless elegance.
+          </p>
 
-        <p className="max-w-[720px] text-sm leading-[1.5] text-[#f5f5f5] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] sm:text-base md:text-lg lg:text-xl lg:leading-[30px]">
-          Curated collection of the world&apos;s most prestigious properties.
-          Experience unparalleled luxury and timeless elegance.
-        </p>
+          <FilterBar />
 
-        <FilterBar />
+          <div className="flex w-full max-w-[570px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-[38px]">
+            <Button
+              variant="outline"
+              className="h-14 w-full min-w-0 rounded-xl border-[#eec876] text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
+            >
+              Free Consultation
+            </Button>
+            <Button
+              variant="primary"
+              className="h-14 w-full min-w-0 rounded-xl text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
+            >
+              Investment Guide
+            </Button>
+          </div>
 
-        <div className="flex w-full max-w-[570px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-[38px]">
-          <Button
-            variant="outline"
-            className="h-14 w-full min-w-0 rounded-xl border-[#eec876] text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
-          >
-            Free Consultation
-          </Button>
-          <Button
-            variant="primary"
-            className="h-14 w-full min-w-0 rounded-xl text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
-          >
-            Investment Guide
-          </Button>
+          <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-10">
+            {TRUST_SIGNALS.map(({ icon, text }) => (
+              <div key={text} className="flex items-center gap-2.5">
+                <TrustIcon type={icon} />
+                <p className="text-left text-xs font-semibold text-[#f5f5f5] sm:text-sm">
+                  {text}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <HeroCarouselDots />
         </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-10">
-          {TRUST_SIGNALS.map(({ icon, text }) => (
-            <div key={text} className="flex items-center gap-2.5">
-              <TrustIcon type={icon} />
-              <p className="text-left text-xs font-semibold text-[#f5f5f5] sm:text-sm">
-                {text}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+      </HeroBackgroundCarousel>
     </section>
   );
 }

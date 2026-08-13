@@ -20,10 +20,15 @@
   --color-primary: var(--gold-gradient);
   --font-heading: var(--font-abhaya-libre);
   --font-body: var(--font-montserrat);
+  --font-josefin: var(--font-josefin-sans);
 }
 
 @utility font-accent {
   font-family: var(--font-cinzel);
+}
+
+@utility font-josefin {
+  font-family: var(--font-josefin);
 }
 
 @layer components {

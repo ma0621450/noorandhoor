@@ -24,9 +24,15 @@ const TAG_ICONS = {
 
 const GOLD_ICON_TYPES = new Set(["view", "calendar"]);
 
-export default function DetailHeader({ property }) {
+export default function DetailHeader({
+  property,
+  breadcrumbLabel = "Buy apartments",
+  breadcrumbHref = "/buy/apartments",
+  breadcrumbCurrent = "Home",
+  priceLabel = "Price",
+}) {
   const { title, location, price, tags } = property;
-  const priceText = `AED${Number(price).toLocaleString("en-US")}`;
+  const priceText = `AED ${Number(price).toLocaleString("en-US")}`;
 
   return (
     <section className="w-full bg-[#111111] pt-[144px] pb-0">
@@ -37,15 +43,15 @@ export default function DetailHeader({ property }) {
           {/* Breadcrumb: Inter 18/27, #F5F5F5 */}
           <div className="flex items-center gap-2 font-[family-name:var(--font-body)] text-[18px] font-medium leading-[27px] text-[#F5F5F5]">
             <Link
-              href="/buy/apartments"
+              href={breadcrumbHref}
               className="transition hover:text-[#c5a059]"
             >
-              Buy apartments
+              {breadcrumbLabel}
             </Link>
             <span className="text-[#F5F5F5]/80" aria-hidden>
               &gt;
             </span>
-            <span>Home</span>
+            <span>{breadcrumbCurrent}</span>
           </div>
 
           {/* Title + price row */}
@@ -94,7 +100,7 @@ export default function DetailHeader({ property }) {
             <div className="flex shrink-0 flex-col items-start gap-3 lg:items-end">
               <div className="flex flex-col items-start lg:items-end">
                 <span className="font-[family-name:var(--font-body)] text-[14px] font-normal leading-5 text-[#F5F5F5]">
-                  Price
+                  {priceLabel}
                 </span>
                 <p className="m-0 pt-1 font-accent text-[28px] font-bold uppercase leading-[1.25] tracking-normal text-gold-gradient sm:text-[36px] lg:text-[40px] lg:leading-[51px]">
                   {priceText}

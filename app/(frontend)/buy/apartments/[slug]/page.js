@@ -1,20 +1,13 @@
-import DetailHeader from "@/components/sections/detail/DetailHeader";
-import DetailGallery from "@/components/sections/detail/DetailGallery";
-import DetailAbout from "@/components/sections/detail/DetailAbout";
-import DetailFeatures from "@/components/sections/detail/DetailFeatures";
-import DetailRelated from "@/components/sections/detail/DetailRelated";
-import DetailFAQs from "@/components/sections/detail/DetailFAQs";
-import DetailAgentContact from "@/components/sections/detail/DetailAgentContact";
-import BuyGetStarted from "@/components/sections/buy/BuyGetStarted";
+import CategoryDetailPage from "@/components/sections/buy-category/CategoryDetailPage";
+import { getCategory } from "@/components/sections/buy-category/categoryConfig";
 import { PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
 
+const category = getCategory("apartments");
+
 export function generateStaticParams() {
-  return [
-    { slug: PROPERTY_DETAIL.slug },
-    { slug: "downtown-apartment" },
-    { slug: "two-bedroom-with-sauna" },
-    { slug: "triplex-apartment" },
-  ];
+  return [...new Set(category.homes.map((home) => home.slug))].map((slug) => ({
+    slug,
+  }));
 }
 
 export function generateMetadata({ params }) {
@@ -25,19 +18,5 @@ export function generateMetadata({ params }) {
 }
 
 export default async function BuyApartmentDetailPage({ params }) {
-  const { slug } = await params;
-  const property = { ...PROPERTY_DETAIL, slug };
-
-  return (
-    <div className="relative w-full overflow-x-clip bg-[#111111] text-white">
-      <DetailHeader property={property} />
-      <DetailGallery images={property.gallery} />
-      <DetailAbout property={property} />
-      <DetailFeatures />
-      <DetailRelated />
-      <DetailFAQs />
-      <DetailAgentContact agent={property.agent} />
-      <BuyGetStarted />
-    </div>
-  );
+  return <CategoryDetailPage categoryKey="apartments" params={params} />;
 }

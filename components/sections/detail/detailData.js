@@ -22,7 +22,7 @@ export const PROPERTY_DETAIL = {
     { label: "2,400 sqft", type: "area" },
     { label: "2 Parking", type: "parking" },
     { label: "Burj Khalifa", type: "view" },
-    { label: "days ago", type: "calendar" },
+    { label: "5 days ago", type: "calendar" },
   ],
   gallery: [
     propertyImg,
@@ -54,6 +54,58 @@ export const PROPERTY_DETAIL = {
     "Lawn",
     "WiFi",
   ],
+  agent: {
+    name: "Waqar ahmed",
+    image: agentImage,
+    phone: "+971526938886",
+  },
+};
+
+export const RENT_PROPERTY_DETAIL = {
+  slug: "spacious-apartment-with-parking",
+  title: "Spacious Apartment With Parking",
+  location: "Ajman, United Arab Emirates",
+  price: 120000,
+  priceLabel: "Monthly Rent",
+  tags: [
+    { label: "3 Beds", type: "bed" },
+    { label: "2 Baths", type: "bath" },
+    { label: "2,400 sqft", type: "area" },
+    { label: "2 Parking", type: "parking" },
+    { label: "Burj Khalifa", type: "view" },
+    { label: "5 days ago", type: "calendar" },
+  ],
+  gallery: [
+    propertyImg,
+    luxuryHome,
+    carousel1,
+    carousel2,
+    carousel3,
+  ],
+  about: [
+    "Discover refined luxury in this exquisite 3-bedroom apartment, perfectly situated in the heart of Ajman with breathtaking views of the iconic Burj Khalifa. Spanning 2,400 sq ft, this residence offers an exceptional blend of comfort, elegance, and modern living.",
+    "Each room has been meticulously designed to provide both beauty and functionality. Floor-to-ceiling windows fill the spaces with natural light, while 2 dedicated parking spaces and modern bathrooms complete this outstanding rental opportunity.",
+  ],
+  description: [
+    "Type: Luxury Apartment",
+    "Bedrooms: 3 spacious bedrooms with built-in wardrobes",
+    "Bathrooms: 2 modern bathrooms with premium fixtures",
+    "Parking: 2 covered parking spaces",
+    "View: Stunning Burj Khalifa views",
+  ],
+  features: [
+    "High-speed Internet",
+    "Central A/C",
+    "Swimming Pool",
+    "24/7 Security",
+    "Fitness Center",
+    "Balcony",
+  ],
+  map: {
+    lat: 25.4052,
+    lng: 55.5136,
+    label: "Ajman, UAE",
+  },
   agent: {
     name: "Waqar ahmed",
     image: agentImage,
@@ -134,5 +186,11 @@ export const DETAIL_FAQS = [
     question: "How much down payment is typically needed?",
     answer:
       "Down payments commonly start around 20%, though exact figures vary by bank and property type.",
+  },
+  {
+    id: 6,
+    question: "How do I determine the value of my property?",
+    answer:
+      "We provide comparative market analysis based on recent sales, community demand, and property condition to help you price accurately.",
   },
 ];

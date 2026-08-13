@@ -5,10 +5,7 @@ import {
   IconVillas,
   IconProperties,
   IconResidential,
-  IconCommercial,
-  IconShortStay,
   IconListProperty,
-  IconValuation,
   IconGuide,
   IconLaunch,
   IconPayment,
@@ -25,23 +22,50 @@ export const NAV_ITEMS = [
       { label: "Buy Town houses", href: "/buy/townhouses", Icon: IconTownhouses },
       { label: "Penthouses", href: "/buy/penthouses", Icon: IconPenthouses },
       { label: "Residential Villas", href: "/buy/villas", Icon: IconVillas },
-      { label: "Buy Properties", href: "/buy", Icon: IconProperties },
+      { label: "Buy Properties", href: "/buy/properties", Icon: IconProperties },
     ],
   },
   {
     label: "Rent",
+    href: "/rent",
     links: [
-      { label: "Residential", href: "#", Icon: IconResidential },
-      { label: "Commercial", href: "#", Icon: IconCommercial },
-      { label: "Short Stay", href: "#", Icon: IconShortStay },
+      {
+        label: "Properties rent",
+        href: "/rent/properties",
+        Icon: IconProperties,
+      },
+      {
+        label: "Apartment rent",
+        href: "/rent/apartments",
+        Icon: IconApartments,
+      },
+      { label: "House rent", href: "/rent/houses", Icon: IconVillas },
+      {
+        label: "Renting in Dubai",
+        href: "/rent/dubai",
+        Icon: IconResidential,
+      },
     ],
   },
   {
     label: "Sell",
+    href: "/sell",
     links: [
-      { label: "List Property", href: "#", Icon: IconListProperty },
-      { label: "Property Valuation", href: "#", Icon: IconValuation },
-      { label: "Seller Guide", href: "#", Icon: IconGuide },
+      {
+        label: "Noor & Hoor Properties",
+        href: "/sell/noor-hoor",
+        Icon: IconResidential,
+      },
+      {
+        label: "Selling Properties",
+        href: "/sell/properties",
+        Icon: IconListProperty,
+      },
+      {
+        label: "Selling Apartment",
+        href: "/sell/apartments",
+        Icon: IconApartments,
+      },
     ],
   },
   {

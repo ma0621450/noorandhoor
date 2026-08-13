@@ -6,9 +6,14 @@ import { useState } from "react";
 import { Bed, Bath, Scan, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 
-export default function ApartmentPropertyCard({ property }) {
+export default function ApartmentPropertyCard({
+  property,
+  basePath = "/buy/apartments",
+}) {
   const { images, title, location, features, price, featured, slug } = property;
-  const href = slug ? `/buy/apartments/${slug}` : "/buy/apartments/spacious-apartment-with-parking";
+  const href = slug
+    ? `${basePath}/${slug}`
+    : `${basePath}/spacious-apartment-with-parking`;
   const [index, setIndex] = useState(0);
   const [liked, setLiked] = useState(false);
 

@@ -17,8 +17,8 @@ function NavItem({ item, openId, setOpenId, pathname }) {
   const ref = useRef(null);
   const isOpen = openId === item.label;
   const isActive =
-    item.label === "Buy" &&
-    (pathname === "/buy" || pathname?.startsWith("/buy/"));
+    Boolean(item.href) &&
+    (pathname === item.href || pathname?.startsWith(`${item.href}/`));
 
   const toggle = () => setOpenId(isOpen ? null : item.label);
   const close = () => setOpenId(null);
@@ -200,9 +200,7 @@ export default function Header() {
 
       <header
         className={`fixed top-0 z-[100] w-full transition-colors duration-300 ${
-          scrolled || mobileOpen || pathname?.startsWith("/buy/")
-            ? "bg-[#111]"
-            : "bg-transparent"
+          scrolled || mobileOpen ? "bg-[#111]" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 lg:px-6">

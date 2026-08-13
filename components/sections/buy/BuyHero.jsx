@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import { Search } from "lucide-react";
-import heroImage from "@/public/images/buy/hero/buy-hero.jpg";
 import starIcon from "@/public/images/buy/hero/star.svg";
 import securityIcon from "@/public/images/buy/hero/security.png";
 import investmentIcon from "@/public/images/buy/hero/investment.png";
 import Dropdown, { DropdownGroup } from "@/components/ui/Dropdown";
 import Button from "@/components/ui/Button";
+import HeroBackgroundCarousel, {
+  HeroCarouselDots,
+} from "@/components/ui/HeroBackgroundCarousel";
 
 const TRUST_SIGNALS = [
   { icon: starIcon, text: ["1000+ Premium", "Properties"] },
@@ -68,58 +70,50 @@ function FilterBar() {
 export default function BuyHero() {
   return (
     <section className="relative isolate z-20 h-svh min-h-[691px] w-full overflow-hidden">
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src={heroImage}
-          alt=""
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-      </div>
+      <HeroBackgroundCarousel overlayClassName="bg-black/60">
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-[38px] px-4 pt-24 pb-8 text-center sm:px-8 lg:px-20">
+          <h1 className="text-gold-gradient max-w-[1121px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            Build Your Future on the UAE&apos;s Prime Real Estate
+          </h1>
 
-      <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-[38px] px-4 pt-24 pb-8 text-center sm:px-8 lg:px-20">
-        <h1 className="text-gold-gradient max-w-[1121px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-          Build Your Future on the UAE&apos;s Prime Real Estate
-        </h1>
+          <p className="max-w-[744px] text-sm leading-[1.4] text-[#f5f5f5] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] sm:text-base md:text-lg lg:text-2xl lg:leading-[33px]">
+            Discover, compare, and secure premium UAE properties that support your
+            lifestyle and long term investment goals.
+          </p>
 
-        <p className="max-w-[744px] text-sm leading-[1.4] text-[#f5f5f5] drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] sm:text-base md:text-lg lg:text-2xl lg:leading-[33px]">
-          Discover, compare, and secure premium UAE properties that support your
-          lifestyle and long term investment goals.
-        </p>
+          <FilterBar />
 
-        <FilterBar />
+          <div className="flex w-full max-w-[570px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-[38px]">
+            <Button
+              variant="outline"
+              className="h-14 w-full min-w-0 rounded-xl border-[#eec876] text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
+            >
+              Book Free Consultation
+            </Button>
+            <Button
+              variant="primary"
+              className="h-14 w-full min-w-0 rounded-xl text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
+            >
+              Investment Guide
+            </Button>
+          </div>
 
-        <div className="flex w-full max-w-[570px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-[38px]">
-          <Button
-            variant="outline"
-            className="h-14 w-full min-w-0 rounded-xl border-[#eec876] text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
-          >
-            Book Free Consultation
-          </Button>
-          <Button
-            variant="primary"
-            className="h-14 w-full min-w-0 rounded-xl text-xs tracking-[1.3px] sm:w-[266px] sm:text-sm"
-          >
-            Investment Guide
-          </Button>
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-[30px]">
+            {TRUST_SIGNALS.map(({ icon, text }) => (
+              <div key={text[0]} className="flex items-center gap-2">
+                <Image src={icon} alt="" width={28} height={28} className="h-7 w-7 object-contain" />
+                <p className="text-left text-xs font-semibold leading-[26px] text-[#f5f5f5] sm:text-base">
+                  {text[0]}
+                  <br />
+                  {text[1]}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <HeroCarouselDots />
         </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-[30px]">
-          {TRUST_SIGNALS.map(({ icon, text }) => (
-            <div key={text[0]} className="flex items-center gap-2">
-              <Image src={icon} alt="" width={28} height={28} className="h-7 w-7 object-contain" />
-              <p className="text-left text-xs font-semibold leading-[26px] text-[#f5f5f5] sm:text-base">
-                {text[0]}
-                <br />
-                {text[1]}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+      </HeroBackgroundCarousel>
     </section>
   );
 }

@@ -9,11 +9,11 @@ import penthouseImage from "@/public/images/buy/penthouse.png";
 import otherPropertiesImage from "@/public/images/buy/otherproperties.png";
 
 const CATEGORIES = [
-  { image: villasImage, name: "Villas", propertyCount: 13 },
-  { image: apartmentsImage, name: "Apartments", propertyCount: 13 },
-  { image: townhousesImage, name: "Town Houses", propertyCount: 16 },
-  { image: penthouseImage, name: "Penthouses", propertyCount: 18 },
-  { image: otherPropertiesImage, name: "Other Properties", propertyCount: 18 },
+  { image: villasImage, name: "Villas", propertyCount: 13, href: "/buy/villas" },
+  { image: apartmentsImage, name: "Apartments", propertyCount: 13, href: "/buy/apartments" },
+  { image: townhousesImage, name: "Town Houses", propertyCount: 16, href: "/buy/townhouses" },
+  { image: penthouseImage, name: "Penthouses", propertyCount: 18, href: "/buy/penthouses" },
+  { image: otherPropertiesImage, name: "Other Properties", propertyCount: 18, href: "/buy/properties" },
 ];
 
 export default function PropertyCategories() {
@@ -76,6 +76,7 @@ export default function PropertyCategories() {
             image={category.image}
             name={category.name}
             propertyCount={category.propertyCount}
+            href={category.href}
             width={290}
           />
         ))}
