@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import PropertyCard from "@/components/ui/PropertyCard";
 import apartmentsImage from "@/public/images/buy/apartments.png";
@@ -14,6 +15,7 @@ const FEATURED_BUY_PROPERTIES = [
     features: { bedroom: 6, bathroom: 2, area: 2900 },
     price: 45000000,
     featured: true,
+    href: "/buy/penthouses/skyline-penthouse",
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ const FEATURED_BUY_PROPERTIES = [
     features: { bedroom: 6, bathroom: 2, area: 2900 },
     price: 45000000,
     featured: true,
+    href: "/buy/penthouses/duplex-penthouse",
   },
   {
     id: 3,
@@ -32,6 +35,7 @@ const FEATURED_BUY_PROPERTIES = [
     features: { bedroom: 6, bathroom: 2, area: 2900 },
     price: 45000000,
     featured: true,
+    href: "/buy/properties/premium-property",
   },
   {
     id: 4,
@@ -41,6 +45,7 @@ const FEATURED_BUY_PROPERTIES = [
     features: { bedroom: 6, bathroom: 2, area: 2900 },
     price: 45000000,
     featured: true,
+    href: "/buy/villas/luxury-villa-with-pool",
   },
 ];
 
@@ -55,12 +60,14 @@ export default function FeaturedBuyProperties() {
           </h2>
         </div>
 
-        <Button
-          variant="secondary"
-          className="h-[58px] w-full shrink-0 rounded-md sm:w-[234px] lg:self-end"
-        >
-          View Properties
-        </Button>
+        <Link href="/buy/properties" className="w-full sm:w-auto">
+          <Button
+            variant="secondary"
+            className="h-[58px] w-full shrink-0 rounded-md sm:w-[234px] lg:self-end"
+          >
+            View Properties
+          </Button>
+        </Link>
       </div>
 
       <div className="flex gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible xl:grid-cols-4 [&::-webkit-scrollbar]:hidden">

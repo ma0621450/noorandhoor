@@ -13,12 +13,25 @@ import NavDropdownMenu from "@/components/layout/NavDropdownMenu";
 const NAV_LINK_CLASS =
   "text-sm font-medium uppercase tracking-wide !text-white transition-colors duration-300 ease-in-out hover:!text-[#ba8a44] group-hover:!text-[#ba8a44]";
 
+const NAV_ACTIVE_LINK_CLASS =
+  "text-gold-gradient text-sm font-bold uppercase tracking-wide transition-colors duration-300 ease-in-out";
+
+const NAV_ACTIVE_WRAP_CLASS =
+  "bg-gradient-to-t from-[rgba(238,200,118,0.3)] to-transparent";
+
+function NavActiveUnderline() {
+  return (
+    <span className="absolute inset-x-0 -bottom-0.5 h-[2px] bg-[#ba8a44]" />
+  );
+}
+
 function NavItem({ item, openId, setOpenId, pathname }) {
   const ref = useRef(null);
   const isOpen = openId === item.label;
   const isActive =
     Boolean(item.href) &&
     (pathname === item.href || pathname?.startsWith(`${item.href}/`));
+  const showActive = isOpen || isActive;
 
   const toggle = () => setOpenId(isOpen ? null : item.label);
   const close = () => setOpenId(null);
@@ -38,9 +51,19 @@ function NavItem({ item, openId, setOpenId, pathname }) {
 
   if (!item.links) {
     return (
-      <Link href={item.href} className={NAV_LINK_CLASS}>
-        {item.label}
-      </Link>
+      <div
+        className={`relative flex items-center pb-1 ${
+          isActive ? NAV_ACTIVE_WRAP_CLASS : ""
+        }`}
+      >
+        <Link
+          href={item.href}
+          className={isActive ? NAV_ACTIVE_LINK_CLASS : NAV_LINK_CLASS}
+        >
+          {item.label}
+        </Link>
+        {isActive && <NavActiveUnderline />}
+      </div>
     );
   }
 
@@ -51,18 +74,24 @@ function NavItem({ item, openId, setOpenId, pathname }) {
       onMouseEnter={() => setOpenId(item.label)}
       onMouseLeave={() => setOpenId(null)}
     >
-      <div className="relative flex items-center gap-1 pb-1">
+      <div
+        className={`relative flex items-center gap-1 pb-1 ${
+          showActive ? NAV_ACTIVE_WRAP_CLASS : ""
+        }`}
+      >
         {item.href ? (
           <Link
             href={item.href}
-            className={`${NAV_LINK_CLASS} ${isOpen || isActive ? "!text-[#ba8a44]" : ""}`}
+            className={showActive ? NAV_ACTIVE_LINK_CLASS : NAV_LINK_CLASS}
           >
             {item.label}
           </Link>
         ) : (
           <button
             type="button"
-            className={`cursor-pointer ${NAV_LINK_CLASS} ${isOpen || isActive ? "!text-[#ba8a44]" : ""}`}
+            className={`cursor-pointer ${
+              showActive ? NAV_ACTIVE_LINK_CLASS : NAV_LINK_CLASS
+            }`}
             onClick={toggle}
           >
             {item.label}
@@ -70,21 +99,23 @@ function NavItem({ item, openId, setOpenId, pathname }) {
         )}
         <button
           type="button"
-          className="cursor-pointer text-white transition-colors duration-300 ease-in-out group-hover:text-[#ba8a44] hover:text-[#ba8a44]"
+          className={`cursor-pointer transition-colors duration-300 ease-in-out ${
+            showActive
+              ? "text-[#ba8a44]"
+              : "text-white group-hover:text-[#ba8a44] hover:text-[#ba8a44]"
+          }`}
           onClick={toggle}
           aria-expanded={isOpen}
           aria-label={`${item.label} menu`}
         >
           <ChevronDown
             className={`h-4 w-4 transition-all duration-300 ease-in-out ${
-              isOpen || isActive ? "rotate-0 text-[#ba8a44]" : ""
-            } ${isOpen ? "rotate-180" : ""}`}
+              isOpen ? "rotate-180" : ""
+            }`}
             strokeWidth={2}
           />
         </button>
-        {isActive && (
-          <span className="absolute inset-x-0 -bottom-0.5 h-[2px] bg-[#ba8a44]" />
-        )}
+        {isActive && <NavActiveUnderline />}
       </div>
 
       {isOpen && (
@@ -96,14 +127,22 @@ function NavItem({ item, openId, setOpenId, pathname }) {
   );
 }
 
-function MobileNavItem({ item, onClose }) {
+function MobileNavItem({ item, onClose, pathname }) {
   const [isOpen, setIsOpen] = useState(false);
+  const isActive =
+    Boolean(item.href) &&
+    (pathname === item.href || pathname?.startsWith(`${item.href}/`));
+  const showActive = isOpen || isActive;
 
   if (!item.links) {
     return (
       <Link
         href={item.href}
-        className="block w-full border-b border-white/10 py-4 text-sm font-medium uppercase tracking-wide !text-white transition-colors duration-300 ease-in-out hover:!text-[#ba8a44]"
+        className={`block w-full border-b border-white/10 py-4 text-sm uppercase tracking-wide transition-colors duration-300 ease-in-out ${
+          isActive
+            ? NAV_ACTIVE_LINK_CLASS
+            : "font-medium !text-white hover:!text-[#ba8a44]"
+        }`}
         onClick={onClose}
       >
         {item.label}
@@ -111,27 +150,33 @@ function MobileNavItem({ item, onClose }) {
     );
   }
 
-  const labelClassName = `${NAV_LINK_CLASS} ${isOpen ? "!text-[#ba8a44]" : ""}`;
-
   return (
     <div className="w-full border-b border-white/10">
       <div className="flex w-full items-center justify-between py-4">
         {item.href ? (
-          <Link href={item.href} className={labelClassName} onClick={onClose}>
+          <Link
+            href={item.href}
+            className={showActive ? NAV_ACTIVE_LINK_CLASS : NAV_LINK_CLASS}
+            onClick={onClose}
+          >
             {item.label}
           </Link>
         ) : (
-          <span className={labelClassName}>{item.label}</span>
+          <span className={showActive ? NAV_ACTIVE_LINK_CLASS : NAV_LINK_CLASS}>
+            {item.label}
+          </span>
         )}
         <button
           type="button"
-          className="cursor-pointer transition-colors duration-300 ease-in-out hover:text-[#ba8a44]"
+          className={`cursor-pointer transition-colors duration-300 ease-in-out ${
+            showActive ? "text-[#ba8a44]" : "text-white hover:text-[#ba8a44]"
+          }`}
           onClick={() => setIsOpen((open) => !open)}
           aria-label={`Toggle ${item.label} submenu`}
         >
           <ChevronDown
             className={`h-4 w-4 transition-all duration-300 ease-in-out ${
-              isOpen ? "rotate-180 text-[#ba8a44]" : "text-white"
+              isOpen ? "rotate-180" : ""
             }`}
             strokeWidth={2}
           />
@@ -178,11 +223,16 @@ export default function Header() {
         <div className="fixed inset-0 z-[90] w-full bg-[#111] min-[1072px]:hidden">
           <nav className="flex h-full w-full flex-col overflow-y-auto px-6 pt-24 pb-8">
             {NAV_ITEMS.map((item) => (
-              <MobileNavItem key={item.label} item={item} onClose={closeMobile} />
+              <MobileNavItem
+                key={item.label}
+                item={item}
+                onClose={closeMobile}
+                pathname={pathname}
+              />
             ))}
 
             <Link
-              href="#contact"
+              href="/contact"
               className="mt-6 inline-flex w-full"
               onClick={closeMobile}
             >
@@ -228,7 +278,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="#contact" className="hidden sm:inline-flex">
+            <Link href="/contact" className="hidden sm:inline-flex">
               <Button
                 variant="primary"
                 className="gap-2 px-5 py-2.5 text-xs lg:px-6 lg:py-3 lg:text-sm"

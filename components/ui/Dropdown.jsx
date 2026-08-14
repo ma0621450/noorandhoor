@@ -19,6 +19,7 @@ export default function Dropdown({
   options = [],
   placeholder = "Select",
   className = "",
+  compact = false,
 }) {
   const context = useContext(DropdownContext);
   const [selected, setSelected] = useState(placeholder);
@@ -49,7 +50,13 @@ export default function Dropdown({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 z-50 mt-2 w-full min-w-[200px] rounded-xl bg-[#1a1a1a] p-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+        <div
+          className={`absolute top-full left-0 z-50 mt-2 bg-[#1a1a1a] shadow-[0_12px_40px_rgba(0,0,0,0.45)] ${
+            compact
+              ? "flex w-max min-w-[185px] flex-col gap-3 rounded-lg p-5"
+              : "w-full min-w-[200px] rounded-xl p-2"
+          }`}
+        >
           {options.map((item) => {
             const active = selected === item;
             return (
@@ -60,10 +67,18 @@ export default function Dropdown({
                   setSelected(item);
                   close();
                 }}
-                className={`flex w-full cursor-pointer items-center rounded-lg px-3 py-2.5 text-left text-sm font-medium text-white transition-colors ${
-                  active
-                    ? "bg-gradient-to-r from-[#bc8741] to-[#d6a85e]"
-                    : "hover:bg-[#7b613b]"
+                className={`flex w-full cursor-pointer items-center text-left text-[#f5f5f5] transition-colors ${
+                  compact
+                    ? `rounded px-2 py-0.5 text-xs font-normal ${
+                        active
+                          ? "bg-gradient-to-r from-[rgba(188,135,65,0.35)] to-[rgba(214,168,94,0.35)]"
+                          : "hover:bg-white/5"
+                      }`
+                    : `rounded-lg px-3 py-2.5 text-sm font-medium ${
+                        active
+                          ? "bg-gradient-to-r from-[#bc8741] to-[#d6a85e]"
+                          : "hover:bg-[#7b613b]"
+                      }`
                 }`}
               >
                 {item}

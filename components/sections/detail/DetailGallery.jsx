@@ -3,9 +3,14 @@
 import Image from "next/image";
 import { useState } from "react";
 
+function fillPhotos(images, count = 5) {
+  if (!images.length) return [];
+  return Array.from({ length: count }, (_, i) => images[i % images.length]);
+}
+
 export default function DetailGallery({ images = [] }) {
   const [open, setOpen] = useState(false);
-  const photos = images.slice(0, 5);
+  const photos = fillPhotos(images, 5);
   const [main, midTop, midBottom, rightTop, rightBottom] = photos;
 
   return (

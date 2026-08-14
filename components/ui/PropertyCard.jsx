@@ -1,12 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Bed, Bath, Scan, Heart } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 
-const PropertyCard = ({ property, badge = "Featured" }) => {
+const PropertyCard = ({ property, badge = "Featured", className = "", href }) => {
   const { image, title, location, features, price, featured } = property;
+  const to = href || property.href;
 
   return (
-    <article className="group flex w-full max-w-[257px] cursor-pointer flex-col overflow-hidden rounded-[9.5px] border border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] sm:max-w-none">
+    <article
+      className={`group relative flex w-full max-w-[257px] flex-col overflow-hidden rounded-[9.5px] border border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] sm:max-w-none ${to ? "cursor-pointer" : ""} ${className}`}
+    >
+      {to && (
+        <Link href={to} className="absolute inset-0 z-[1]" aria-label={title} />
+      )}
+
       <div className="relative aspect-[257/217] w-full overflow-hidden">
         <Image
           src={image}
@@ -16,19 +24,19 @@ const PropertyCard = ({ property, badge = "Featured" }) => {
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         {featured && (
-          <div className="absolute left-3 top-3">
+          <div className="absolute left-3 top-3 z-[2]">
             <Badge variant="gold">{badge}</Badge>
           </div>
         )}
-
-        <button
-          type="button"
-          aria-label="Add to favorites"
-          className="absolute right-3 top-3 cursor-pointer text-white transition hover:scale-110 hover:text-[#eec876]"
-        >
-          <Heart className="h-[16px] w-[17px]" strokeWidth={1.5} />
-        </button>
       </div>
+
+      <button
+        type="button"
+        aria-label="Add to favorites"
+        className="absolute right-3 top-3 z-[2] cursor-pointer text-white transition hover:scale-110 hover:text-[#eec876]"
+      >
+        <Heart className="h-[16px] w-[17px]" strokeWidth={1.5} />
+      </button>
 
       <div className="flex flex-col gap-[6px] px-4 py-4">
         <h3 className="!font-accent mb-0.5 text-sm font-normal uppercase text-[#f5f5f5]">

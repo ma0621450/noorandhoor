@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
 
@@ -12,10 +13,12 @@ export default function GetStarted() {
           Whether you&apos;re looking to list your property or need expert
           guidance, our team is here to help
         </p>
-        <Button className="w-full gap-2 sm:w-auto">
-          Get In Touch
-          <ArrowRight className="h-4 w-4" />
-        </Button>
+        <Link href="/contact" className="inline-flex w-full sm:w-auto">
+          <Button className="w-full gap-2 sm:w-auto">
+            Get In Touch
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </Link>
       </div>
     </section>
   );

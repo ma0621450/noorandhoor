@@ -7,10 +7,6 @@ import {
   IconResidential,
   IconListProperty,
   IconGuide,
-  IconLaunch,
-  IconPayment,
-  IconDeveloper,
-  IconService,
 } from "@/components/layout/navIcons";
 
 export const NAV_ITEMS = [
@@ -70,31 +66,22 @@ export const NAV_ITEMS = [
   },
   {
     label: "Off Plan",
+    href: "/off-plan",
     links: [
-      { label: "New Launches", href: "#", Icon: IconLaunch },
-      { label: "Payment Plans", href: "#", Icon: IconPayment },
-      { label: "Developers", href: "#", Icon: IconDeveloper },
+      { label: "Villas", href: "/off-plan/villas", Icon: IconVillas },
+      { label: "Apartments", href: "/off-plan/apartments", Icon: IconApartments },
+      {
+        label: "Commercial / Residential",
+        href: "/off-plan/commercial",
+        Icon: IconResidential,
+      },
+      { label: "Penthouse", href: "/off-plan/penthouses", Icon: IconPenthouses },
+      { label: "Townhouse", href: "/off-plan/townhouses", Icon: IconTownhouses },
+      { label: "Off plan guide", href: "/off-plan/guide", Icon: IconGuide },
     ],
   },
   {
     label: "Developers",
-    links: [
-      { label: "Emaar", href: "#", Icon: IconDeveloper },
-      { label: "Damac", href: "#", Icon: IconDeveloper },
-      { label: "Sobha", href: "#", Icon: IconDeveloper },
-      { label: "Azizi", href: "#", Icon: IconDeveloper },
-    ],
-  },
-  {
-    label: "Services",
-    links: [
-      { label: "Property Management", href: "#", Icon: IconService },
-      { label: "Mortgage Services", href: "#", Icon: IconPayment },
-      { label: "Golden Visa", href: "#", Icon: IconGuide },
-    ],
-  },
-  {
-    label: "About",
-    href: "#about",
+    href: "/developers",
   },
 ];

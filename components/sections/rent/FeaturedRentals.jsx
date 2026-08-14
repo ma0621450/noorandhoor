@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import PropertyCard from "@/components/ui/PropertyCard";
 import apartmentsImage from "@/public/images/buy/apartments.png";
@@ -21,6 +22,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Featured",
+    href: "/rent/houses/beachfront-villa-rent",
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Featured",
+    href: "/rent/apartments/downtown-apartment-rent",
   },
   {
     id: 3,
@@ -41,6 +44,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Available now",
+    href: "/rent/properties/spacious-apartment-with-parking",
   },
   {
     id: 4,
@@ -51,6 +55,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Featured",
+    href: "/rent/houses/garden-villa-rent",
   },
   {
     id: 5,
@@ -61,6 +66,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Available now",
+    href: "/rent/dubai/palm-jumeirah-villa",
   },
   {
     id: 6,
@@ -71,6 +77,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Featured",
+    href: "/rent/apartments/triplex-apartment-rent",
   },
   {
     id: 7,
@@ -81,6 +88,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Available now",
+    href: "/rent/properties/downtown-apartment",
   },
   {
     id: 8,
@@ -91,6 +99,7 @@ const FEATURED_RENTALS = [
     price: 45000000,
     featured: true,
     badge: "Featured",
+    href: "/rent/houses/luxury-villa-rent",
   },
 ];
 
@@ -105,12 +114,14 @@ export default function FeaturedRentals() {
           </h2>
         </div>
 
-        <Button
-          variant="secondary"
-          className="h-[58px] w-full shrink-0 rounded-xl sm:w-[234px] lg:self-end"
-        >
-          View Properties
-        </Button>
+        <Link href="/rent/properties" className="w-full sm:w-auto">
+          <Button
+            variant="secondary"
+            className="h-[58px] w-full shrink-0 rounded-xl sm:w-[234px] lg:self-end"
+          >
+            View Properties
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 xl:grid-cols-4">

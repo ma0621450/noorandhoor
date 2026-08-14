@@ -20,7 +20,10 @@ export default async function CategoryDetailPage({ categoryKey, params }) {
     title: home.title,
     location: home.location,
     price: home.price,
-    gallery: home.images,
+    gallery:
+      home.images?.length >= 5
+        ? home.images
+        : [...(home.images || []), ...PROPERTY_DETAIL.gallery].slice(0, 5),
   };
 
   return (
