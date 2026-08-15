@@ -9,7 +9,7 @@ const PropertyCard = ({ property, badge = "Featured", className = "", href }) =>
 
   return (
     <article
-      className={`group relative flex w-full max-w-[257px] flex-col overflow-hidden rounded-[9.5px] border border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] sm:max-w-none ${to ? "cursor-pointer" : ""} ${className}`}
+      className={`group relative flex w-full flex-col overflow-hidden rounded-[9.5px] border border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] ${to ? "cursor-pointer" : ""} ${className}`}
     >
       {to && (
         <Link href={to} className="absolute inset-0 z-[1]" aria-label={title} />

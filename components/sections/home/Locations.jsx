@@ -81,23 +81,23 @@ export default function Locations() {
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         className={`mt-8 lg:mt-12
-  flex touch-none
+  flex touch-pan-x
   gap-4 md:gap-6 lg:gap-8
-  px-4 md:px-6 lg:px-0
   overflow-x-auto
   pb-2
   select-none
-  [-ms-overflow-style:none]
-  [scrollbar-width:none]
-  [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+  snap-x snap-mandatory
+  [scrollbar-width:thin]
+  ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
       >
         {LOCATIONS.map((location) => (
-          <LocationCard
-            key={location.name}
-            image={location.image}
-            name={location.name}
-            propertyCount={location.propertyCount}
-          />
+          <div key={location.name} className="snap-start">
+            <LocationCard
+              image={location.image}
+              name={location.name}
+              propertyCount={location.propertyCount}
+            />
+          </div>
         ))}
       </div>
     </section>

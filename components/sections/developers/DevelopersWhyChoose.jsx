@@ -35,7 +35,7 @@ export default function DevelopersWhyChoose() {
         <div className="section-divider" />
       </div>
 
-      <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {REASONS.map((reason) => (
           <article
             key={reason.title}

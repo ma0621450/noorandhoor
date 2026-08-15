@@ -14,25 +14,25 @@ const CLIENT_STORIES = [
 export default function ClientStories() {
   return (
     <section className="section-container">
-      <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-stretch lg:gap-12">
-        <div className="min-w-0 max-w-full shrink-0 lg:max-w-[500px]">
+      <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 xl:flex-row xl:items-stretch xl:gap-10">
+        <div className="min-w-0 max-w-full xl:max-w-[460px]">
           <h3 className="section-sub-heading mb-4">Client Stories</h3>
           <h2 className="text-gold-gradient max-w-full">
             Why Clients Trust Our Expertise
           </h2>
         </div>
 
-        <div className="hidden h-[94px] w-[4px] shrink-0 bg-[#B3813D] lg:mx-auto lg:my-auto lg:block" />
+        <div className="hidden h-[94px] w-[4px] shrink-0 bg-[#B3813D] xl:mx-auto xl:my-auto xl:block" />
 
-        <p className="max-w-full text-sm font-medium leading-relaxed text-white lg:max-w-[540px] lg:pt-8">
-          At Noor & Hoor Properties, we put your dreams first. Whether you are
+        <p className="max-w-full text-sm font-medium leading-relaxed text-white xl:max-w-[500px] xl:pt-8">
+          At Noor &amp; Hoor Properties, we put your dreams first. Whether you are
           searching for a luxury villa, selling an exclusive property, or
           expanding your investment portfolio in UAE, we deliver honest advice
           and clear transparency every step of the way.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-4">
         {CLIENT_STORIES.map((story) => (
           <article
             key={story.id}

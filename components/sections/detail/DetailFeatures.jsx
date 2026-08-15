@@ -13,7 +13,7 @@ export default function DetailFeatures() {
     <section className="w-full bg-[#111111] pb-10 sm:pb-14">
       <div className="mx-auto w-full max-w-[1280px] px-4 pt-14 sm:pt-16">
         {/* Figma: padding 32, border 0.8 #F5F5F5, radius 10 */}
-        <div className="rounded-[10px] border border-[#F5F5F5]/80 p-8">
+        <div className="rounded-[10px] border border-[#F5F5F5]/80 p-4 sm:p-6 lg:p-8">
           <h2 className="detail-section-title m-0 text-[20px] font-medium leading-[30px] text-[#F5F5F5]">
             Features
           </h2>
@@ -40,10 +40,10 @@ export default function DetailFeatures() {
             ))}
           </div>
 
-          <div className="mt-5 flex justify-end">
+          <div className="mt-5 flex justify-stretch sm:justify-end">
             <button
               type="button"
-              className="flex h-[58px] w-[234px] cursor-pointer items-center justify-center rounded-xl border border-[#c5a059] font-[family-name:var(--font-body)] text-[13px] font-semibold uppercase leading-6 tracking-[1.3px] text-white transition hover:bg-[#c5a059]/15"
+              className="flex h-[58px] w-full cursor-pointer items-center justify-center rounded-xl border border-[#c5a059] font-[family-name:var(--font-body)] text-[13px] font-semibold uppercase leading-6 tracking-[1.3px] text-white transition hover:bg-[#c5a059]/15 sm:w-[234px]"
             >
               see all
             </button>

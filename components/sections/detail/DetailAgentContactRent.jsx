@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { UserRound } from "lucide-react";
 
 export default function DetailAgentContactRent({ agent }) {
   return (
@@ -8,14 +8,8 @@ export default function DetailAgentContactRent({ agent }) {
       <div className="mx-auto w-full max-w-[1120px] px-4">
         <div className="rounded-[20px] bg-[#1A1A1A] p-8 sm:p-10">
           <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <div className="relative size-20 shrink-0 overflow-hidden rounded-full">
-              <Image
-                src={agent.image}
-                alt={agent.name}
-                fill
-                sizes="80px"
-                className="object-cover object-top"
-              />
+            <div className="flex size-20 shrink-0 items-center justify-center rounded-full bg-[#111] text-[#BC8741]">
+              <UserRound className="h-9 w-9" strokeWidth={1.5} aria-hidden />
             </div>
             <div>
               <h3 className="m-0 font-[family-name:var(--font-body)] text-[22px] font-semibold uppercase leading-9 text-[#F5F5F5] sm:text-[25px]">

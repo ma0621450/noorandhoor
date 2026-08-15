@@ -16,7 +16,7 @@ export default function DeveloperCard({ developer }) {
       <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative z-10 flex w-full flex-col items-center gap-8">
-        <div className="relative h-[72px] w-[206px]">
+        <div className="relative h-[72px] w-full max-w-[206px]">
           <Image
             src={logo}
             alt={name}

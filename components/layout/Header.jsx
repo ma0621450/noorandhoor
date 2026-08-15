@@ -260,7 +260,7 @@ export default function Header() {
               alt="Noor & Hoor Properties"
               height={64}
               width={200}
-              className="h-16 w-auto lg:h-21"
+              className="h-12 w-auto sm:h-14 lg:h-21"
               priority
             />
           </Link>
@@ -278,10 +278,10 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="/contact" className="hidden sm:inline-flex">
+            <Link href="/contact" className="hidden md:inline-flex">
               <Button
                 variant="primary"
-                className="gap-2 px-5 py-2.5 text-xs lg:px-6 lg:py-3 lg:text-sm"
+                className="gap-2 px-4 py-2 text-xs lg:px-6 lg:py-3 lg:text-sm"
               >
                 <span>Contact Us</span>
                 <ChevronRight className="h-4 w-4" strokeWidth={2.5} />

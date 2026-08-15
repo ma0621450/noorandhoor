@@ -26,7 +26,10 @@ export default function InvestmentMatrix() {
         <div className="section-divider" />
       </div>
 
-      <div className="mx-auto mt-10 max-w-[793px] overflow-x-auto rounded-t-xl">
+      <div className="mx-auto mt-10 max-w-[793px] overflow-x-auto rounded-t-xl [-webkit-overflow-scrolling:touch]">
+        <p className="mb-2 text-center text-xs text-white/50 md:hidden">
+          Swipe sideways to view all columns
+        </p>
         <table className="w-full min-w-[640px] border-collapse">
           <thead>
             <tr
@@ -37,7 +40,9 @@ export default function InvestmentMatrix() {
                 <th
                   key={column.key}
                   className={`px-4 py-5 sm:px-6 ${
-                    index === 0 ? "rounded-tl-xl text-left" : "text-center"
+                    index === 0
+                      ? "sticky left-0 z-10 rounded-tl-xl bg-[#d6a85e] text-left"
+                      : "text-center"
                   } ${index === COLUMNS.length - 1 ? "rounded-tr-xl" : ""}`}
                 >
                   {column.label}
@@ -58,11 +63,15 @@ export default function InvestmentMatrix() {
                       : "bg-transparent text-white"
                   }`}
                 >
-                  {COLUMNS.map((column) => (
+                  {COLUMNS.map((column, colIndex) => (
                     <td
                       key={column.key}
                       className={`px-4 py-5 sm:px-6 ${
                         column.align === "left" ? "text-left" : "text-center"
+                      } ${
+                        colIndex === 0
+                          ? `sticky left-0 z-10 ${isLight ? "bg-white" : "bg-[#111]"}`
+                          : ""
                       }`}
                     >
                       {row[column.key]}

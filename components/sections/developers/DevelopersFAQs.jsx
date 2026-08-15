@@ -47,7 +47,7 @@ export default function DevelopersFAQs() {
         </p>
       </div>
 
-      <div className="mb-10 grid grid-cols-1 gap-[30px] md:grid-cols-3">
+      <div className="mb-10 grid grid-cols-1 gap-[30px] md:grid-cols-2 lg:grid-cols-3">
         {FAQ_RESOURCES.map((resource) => (
           <article
             key={resource.title}

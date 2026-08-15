@@ -37,24 +37,24 @@ export default function Dropdown({
   };
 
   return (
-    <div className={`relative min-w-[160px] ${className}`}>
+    <div className={`relative min-w-0 ${className}`}>
       <button
         type="button"
         onClick={toggle}
-        className="flex w-full cursor-pointer items-center justify-between gap-8 px-4 py-2 text-white"
+        className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left text-sm text-white sm:gap-4 sm:px-4"
       >
-        {selected}
+        <span className="truncate">{selected}</span>
         <ChevronDown
-          className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`h-4 w-4 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && (
         <div
-          className={`absolute top-full left-0 z-50 mt-2 bg-[#1a1a1a] shadow-[0_12px_40px_rgba(0,0,0,0.45)] ${
+          className={`absolute top-full left-0 z-50 mt-2 max-w-[min(100vw-2rem,280px)] bg-[#1a1a1a] shadow-[0_12px_40px_rgba(0,0,0,0.45)] ${
             compact
               ? "flex w-max min-w-[185px] flex-col gap-3 rounded-lg p-5"
-              : "w-full min-w-[200px] rounded-xl p-2"
+              : "w-full min-w-[160px] rounded-xl p-2"
           }`}
         >
           {options.map((item) => {

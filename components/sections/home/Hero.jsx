@@ -15,9 +15,9 @@ const FEATURES = [
 
 const Hero = () => {
   return (
-    <section className="relative z-20 h-svh w-full overflow-hidden">
+    <section className="relative z-20 min-h-svh w-full overflow-x-clip overflow-y-visible">
       <HeroBackgroundCarousel>
-        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-4 px-4 pt-24 pb-6 text-center sm:gap-6 md:gap-8">
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-4 overflow-y-auto px-4 pt-24 pb-6 text-center sm:gap-6 md:gap-8">
           <h1 className="text-gold-gradient">
             Explore Your Dream Property in UAE
           </h1>
@@ -36,7 +36,7 @@ const Hero = () => {
             property buying, selling, and investment.
           </p>
 
-          <div className="w-full min-[850px]:w-auto">
+          <div className="w-full lg:w-auto">
             <FilterBar />
           </div>
 
@@ -50,12 +50,12 @@ const Hero = () => {
 export default Hero;
 
 const FILTER_MOBILE_BORDER =
-  "max-[599px]:border-b max-[599px]:border-white/20 max-[599px]:last:border-b-0 max-[849px]:w-full max-[849px]:min-w-0";
+  "max-[599px]:border-b max-[599px]:border-white/20 max-[599px]:last:border-b-0 max-lg:w-full max-lg:min-w-0";
 
 export const FilterBar = () => {
   return (
-    <div className="relative z-50 flex w-full flex-col gap-3 min-[850px]:w-auto min-[850px]:flex-row min-[850px]:items-center min-[850px]:gap-3">
-      <div className="w-full rounded-xl border border-white/20 bg-white/20 p-3 backdrop-blur-md max-[849px]:grid max-[849px]:grid-cols-1 min-[600px]:max-[849px]:grid-cols-2 min-[850px]:flex min-[850px]:w-auto min-[850px]:items-center min-[850px]:gap-4">
+    <div className="relative z-50 flex w-full flex-col gap-3 lg:w-auto lg:flex-row lg:items-center lg:gap-3">
+      <div className="w-full rounded-xl border border-white/20 bg-white/20 p-3 backdrop-blur-md max-lg:grid max-lg:grid-cols-1 min-[600px]:max-lg:grid-cols-2 lg:flex lg:w-auto lg:items-center lg:gap-4">
         <DropdownGroup>
           <Dropdown
             id="rent"
@@ -71,7 +71,7 @@ export const FilterBar = () => {
           />
           <div
             aria-hidden="true"
-            className="hidden h-px bg-white/20 min-[600px]:max-[849px]:col-span-2 min-[600px]:max-[849px]:block"
+            className="hidden h-px bg-white/20 min-[600px]:max-lg:col-span-2 min-[600px]:max-lg:block"
           />
           <Dropdown
             id="property-type"
@@ -92,7 +92,7 @@ export const FilterBar = () => {
         type="button"
         variant="primary"
         aria-label="Search properties"
-        className="w-full gap-2 py-3 text-xs min-[850px]:hidden"
+        className="w-full gap-2 py-3 text-xs lg:hidden"
       >
         <span>Search</span>
         <Search className="h-4 w-4" strokeWidth={2.5} />
@@ -101,7 +101,7 @@ export const FilterBar = () => {
       <button
         type="button"
         aria-label="Search properties"
-        className="hidden shrink-0 rounded-full p-3 transition hover:scale-105 min-[850px]:block"
+        className="hidden shrink-0 rounded-full p-3 transition hover:scale-105 lg:block"
       >
         <Search
           className="cursor-pointer text-[#ba8a44]"

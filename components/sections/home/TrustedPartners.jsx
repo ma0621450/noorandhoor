@@ -33,10 +33,16 @@ export default function TrustedPartners() {
             </div>
             <p className="text-md font-medium">Our network includes trusted developers and agents, working with Noor & Hoor Properties to deliver reliable real estate solutions.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-8">
                 {TRUSTED_PARTNERS.map((partner, index) => (
-                    <div key={index} className="mx-auto">
-                        <Image src={partner.image} alt={partner.image} width={350} height={350} />
+                    <div key={index} className="mx-auto flex w-full max-w-[207px] items-center justify-center">
+                        <Image
+                          src={partner.image}
+                          alt={`Trusted partner ${index + 1}`}
+                          width={350}
+                          height={350}
+                          className="h-auto w-full max-w-full object-contain"
+                        />
                     </div>
                 ))}
             </div>

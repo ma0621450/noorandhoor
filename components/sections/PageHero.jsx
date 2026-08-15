@@ -72,9 +72,9 @@ function PageHeroFilterBar() {
 
 export default function PageHero({ title, description }) {
   return (
-    <section className="relative z-20 h-svh w-full overflow-hidden">
+    <section className="relative z-20 min-h-svh w-full overflow-x-clip overflow-y-visible">
       <HeroBackgroundCarousel>
-        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-5 px-4 pt-24 pb-8 text-center sm:gap-6 md:gap-8">
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-4 overflow-y-auto px-4 pt-24 pb-6 text-center sm:gap-6 md:gap-8">
           <h1 className="text-gold-gradient max-w-[1120px]">{title}</h1>
 
           <p className="max-w-[700px] text-sm sm:text-base md:text-lg lg:text-xl">

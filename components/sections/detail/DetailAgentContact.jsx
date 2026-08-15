@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { Phone } from "lucide-react";
+import { Phone, UserRound } from "lucide-react";
 
 export default function DetailAgentContact({ agent }) {
   return (
@@ -17,14 +16,8 @@ export default function DetailAgentContact({ agent }) {
 
         <div className="mt-8 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div className="flex items-center gap-4">
-            <div className="relative size-[72px] overflow-hidden rounded-full sm:size-20">
-              <Image
-                src={agent.image}
-                alt={agent.name}
-                fill
-                sizes="80px"
-                className="object-cover object-top"
-              />
+            <div className="flex size-[72px] items-center justify-center rounded-full bg-[#1a1a1a] text-[#c59d5f] sm:size-20">
+              <UserRound className="h-8 w-8" strokeWidth={1.5} aria-hidden />
             </div>
             <div>
               <p className="text-sm text-white/55">Contact Agent</p>

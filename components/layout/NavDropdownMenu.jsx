@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NavDropdownMenu({ links, onNavigate }) {
   return (
-    <div className="min-w-[240px] rounded-xl bg-[#1a1a1a] p-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)]">
+    <div className="min-w-0 w-full rounded-xl bg-[#1a1a1a] p-2 shadow-[0_12px_40px_rgba(0,0,0,0.45)] sm:min-w-[240px] sm:w-auto">
       <ul className="flex flex-col gap-0.5">
         {links.map(({ label, href = "#", Icon }) => (
           <li key={label}>
@@ -16,7 +16,7 @@ export default function NavDropdownMenu({ links, onNavigate }) {
                   <Icon className="h-6 w-6" />
                 </span>
               ) : null}
-              <span className="whitespace-nowrap">{label}</span>
+              <span className="min-w-0 whitespace-normal break-words">{label}</span>
             </Link>
           </li>
         ))}

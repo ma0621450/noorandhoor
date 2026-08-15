@@ -77,7 +77,7 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 5.125rem);
+  font-size: clamp(1.75rem, 8vw, 5.125rem);
   font-weight: 700;
   line-height: 1.15;
 }

@@ -17,19 +17,13 @@ const TeamCard = ({ member }) => {
             aria-hidden
           />
         </div>
-        <div className="absolute inset-x-0 bottom-0 flex justify-center">
-          <div
-            className="relative"
-            style={{
-              height: 320,
-              width: Math.round(320 * (image.width / image.height)),
-            }}
-          >
+        <div className="absolute inset-x-0 bottom-0 top-0 flex justify-center overflow-hidden">
+          <div className="relative h-full w-full max-w-full">
             <Image
               src={image}
               alt={name}
               fill
-              sizes="320px"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               className="object-cover object-top"
             />
           </div>

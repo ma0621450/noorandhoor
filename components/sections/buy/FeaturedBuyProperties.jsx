@@ -70,7 +70,7 @@ export default function FeaturedBuyProperties() {
         </Link>
       </div>
 
-      <div className="flex gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible xl:grid-cols-4 [&::-webkit-scrollbar]:hidden">
+      <div className="flex gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3 xl:grid-cols-4 [&::-webkit-scrollbar]:hidden">
         {FEATURED_BUY_PROPERTIES.map((property) => (
           <div key={property.id} className="min-w-[257px] sm:min-w-0">
             <PropertyCard property={property} />

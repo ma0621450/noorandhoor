@@ -23,7 +23,7 @@ function Pill({ label, selected, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className={`h-[34px] rounded border px-4 text-xs font-medium tracking-[0.48px] text-[#F5F5F5] ${
+      className={`h-auto min-h-[34px] max-w-full rounded border px-3 py-1.5 text-left text-[11px] font-medium leading-tight tracking-[0.48px] text-[#F5F5F5] sm:px-4 sm:text-xs ${
         selected ? "border-[#E9C349] bg-[#E9C349]/10" : "border-[#E9C349]/40"
       }`}
     >
@@ -49,7 +49,7 @@ export default function DevelopersLeadForm() {
           </div>
 
           <form
-            className="mx-auto flex w-full max-w-[576px] flex-col gap-5 rounded-2xl bg-[#1A1A1A] p-8"
+            className="mx-auto flex w-full max-w-[576px] flex-col gap-5 rounded-2xl bg-[#1A1A1A] p-4 sm:p-8"
             onSubmit={(e) => e.preventDefault()}
           >
             {GROUPS.map((group) => (

@@ -10,8 +10,8 @@ export default function OffPlanFeatured() {
         <div className="flex flex-col items-center gap-4 lg:items-start">
           <h3 className="section-sub-heading">Featured Properties</h3>
           <h2 className="text-gold-gradient text-[clamp(1.5rem,3.2vw,2.875rem)] leading-[1.04] lg:leading-[48px]">
-            <span className="block sm:whitespace-nowrap">Explore Off-Plan Apartments</span>
-            <span className="block sm:whitespace-nowrap">and Homes in Dubai</span>
+            <span className="block lg:whitespace-nowrap">Explore Off-Plan Apartments</span>
+            <span className="block lg:whitespace-nowrap">and Homes in Dubai</span>
           </h2>
         </div>
 
@@ -30,7 +30,7 @@ export default function OffPlanFeatured() {
           Apartments
         </p>
 
-        <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {OFF_PLAN_PROPERTIES.map((property) => (
             <PropertyCard
               key={property.id}

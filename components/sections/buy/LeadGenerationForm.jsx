@@ -17,11 +17,11 @@ export default function LeadGenerationForm() {
 
           <div className="mx-auto flex max-w-[1120px] flex-col items-center gap-8 lg:flex-row lg:items-stretch lg:justify-between">
             <form className="w-full max-w-[736px] rounded-2xl border border-[#d4af37] bg-[#111] p-6 shadow-xl sm:p-8">
-              <div className="mb-8 flex items-center gap-3">
-                <div className="flex size-12 items-center justify-center rounded-[14px] bg-gradient-to-r from-[#bc8741] to-[#d6a85e]">
-                  <Building2 className="h-6 w-6 text-white" />
+              <div className="mb-8 flex min-w-0 items-start gap-3 sm:items-center">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-[14px] bg-gradient-to-r from-[#bc8741] to-[#d6a85e] sm:size-12">
+                  <Building2 className="h-5 w-5 text-white sm:h-6 sm:w-6" />
                 </div>
-                <h3 className="text-xl font-medium text-[#f5f5f5] sm:text-2xl">
+                <h3 className="min-w-0 text-lg font-medium text-[#f5f5f5] sm:text-xl md:text-2xl">
                   Lead Generation Form
                 </h3>
               </div>

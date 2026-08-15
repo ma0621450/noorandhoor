@@ -32,7 +32,7 @@ export default function ContactAgentCard({ agent }) {
         <Link href={`mailto:${email}`} className="mt-3 inline-flex self-start">
           <Button
             type="button"
-            className="h-8 min-h-0 rounded-[2px] px-10 py-2 text-sm tracking-[1.3px]"
+            className="h-8 min-h-0 rounded-[2px] px-5 py-2 text-sm tracking-[1.3px] sm:px-10"
           >
             Contact Agent
           </Button>

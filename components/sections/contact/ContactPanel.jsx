@@ -25,7 +25,7 @@ function InfoCard({ href, icon: Icon, label, value }) {
 
 export default function ContactPanel() {
   return (
-    <div className="relative flex w-full flex-col overflow-hidden rounded-3xl border-t border-[rgba(201,168,76,0.14)] px-4 py-10 sm:px-6 lg:px-6 lg:py-20">
+    <div className="relative flex w-full flex-col overflow-hidden rounded-3xl border-t border-[rgba(201,168,76,0.14)] px-3 py-8 sm:px-6 sm:py-10 lg:px-6 lg:py-20">
       <div className="absolute inset-0">
         <Image
           src={getStartedBg}

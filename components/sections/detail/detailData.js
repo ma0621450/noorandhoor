@@ -9,7 +9,6 @@ import carousel1 from "@/public/images/landingpage/landingpagecarousel1.jpg";
 import carousel2 from "@/public/images/landingpage/landingpagecarousel2.jpg";
 import carousel3 from "@/public/images/landingpage/landingpagecarousel3.jpg";
 import carousel4 from "@/public/images/landingpage/landingpagecarousel4.jpg";
-import agentImage from "@/public/images/landingpage/team1.png";
 
 export const PROPERTY_DETAIL = {
   slug: "spacious-apartment-with-parking",
@@ -56,7 +55,6 @@ export const PROPERTY_DETAIL = {
   ],
   agent: {
     name: "Waqar ahmed",
-    image: agentImage,
     phone: "+971526938886",
   },
 };
@@ -108,7 +106,6 @@ export const RENT_PROPERTY_DETAIL = {
   },
   agent: {
     name: "Waqar ahmed",
-    image: agentImage,
     phone: "+971526938886",
   },
 };

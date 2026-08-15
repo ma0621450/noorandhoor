@@ -13,7 +13,7 @@ const TESTIMONIALS = [
     quote:
       "“Excellent service from start to finish! They helped us secure a premium commercial space in record time. Highly professional, transparent, and efficient”.",
     name: "Fatima Al-Hashimi",
-    title: "Founder & CEO",
+    title: "Founder",
   },
   {
     id: 3,

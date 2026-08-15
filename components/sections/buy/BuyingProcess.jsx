@@ -15,7 +15,7 @@ export default function BuyingProcess() {
             </p>
           </div>
 
-          <div className="mx-auto mt-9 grid max-w-[1119px] grid-cols-2 gap-x-3 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-x-2 lg:gap-y-12">
+          <div className="mx-auto mt-9 grid max-w-[1119px] grid-cols-1 gap-y-10 min-[380px]:grid-cols-2 min-[380px]:gap-x-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-x-2 lg:gap-y-12">
             {BUYING_STEPS.map((item) => (
               <ProcessStepCard key={item.step} {...item} />
             ))}

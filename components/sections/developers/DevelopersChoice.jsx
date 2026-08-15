@@ -18,8 +18,8 @@ export default function DevelopersChoice() {
         ))}
       </div>
 
-      <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-[80px] xl:gap-[150px]">
-        <div className="flex w-full max-w-[498px] flex-col items-start gap-4">
+      <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10 xl:gap-16">
+        <div className="flex w-full min-w-0 max-w-[498px] flex-col items-start gap-4">
           <p className="text-xs font-normal uppercase tracking-[2.2px] text-white">
             Beyond Concrete
           </p>

@@ -1,16 +1,9 @@
 import TeamCard from "@/components/ui/TeamCard";
-import team1 from "@/public/images/landingpage/team1.png";
 import team2 from "@/public/images/landingpage/team2.png";
 import team3 from "@/public/images/landingpage/team3.png";
 import team4 from "@/public/images/landingpage/team4.png";
 
 const TEAM_MEMBERS = [
-  {
-    id: 1,
-    image: team1,
-    name: "Majid Khan",
-    title: "CEO",
-  },
   {
     id: 2,
     image: team2,
@@ -43,7 +36,7 @@ export default function OurTeam() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
         {TEAM_MEMBERS.map((member) => (
           <TeamCard key={member.id} member={member} />
         ))}

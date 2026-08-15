@@ -124,9 +124,9 @@ export default function FeaturedRentals() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {FEATURED_RENTALS.map((property) => (
-          <div key={property.id} className="mx-auto w-full max-w-[257px] sm:mx-0 sm:max-w-none">
+          <div key={property.id} className="w-full">
             <PropertyCard property={property} badge={property.badge} />
           </div>
         ))}

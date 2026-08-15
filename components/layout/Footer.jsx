@@ -3,11 +3,29 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import logo from "@/public/svgs/logo.svg";
 
+const propertyLinks = [
+  { label: "Buy", href: "/buy" },
+  { label: "Rent", href: "/rent" },
+  { label: "Sell", href: "/sell" },
+  { label: "Off Plan", href: "/off-plan" },
+  { label: "Developers", href: "/developers" },
+];
+
+const companyLinks = [
+  { label: "About Us", href: "/about-us" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms & Conditions", href: "/terms-and-conditions" },
+];
+
+const FOOTER_LINK_CLASS =
+  "text-sm text-white/80 transition-colors hover:text-[#ba8a44]";
+
 export default function Footer() {
   return (
     <footer className="border-t border-[#ba8a44]/40 bg-[#111]">
       <div className="section-container !pb-6">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.2fr_0.75fr_0.9fr_1.35fr_1.45fr] xl:gap-10">
           <div className="flex flex-col gap-4">
             <Link href="/">
               <Image
@@ -21,6 +39,36 @@ export default function Footer() {
             <p className="max-w-[280px] text-sm leading-relaxed text-white/80">
               Your access to the globe&apos;s most esteemed real estate.
             </p>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            <h3 className="!font-accent text-sm font-medium uppercase tracking-wide text-[#ba8a44]">
+              Properties
+            </h3>
+            <ul className="flex flex-col gap-3">
+              {propertyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className={FOOTER_LINK_CLASS}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col gap-5">
+            <h3 className="!font-accent text-sm font-medium uppercase tracking-wide text-[#ba8a44]">
+              Company
+            </h3>
+            <ul className="flex flex-col gap-3">
+              {companyLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className={FOOTER_LINK_CLASS}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="flex flex-col gap-5">
@@ -73,10 +121,18 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-6 text-center">
-          <p className="text-md text-white">
-            © noorandhoorproperties — All rights reserved
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-center sm:flex-row sm:text-left">
+          <p className="text-sm text-white/80">
+            © 2026 Noor &amp; Hoor Properties. All rights reserved.
           </p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 sm:justify-end">
+            <Link href="/privacy-policy" className={FOOTER_LINK_CLASS}>
+              Privacy Policy
+            </Link>
+            <Link href="/terms-and-conditions" className={FOOTER_LINK_CLASS}>
+              Terms &amp; Conditions
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -4,7 +4,7 @@ import getStartedBg from "@/public/images/buy/get-started-bg.png";
 
 export default function RentDetailGetStarted() {
   return (
-    <section className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden">
+    <section className="relative w-full overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src={getStartedBg}

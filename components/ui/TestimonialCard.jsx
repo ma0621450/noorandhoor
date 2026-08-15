@@ -6,7 +6,7 @@ const TestimonialCard = ({ testimonial }) => {
   const { quote, name, title } = testimonial;
 
   return (
-    <article className="flex flex-col gap-6 border border-[#E9C34926] p-[40px] max-w-[340px]">
+    <article className="mx-auto flex h-full w-full max-w-none flex-col gap-6 border border-[#E9C34926] p-5 sm:p-8 md:p-10">
       <div className="flex items-start justify-between">
         <div className="flex gap-1">
           {Array.from({ length: 5 }).map((_, index) => (

@@ -80,7 +80,7 @@ export default function SellerInsights() {
               type="button"
               aria-label="Previous slide"
               onClick={prev}
-              className="absolute left-0 top-[110px] z-10 flex size-10 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] sm:top-[128px] md:-left-2 lg:-left-8 lg:translate-x-0"
+              className="absolute left-2 top-[110px] z-10 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] sm:top-[128px] md:left-0 lg:-left-8"
             >
               <ChevronLeft className="h-6 w-6 text-black" />
             </button>
@@ -88,7 +88,7 @@ export default function SellerInsights() {
               type="button"
               aria-label="Next slide"
               onClick={next}
-              className="absolute right-0 top-[110px] z-10 flex size-10 translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] sm:top-[128px] md:-right-2 lg:-right-8 lg:translate-x-0"
+              className="absolute right-2 top-[110px] z-10 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] sm:top-[128px] md:right-0 lg:-right-8"
             >
               <ChevronRight className="h-6 w-6 text-black" />
             </button>

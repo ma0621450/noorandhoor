@@ -17,7 +17,7 @@ const TESTIMONIALS = [
     quote:
       "“Excellent service from start to finish! They helped us secure a premium commercial space in record time. Highly professional, transparent, and efficient”.",
     name: "Mei Lin Chen",
-    title: "Founder & CEO",
+    title: "Founder",
     avatar: mei,
   },
   {

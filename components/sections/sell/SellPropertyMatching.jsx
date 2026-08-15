@@ -118,17 +118,17 @@ export default function SellPropertyMatching() {
               </div>
             </div>
 
-            <div className="mt-2 flex flex-nowrap items-center justify-center gap-3 sm:gap-5">
+            <div className="mt-2 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
               <Button
                 type="submit"
-                className="h-14 min-w-0 shrink rounded-xl px-3 text-[10px] tracking-[1.3px] sm:min-w-[266px] sm:shrink-0 sm:px-10 sm:text-sm"
+                className="h-14 w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[266px] sm:px-10 sm:text-sm"
               >
                 Generate Buyer Matches
               </Button>
               <Button
                 type="button"
                 variant="secondary"
-                className="h-[58px] min-w-0 shrink rounded-xl px-3 text-[10px] tracking-[1.3px] sm:min-w-[328px] sm:shrink-0 sm:px-10 sm:text-sm"
+                className="h-[58px] w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[328px] sm:px-10 sm:text-sm"
               >
                 Request Confidential Review
               </Button>

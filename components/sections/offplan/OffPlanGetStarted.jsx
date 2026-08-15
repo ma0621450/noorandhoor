@@ -6,7 +6,7 @@ export default function OffPlanGetStarted({
   heading = "Off-Plan Properties: Your Future Home, Ready to Choose Today",
 }) {
   return (
-    <section className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2 overflow-hidden">
+    <section className="relative w-full overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src={getStartedBg}

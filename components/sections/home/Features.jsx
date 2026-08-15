@@ -35,7 +35,7 @@ export default function Features() {
           with experts who make your real estate dreams a reality.
         </p>
 
-        <div className="mt-4 grid w-full grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3">
+        <div className="mt-4 grid w-full grid-cols-1 gap-8 md:gap-10 lg:grid-cols-3">
           {FEATURES.map((feature) => (
             <div
               key={feature.title}

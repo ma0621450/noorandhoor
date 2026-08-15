@@ -19,7 +19,7 @@ const BlogCard = ({ blog }) => {
 
         <div className="flex flex-col gap-3 p-5">
           <p className="text-xs font-medium text-[#ba8a44]">{date}</p>
-          <h3 className="!font-accent text-md h-12 font-normal uppercase leading-snug tracking-wide text-white transition-colors duration-300 group-hover:text-[#ba8a44]">
+          <h3 className="!font-accent text-md min-h-12 font-normal uppercase leading-snug tracking-wide text-white transition-colors duration-300 line-clamp-2 group-hover:text-[#ba8a44]">
             {title}
           </h3>
           <p className="line-clamp-3 text-xs leading-relaxed text-white">

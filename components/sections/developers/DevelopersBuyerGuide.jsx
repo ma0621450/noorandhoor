@@ -9,7 +9,7 @@ export default function DevelopersBuyerGuide() {
         <div className="section-divider" />
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {BUYER_GUIDES.map((guide) => (
           <article key={guide.name} className="flex flex-col">
             <div className="overflow-hidden rounded-[15px] border border-[rgba(188,135,65,0.2)] bg-[#1A1A1A]">

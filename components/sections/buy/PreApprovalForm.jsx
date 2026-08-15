@@ -36,7 +36,7 @@ export default function PreApprovalForm() {
 
         <Button
           type="submit"
-          className="mt-2 h-12 w-full !rounded-xl px-1.5 text-center text-[13px] font-medium !normal-case !tracking-normal whitespace-nowrap sm:text-sm"
+          className="mt-2 h-auto min-h-12 w-full !rounded-xl px-2 py-2.5 text-center text-xs font-medium leading-tight !normal-case !tracking-normal whitespace-normal sm:text-sm"
         >
           Verify Mortgage Pre-Approval Status
         </Button>

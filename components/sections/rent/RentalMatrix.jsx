@@ -69,7 +69,10 @@ export default function RentalMatrix() {
         <div className="section-divider" />
       </div>
 
-      <div className="mx-auto mt-10 max-w-[995px] overflow-x-auto">
+      <div className="mx-auto mt-10 max-w-[995px] overflow-x-auto [-webkit-overflow-scrolling:touch]">
+        <p className="mb-2 text-center text-xs text-white/50 md:hidden">
+          Swipe sideways to view all columns
+        </p>
         <table className="w-full min-w-[760px] border-collapse">
           <thead>
             <tr
@@ -78,10 +81,12 @@ export default function RentalMatrix() {
                 background: "linear-gradient(22.27deg, #EEC876 13.91%, #B3813D 86.09%)",
               }}
             >
-              {COLUMNS.map((column) => (
+              {COLUMNS.map((column, index) => (
                 <th
                   key={column.key}
-                  className="px-4 py-5 text-left font-semibold sm:px-5"
+                  className={`px-4 py-5 text-left font-semibold sm:px-5 ${
+                    index === 0 ? "sticky left-0 z-10 bg-[#d6a85e]" : ""
+                  }`}
                 >
                   {column.label}
                 </th>
@@ -99,13 +104,17 @@ export default function RentalMatrix() {
                     isLight ? "bg-white text-[#111]" : "bg-transparent text-[#f5f5f5]"
                   }`}
                 >
-                  {COLUMNS.map((column) => (
+                  {COLUMNS.map((column, colIndex) => (
                     <td
                       key={column.key}
                       className={`px-4 py-5 sm:px-5 ${
                         column.key === "rent" || column.key === "avgPrice" || column.key === "community"
                           ? "font-semibold"
                           : "font-normal"
+                      } ${
+                        colIndex === 0
+                          ? `sticky left-0 z-10 ${isLight ? "bg-white" : "bg-[#111]"}`
+                          : ""
                       }`}
                     >
                       {row[column.key]}

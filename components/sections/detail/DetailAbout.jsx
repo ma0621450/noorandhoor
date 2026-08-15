@@ -72,12 +72,12 @@ export default function DetailAbout({ property }) {
                     className="mt-0.5 h-6 w-6 shrink-0 text-[#BA8A44]"
                     strokeWidth={1.4}
                   />
-                  <div className="flex min-w-0 flex-1 items-center justify-between gap-4 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px]">
-                    <span className="text-[#F5F5F5]">{doc.name}</span>
+                  <div className="flex min-w-0 flex-1 flex-col gap-1 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                    <span className="break-words text-[#F5F5F5]">{doc.name}</span>
                     <span
-                      className={
+                      className={`shrink-0 text-sm sm:text-base ${
                         doc.available ? "text-[#F5F5F5]" : "text-[#5D5D5D]"
-                      }
+                      }`}
                     >
                       {doc.available ? "AVAILABLE" : "NOT AVAILABLE"}
                     </span>

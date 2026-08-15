@@ -9,9 +9,9 @@ import OffPlanTrustSignals from "@/components/sections/offplan/OffPlanTrustSigna
 
 export default function OffPlanHero() {
   return (
-    <section className="relative isolate z-20 h-svh min-h-[695px] w-full overflow-hidden">
+    <section className="relative isolate z-20 min-h-svh w-full overflow-x-clip overflow-y-visible">
       <HeroBackgroundCarousel overlayClassName="bg-black/60">
-        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-6 px-4 pt-24 pb-8 text-center sm:gap-[38px] sm:px-8 lg:px-20">
+        <div className="absolute inset-0 flex h-full flex-col items-center justify-center gap-5 overflow-y-auto px-4 pt-24 pb-8 text-center sm:gap-8 sm:px-8 lg:gap-[38px] lg:px-20">
           <h1 className="text-gold-gradient max-w-[1121px] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
             Off Plan Properties in UAE
           </h1>

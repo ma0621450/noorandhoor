@@ -28,7 +28,7 @@ export default function ApartmentHomes() {
       <div className="section-inner">
         <h2 className="text-gold-gradient mb-10 text-center sm:mb-12">Homes</h2>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:grid-cols-4">
           {pageItems.map((property) => (
             <ApartmentPropertyCard key={`${page}-${property.id}`} property={property} />
           ))}

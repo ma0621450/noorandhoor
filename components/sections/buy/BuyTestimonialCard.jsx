@@ -6,13 +6,13 @@ export default function BuyTestimonialCard({ testimonial }) {
   const { quote, name, title, avatar } = testimonial;
 
   return (
-    <article className="relative flex h-full min-h-[438px] w-full cursor-pointer flex-col gap-8 border border-[rgba(233,195,73,0.15)] px-[41px] pb-[67px] pt-[41px] transition hover:border-[rgba(233,195,73,0.45)]">
+    <article className="relative flex h-full min-h-[360px] w-full cursor-pointer flex-col gap-6 border border-[rgba(233,195,73,0.15)] px-5 py-8 transition hover:border-[rgba(233,195,73,0.45)] sm:min-h-[438px] sm:gap-8 sm:px-8 sm:pb-[67px] sm:pt-10 md:px-[41px] md:pt-[41px]">
       <Image
         src={quoteIcon}
         alt=""
         width={17}
         height={12}
-        className="absolute right-8 top-8"
+        className="absolute right-5 top-5 sm:right-8 sm:top-8"
       />
 
       <div className="flex items-center gap-1">

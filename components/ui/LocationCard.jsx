@@ -15,8 +15,8 @@ const LocationCard = ({
 
   const content = (
     <article
-      className="group relative h-[450px] shrink-0 cursor-pointer overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02]"
-      style={{ width }}
+      className="group relative h-[450px] w-[min(290px,80vw)] shrink-0 cursor-pointer overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02]"
+      style={width !== 290 ? { width: `min(${width}px, 80vw)` } : undefined}
     >
       <Image
         src={image}

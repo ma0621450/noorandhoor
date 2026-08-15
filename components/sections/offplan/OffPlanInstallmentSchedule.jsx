@@ -28,7 +28,10 @@ export default function OffPlanInstallmentSchedule({ price }) {
         </p>
 
         <div className="mt-14 w-full overflow-hidden rounded-xl border border-[rgba(184,147,90,0.22)] bg-[#FAF6EE]">
-          <div className="overflow-x-auto">
+          <p className="bg-[#FAF6EE] px-4 pt-3 text-center text-xs text-[#7A6E5F] md:hidden">
+            Swipe sideways to view all columns
+          </p>
+          <div className="overflow-x-auto [-webkit-overflow-scrolling:touch]">
             <table className="w-full min-w-[640px] border-collapse text-left">
               <thead>
                 <tr className="bg-[#111111]">
@@ -39,7 +42,7 @@ export default function OffPlanInstallmentSchedule({ price }) {
                         col === "Amount" || col === "Balance Remaining"
                           ? "text-right"
                           : ""
-                      }`}
+                      } ${col === "#" ? "sticky left-0 z-10 bg-[#111111]" : ""}`}
                     >
                       <span className="text-gold-gradient">{col}</span>
                     </th>
@@ -53,7 +56,7 @@ export default function OffPlanInstallmentSchedule({ price }) {
                   return (
                     <tr key={row.id} className={stripe}>
                       <td
-                        className={`px-6 py-4 text-[12.8px] ${
+                        className={`sticky left-0 z-10 px-6 py-4 text-[12.8px] ${stripe} ${
                           isDown ? "font-medium text-[#B8935A]" : "text-[#7A6E5F]"
                         }`}
                       >

@@ -37,7 +37,7 @@ export default function Commitments() {
           properties perfectly aligned with your lifestyle and investment goals.
         </p>
 
-        <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+        <div className="grid w-full grid-cols-1 gap-6 md:gap-8 lg:grid-cols-3">
           {COMMITMENTS.map((commitment) => (
             <div
               key={commitment.title}
