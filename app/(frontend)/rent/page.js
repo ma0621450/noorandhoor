@@ -1,4 +1,4 @@
-import RentHero from "@/components/sections/rent/RentHero";
+import PropertyHero from "@/components/common/PropertyHero";
 import FeaturedRentals from "@/components/sections/rent/FeaturedRentals";
 import PrimeLocations from "@/components/sections/rent/PrimeLocations";
 import RentalMatrix from "@/components/sections/rent/RentalMatrix";
@@ -7,11 +7,11 @@ import TopRentalCommunities from "@/components/sections/rent/TopRentalCommunitie
 import RentalAffordability from "@/components/sections/rent/RentalAffordability";
 import RentingProcess from "@/components/sections/rent/RentingProcess";
 import MarketInsights from "@/components/sections/buy/MarketInsights";
-import RentTestimonials from "@/components/sections/rent/RentTestimonials";
-import RentFAQs from "@/components/sections/rent/RentFAQs";
+import TestimonialSection from "@/components/common/TestimonialSection";
+import FaqSection from "@/components/common/FaqSection";
 import TrustedDeveloperPartners from "@/components/sections/buy/TrustedDeveloperPartners";
 import LeadGenerationForm from "@/components/sections/buy/LeadGenerationForm";
-import RentGetStarted from "@/components/sections/rent/RentGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 
 export const metadata = {
   title: "Rent Properties | Noor and Hoor",
@@ -21,8 +21,8 @@ export const metadata = {
 
 export default function RentPage() {
   return (
-    <div className="w-full overflow-x-clip bg-[#111111]">
-      <RentHero />
+    <>
+      <PropertyHero variant="rent" />
       <FeaturedRentals />
       <PrimeLocations />
       <RentalMatrix />
@@ -31,11 +31,11 @@ export default function RentPage() {
       <RentalAffordability />
       <RentingProcess />
       <MarketInsights />
-      <RentTestimonials />
-      <RentFAQs />
+      <TestimonialSection variant="rent" />
+      <FaqSection variant="rent" />
       <TrustedDeveloperPartners />
       <LeadGenerationForm />
-      <RentGetStarted />
-    </div>
+      <PropertyJourneyCta variant="rent" />
+    </>
   );
 }

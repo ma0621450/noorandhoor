@@ -1,4 +1,4 @@
-import SellCategoryDetailPage from "@/components/sections/sell-properties/SellCategoryDetailPage";
+import PropertyDetailPage from "@/components/sections/property/PropertyDetailPage";
 import { getSellCategory } from "@/components/sections/sell-properties/sellCategoryConfig";
 import { RENT_PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
 
@@ -18,5 +18,5 @@ export function generateMetadata() {
 }
 
 export default async function SellPropertyDetailPage({ params }) {
-  return <SellCategoryDetailPage categoryKey="properties" params={params} />;
+  return <PropertyDetailPage market="sell" categoryKey="properties" params={params} />;
 }

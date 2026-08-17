@@ -20,7 +20,7 @@ const COMMITMENTS = [
     icon: svg3,
     title: "Honest Advisory First",
     description:
-      "Built on clear fees and transparent talk, we focus on finding premium investments that match your long-term goals.",
+      "Built on clear fees and transparent talk, we focus on finding premium investments that match your long term goals.",
   },
 ];
 

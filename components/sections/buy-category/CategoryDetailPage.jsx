@@ -3,9 +3,9 @@ import DetailGallery from "@/components/sections/detail/DetailGallery";
 import DetailAbout from "@/components/sections/detail/DetailAbout";
 import DetailFeatures from "@/components/sections/detail/DetailFeatures";
 import DetailRelated from "@/components/sections/detail/DetailRelated";
-import DetailFAQs from "@/components/sections/detail/DetailFAQs";
+import FaqSection from "@/components/common/FaqSection";
 import DetailAgentContact from "@/components/sections/detail/DetailAgentContact";
-import BuyGetStarted from "@/components/sections/buy/BuyGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 import { PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
 import { getCategory } from "@/components/sections/buy-category/categoryConfig";
 
@@ -38,9 +38,9 @@ export default async function CategoryDetailPage({ categoryKey, params }) {
       <DetailAbout property={property} />
       <DetailFeatures />
       <DetailRelated basePath={category.path} />
-      <DetailFAQs />
+      <FaqSection variant="detail" />
       <DetailAgentContact agent={property.agent} />
-      <BuyGetStarted />
+      <PropertyJourneyCta variant="buy" />
     </div>
   );
 }

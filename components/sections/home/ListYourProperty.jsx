@@ -11,12 +11,13 @@ export default function ListYourProperty() {
             Valuation & Sales
           </h3>
           <h2 className="text-gold-gradient max-w-full uppercase xl:max-w-[480px]">
-            Interested in Selling Your Home?
+            Ready to Sell Your Property with Confidence?
           </h2>
           <div className="h-[4px] w-25 bg-[#B3813D]" />
           <p className="text-md text-medium my-2 max-w-full xl:max-w-[430px] xl:my-4">
-            Buy or sell your home with our agents. House prices, inspections,
-            negotiations and other services are included in the house price.
+            Trust our specialists to showcase your property, attract qualified
+            buyers, and finalize deals smoothly, maximizing value with complete
+            peace of mind.
           </p>
           <Button className="w-full sm:w-auto">List Your Property</Button>
         </div>

@@ -9,9 +9,9 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="w-full overflow-x-clip bg-[#111111]">
+    <>
       <ContactHero />
       <ContactMain />
-    </div>
+    </>
   );
 }

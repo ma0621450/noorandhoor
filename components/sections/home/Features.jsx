@@ -5,12 +5,12 @@ import Image from "next/image";
 
 const FEATURES = [
   {
-    title: "Seamless Deals",
-    icon: icon1,
-  },
-  {
     title: "Expert Advisors",
     icon: icon2,
+  },
+  {
+    title: "Seamless Deals",
+    icon: icon1,
   },
   {
     title: "24/7 Support",

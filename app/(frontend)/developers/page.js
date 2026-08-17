@@ -1,4 +1,4 @@
-import DevelopersHero from "@/components/sections/developers/DevelopersHero";
+import PropertyHero from "@/components/common/PropertyHero";
 import DevelopersChoice from "@/components/sections/developers/DevelopersChoice";
 import DevelopersFeatured from "@/components/sections/developers/DevelopersFeatured";
 import DevelopersComparison from "@/components/sections/developers/DevelopersComparison";
@@ -7,7 +7,7 @@ import DevelopersBuyerGuide from "@/components/sections/developers/DevelopersBuy
 import DevelopersLeadForm from "@/components/sections/developers/DevelopersLeadForm";
 import DevelopersWhyChoose from "@/components/sections/developers/DevelopersWhyChoose";
 import DevelopersFAQs from "@/components/sections/developers/DevelopersFAQs";
-import DevelopersGetStarted from "@/components/sections/developers/DevelopersGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 
 export const metadata = {
   title: "Developers | Noor and Hoor",
@@ -17,8 +17,8 @@ export const metadata = {
 
 export default function DevelopersPage() {
   return (
-    <div className="w-full overflow-x-clip bg-[#111111]">
-      <DevelopersHero />
+    <>
+      <PropertyHero variant="developers" />
       <DevelopersChoice />
       <DevelopersFeatured />
       <DevelopersComparison />
@@ -27,7 +27,7 @@ export default function DevelopersPage() {
       <DevelopersLeadForm />
       <DevelopersWhyChoose />
       <DevelopersFAQs />
-      <DevelopersGetStarted />
-    </div>
+      <PropertyJourneyCta variant="buy" />
+    </>
   );
 }

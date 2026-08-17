@@ -27,7 +27,7 @@ export default function ClientStories() {
         <p className="max-w-full text-sm font-medium leading-relaxed text-white xl:max-w-[500px] xl:pt-8">
           At Noor &amp; Hoor Properties, we put your dreams first. Whether you are
           searching for a luxury villa, selling an exclusive property, or
-          expanding your investment portfolio in UAE, we deliver honest advice
+          expanding your investment portfolio in the UAE, we deliver honest advice
           and clear transparency every step of the way.
         </p>
       </div>

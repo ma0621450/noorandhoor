@@ -39,7 +39,9 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 w-full overflow-x-clip bg-[#111111]">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

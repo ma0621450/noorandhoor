@@ -4,7 +4,7 @@ import OffPlanListedDate from "@/components/sections/offplan/OffPlanListedDate";
 import OffPlanPaymentPlan from "@/components/sections/offplan/OffPlanPaymentPlan";
 import OffPlanPropertyFeatures from "@/components/sections/offplan/OffPlanPropertyFeatures";
 import OffPlanRelated from "@/components/sections/offplan/OffPlanRelated";
-import OffPlanGetStarted from "@/components/sections/offplan/OffPlanGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 import { PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
 import {
   getOffPlanCategory,
@@ -43,7 +43,7 @@ export default async function OffPlanCategoryDetailPage({ categoryKey, params })
       <OffPlanPaymentPlan />
       <OffPlanPropertyFeatures categoryLabel={category.heading} />
       <OffPlanRelated basePath={category.path} properties={related} />
-      <OffPlanGetStarted heading="Ready to Start Your Holiday Property Journey?" />
+      <PropertyJourneyCta variant="offplan" heading="Ready to Start Your Holiday Property Journey?" />
     </div>
   );
 }

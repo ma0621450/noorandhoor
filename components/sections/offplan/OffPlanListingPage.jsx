@@ -1,13 +1,20 @@
-import OffPlanHero from "@/components/sections/offplan/OffPlanHero";
+import PropertyHero from "@/components/common/PropertyHero";
 import OffPlanHomes from "@/components/sections/offplan/OffPlanHomes";
-import OffPlanGetStarted from "@/components/sections/offplan/OffPlanGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
+import { getOffPlanCategory } from "@/components/sections/offplan/offplanCategoryConfig";
 
 export default function OffPlanListingPage({ categoryKey }) {
+  const category = getOffPlanCategory(categoryKey);
+
   return (
-    <div className="w-full overflow-x-clip bg-[#111111]">
-      <OffPlanHero />
+    <>
+      <PropertyHero
+        variant="offplan"
+        title={`Off Plan ${category.heading} in UAE`}
+        description={category.metaDescription}
+      />
       <OffPlanHomes categoryKey={categoryKey} />
-      <OffPlanGetStarted />
-    </div>
+      <PropertyJourneyCta variant="offplan" />
+    </>
   );
 }

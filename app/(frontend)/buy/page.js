@@ -1,4 +1,4 @@
-import BuyHero from "@/components/sections/buy/BuyHero";
+import PropertyHero from "@/components/common/PropertyHero";
 import PropertyCategories from "@/components/sections/buy/PropertyCategories";
 import FeaturedBuyProperties from "@/components/sections/buy/FeaturedBuyProperties";
 import MatchMaking from "@/components/sections/buy/MatchMaking";
@@ -7,11 +7,11 @@ import PopularCommunities from "@/components/sections/buy/PopularCommunities";
 import FinancialArchitecture from "@/components/sections/buy/FinancialArchitecture";
 import BuyingProcess from "@/components/sections/buy/BuyingProcess";
 import MarketInsights from "@/components/sections/buy/MarketInsights";
-import BuyTestimonials from "@/components/sections/buy/BuyTestimonials";
-import BuyFAQs from "@/components/sections/buy/BuyFAQs";
+import TestimonialSection from "@/components/common/TestimonialSection";
+import FaqSection from "@/components/common/FaqSection";
 import TrustedDeveloperPartners from "@/components/sections/buy/TrustedDeveloperPartners";
 import LeadGenerationForm from "@/components/sections/buy/LeadGenerationForm";
-import BuyGetStarted from "@/components/sections/buy/BuyGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 
 export const metadata = {
   title: "Buy Properties | Noor and Hoor",
@@ -21,8 +21,8 @@ export const metadata = {
 
 export default function BuyPage() {
   return (
-    <div className="w-full overflow-x-clip">
-      <BuyHero />
+    <>
+      <PropertyHero variant="buy" />
       <PropertyCategories />
       <FeaturedBuyProperties />
       <MatchMaking />
@@ -31,11 +31,11 @@ export default function BuyPage() {
       <FinancialArchitecture />
       <BuyingProcess />
       <MarketInsights />
-      <BuyTestimonials />
-      <BuyFAQs />
+      <TestimonialSection variant="buy" />
+      <FaqSection variant="buy" />
       <TrustedDeveloperPartners />
       <LeadGenerationForm />
-      <BuyGetStarted />
-    </div>
+      <PropertyJourneyCta variant="buy" />
+    </>
   );
 }

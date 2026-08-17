@@ -1,6 +1,6 @@
-import OffPlanHero from "@/components/sections/offplan/OffPlanHero";
+import PropertyHero from "@/components/common/PropertyHero";
 import OffPlanFeatured from "@/components/sections/offplan/OffPlanFeatured";
-import OffPlanGetStarted from "@/components/sections/offplan/OffPlanGetStarted";
+import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 
 export const metadata = {
   title: "Off Plan Properties in UAE | Noor and Hoor",
@@ -10,10 +10,10 @@ export const metadata = {
 
 export default function OffPlanPage() {
   return (
-    <div className="w-full overflow-x-clip bg-[#111111]">
-      <OffPlanHero />
+    <>
+      <PropertyHero variant="offplan" />
       <OffPlanFeatured />
-      <OffPlanGetStarted />
-    </div>
+      <PropertyJourneyCta variant="offplan" />
+    </>
   );
 }

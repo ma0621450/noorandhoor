@@ -3,24 +3,21 @@
 import { useMemo, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import ApartmentPropertyCard from "@/components/sections/apartments/ApartmentPropertyCard";
-import {
-  getRentCategory,
-  HOMES_PER_PAGE,
-  TOTAL_PAGES,
-} from "@/components/sections/rent-properties/rentCategoryConfig";
 
-export default function PropertiesRentHomes({ categoryKey }) {
-  const category = getRentCategory(categoryKey);
-  const homes = category.homes;
+export default function PropertyGrid({
+  category,
+  homesPerPage = 8,
+  totalPages = 3,
+}) {
   const [page, setPage] = useState(1);
 
   const pageItems = useMemo(() => {
-    const start = (page - 1) * HOMES_PER_PAGE;
-    return homes.slice(start, start + HOMES_PER_PAGE);
-  }, [homes, page]);
+    const start = (page - 1) * homesPerPage;
+    return category.homes.slice(start, start + homesPerPage);
+  }, [category.homes, homesPerPage, page]);
 
   const goTo = (next) => {
-    setPage(Math.min(Math.max(next, 1), TOTAL_PAGES));
+    setPage(Math.min(Math.max(next, 1), totalPages));
   };
 
   return (
@@ -30,7 +27,7 @@ export default function PropertiesRentHomes({ categoryKey }) {
           <p className="text-xs font-normal uppercase leading-[26px] tracking-wide text-[#f5f5f5]">
             {category.eyebrow}
           </p>
-          <h2 className="text-gold-gradient text-[clamp(2rem,5vw,2.875rem)] leading-[1.04] font-extrabold uppercase">
+          <h2 className="text-gold-gradient text-[clamp(2rem,5vw,2.875rem)] font-extrabold uppercase leading-[1.04]">
             {category.heading}
           </h2>
         </div>
@@ -46,23 +43,24 @@ export default function PropertiesRentHomes({ categoryKey }) {
         </div>
 
         <div className="mt-10 flex items-center justify-end gap-[11px] sm:mt-12">
-          {Array.from({ length: TOTAL_PAGES }).map((_, i) => {
-            const n = i + 1;
-            const active = n === page;
+          {Array.from({ length: totalPages }).map((_, index) => {
+            const pageNumber = index + 1;
+            const active = pageNumber === page;
+
             return (
               <button
-                key={n}
+                key={pageNumber}
                 type="button"
-                aria-label={`Go to page ${n}`}
+                aria-label={`Go to page ${pageNumber}`}
                 aria-current={active ? "page" : undefined}
-                onClick={() => goTo(n)}
+                onClick={() => goTo(pageNumber)}
                 className={`flex h-[38px] w-[26px] cursor-pointer items-center justify-center rounded-full border text-sm font-medium transition ${
                   active
                     ? "border-[#d4af37] bg-[#d4af37]/15 text-[#d4af37]"
                     : "border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37]/10"
                 }`}
               >
-                {n}
+                {pageNumber}
               </button>
             );
           })}
@@ -70,7 +68,7 @@ export default function PropertiesRentHomes({ categoryKey }) {
             type="button"
             aria-label="Next page"
             onClick={() => goTo(page + 1)}
-            disabled={page === TOTAL_PAGES}
+            disabled={page === totalPages}
             className="cursor-pointer text-[#d4af37] transition hover:text-[#eec876] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ChevronRight className="h-6 w-3" strokeWidth={1.5} />

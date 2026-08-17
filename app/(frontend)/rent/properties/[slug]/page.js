@@ -1,4 +1,4 @@
-import RentCategoryDetailPage from "@/components/sections/rent-properties/RentCategoryDetailPage";
+import PropertyDetailPage from "@/components/sections/property/PropertyDetailPage";
 import { getRentCategory } from "@/components/sections/rent-properties/rentCategoryConfig";
 import { RENT_PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
 
@@ -18,5 +18,5 @@ export function generateMetadata() {
 }
 
 export default async function RentPropertyDetailPage({ params }) {
-  return <RentCategoryDetailPage categoryKey="properties" params={params} />;
+  return <PropertyDetailPage market="rent" categoryKey="properties" params={params} />;
 }
