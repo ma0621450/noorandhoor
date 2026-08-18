@@ -1,6 +1,4 @@
-import Link from "next/link";
-import Button from "@/components/ui/Button";
-import PropertyCard from "@/components/ui/PropertyCard";
+import FeaturedPropertySection from "@/components/sections/property/FeaturedPropertySection";
 import apartmentsImage from "@/public/images/buy/apartments.png";
 import villasImage from "@/public/images/buy/villas.png";
 import penthouseImage from "@/public/images/buy/penthouse.png";
@@ -12,7 +10,7 @@ import carousel1 from "@/public/images/landingpage/landingpagecarousel1.jpg";
 
 const FEATURES = { bedroom: 6, bathroom: 2, area: 2900 };
 
-const FEATURED_RENTALS = [
+export const FEATURED_RENTALS = [
   {
     id: 1,
     image: villasImage,
@@ -105,32 +103,10 @@ const FEATURED_RENTALS = [
 
 export default function FeaturedRentals() {
   return (
-    <section className="section-container">
-      <div className="mb-10 flex flex-col gap-6 sm:mb-12 lg:flex-row lg:items-end lg:justify-between">
-        <div className="flex min-w-0 flex-col gap-4">
-          <h3 className="section-sub-heading">Featured Properties</h3>
-          <h2 className="text-gold-gradient max-w-[604px]">
-            Featured Rentals in Dubai
-          </h2>
-        </div>
-
-        <Link href="/rent/properties" className="w-full sm:w-auto">
-          <Button
-            variant="secondary"
-            className="h-[58px] w-full shrink-0 rounded-xl sm:w-[234px] lg:self-end"
-          >
-            View Properties
-          </Button>
-        </Link>
-      </div>
-
-      <div className="grid grid-cols-1 gap-[30px] sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {FEATURED_RENTALS.map((property) => (
-          <div key={property.id} className="w-full">
-            <PropertyCard property={property} badge={property.badge} />
-          </div>
-        ))}
-      </div>
-    </section>
+    <FeaturedPropertySection
+      title="Featured Rentals in Dubai"
+      href="/rent/properties"
+      properties={FEATURED_RENTALS.slice(0, 4)}
+    />
   );
 }

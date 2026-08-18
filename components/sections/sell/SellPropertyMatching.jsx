@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import { Select } from "@/components/ui/CaretDown";
 
 const FIELD_CLASS =
   "w-full rounded-[11px] bg-[#111] px-5 py-3 text-[11px] font-semibold text-[#f5f5f5] placeholder:text-[#f5f5f5]/70 outline-none transition focus:ring-1 focus:ring-[#ba8a44] sm:text-sm";
@@ -59,10 +60,10 @@ export default function SellPropertyMatching() {
                   <label htmlFor="sell-timeline" className={LABEL_CLASS}>
                     Desired Timeline
                   </label>
-                  <select
+                  <Select
                     id="sell-timeline"
                     defaultValue=""
-                    className={`${FIELD_CLASS} h-[41px] cursor-pointer appearance-none`}
+                    className={`${FIELD_CLASS} h-[41px] cursor-pointer`}
                   >
                     <option value="" disabled>
                       Select Timeline
@@ -71,16 +72,16 @@ export default function SellPropertyMatching() {
                     <option>1–3 Months</option>
                     <option>3–6 Months</option>
                     <option>6+ Months</option>
-                  </select>
+                  </Select>
                 </div>
                 <div>
                   <label htmlFor="sell-occupancy" className={LABEL_CLASS}>
                     Occupancy Status
                   </label>
-                  <select
+                  <Select
                     id="sell-occupancy"
                     defaultValue=""
-                    className={`${FIELD_CLASS} h-[41px] cursor-pointer appearance-none`}
+                    className={`${FIELD_CLASS} h-[41px] cursor-pointer`}
                   >
                     <option value="" disabled>
                       Select Occupancy
@@ -88,7 +89,7 @@ export default function SellPropertyMatching() {
                     <option>Vacant</option>
                     <option>Owner Occupied</option>
                     <option>Tenanted</option>
-                  </select>
+                  </Select>
                 </div>
               </div>
 

@@ -68,7 +68,7 @@ export default function PropertyCategories() {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className={`mt-8 flex touch-none select-none gap-10 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] lg:mt-12 [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        className={`mt-8 flex snap-x snap-mandatory touch-pan-x select-none gap-6 overflow-x-auto pb-2 sm:gap-8 lg:mt-12 lg:gap-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
       >
         {CATEGORIES.map((category) => (
           <LocationCard

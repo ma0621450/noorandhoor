@@ -1,4 +1,5 @@
 import { Building2, Mail, Phone, User } from "lucide-react";
+import { Select } from "@/components/ui/CaretDown";
 
 const INPUT =
   "h-[50px] w-full cursor-pointer rounded-[10px] border border-[#d1d5dc] bg-[#111] px-4 text-base text-[#f5f5f5] placeholder:text-[#f5f5f5]/50 outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
@@ -27,13 +28,13 @@ export default function LeadFormFields() {
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
       <Field label="Property Interest">
-        <select className={INPUT} defaultValue="" aria-label="Property Interest">
+        <Select className={INPUT} defaultValue="" aria-label="Property Interest">
           <option value="" disabled>
             Select interest
           </option>
           <option>Buy</option>
           <option>Invest</option>
-        </select>
+        </Select>
       </Field>
 
       <Field label="Full Name">
@@ -41,14 +42,14 @@ export default function LeadFormFields() {
       </Field>
 
       <Field label="Property Type(s)">
-        <select className={INPUT} defaultValue="" aria-label="Property Type">
+        <Select className={INPUT} defaultValue="" aria-label="Property Type">
           <option value="" disabled>
             Select type
           </option>
           <option>Villa</option>
           <option>Apartment</option>
           <option>Penthouse</option>
-        </select>
+        </Select>
       </Field>
 
       <Field label="Email Address">
@@ -72,22 +73,22 @@ export default function LeadFormFields() {
       </Field>
 
       <Field label="Assign to Team Member">
-        <select className={INPUT} defaultValue="" aria-label="Team Member">
+        <Select className={INPUT} defaultValue="" aria-label="Team Member">
           <option value="" disabled>
             Select member
           </option>
           <option>Andrew Smith</option>
-        </select>
+        </Select>
       </Field>
 
       <Field label="Custom Request">
-        <select className={INPUT} defaultValue="" aria-label="Custom Request">
+        <Select className={INPUT} defaultValue="" aria-label="Custom Request">
           <option value="" disabled>
             Select request
           </option>
           <option>Viewing</option>
           <option>Consultation</option>
-        </select>
+        </Select>
       </Field>
     </div>
   );

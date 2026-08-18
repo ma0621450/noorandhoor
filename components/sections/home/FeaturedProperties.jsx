@@ -1,55 +1,62 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Building2, FileText, House, Key } from "lucide-react";
 import Button from "@/components/ui/Button";
 import PropertyCard from "@/components/ui/PropertyCard";
-import propertyImage from "@/public/images/landingpage/propertyImg.png";
-import { Building2, FileText, House, Key } from "lucide-react";
+import { FEATURED_BUY_PROPERTIES } from "@/components/sections/buy/FeaturedBuyProperties";
+import { FEATURED_SELL_PROPERTIES } from "@/components/sections/sell/FeaturedSellProperties";
+import { FEATURED_RENTALS } from "@/components/sections/rent/FeaturedRentals";
+import { OFF_PLAN_PROPERTIES } from "@/components/sections/offplan/offPlanProperties";
 
-const FEATURED_PROPERTIES = [
-  {
-    id: 1,
-    image: propertyImage,
-    title: "Saadiyat Island Penthouse",
-    location: "Aljada, Sharjah",
-    features: { bedroom: 6, bathroom: 2, area: 2900 },
-    price: 45000000,
-    featured: true,
-  },
-  {
-    id: 2,
-    image: propertyImage,
-    title: "Dubai Marina Apartment",
-    location: "Dubai Marina, Dubai",
-    features: { bedroom: 3, bathroom: 2, area: 1800 },
-    price: 3200000,
-    featured: true,
-  },
-  {
-    id: 3,
-    image: propertyImage,
-    title: "Palm Jumeirah Villa",
-    location: "Palm Jumeirah, Dubai",
-    features: { bedroom: 5, bathroom: 4, area: 4200 },
-    price: 18500000,
-    featured: true,
-  },
-  {
-    id: 4,
-    image: propertyImage,
-    title: "Dubai Marina Apartment",
-    location: "Dubai Marina, Dubai",
-    features: { bedroom: 3, bathroom: 2, area: 1800 },
-    price: 3200000,
-    featured: true,
-  },
+const OFF_PLAN_SLUGS = [
+  "palm-jumeirah-villa",
+  "spacious-apartment",
+  "downtown-apartment",
+  "two-bedroom-with-sauna",
 ];
 
-const FILTER_BUTTONS = [
-  { label: "Buy", icon: House, variant: "primary" },
-  { label: "Sell", icon: Building2, variant: "secondary" },
-  { label: "Rent", icon: Key, variant: "secondary" },
-  { label: "Off Plan", icon: FileText, variant: "secondary" },
+const OFF_PLAN_FEATURED = OFF_PLAN_PROPERTIES.slice(0, 4).map((property, index) => ({
+  ...property,
+  href: `/off-plan/apartments/${OFF_PLAN_SLUGS[index]}`,
+}));
+
+const TABS = [
+  {
+    id: "buy",
+    label: "Buy",
+    icon: House,
+    href: "/buy/properties",
+    properties: FEATURED_BUY_PROPERTIES,
+  },
+  {
+    id: "sell",
+    label: "Sell",
+    icon: Building2,
+    href: "/sell/properties",
+    properties: FEATURED_SELL_PROPERTIES,
+  },
+  {
+    id: "rent",
+    label: "Rent",
+    icon: Key,
+    href: "/rent/properties",
+    properties: FEATURED_RENTALS.slice(0, 4),
+  },
+  {
+    id: "offplan",
+    label: "Off Plan",
+    icon: FileText,
+    href: "/off-plan",
+    properties: OFF_PLAN_FEATURED,
+  },
 ];
 
 const FeaturedProperties = () => {
+  const [activeId, setActiveId] = useState("buy");
+  const activeTab = TABS.find((tab) => tab.id === activeId) || TABS[0];
+
   return (
     <section className="section-container">
       <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-end lg:justify-between">
@@ -59,11 +66,13 @@ const FeaturedProperties = () => {
             Explore Properties or Homes in Dubai
           </h2>
           <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:gap-4">
-            {FILTER_BUTTONS.map(({ label, icon: Icon, variant }) => (
+            {TABS.map(({ id, label, icon: Icon }) => (
               <Button
-                key={label}
-                variant={variant}
+                key={id}
+                variant={id === activeId ? "primary" : "secondary"}
                 className="w-full px-3 text-xs sm:w-auto sm:px-4 sm:text-sm"
+                aria-pressed={id === activeId}
+                onClick={() => setActiveId(id)}
               >
                 <Icon className="h-4 w-4 shrink-0 sm:h-[21px] sm:w-[21px]" />
                 <span>{label}</span>
@@ -72,17 +81,16 @@ const FeaturedProperties = () => {
           </div>
         </div>
 
-        <Button
-          variant="secondary"
-          className="w-full shrink-0 sm:w-auto lg:self-end"
-        >
-          View All Properties
-        </Button>
+        <Link href={activeTab.href} className="w-full shrink-0 sm:w-auto lg:self-end">
+          <Button variant="secondary" className="w-full sm:w-auto">
+            View All Properties
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 xl:grid-cols-4">
-        {FEATURED_PROPERTIES.map((property) => (
-          <PropertyCard key={property.id} property={property} />
+        {activeTab.properties.map((property) => (
+          <PropertyCard key={`${activeTab.id}-${property.id}`} property={property} />
         ))}
       </div>
     </section>

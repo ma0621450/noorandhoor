@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Building2, Handshake, KeyRound } from "lucide-react";
+import PropertyHero from "@/components/common/PropertyHero";
+import Button from "@/components/ui/Button";
 
 export const metadata = {
   title: "About Us | Noor & Hoor Properties",
@@ -30,28 +32,15 @@ const values = [
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-[#111] pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
-      <section className="section-inner">
+    <>
+      <PropertyHero variant="about" />
+      <section className="section-container">
         <div className="mx-auto max-w-5xl">
-          <header className="mx-auto max-w-4xl text-center">
-            <p className="text-xs font-light uppercase tracking-[3.6px] text-[#f5f5f5]">
-              Our Company
-            </p>
-            <h1 className="text-gold-gradient mt-5 text-[clamp(2.5rem,5vw,4.5rem)]">
-              About Us
-            </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-sm leading-7 text-white/75 sm:text-base">
-              Noor &amp; Hoor Properties connects clients with exceptional real estate
-              opportunities across Dubai. We combine local market knowledge with
-              personal, dependable service.
-            </p>
-          </header>
-
-          <div className="mt-12 grid gap-5 md:grid-cols-3 sm:mt-16">
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
             {values.map(({ icon: Icon, title, description }) => (
               <article
                 key={title}
-                className="rounded-2xl border border-white/10 bg-[#171717] p-7 transition-colors hover:border-[#ba8a44]/50"
+                className="rounded-2xl border border-white/10 bg-[#171717] p-6 sm:p-7 transition-colors hover:border-[#ba8a44]/50"
               >
                 <Icon className="h-8 w-8 text-[#ba8a44]" strokeWidth={1.4} />
                 <h2 className="!font-accent mt-6 text-xl text-white">{title}</h2>
@@ -87,15 +76,12 @@ export default function AboutUsPage() {
               Tell us what you are looking for and our team will help you take the
               next step.
             </p>
-            <Link
-              href="/contact"
-              className="btn-gold mt-7 inline-flex rounded-lg px-7 py-3 text-sm font-semibold !text-white transition-opacity hover:opacity-85"
-            >
-              Contact Our Team
+            <Link href="/contact" className="mt-7 inline-flex">
+              <Button className="px-7 py-3 text-sm">Contact Our Team</Button>
             </Link>
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

@@ -1,14 +1,20 @@
-import Image from "next/image";
 import { Quote, Star } from "lucide-react";
-import james from "@/public/images/buy/testimonials/james.png";
-import mei from "@/public/images/buy/testimonials/mei.png";
-import zayan from "@/public/images/buy/testimonials/zayan.png";
 
 const QUOTES = {
   home: [
     "Finding a home in Dubai was overwhelming, but Noor & Hoor made it easy. They understood our needs, showed the best options, and handled all paperwork. Truly an honest team.",
     "Excellent service from start to finish! They helped us secure a premium commercial space in record time. Highly professional, transparent, and efficient.",
     "As an overseas investor, I trust them fully to manage my apartments. Their exceptional team handles tenants, maintenance, and rent collection flawlessly, giving me absolute peace of mind.",
+  ],
+  buy: [
+    "I was buying from overseas and nervous about it. The team walked me through every single step, answered every question at odd hours, and made sure I never felt lost. By the time I signed, I felt like I'd known them for years.",
+    "From property match to handover, everything felt organized. I never had to chase anyone for updates, which made the whole process far less stressful than I expected it to be.",
+    "I appreciated how honest they were about pricing and location trade-offs. No sales pressure, just real advice. It made my decision so much easier, and I trusted every recommendation they gave me.",
+  ],
+  rent: [
+    "The whole process was faster than I expected. I moved in within a week, and the team handled every document properly from start to finish.",
+    "I was relocating for work and had zero time to search for a place myself. They shortlisted options based on my budget, arranged viewings around my schedule, and handled the entire lease agreement without a single delay.",
+    "I appreciated how they explained every clause in the contract before I signed. As a first-time renter in a new country, I really valued that clarity.",
   ],
   default: [
     "Finding a home in Dubai was overwhelming, but Noor & Hoor made it easy. They understood our needs, showed the best options, and handled all paperwork.",
@@ -19,14 +25,19 @@ const QUOTES = {
 
 const PEOPLE = {
   home: [
-    ["Tariq Al-Mansoori", "Senior Executive", james],
-    ["Fatima Al-Hashimi", "Founder & CEO", mei],
-    ["Zayan Al-Sayed", "Managing Director", zayan],
+    ["Tariq Al-Mansoori", "Senior Executive"],
+    ["Fatima Al-Hashimi", "Founder & CEO"],
+    ["Zayan Al-Sayed", "Managing Director"],
   ],
   buy: [
-    ["James Whitfield", "Senior Executive", james],
-    ["Mei Lin Chen", "Founder", mei],
-    ["Zayan Al-Sayed", "Managing Director", zayan],
+    ["James Whitfield", "Investment Banker, London"],
+    ["Mei Lin Chen", "Business Owner, Singapore"],
+    ["Carlos Mendoza", "Tech Entrepreneur, Toronto"],
+  ],
+  rent: [
+    ["Michael Turner", "Consultant, New York"],
+    ["Hana Yoshida", "Marketing Executive, Tokyo"],
+    ["Camille Dubois", "Graphic Designer, Paris"],
   ],
 };
 
@@ -44,7 +55,7 @@ const COPY = {
   rent: {
     heading: "What Our Customers Say",
     description:
-      "Our knowledgeable rental agents are dedicated to every client's satisfaction.",
+      "Real experiences from tenants who found their home through our rental process.",
   },
   sell: {
     heading: "What Our Customers Say",
@@ -54,7 +65,7 @@ const COPY = {
 };
 
 function TestimonialCard({ quote, person }) {
-  const [name, title, avatar] = person;
+  const [name, title] = person;
 
   return (
     <article className="flex h-full min-h-[320px] w-full flex-col gap-6 rounded-xl border border-[#e9c34926] p-5 transition hover:border-[#e9c34973] sm:p-8">
@@ -79,23 +90,10 @@ function TestimonialCard({ quote, person }) {
       </p>
 
       <div className="border-t border-[#e9c34926] pt-5">
-        <div className="flex items-center gap-4">
-          <div className="relative size-12 shrink-0 overflow-hidden rounded-full">
-            <Image
-              src={avatar}
-              alt={name}
-              fill
-              sizes="48px"
-              className="object-cover object-top grayscale"
-            />
-          </div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-white">
-              {name}
-            </p>
-            <p className="mt-1 text-xs text-white/60">{title}</p>
-          </div>
-        </div>
+        <p className="text-xs font-bold uppercase tracking-wide text-white">
+          {name}
+        </p>
+        <p className="mt-1 text-xs text-white/60">{title}</p>
       </div>
     </article>
   );
@@ -103,7 +101,7 @@ function TestimonialCard({ quote, person }) {
 
 export default function TestimonialSection({ variant = "home" }) {
   const copy = COPY[variant] || COPY.home;
-  const people = variant === "buy" ? PEOPLE.buy : PEOPLE.home;
+  const people = PEOPLE[variant] || PEOPLE.home;
   const quotes = QUOTES[variant] || QUOTES.default;
 
   return (

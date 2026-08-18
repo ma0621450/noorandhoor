@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import logo from "@/public/svgs/logo.svg";
 import Button from "@/components/ui/Button";
+import CaretDown from "@/components/ui/CaretDown";
 import { NAV_ITEMS } from "@/components/layout/navData";
 import NavDropdownMenu from "@/components/layout/NavDropdownMenu";
 
@@ -75,7 +76,7 @@ function NavItem({ item, openId, setOpenId, pathname }) {
       onMouseLeave={() => setOpenId(null)}
     >
       <div
-        className={`relative flex items-center gap-1 pb-1 ${
+        className={`relative flex items-center pb-1 ${
           showActive ? NAV_ACTIVE_WRAP_CLASS : ""
         }`}
       >
@@ -99,7 +100,7 @@ function NavItem({ item, openId, setOpenId, pathname }) {
         )}
         <button
           type="button"
-          className={`cursor-pointer transition-colors duration-300 ease-in-out ${
+          className={`ml-1.5 inline-flex cursor-pointer items-center transition-colors duration-300 ease-in-out ${
             showActive
               ? "text-[#ba8a44]"
               : "text-white group-hover:text-[#ba8a44] hover:text-[#ba8a44]"
@@ -108,12 +109,7 @@ function NavItem({ item, openId, setOpenId, pathname }) {
           aria-expanded={isOpen}
           aria-label={`${item.label} menu`}
         >
-          <ChevronDown
-            className={`h-4 w-4 transition-all duration-300 ease-in-out ${
-              isOpen ? "rotate-180" : ""
-            }`}
-            strokeWidth={2}
-          />
+          <CaretDown open={isOpen} />
         </button>
         {isActive && <NavActiveUnderline />}
       </div>
@@ -168,18 +164,13 @@ function MobileNavItem({ item, onClose, pathname }) {
         )}
         <button
           type="button"
-          className={`cursor-pointer transition-colors duration-300 ease-in-out ${
+          className={`inline-flex cursor-pointer items-center transition-colors duration-300 ease-in-out ${
             showActive ? "text-[#ba8a44]" : "text-white hover:text-[#ba8a44]"
           }`}
           onClick={() => setIsOpen((open) => !open)}
           aria-label={`Toggle ${item.label} submenu`}
         >
-          <ChevronDown
-            className={`h-4 w-4 transition-all duration-300 ease-in-out ${
-              isOpen ? "rotate-180" : ""
-            }`}
-            strokeWidth={2}
-          />
+          <CaretDown open={isOpen} />
         </button>
       </div>
 

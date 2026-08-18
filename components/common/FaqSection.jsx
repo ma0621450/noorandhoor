@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import CaretDown from "@/components/ui/CaretDown";
 import { DETAIL_FAQS } from "@/components/sections/detail/detailData";
+import {
+  DEVELOPER_FAQS,
+  FAQ_RESOURCES,
+} from "@/components/sections/developers/developersData";
 
 const FAQ_PRESETS = {
   home: {
@@ -41,58 +46,73 @@ const FAQ_PRESETS = {
     ],
   },
   buy: {
-    description: "Find answers to common questions about buying UAE property",
+    description:
+      "Got questions about buying property directly from us? We've got answers to help you decide with confidence.",
     items: [
       {
-        question: "What is the minimum investment required?",
+        question: "Do I need to be in the UAE to buy?",
         answer:
-          "Minimum investment depends on the property and financing route. Our team can recommend options for your budget.",
+          "No, you don't. We handle the entire process remotely on your behalf. You can complete your purchase from anywhere in the world.",
       },
       {
-        question: "How can I find a good real estate agent in Dubai?",
+        question: "What documents do I need to buy property?",
         answer:
-          "Work with a licensed brokerage that specializes in your preferred communities and investment goals.",
+          "You'll need a valid passport and proof of funds. Non-residents may need a few extra documents. We'll guide you through our full requirement list.",
       },
       {
-        question: "How long does the property purchase process take?",
+        question: "How long does the buying process usually take?",
         answer:
-          "Most purchases complete within a few weeks, depending on financing, documentation, and developer timelines.",
+          "Ready properties can close in 2-4 weeks with us. Off-plan purchases may take longer. Timelines depend on documentation and your payment plan.",
       },
       {
-        question: "How much down payment is typically needed?",
+        question: "Can I rent out my property after buying?",
         answer:
-          "Down payments commonly start around 20%, though exact figures vary by bank and property type.",
+          "Yes, absolutely. Most of our buyers rent out their property for strong returns. We can help you find tenants directly too.",
       },
       {
-        question: "How is a property's value determined?",
+        question: "What happens if I want to cancel my purchase?",
         answer:
-          "We assess comparable sales, demand, rental yield, condition, and projected growth.",
+          "Cancellation policies depend on your contract stage with us. Early cancellations are usually simpler. We'll explain your options clearly before you sign anything.",
+      },
+      {
+        question: "What currency is used for property payments?",
+        answer:
+          "Most transactions with us are done in AED. We also accept USD for certain purchases. We'll confirm accepted currencies before you proceed.",
       },
     ],
   },
   rent: {
-    title: "Renting With Us: FAQs",
-    description: "Find answers to common questions about renting in the UAE",
+    description: "Still have questions? Here's what most tenants ask us first.",
     items: [
       {
-        question: "Which documents are required to rent?",
+        question: "What documents do I need to rent a property?",
         answer:
-          "Typically you need a passport, Emirates ID, proof of income, tenancy application, and deposit details.",
+          "You'll need a valid passport and Emirates ID, if available. Proof of income may also be required. We'll guide you through the exact list based on your situation.",
       },
       {
-        question: "How are agency fees structured?",
+        question: "How much is the security deposit usually?",
         answer:
-          "Agency fees are commonly around 5% of annual rent, plus applicable VAT.",
+          "It's typically 5% of the annual rent for unfurnished units. Furnished properties may require a higher deposit. The exact amount depends on the property and landlord.",
       },
       {
-        question: "How are lease renewals managed?",
+        question: "Can I have pets in a rented property?",
         answer:
-          "We manage renewals with clear timelines, market-aligned pricing, and transparent communication.",
+          "It depends on the property and landlord's policy. Many of our listings are pet-friendly. We'll confirm the details before you sign the lease.",
       },
       {
-        question: "What rights do tenants have?",
+        question: "What happens if I want to leave before my lease ends?",
         answer:
-          "UAE rental law covers deposits, maintenance responsibilities, notices, and eviction procedures.",
+          "Early termination usually involves a notice period and possible penalty. Terms vary by contract. We'll explain your options clearly before you sign.",
+      },
+      {
+        question: "Do you offer short-term or holiday rentals?",
+        answer:
+          "Yes, we do offer short-term rental options. These are separate from standard annual leases. Let us know your duration, and we'll find a suitable match.",
+      },
+      {
+        question: "Is parking included with rental properties?",
+        answer:
+          "It depends on the specific property. Many of our rental units include dedicated parking. We'll confirm this detail before you sign your lease.",
       },
     ],
   },
@@ -135,6 +155,12 @@ const FAQ_PRESETS = {
     description: "Find answers to common questions about Noor & Hoor",
     items: DETAIL_FAQS,
   },
+  developers: {
+    title: "FAQs",
+    description: "Doing solid-time analysis for semantic investments",
+    items: DEVELOPER_FAQS,
+    resources: FAQ_RESOURCES,
+  },
 };
 
 export function FaqAccordion({ items }) {
@@ -165,10 +191,9 @@ export function FaqAccordion({ items }) {
               <span className="text-sm font-semibold text-white sm:text-base">
                 {faq.question}
               </span>
-              <ChevronDown
-                className={`h-5 w-5 shrink-0 text-[#ba8a44] transition-transform duration-300 ${
-                  isOpen ? "rotate-180" : ""
-                }`}
+              <CaretDown
+                open={isOpen}
+                className="h-2 w-3 text-[#ba8a44]"
               />
             </button>
             {isOpen ? (
@@ -198,6 +223,29 @@ export default function FaqSection({ variant = "home" }) {
           {preset.description}
         </p>
       </div>
+      {preset.resources?.length ? (
+        <div className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {preset.resources.map((resource) => (
+            <article
+              key={resource.title}
+              className="relative h-[215px] overflow-hidden rounded-xl"
+            >
+              <Image
+                src={resource.image}
+                alt={resource.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 346px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-black/60" />
+              <p className="absolute bottom-6 left-4 right-4 text-lg font-semibold leading-[23px] text-[#E9C349]">
+                {resource.title}
+              </p>
+            </article>
+          ))}
+        </div>
+      ) : null}
+
       <FaqAccordion items={preset.items} />
     </section>
   );

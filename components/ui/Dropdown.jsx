@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import CaretDown from "@/components/ui/CaretDown";
 
 const DropdownContext = createContext(null);
 
@@ -44,9 +44,7 @@ export default function Dropdown({
         className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left text-sm text-white sm:gap-4 sm:px-4"
       >
         <span className="truncate">{selected}</span>
-        <ChevronDown
-          className={`h-4 w-4 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
-        />
+        <CaretDown open={isOpen} className="text-white" />
       </button>
 
       {isOpen && (

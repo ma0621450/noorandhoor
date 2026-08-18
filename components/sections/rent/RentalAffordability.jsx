@@ -1,5 +1,6 @@
 import { Calculator } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { Select } from "@/components/ui/CaretDown";
 
 const COST_ROWS = [
   { label: "Calendar Price", value: "Price" },
@@ -59,14 +60,14 @@ function EligibilityForm() {
       </p>
 
       <div className="mt-6 flex flex-col gap-4">
-        <select className={INPUT_CLASS} defaultValue="" aria-label="Property type">
+        <Select className={INPUT_CLASS} defaultValue="" aria-label="Property type">
           <option value="" disabled>
             Select option
           </option>
           <option>Apartment</option>
           <option>Villa</option>
           <option>Townhouse</option>
-        </select>
+        </Select>
 
         <label className="flex flex-col gap-1">
           <span className="text-sm font-medium text-[#f5f5f5]">Monthly Income</span>

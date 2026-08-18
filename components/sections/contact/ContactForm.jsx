@@ -1,7 +1,8 @@
 "use client";
 
-import { Building2, ChevronDown, Mail, Phone, User } from "lucide-react";
+import { Building2, Mail, Phone, User } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { Select } from "@/components/ui/CaretDown";
 import { SERVICE_OPTIONS } from "@/components/sections/contact/contactData";
 
 const INPUT =
@@ -85,28 +86,23 @@ export default function ContactForm() {
 
         <div className="sm:col-span-2">
           <Field label="Service">
-            <div className="relative">
-              <select
-                name="service"
-                defaultValue=""
-                required
-                aria-label="Service"
-                className={SELECT}
-              >
-                <option value="" disabled>
-                  Select a service
+            <Select
+              name="service"
+              defaultValue=""
+              required
+              aria-label="Service"
+              className={SELECT}
+              caretClassName="text-[#D4AF37]"
+            >
+              <option value="" disabled>
+                Select a service
+              </option>
+              {SERVICE_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
                 </option>
-                {SERVICE_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                className="pointer-events-none absolute right-4 top-1/2 h-3 w-3 -translate-y-1/2 text-[#D4AF37]"
-                strokeWidth={2.5}
-              />
-            </div>
+              ))}
+            </Select>
           </Field>
         </div>
 

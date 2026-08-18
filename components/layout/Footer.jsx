@@ -183,7 +183,7 @@ export default function Footer() {
 
         <nav
           aria-label="Footer navigation"
-          className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-white/10 py-12 sm:grid-cols-3 lg:grid-cols-6"
+          className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-white/10 py-12 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7"
         >
           {NAV_ITEMS.map((category) => (
             <div key={category.href} className="flex min-w-0 flex-col gap-4">
@@ -201,7 +201,7 @@ export default function Footer() {
                 </ul>
               ) : (
                 <Link href={category.href} className={LINK_CLASS}>
-                  View all developers
+                  {category.footerCta || `View ${category.label}`}
                 </Link>
               )}
             </div>

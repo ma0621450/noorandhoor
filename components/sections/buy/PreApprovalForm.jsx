@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import { Select } from "@/components/ui/CaretDown";
 
 const INPUT_CLASS =
   "h-[38px] w-full cursor-pointer rounded border border-[#d1d5dc] bg-transparent px-4 text-sm text-[#f5f5f5] placeholder:text-[#f5f5f5]/50 outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
@@ -12,13 +13,13 @@ export default function PreApprovalForm() {
       </p>
 
       <div className="mt-6 flex flex-col gap-4">
-        <select className={INPUT_CLASS} defaultValue="" aria-label="Loan type">
+        <Select className={INPUT_CLASS} defaultValue="" aria-label="Loan type">
           <option value="" disabled>
             Select option
           </option>
           <option>Residential Mortgage</option>
           <option>Investment Loan</option>
-        </select>
+        </Select>
 
         <label className="flex flex-col gap-1">
           <span className="text-sm font-medium text-[#f5f5f5]">Pre-approved Credits</span>

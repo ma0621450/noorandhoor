@@ -1,4 +1,4 @@
-import ContactHero from "@/components/sections/contact/ContactHero";
+import PropertyHero from "@/components/common/PropertyHero";
 import ContactMain from "@/components/sections/contact/ContactMain";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
-      <ContactHero />
+      <PropertyHero variant="contact" />
       <ContactMain />
     </>
   );

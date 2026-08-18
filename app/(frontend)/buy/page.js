@@ -16,7 +16,7 @@ import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCt
 export const metadata = {
   title: "Buy Properties | Noor and Hoor",
   description:
-    "Build your future on the UAE's prime real estate with Noor and Hoor Properties.",
+    "Discover, compare, and secure premium UAE properties that support your lifestyle and long term investment goals.",
 };
 
 export default function BuyPage() {

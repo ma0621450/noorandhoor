@@ -3,7 +3,7 @@ import DetailGallery from "@/components/sections/detail/DetailGallery";
 import OffPlanListedDate from "@/components/sections/offplan/OffPlanListedDate";
 import OffPlanPaymentPlan from "@/components/sections/offplan/OffPlanPaymentPlan";
 import OffPlanPropertyFeatures from "@/components/sections/offplan/OffPlanPropertyFeatures";
-import OffPlanRelated from "@/components/sections/offplan/OffPlanRelated";
+import DetailRelated from "@/components/sections/detail/DetailRelated";
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 import { PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
 import {
@@ -42,7 +42,11 @@ export default async function OffPlanCategoryDetailPage({ categoryKey, params })
       <OffPlanListedDate />
       <OffPlanPaymentPlan />
       <OffPlanPropertyFeatures categoryLabel={category.heading} />
-      <OffPlanRelated basePath={category.path} properties={related} />
+      <DetailRelated
+        basePath={category.path}
+        properties={related}
+        heading="Explore Similar Offplan Properties"
+      />
       <PropertyJourneyCta variant="offplan" heading="Ready to Start Your Holiday Property Journey?" />
     </div>
   );

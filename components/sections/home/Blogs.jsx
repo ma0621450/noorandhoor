@@ -1,35 +1,7 @@
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
-import carousel1 from "@/public/images/landingpage/landingpagecarousel1.jpg";
-import carousel2 from "@/public/images/landingpage/landingpagecarousel2.jpg";
-import carousel3 from "@/public/images/landingpage/landingpagecarousel3.jpg";
-
-const BLOGS = [
-  {
-    id: 1,
-    image: carousel1,
-    date: "March 12, 2026",
-    title: "Dubai Property Market Trends to Watch",
-    excerpt:
-      "Explore the latest shifts in Dubai's real estate market, from rising demand in waterfront communities to new off-plan launches shaping investor opportunities across the UAE.",
-  },
-  {
-    id: 2,
-    image: carousel2,
-    date: "March 8, 2026",
-    title: "A Smart Guide to Off-Plan Investments",
-    excerpt:
-      "Learn how off-plan properties work, what to evaluate before buying, and how to secure strong returns with the right developer, payment plan, and location strategy.",
-  },
-  {
-    id: 3,
-    image: carousel3,
-    date: "March 3, 2026",
-    title: "Top Areas to Buy Property in Dubai",
-    excerpt:
-      "From Dubai Marina to Business Bay, discover the neighborhoods offering the best lifestyle, rental yields, and long-term value for homeowners and investors alike.",
-  },
-];
+import { LATEST_POSTS } from "@/components/sections/blog/blogData";
 
 export default function Blogs() {
   return (
@@ -49,16 +21,18 @@ export default function Blogs() {
           </p>
         </div>
 
-        <Button
-          variant="secondary"
-          className="w-full shrink-0 sm:w-auto lg:self-start"
-        >
-          View All Articles
-        </Button>
+        <Link href="/blog" className="w-full shrink-0 sm:w-auto lg:self-start">
+          <Button
+            variant="secondary"
+            className="w-full sm:w-auto"
+          >
+            View All Articles
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
-        {BLOGS.map((blog) => (
+        {LATEST_POSTS.map((blog) => (
           <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>

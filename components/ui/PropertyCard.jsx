@@ -1,11 +1,51 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Bed, Bath, Scan, Heart } from "lucide-react";
+import { useState } from "react";
+import { Bed, Bath, Scan, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 
-const PropertyCard = ({ property, badge = "Featured", className = "", href }) => {
-  const { image, title, location, features, price, featured } = property;
-  const to = href || property.href;
+export default function PropertyCard({
+  property,
+  badge = "Featured",
+  className = "",
+  href,
+  basePath,
+}) {
+  const {
+    image,
+    images,
+    title,
+    location,
+    features,
+    price,
+    featured,
+    slug,
+  } = property;
+  const gallery = images?.length ? images : image ? [image] : [];
+  const to =
+    href ||
+    property.href ||
+    (slug && basePath ? `${basePath}/${slug}` : undefined);
+  const showCarousel = gallery.length > 1;
+
+  const [index, setIndex] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  const currentImage = gallery[index] || gallery[0];
+
+  const prev = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIndex((current) => (current === 0 ? gallery.length - 1 : current - 1));
+  };
+
+  const next = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setIndex((current) => (current === gallery.length - 1 ? 0 : current + 1));
+  };
 
   return (
     <article
@@ -15,31 +55,63 @@ const PropertyCard = ({ property, badge = "Featured", className = "", href }) =>
         <Link href={to} className="absolute inset-0 z-[1]" aria-label={title} />
       )}
 
-      <div className="relative aspect-[257/217] w-full overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 257px"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
+        {currentImage && (
+          <Image
+            src={currentImage}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        )}
         {featured && (
           <div className="absolute left-3 top-3 z-[2]">
             <Badge variant="gold">{badge}</Badge>
           </div>
         )}
+
+        {showCarousel && (
+          <>
+            <button
+              type="button"
+              aria-label="Previous image"
+              onClick={prev}
+              className="absolute left-2 top-1/2 z-[2] -translate-y-1/2 text-white/90 transition hover:text-white"
+            >
+              <ChevronLeft className="h-6 w-6" strokeWidth={1.5} />
+            </button>
+            <button
+              type="button"
+              aria-label="Next image"
+              onClick={next}
+              className="absolute right-2 top-1/2 z-[2] -translate-y-1/2 text-white/90 transition hover:text-white"
+            >
+              <ChevronRight className="h-6 w-6" strokeWidth={1.5} />
+            </button>
+          </>
+        )}
       </div>
 
       <button
         type="button"
-        aria-label="Add to favorites"
-        className="absolute right-3 top-3 z-[2] cursor-pointer text-white transition hover:scale-110 hover:text-[#eec876]"
+        aria-label={liked ? "Remove from favorites" : "Add to favorites"}
+        onClick={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          setLiked((value) => !value);
+        }}
+        className="absolute right-3 top-3 z-[2] text-white transition hover:scale-110 hover:text-[#eec876]"
       >
-        <Heart className="h-[16px] w-[17px]" strokeWidth={1.5} />
+        <Heart
+          className="h-4 w-4 sm:h-[16px] sm:w-[17px]"
+          strokeWidth={1.5}
+          fill={liked ? "currentColor" : "none"}
+        />
       </button>
 
-      <div className="flex flex-col gap-[6px] px-4 py-4">
-        <h3 className="!font-accent mb-0.5 text-sm font-normal uppercase text-[#f5f5f5]">
+      <div className="relative z-[2] flex flex-col gap-1.5 px-4 py-4">
+        <h3 className="!font-accent mb-0.5 text-sm font-normal uppercase text-[#f5f5f5] transition-colors group-hover:text-[#ba8a44]">
           {title}
         </h3>
         <p className="text-xs font-medium text-[#f5f5f5]">{location}</p>
@@ -69,6 +141,4 @@ const PropertyCard = ({ property, badge = "Featured", className = "", href }) =>
       </div>
     </article>
   );
-};
-
-export default PropertyCard;
+}

@@ -9,6 +9,18 @@ import carousel1 from "@/public/images/landingpage/landingpagecarousel1.jpg";
 import carousel2 from "@/public/images/landingpage/landingpagecarousel2.jpg";
 import carousel3 from "@/public/images/landingpage/landingpagecarousel3.jpg";
 import carousel4 from "@/public/images/landingpage/landingpagecarousel4.jpg";
+import starIcon from "@/public/images/buy/hero/star.svg";
+import securityIcon from "@/public/images/buy/hero/security.png";
+import googleLogo from "@/public/svgs/googlelogo.svg";
+
+const TRUST_ICONS = [starIcon, securityIcon, googleLogo];
+
+function trustSignals(items) {
+  return items.map((lines, index) => ({
+    icon: TRUST_ICONS[index % TRUST_ICONS.length],
+    lines,
+  }));
+}
 
 const SHARED_IMAGES = [
   apartmentsImage,
@@ -54,12 +66,22 @@ export const BUY_CATEGORIES = {
     key: "apartments",
     path: "/buy/apartments",
     breadcrumb: "Buy apartments",
-    heroTitle: "Discover Luxury Apartments in the UAE.",
+    eyebrow: "Buy Apartments",
+    heading: "Apartments",
+    heroTitle: "Find Your Perfect Apartment In The UAE",
     heroDescription:
-      "Curated collection of the world's most prestigious properties. Experience unparalleled luxury and timeless elegance.",
+      "Whether you're buying your first home or expanding your portfolio, discover UAE apartments that fit your vision and budget.",
     metaTitle: "Buy Apartments | Noor and Hoor",
     metaDescription:
-      "Discover luxury apartments in the UAE. Curated collection of the world's most prestigious properties.",
+      "Whether you're buying your first home or expanding your portfolio, discover UAE apartments that fit your vision and budget.",
+    ctaHeading: "Ready to Find Your Ideal Apartment in the UAE?",
+    ctaDescription:
+      "Browse our curated listings and book a free consultation, your perfect apartment is closer than you think.",
+    trustSignals: trustSignals([
+      ["AED 1.5B+", "In Apartment Sales"],
+      ["150+", "Happy Apartment Owners"],
+      ["98%", "On-Time Handovers"],
+    ]),
     filterPrefix: "apt",
     propertyTypes: ["Home", "Studio", "Duplex", "Serviced", "Luxury Residences"],
     homes: buildHomes({
@@ -92,12 +114,22 @@ export const BUY_CATEGORIES = {
     key: "townhouses",
     path: "/buy/townhouses",
     breadcrumb: "Buy town houses",
-    heroTitle: "Discover Luxury Townhouses in the UAE.",
+    eyebrow: "Buy Town Houses",
+    heading: "Townhouses",
+    heroTitle: "Find Your Ideal Townhouses In The UAE",
     heroDescription:
-      "Family-friendly townhouses with private outdoor space, modern finishes, and prime community locations.",
+      "More space, more privacy, more room to grow. Discover townhouses designed for families who want a home, not just an apartment.",
     metaTitle: "Buy Town Houses | Noor and Hoor",
     metaDescription:
-      "Discover luxury townhouses in the UAE. Spacious family homes in the most desirable communities.",
+      "More space, more privacy, more room to grow. Discover townhouses designed for families who want a home, not just an apartment.",
+    ctaHeading: "Ready to Find Your Family's Next Home?",
+    ctaDescription:
+      "Explore townhouses built for space and community, book a free consultation to get started.",
+    trustSignals: trustSignals([
+      ["AED 1.2B+", "In Townhouse Sales"],
+      ["200+", "Families Settled"],
+      ["96%", "Client Satisfaction Rate"],
+    ]),
     filterPrefix: "th",
     propertyTypes: ["Townhouse", "End Unit", "Corner", "Luxury Townhouse"],
     homes: buildHomes({
@@ -130,12 +162,22 @@ export const BUY_CATEGORIES = {
     key: "penthouses",
     path: "/buy/penthouses",
     breadcrumb: "Penthouses",
-    heroTitle: "Discover Luxury Penthouses in the UAE.",
+    eyebrow: "Buy Penthouses",
+    heading: "Penthouses",
+    heroTitle: "Own The Top Floor Of The UAE",
     heroDescription:
-      "Sky-high residences with panoramic views, private terraces, and unmatched exclusivity.",
+      "Unmatched views, private elevators, and space that redefines luxury. Discover penthouses built for those who expect nothing less than the best.",
     metaTitle: "Buy Penthouses | Noor and Hoor",
     metaDescription:
-      "Discover luxury penthouses in the UAE. Exclusive top-floor residences with breathtaking views.",
+      "Unmatched views, private elevators, and space that redefines luxury. Discover penthouses built for those who expect nothing less than the best.",
+    ctaHeading: "Ready to Own the View Everyone Else Is Chasing?",
+    ctaDescription:
+      "Explore penthouses built for those who settle for nothing less, book a free consultation today.",
+    trustSignals: trustSignals([
+      ["AED 3B+", "In Penthouse Sales"],
+      ["80+", "Penthouses Sold"],
+      ["99%", "Client Satisfaction Rate"],
+    ]),
     filterPrefix: "ph",
     propertyTypes: ["Penthouse", "Duplex Penthouse", "Sky Villa", "Luxury Penthouse"],
     homes: buildHomes({
@@ -168,12 +210,22 @@ export const BUY_CATEGORIES = {
     key: "villas",
     path: "/buy/villas",
     breadcrumb: "Residential villas",
-    heroTitle: "Discover Residential Villas in the UAE.",
+    eyebrow: "Buy Residential Villas",
+    heading: "Villas",
+    heroTitle: "Find Your Family's Forever Home In The UAE",
     heroDescription:
-      "Private villas with generous living spaces, landscaped gardens, and refined architectural detail.",
-    metaTitle: "Residential Villas | Noor and Hoor",
+      "Private gardens, extra space, and a neighborhood built for living, not just visiting. Discover villas designed for families who want room to grow.",
+    metaTitle: "Buy Residential Villas | Noor and Hoor",
     metaDescription:
-      "Discover residential villas in the UAE. Private luxury homes in exclusive communities.",
+      "Private gardens, extra space, and a neighborhood built for living, not just visiting. Discover villas designed for families who want room to grow.",
+    ctaHeading: "Ready to Find Your Family's Forever Home?",
+    ctaDescription:
+      "Explore villas built for space, privacy, and community, book a free consultation to get started.",
+    trustSignals: trustSignals([
+      ["AED 2.5B+", "In Villa Sales"],
+      ["250+", "Families Settled"],
+      ["97%", "Client Satisfaction Rate"],
+    ]),
     filterPrefix: "villa",
     propertyTypes: ["Villa", "Independent Villa", "Garden Villa", "Luxury Villa"],
     homes: buildHomes({
@@ -206,12 +258,22 @@ export const BUY_CATEGORIES = {
     key: "properties",
     path: "/buy/properties",
     breadcrumb: "Buy properties",
-    heroTitle: "Discover Premium Properties in the UAE.",
+    eyebrow: "Buy Properties",
+    heading: "Properties",
+    heroTitle: "Explore The UAE's Full Property Market In One Place",
     heroDescription:
-      "A curated selection of apartments, villas, townhouses, and investment opportunities across the Emirates.",
+      "Apartments, villas, townhouses, and penthouses, all under one roof. Discover a property that matches your goals, whichever type you're looking for.",
     metaTitle: "Buy Properties | Noor and Hoor",
     metaDescription:
-      "Browse premium properties for sale in the UAE. Apartments, villas, townhouses, and more.",
+      "Apartments, villas, townhouses, and penthouses, all under one roof. Discover a property that matches your goals, whichever type you're looking for.",
+    ctaHeading: "Ready to Explore the UAE's Full Property Market?",
+    ctaDescription:
+      "Search apartments, villas, townhouses, and more, book a free consultation to get started.",
+    trustSignals: trustSignals([
+      ["AED 8B+", "In Total Property Sales"],
+      ["1000+", "Properties Listed"],
+      ["98%", "Client Satisfaction Rate"],
+    ]),
     filterPrefix: "prop",
     propertyTypes: ["Apartment", "Villa", "Townhouse", "Penthouse", "Commercial"],
     homes: buildHomes({

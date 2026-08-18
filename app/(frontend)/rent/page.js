@@ -16,7 +16,7 @@ import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCt
 export const metadata = {
   title: "Rent Properties | Noor and Hoor",
   description:
-    "Step into luxury rental properties in the UAE with Noor and Hoor Properties.",
+    "We connect you with verified landlords and quality rentals across the UAE, making renting simple and stress-free.",
 };
 
 export default function RentPage() {

@@ -14,7 +14,7 @@ const CommunityCard = ({
 }) => {
   return (
     <article
-      className="group flex w-[min(346px,85vw)] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)]"
+      className="group flex w-[min(280px,80vw)] shrink-0 cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] sm:w-[min(346px,85vw)]"
       style={width !== 346 ? { width: `min(${width}px, 85vw)` } : undefined}
     >
       <div className="relative h-[215px] w-full overflow-hidden">

@@ -4,16 +4,16 @@ import getStartedBg from "@/public/images/buy/get-started-bg.png";
 
 const CTA_PRESETS = {
   buy: {
-    heading: "Ready to Start Your Dubai Property Journey?",
+    heading: "Ready to Make the UAE Your Next Address?",
     description:
-      "Reach out and start your exclusive property journey with premium services and professional guidance tailored just for you.",
+      "Your dream property is just one conversation away. Let's make it happen today.",
     primaryLabel: "Contact Us Now",
     secondaryLabel: "Explore Exclusive Offers",
   },
   rent: {
-    heading: "List Your Property for Rent With Us",
+    heading: "Still Searching for the Perfect Rental?",
     description:
-      "Optimize your asset, reach a premium audience, and enjoy a seamless rental process.",
+      "Let us match you with a home that fits your budget and lifestyle, starting today.",
     primaryLabel: "Get a Free Consultation",
     secondaryLabel: "See Owner Guide",
   },

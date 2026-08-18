@@ -6,7 +6,7 @@ import DevelopersInvestment from "@/components/sections/developers/DevelopersInv
 import DevelopersBuyerGuide from "@/components/sections/developers/DevelopersBuyerGuide";
 import DevelopersLeadForm from "@/components/sections/developers/DevelopersLeadForm";
 import DevelopersWhyChoose from "@/components/sections/developers/DevelopersWhyChoose";
-import DevelopersFAQs from "@/components/sections/developers/DevelopersFAQs";
+import FaqSection from "@/components/common/FaqSection";
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 
 export const metadata = {
@@ -26,7 +26,7 @@ export default function DevelopersPage() {
       <DevelopersBuyerGuide />
       <DevelopersLeadForm />
       <DevelopersWhyChoose />
-      <DevelopersFAQs />
+      <FaqSection variant="developers" />
       <PropertyJourneyCta variant="buy" />
     </>
   );

@@ -59,16 +59,26 @@ const PRESETS = {
   buy: {
     title: "Build Your Future on the UAE's Prime Real Estate",
     description:
-      "Discover, compare, and secure premium UAE properties that support your lifestyle and long-term investment goals.",
+      "Discover, compare, and secure premium UAE properties that support your lifestyle and long term investment goals.",
     propertyTypes: ["Apartment", "Villa", "Penthouse", "Townhouse"],
     priceOptions: SALE_PRICES,
+    trustSignals: [
+      { icon: starIcon, lines: ["1000+", "Premium Properties"] },
+      { icon: securityIcon, lines: ["Trusted Developer", "Network"] },
+      { icon: googleLogo, lines: ["Smart Investment", "Opportunities"] },
+    ],
   },
   rent: {
-    title: "Step into Luxury Rental Properties in UAE",
+    title: "Your Trusted Partner for Renting Property in the UAE",
     description:
-      "Curated collection of the world's most prestigious properties. Experience unparalleled luxury and timeless elegance.",
+      "We connect you with verified landlords and quality rentals across the UAE, making renting simple and stress-free.",
     propertyTypes: ["Apartment", "Villa", "Townhouse", "Penthouse"],
     priceOptions: RENT_PRICES,
+    trustSignals: [
+      { icon: starIcon, lines: ["900+", "Verified Rental Properties"] },
+      { icon: securityIcon, lines: ["Prime Locations", "Across the UAE"] },
+      { icon: googleLogo, lines: ["Complete", "Rental Support"] },
+    ],
   },
   sell: {
     title: "Your Dream Luxury Home Awaits in UAE",
@@ -131,6 +141,28 @@ const PRESETS = {
         options: ["0 - 1M", "1M - 5M", "5M - 10M", "10M+"],
       },
     ],
+  },
+  contact: {
+    title: "Contact Us",
+    description:
+      "Get in touch with Noor and Hoor Properties. Speak with our team in Dubai about buying, selling, renting, or investing.",
+    fields: [],
+    actions: [
+      { label: "Send a Message", variant: "primary" },
+      { label: "Call Our Team", variant: "outline" },
+    ],
+  },
+  about: {
+    title: "About Us",
+    description:
+      "Noor & Hoor Properties connects clients with exceptional real estate opportunities across Dubai, with local knowledge and personal service.",
+    fields: [],
+  },
+  blog: {
+    title: "Blog & Latest News",
+    description:
+      "Market updates, investment guidance, and neighbourhood insight from the Noor & Hoor Properties team.",
+    fields: [],
   },
 };
 
@@ -226,7 +258,9 @@ export default function PropertyHero({
   const resolvedFields =
     fields ||
     preset.fields ||
-    buildDefaultFields(resolvedPropertyTypes, resolvedPriceOptions);
+    (preset.propertyTypes
+      ? buildDefaultFields(resolvedPropertyTypes, resolvedPriceOptions)
+      : []);
   const resolvedActions =
     actions?.length || preset.actions?.length
       ? actions || preset.actions
@@ -259,10 +293,12 @@ export default function PropertyHero({
             {description || preset.description}
           </p>
 
-          <HeroFilters
-            prefix={filterPrefix || variant}
-            fields={resolvedFields}
-          />
+          {resolvedFields.length > 0 ? (
+            <HeroFilters
+              prefix={filterPrefix || variant}
+              fields={resolvedFields}
+            />
+          ) : null}
 
           {resolvedActions.length ? (
             <div className="flex w-full max-w-[570px] flex-col gap-3 sm:flex-row sm:justify-center sm:gap-5">

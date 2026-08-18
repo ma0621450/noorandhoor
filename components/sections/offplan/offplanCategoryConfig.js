@@ -52,6 +52,7 @@ function buildHomes({ titles, slugs, locations = UAE_LOCATIONS }) {
 function category(config) {
   return {
     ...config,
+    eyebrow: config.eyebrow || "off plan Properties",
     homes: buildHomes({ titles: config.titles, slugs: config.slugs }),
   };
 }

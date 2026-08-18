@@ -1,7 +1,7 @@
 "use client";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
+import CaretDown from "@/components/ui/CaretDown";
 import {
   INSTALLMENT_COUNT,
   formatUsd,
@@ -105,11 +105,7 @@ export default function OffPlanInstallmentSchedule({ price }) {
             {expanded
               ? "Show fewer installments"
               : `Show all ${INSTALLMENT_COUNT} installments`}
-            {expanded ? (
-              <ChevronUp className="h-3.5 w-3.5" strokeWidth={2} />
-            ) : (
-              <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
-            )}
+            <CaretDown open={expanded} className="text-[#111111]" />
           </button>
         </div>
       </div>

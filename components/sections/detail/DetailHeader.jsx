@@ -35,7 +35,7 @@ export default function DetailHeader({
   const priceText = `AED ${Number(price).toLocaleString("en-US")}`;
 
   return (
-    <section className="w-full bg-[#111111] pt-[144px] pb-0">
+    <section className="w-full bg-[#111111] pt-28 sm:pt-32 lg:pt-36">
       {/* PropertyDetail: max 1280, padding 64px 16px — top already includes nav clearance */}
       <div className="mx-auto flex w-full max-w-[1280px] flex-col items-start px-4">
         {/* Frame 165: gap 20px — breadcrumb + title/gallery block */}

@@ -83,5 +83,11 @@ export const NAV_ITEMS = [
   {
     label: "Developers",
     href: "/developers",
+    footerCta: "View all developers",
+  },
+  {
+    label: "Blog",
+    href: "/blog",
+    footerCta: "View all articles",
   },
 ];

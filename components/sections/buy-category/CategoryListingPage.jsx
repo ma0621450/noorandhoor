@@ -1,22 +1,78 @@
 import PropertyHero from "@/components/common/PropertyHero";
-import CategoryHomes from "@/components/sections/buy-category/CategoryHomes";
+import PropertyGrid from "@/components/sections/property/PropertyGrid";
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
-import { getCategory } from "@/components/sections/buy-category/categoryConfig";
+import {
+  getCategory,
+  HOMES_PER_PAGE as BUY_HOMES_PER_PAGE,
+  TOTAL_PAGES as BUY_TOTAL_PAGES,
+} from "@/components/sections/buy-category/categoryConfig";
+import {
+  getSellCategory,
+  HOMES_PER_PAGE as SELL_HOMES_PER_PAGE,
+  TOTAL_PAGES as SELL_TOTAL_PAGES,
+} from "@/components/sections/sell-properties/sellCategoryConfig";
+import {
+  getRentCategory,
+  HOMES_PER_PAGE as RENT_HOMES_PER_PAGE,
+  TOTAL_PAGES as RENT_TOTAL_PAGES,
+} from "@/components/sections/rent-properties/rentCategoryConfig";
+import {
+  getOffPlanCategory,
+  HOMES_PER_PAGE as OFFPLAN_HOMES_PER_PAGE,
+  TOTAL_PAGES as OFFPLAN_TOTAL_PAGES,
+} from "@/components/sections/offplan/offplanCategoryConfig";
 
-export default function CategoryListingPage({ categoryKey }) {
-  const category = getCategory(categoryKey);
+const MARKETS = {
+  buy: {
+    variant: "buy",
+    getCategory,
+    homesPerPage: BUY_HOMES_PER_PAGE,
+    totalPages: BUY_TOTAL_PAGES,
+  },
+  sell: {
+    variant: "sell",
+    getCategory: getSellCategory,
+    homesPerPage: SELL_HOMES_PER_PAGE,
+    totalPages: SELL_TOTAL_PAGES,
+  },
+  rent: {
+    variant: "rent",
+    getCategory: getRentCategory,
+    homesPerPage: RENT_HOMES_PER_PAGE,
+    totalPages: RENT_TOTAL_PAGES,
+  },
+  offplan: {
+    variant: "offplan",
+    getCategory: getOffPlanCategory,
+    homesPerPage: OFFPLAN_HOMES_PER_PAGE,
+    totalPages: OFFPLAN_TOTAL_PAGES,
+  },
+};
+
+export default function CategoryListingPage({ categoryKey, market = "buy" }) {
+  const config = MARKETS[market] || MARKETS.buy;
+  const category = config.getCategory(categoryKey);
 
   return (
     <>
       <PropertyHero
-        variant="buy"
-        title={category.heroTitle}
-        description={category.heroDescription}
+        variant={config.variant}
+        title={category.heroTitle || `Off Plan ${category.heading} in UAE`}
+        description={category.heroDescription || category.metaDescription}
         filterPrefix={category.filterPrefix}
         propertyTypes={category.propertyTypes}
+        trustSignals={category.trustSignals}
       />
-      <CategoryHomes categoryKey={categoryKey} />
-      <PropertyJourneyCta variant="buy" />
+      <PropertyGrid
+        category={category}
+        homesPerPage={config.homesPerPage}
+        totalPages={config.totalPages}
+      />
+      <PropertyJourneyCta
+        variant={config.variant}
+        heading={category.ctaHeading}
+        description={category.ctaDescription}
+      />
     </>
   );
 }
