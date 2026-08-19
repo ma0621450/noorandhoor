@@ -1,6 +1,6 @@
 import CategoryDetailPage from "@/components/sections/buy-category/CategoryDetailPage";
 import { getCategory } from "@/components/sections/buy-category/categoryConfig";
-import { PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
+import { generateListingItemMetadata } from "@/lib/seo";
 
 const category = getCategory("apartments");
 
@@ -10,11 +10,8 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }) {
-  return {
-    title: `${PROPERTY_DETAIL.title} | Noor and Hoor`,
-    description: PROPERTY_DETAIL.about[0],
-  };
+export async function generateMetadata({ params }) {
+  return generateListingItemMetadata({ params, category });
 }
 
 export default async function BuyApartmentDetailPage({ params }) {

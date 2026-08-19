@@ -1,10 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import {
   MapPin,
-  Heart,
-  Share2,
   Bed,
   Bath,
   Scan,
@@ -12,6 +8,7 @@ import {
   Eye,
   CalendarDays,
 } from "lucide-react";
+import DetailHeaderActions from "@/components/sections/detail/DetailHeaderActions";
 
 const TAG_ICONS = {
   bed: Bed,
@@ -36,11 +33,8 @@ export default function DetailHeader({
 
   return (
     <section className="w-full bg-[#111111] pt-28 sm:pt-32 lg:pt-36">
-      {/* PropertyDetail: max 1280, padding 64px 16px — top already includes nav clearance */}
       <div className="mx-auto flex w-full max-w-[1280px] flex-col items-start px-4">
-        {/* Frame 165: gap 20px — breadcrumb + title/gallery block */}
         <div className="flex w-full flex-col items-start gap-5">
-          {/* Breadcrumb: Inter 18/27, #F5F5F5 */}
           <div className="flex items-center gap-2 font-[family-name:var(--font-body)] text-[18px] font-medium leading-[27px] text-[#F5F5F5]">
             <Link
               href={breadcrumbHref}
@@ -54,14 +48,12 @@ export default function DetailHeader({
             <span>{breadcrumbCurrent}</span>
           </div>
 
-          {/* Title + price row */}
           <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-4">
             <div className="flex min-w-0 flex-1 flex-col items-start lg:max-w-[851px]">
               <h1 className="detail-heading m-0 text-left font-[family-name:var(--font-heading)] text-[28px] font-extrabold uppercase leading-[1.05] tracking-normal text-gold-gradient sm:text-[36px] lg:text-[46px] lg:leading-[48px]">
                 {title}
               </h1>
 
-              {/* Location: pt 16, gap 8, icon 20, Montserrat 16/24 */}
               <div className="flex items-center gap-2 pt-4">
                 <MapPin
                   className="h-5 w-5 shrink-0 text-[#F5F5F5]"
@@ -73,7 +65,6 @@ export default function DetailHeader({
                 </span>
               </div>
 
-              {/* Tags: pt 12 — #F3F4F6, radius 10, pad 8 16, gap 8 */}
               <div className="flex flex-wrap gap-3 pt-3">
                 {tags.map(({ label, type }) => {
                   const Icon = TAG_ICONS[type] || Scan;
@@ -96,7 +87,6 @@ export default function DetailHeader({
               </div>
             </div>
 
-            {/* Price column: align end, gap 12 */}
             <div className="flex shrink-0 flex-col items-start gap-3 lg:items-end">
               <div className="flex flex-col items-start lg:items-end">
                 <span className="font-[family-name:var(--font-body)] text-[14px] font-normal leading-5 text-[#F5F5F5]">
@@ -106,23 +96,7 @@ export default function DetailHeader({
                   {priceText}
                 </p>
               </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  aria-label="Add to favorites"
-                  className="btn-gold flex size-11 cursor-pointer items-center justify-center rounded-full p-3 text-[#F5F5F5] transition hover:brightness-110"
-                >
-                  <Heart className="h-5 w-5" strokeWidth={1.6} />
-                </button>
-                <button
-                  type="button"
-                  aria-label="Share property"
-                  className="btn-gold flex size-11 cursor-pointer items-center justify-center rounded-full p-3 text-[#F5F5F5] transition hover:brightness-110"
-                >
-                  <Share2 className="h-5 w-5" strokeWidth={1.6} />
-                </button>
-              </div>
+              <DetailHeaderActions />
             </div>
           </div>
         </div>

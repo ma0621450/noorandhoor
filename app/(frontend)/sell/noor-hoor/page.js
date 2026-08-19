@@ -8,6 +8,6 @@ export const metadata = {
   description: category.metaDescription,
 };
 
-export default function NoorHoorPropertiesPage() {
-  return <SellCategoryListingPage categoryKey="noor-hoor" />;
+export default function NoorHoorPropertiesPage({ searchParams }) {
+  return <SellCategoryListingPage categoryKey="noor-hoor" searchParams={searchParams} />;
 }

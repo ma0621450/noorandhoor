@@ -1,6 +1,6 @@
 import PropertyDetailPage from "@/components/sections/property/PropertyDetailPage";
 import { getRentCategory } from "@/components/sections/rent-properties/rentCategoryConfig";
-import { RENT_PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
+import { generateListingItemMetadata } from "@/lib/seo";
 
 const category = getRentCategory("properties");
 
@@ -10,11 +10,8 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata() {
-  return {
-    title: `${RENT_PROPERTY_DETAIL.title} | Noor and Hoor`,
-    description: RENT_PROPERTY_DETAIL.about[0],
-  };
+export async function generateMetadata({ params }) {
+  return generateListingItemMetadata({ params, category });
 }
 
 export default async function RentPropertyDetailPage({ params }) {

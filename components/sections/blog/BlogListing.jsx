@@ -1,6 +1,3 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -8,17 +5,17 @@ import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
 import { BLOG_CATEGORIES, BLOG_POSTS } from "@/components/sections/blog/blogData";
 
-export default function BlogListing() {
-  const [activeCategory, setActiveCategory] = useState("All");
+function categoryHref(category) {
+  return category === "All" ? "/blog" : `/blog?category=${encodeURIComponent(category)}`;
+}
 
+export default function BlogListing({ activeCategory = "All" }) {
   const featured = BLOG_POSTS.find((post) => post.featured) || BLOG_POSTS[0];
-
-  const posts = useMemo(() => {
-    const remaining = BLOG_POSTS.filter((post) => post.slug !== featured.slug);
-    if (activeCategory === "All") return remaining;
-    return remaining.filter((post) => post.category === activeCategory);
-  }, [activeCategory, featured.slug]);
-
+  const remaining = BLOG_POSTS.filter((post) => post.slug !== featured.slug);
+  const posts =
+    activeCategory === "All"
+      ? remaining
+      : remaining.filter((post) => post.category === activeCategory);
   const showFeatured =
     activeCategory === "All" || featured.category === activeCategory;
 
@@ -29,10 +26,9 @@ export default function BlogListing() {
           {BLOG_CATEGORIES.map((category) => {
             const isActive = category === activeCategory;
             return (
-              <button
+              <Link
                 key={category}
-                type="button"
-                onClick={() => setActiveCategory(category)}
+                href={categoryHref(category)}
                 className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[1.3px] transition-colors duration-200 ${
                   isActive
                     ? "border-[#ba8a44] bg-[#ba8a44] text-white"
@@ -40,7 +36,7 @@ export default function BlogListing() {
                 }`}
               >
                 {category}
-              </button>
+              </Link>
             );
           })}
         </div>

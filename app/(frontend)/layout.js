@@ -1,49 +1,35 @@
-import { Montserrat, Abhaya_Libre, Cinzel, Josefin_Sans } from "next/font/google";
-import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-});
-
-const abhayaLibre = Abhaya_Libre({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-abhaya-libre",
-});
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-cinzel",
-});
-
-const josefinSans = Josefin_Sans({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-josefin-sans",
-});
-
-export const metadata = {
-  title: "Noor and Hoor",
-  description: "Noor and Hoor is a platform for buying and selling properties",
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: SITE_DESCRIPTION,
+  areaServed: "AE",
+  email: "Admin@noorandhoorproperties.com",
+  telephone: "+971526938886",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dubai",
+    addressCountry: "AE",
+  },
 };
 
-export default function RootLayout({ children }) {
+export default function FrontendLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${montserrat.variable} ${abhayaLibre.variable} ${cinzel.variable} ${josefinSans.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <Header />
-        <main className="flex-1 w-full overflow-x-clip bg-[#111111]">
-          {children}
-        </main>
-        <Footer />
-      </body>
-    </html>
+    <div className="flex min-h-full flex-col">
+      <Header />
+      <main className="w-full flex-1 overflow-x-clip bg-[#111111]">
+        {children}
+      </main>
+      <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+    </div>
   );
 }

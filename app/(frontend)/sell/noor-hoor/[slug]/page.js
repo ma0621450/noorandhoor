@@ -1,6 +1,6 @@
 import PropertyDetailPage from "@/components/sections/property/PropertyDetailPage";
 import { getSellCategory } from "@/components/sections/sell-properties/sellCategoryConfig";
-import { RENT_PROPERTY_DETAIL } from "@/components/sections/detail/detailData";
+import { generateListingItemMetadata } from "@/lib/seo";
 
 const category = getSellCategory("noor-hoor");
 
@@ -10,11 +10,8 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata() {
-  return {
-    title: `${RENT_PROPERTY_DETAIL.title} | Sell | Noor and Hoor`,
-    description: RENT_PROPERTY_DETAIL.about[0],
-  };
+export async function generateMetadata({ params }) {
+  return generateListingItemMetadata({ params, category });
 }
 
 export default async function SellNoorHoorDetailPage({ params }) {

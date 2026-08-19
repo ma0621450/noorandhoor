@@ -18,6 +18,13 @@ import Blogs from "@/components/sections/home/Blogs";
 import FaqSection from "@/components/common/FaqSection";
 import ListYourProperty from "@/components/sections/home/ListYourProperty";
 import GetStarted from "@/components/sections/home/GetStarted";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
+
+export const metadata = {
+  title: `${SITE_NAME} | Explore Your Dream Property in UAE`,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (

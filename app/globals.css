@@ -118,7 +118,9 @@ h2 {
 
 /* Detail page section titles (About, Documents, etc.) — body font, sentence case */
 h2.detail-section-title,
-h3.detail-section-title {
+h3.detail-section-title,
+h1.admin-heading,
+h2.admin-heading {
   text-align: left;
   text-transform: none;
   font-family: var(--font-body);

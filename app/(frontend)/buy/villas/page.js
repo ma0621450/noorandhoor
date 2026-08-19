@@ -8,6 +8,6 @@ export const metadata = {
   description: category.metaDescription,
 };
 
-export default function BuyVillasPage() {
-  return <CategoryListingPage categoryKey="villas" />;
+export default function BuyVillasPage({ searchParams }) {
+  return <CategoryListingPage categoryKey="villas" searchParams={searchParams} />;
 }

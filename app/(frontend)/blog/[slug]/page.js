@@ -19,6 +19,13 @@ export async function generateMetadata({ params }) {
   return {
     title: `${post.title} | Noor & Hoor Properties`,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      title: `${post.title} | Noor & Hoor Properties`,
+      description: post.excerpt,
+      type: "article",
+      url: `/blog/${slug}`,
+    },
   };
 }
 

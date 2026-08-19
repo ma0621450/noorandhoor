@@ -1,5 +1,6 @@
 import OffPlanCategoryDetailPage from "@/components/sections/offplan/OffPlanCategoryDetailPage";
 import { getOffPlanCategory } from "@/components/sections/offplan/offplanCategoryConfig";
+import { generateListingItemMetadata } from "@/lib/seo";
 
 const category = getOffPlanCategory("penthouses");
 
@@ -9,11 +10,8 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata() {
-  return {
-    title: `${category.homes[0].title} | Noor and Hoor`,
-    description: category.metaDescription,
-  };
+export async function generateMetadata({ params }) {
+  return generateListingItemMetadata({ params, category });
 }
 
 export default async function OffPlanPenthouseDetailPage({ params }) {

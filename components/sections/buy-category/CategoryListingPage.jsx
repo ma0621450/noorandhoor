@@ -21,6 +21,7 @@ import {
   HOMES_PER_PAGE as OFFPLAN_HOMES_PER_PAGE,
   TOTAL_PAGES as OFFPLAN_TOTAL_PAGES,
 } from "@/components/sections/offplan/offplanCategoryConfig";
+import { getPageFromSearchParams } from "@/lib/seo";
 
 const MARKETS = {
   buy: {
@@ -49,9 +50,14 @@ const MARKETS = {
   },
 };
 
-export default function CategoryListingPage({ categoryKey, market = "buy" }) {
+export default async function CategoryListingPage({
+  categoryKey,
+  market = "buy",
+  searchParams,
+}) {
   const config = MARKETS[market] || MARKETS.buy;
   const category = config.getCategory(categoryKey);
+  const page = searchParams ? await getPageFromSearchParams(searchParams) : 1;
 
   return (
     <>
@@ -67,6 +73,7 @@ export default function CategoryListingPage({ categoryKey, market = "buy" }) {
         category={category}
         homesPerPage={config.homesPerPage}
         totalPages={config.totalPages}
+        page={page}
       />
       <PropertyJourneyCta
         variant={config.variant}

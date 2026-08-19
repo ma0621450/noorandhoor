@@ -8,6 +8,6 @@ export const metadata = {
   description: category.metaDescription,
 };
 
-export default function OffPlanTownhousesPage() {
-  return <OffPlanListingPage categoryKey="townhouses" />;
+export default function OffPlanTownhousesPage({ searchParams }) {
+  return <OffPlanListingPage categoryKey="townhouses" searchParams={searchParams} />;
 }
