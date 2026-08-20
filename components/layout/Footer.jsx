@@ -185,7 +185,8 @@ export default function Footer() {
           aria-label="Footer navigation"
           className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-white/10 py-12 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7"
         >
-          {NAV_ITEMS.map((category) => (
+          {NAV_ITEMS.filter((category) => category.links || category.footerCta).map(
+            (category) => (
             <div key={category.href} className="flex min-w-0 flex-col gap-4">
               <ColumnHeading href={category.href}>{category.label}</ColumnHeading>
 

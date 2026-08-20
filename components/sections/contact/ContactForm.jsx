@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Building2, Mail, Phone, User } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { Select } from "@/components/ui/CaretDown";
 import { SERVICE_OPTIONS } from "@/components/sections/contact/contactData";
+import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 
 const INPUT =
   "h-[46px] w-full rounded-[9px] border border-[#d1d5dc] bg-transparent py-3 pl-11 pr-4 text-[15px] text-[#f5f5f5] placeholder:text-[#f5f5f5]/50 outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
@@ -34,12 +36,51 @@ function IconInput({ icon: Icon, ...props }) {
 }
 
 export default function ContactForm() {
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    setStatus("submitting");
+    setError("");
+
+    try {
+      const values = formValues(form);
+      await submitEnquiry({
+        name: values.fullName,
+        email: values.email,
+        phone: values.phone,
+        company: values.company,
+        service: values.service,
+        details: values.brief,
+        botcheck: values.botcheck,
+        source: "contact-page",
+      });
+      form.reset();
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setError(err.message || "Could not send your enquiry. Please try again.");
+    }
+  }
+
   return (
     <form
       id="contact-form"
-      className="w-full rounded-[15px] border border-[#D4AF37] p-6 shadow-xl sm:p-7"
-      onSubmit={(e) => e.preventDefault()}
+      className="relative w-full rounded-[15px] border border-[#D4AF37] p-6 shadow-xl sm:p-7"
+      onSubmit={handleSubmit}
     >
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden="true"
+        style={{ display: "none" }}
+      />
       <div className="grid grid-cols-1 gap-x-5 gap-y-6 sm:grid-cols-2">
         <Field label="Full Name">
           <IconInput
@@ -112,17 +153,28 @@ export default function ContactForm() {
               name="brief"
               placeholder="Describe your requirements."
               rows={6}
+              required
               className={TEXTAREA}
             />
           </Field>
         </div>
       </div>
 
+      {status === "success" && (
+        <p className="mt-4 text-center text-sm font-medium text-[#d6a85e]">
+          Thank you. We received your enquiry and will be in touch shortly.
+        </p>
+      )}
+      {status === "error" && (
+        <p className="mt-4 text-center text-sm font-medium text-red-400">{error}</p>
+      )}
+
       <Button
         type="submit"
+        disabled={status === "submitting"}
         className="mt-8 h-14 w-full rounded-[13px] text-base font-semibold tracking-normal normal-case"
       >
-        Submit
+        {status === "submitting" ? "Sending..." : "Submit"}
       </Button>
     </form>
   );

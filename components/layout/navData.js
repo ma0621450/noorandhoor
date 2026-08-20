@@ -90,4 +90,12 @@ export const NAV_ITEMS = [
     href: "/blog",
     footerCta: "View all articles",
   },
+  {
+    label: "About",
+    href: "/about-us",
+  },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
 ];

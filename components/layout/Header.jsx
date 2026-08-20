@@ -8,6 +8,7 @@ import { ChevronRight, Menu, X } from "lucide-react";
 import logo from "@/public/svgs/logo.svg";
 import Button from "@/components/ui/Button";
 import CaretDown from "@/components/ui/CaretDown";
+import EnquiryModal from "@/components/layout/EnquiryModal";
 import { NAV_ITEMS } from "@/components/layout/navData";
 import NavDropdownMenu from "@/components/layout/NavDropdownMenu";
 
@@ -188,6 +189,12 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
+
+  const openEnquiry = () => {
+    setMobileOpen(false);
+    setEnquiryOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -200,18 +207,18 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    document.body.style.overflow = mobileOpen || enquiryOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, enquiryOpen]);
 
   const closeMobile = () => setMobileOpen(false);
 
   return (
     <>
       {mobileOpen && (
-        <div className="fixed inset-0 z-[90] w-full bg-[#111] min-[1072px]:hidden">
+        <div className="fixed inset-0 z-[90] w-full bg-[#111] min-[1240px]:hidden">
           <nav className="flex h-full w-full flex-col overflow-y-auto px-6 pt-24 pb-8">
             {NAV_ITEMS.map((item) => (
               <MobileNavItem
@@ -222,19 +229,14 @@ export default function Header() {
               />
             ))}
 
-            <Link
-              href="/contact"
-              className="mt-6 inline-flex w-full"
-              onClick={closeMobile}
+            <Button
+              variant="primary"
+              className="mt-6 w-full justify-center gap-2 py-3 text-xs"
+              onClick={openEnquiry}
             >
-              <Button
-                variant="primary"
-                className="w-full justify-center gap-2 py-3 text-xs"
-              >
-                <span>Contact Us</span>
-                <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
-              </Button>
-            </Link>
+              <span>Inquire Now</span>
+              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+            </Button>
           </nav>
         </div>
       )}
@@ -256,7 +258,7 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-6 min-[1072px]:flex xl:gap-8">
+          <nav className="hidden items-center gap-4 min-[1240px]:flex xl:gap-6">
             {NAV_ITEMS.map((item) => (
               <NavItem
                 key={item.label}
@@ -269,20 +271,19 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Link href="/contact" className="hidden md:inline-flex">
-              <Button
-                variant="primary"
-                className="gap-2 px-4 py-2 text-xs lg:px-6 lg:py-3 lg:text-sm"
-              >
-                <span>Contact Us</span>
-                <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
-              </Button>
-            </Link>
+            <Button
+              variant="primary"
+              className="hidden gap-2 px-4 py-2 text-xs md:inline-flex lg:px-6 lg:py-3 lg:text-sm"
+              onClick={openEnquiry}
+            >
+              <span>Inquire Now</span>
+              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
+            </Button>
 
             <button
               type="button"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              className="cursor-pointer text-white min-[1072px]:hidden"
+              className="cursor-pointer text-white min-[1240px]:hidden"
               onClick={() => setMobileOpen((open) => !open)}
             >
               {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -290,6 +291,8 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      <EnquiryModal open={enquiryOpen} onClose={() => setEnquiryOpen(false)} />
     </>
   );
 }

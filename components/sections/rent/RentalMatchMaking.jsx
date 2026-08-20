@@ -5,9 +5,8 @@ export default function RentalMatchMaking() {
     <MatchMaking
       title="Your Ideal Rental, Matched in Minutes"
       description="Share your requirements once, and we'll match you with our available rental properties in minutes."
-      briefPlaceholder="Tell Us About Your Rental Needs"
-      messagePlaceholder="Share Any Specific Requirements"
-      submitLabel="Generate Rental Matches"
+      detailsPlaceholder="Details"
+      submitLabel="Submit Enquiry"
     />
   );
 }
