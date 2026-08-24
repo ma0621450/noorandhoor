@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Bed, Bath, Scan, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Badge from "@/components/ui/Badge";
+import MediaImage from "@/components/ui/MediaImage";
 
 export default function PropertyCard({
   property,
@@ -57,7 +57,7 @@ export default function PropertyCard({
 
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         {currentImage && (
-          <Image
+          <MediaImage
             src={currentImage}
             alt={title}
             fill
@@ -119,18 +119,18 @@ export default function PropertyCard({
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white">
           <span className="flex items-center gap-1.5">
             <Bed className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
-            <span className="text-xs font-medium">{features.bedroom} bed</span>
+            <span className="text-xs font-medium">{features?.bedroom ?? 0} bed</span>
           </span>
           <span className="text-white/50">•</span>
           <span className="flex items-center gap-1.5">
             <Bath className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
-            <span className="text-xs font-medium">{features.bathroom} bath</span>
+            <span className="text-xs font-medium">{features?.bathroom ?? 0} bath</span>
           </span>
           <span className="text-white/50">•</span>
           <span className="flex items-center gap-1.5">
             <Scan className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
             <span className="text-xs font-medium">
-              {features.area.toLocaleString()}Sq Ft
+              {(features?.area ?? 0).toLocaleString()}Sq Ft
             </span>
           </span>
         </div>

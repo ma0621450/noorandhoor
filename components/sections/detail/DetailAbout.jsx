@@ -3,7 +3,7 @@ import { FileText, Building2, Minus, Plus } from "lucide-react";
 import mapBg from "@/public/images/detail/world-map.svg";
 
 export default function DetailAbout({ property }) {
-  const { about, documents } = property;
+  const { about = [], documents = [], description = [] } = property;
 
   return (
     <section className="w-full bg-[#111111]">
@@ -15,14 +15,31 @@ export default function DetailAbout({ property }) {
               <h2 className="detail-section-title m-0 text-[18px] font-medium leading-[27px] text-[#F5F5F5]">
                 About This Property
               </h2>
-              {about.map((paragraph) => (
+              {about.map((paragraph, index) => (
                 <p
-                  key={paragraph.slice(0, 28)}
+                  key={`${paragraph.slice(0, 28)}-${index}`}
                   className="m-0 pt-4 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px] text-[#F5F5F5]"
                 >
                   {paragraph}
                 </p>
               ))}
+              {description.length ? (
+                <ul className="m-0 flex list-none flex-col p-0 pt-4">
+                  {description.map((item) => (
+                    <li key={item} className="flex items-start gap-2 pt-2">
+                      <span
+                        className="mt-0.5 font-[family-name:var(--font-body)] text-[16px] leading-6 text-[#D6A85E]"
+                        aria-hidden
+                      >
+                        •
+                      </span>
+                      <span className="font-[family-name:var(--font-body)] text-[16px] font-normal leading-6 text-[#F5F5F5]">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
 
             {/* Map: 453.6×270, radius 6.75, white card */}
@@ -57,35 +74,36 @@ export default function DetailAbout({ property }) {
             </div>
           </div>
 
-          {/* Space below About+map before Documents (Figma ~ documents at 363 after map row) */}
-          <div className="mt-16 flex max-w-[735px] flex-col gap-4 sm:mt-20">
-            <h3 className="detail-section-title m-0 text-[18px] font-medium leading-[27px] text-[#F5F5F5]">
-              Property Documents
-            </h3>
-            <ul className="flex flex-col gap-3">
-              {documents.map((doc) => (
-                <li
-                  key={doc.name}
-                  className="flex items-start gap-2 leading-[26px]"
-                >
-                  <FileText
-                    className="mt-0.5 h-6 w-6 shrink-0 text-[#BA8A44]"
-                    strokeWidth={1.4}
-                  />
-                  <div className="flex min-w-0 flex-1 flex-col gap-1 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                    <span className="break-words text-[#F5F5F5]">{doc.name}</span>
-                    <span
-                      className={`shrink-0 text-sm sm:text-base ${
-                        doc.available ? "text-[#F5F5F5]" : "text-[#5D5D5D]"
-                      }`}
-                    >
-                      {doc.available ? "AVAILABLE" : "NOT AVAILABLE"}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {documents.length ? (
+            <div className="mt-16 flex max-w-[735px] flex-col gap-4 sm:mt-20">
+              <h3 className="detail-section-title m-0 text-[18px] font-medium leading-[27px] text-[#F5F5F5]">
+                Property Documents
+              </h3>
+              <ul className="flex flex-col gap-3">
+                {documents.map((doc) => (
+                  <li
+                    key={doc.name}
+                    className="flex items-start gap-2 leading-[26px]"
+                  >
+                    <FileText
+                      className="mt-0.5 h-6 w-6 shrink-0 text-[#BA8A44]"
+                      strokeWidth={1.4}
+                    />
+                    <div className="flex min-w-0 flex-1 flex-col gap-1 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                      <span className="break-words text-[#F5F5F5]">{doc.name}</span>
+                      <span
+                        className={`shrink-0 text-sm sm:text-base ${
+                          doc.available ? "text-[#F5F5F5]" : "text-[#5D5D5D]"
+                        }`}
+                      >
+                        {doc.available ? "AVAILABLE" : "NOT AVAILABLE"}
+                      </span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

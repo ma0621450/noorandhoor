@@ -26,24 +26,28 @@ import { getPageFromSearchParams } from "@/lib/seo";
 const MARKETS = {
   buy: {
     variant: "buy",
+    adminMarket: "buy",
     getCategory,
     homesPerPage: BUY_HOMES_PER_PAGE,
     totalPages: BUY_TOTAL_PAGES,
   },
   sell: {
     variant: "sell",
+    adminMarket: "sell",
     getCategory: getSellCategory,
     homesPerPage: SELL_HOMES_PER_PAGE,
     totalPages: SELL_TOTAL_PAGES,
   },
   rent: {
     variant: "rent",
+    adminMarket: "rent",
     getCategory: getRentCategory,
     homesPerPage: RENT_HOMES_PER_PAGE,
     totalPages: RENT_TOTAL_PAGES,
   },
   offplan: {
     variant: "offplan",
+    adminMarket: "off-plan",
     getCategory: getOffPlanCategory,
     homesPerPage: OFFPLAN_HOMES_PER_PAGE,
     totalPages: OFFPLAN_TOTAL_PAGES,
@@ -74,6 +78,7 @@ export default async function CategoryListingPage({
         homesPerPage={config.homesPerPage}
         totalPages={config.totalPages}
         page={page}
+        market={config.adminMarket}
       />
       <PropertyJourneyCta
         variant={config.variant}

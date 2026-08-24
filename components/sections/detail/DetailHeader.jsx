@@ -28,7 +28,7 @@ export default function DetailHeader({
   breadcrumbCurrent = "Home",
   priceLabel = "Price",
 }) {
-  const { title, location, price, tags } = property;
+  const { title, location, price, tags = [] } = property;
   const priceText = `AED ${Number(price).toLocaleString("en-US")}`;
 
   return (

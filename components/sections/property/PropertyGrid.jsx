@@ -1,6 +1,14 @@
+"use client";
+
+import { useMemo } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import PropertyCard from "@/components/ui/PropertyCard";
+import useAdminProperties from "@/hooks/useAdminProperties";
+import {
+  adminToListingHome,
+  propertyMatchesCategory,
+} from "@/lib/admin/propertyPublic";
 
 function pageHref(path, pageNumber) {
   return pageNumber <= 1 ? path : `${path}?page=${pageNumber}`;
@@ -11,10 +19,32 @@ export default function PropertyGrid({
   homesPerPage = 8,
   totalPages = 3,
   page = 1,
+  market = "buy",
 }) {
-  const currentPage = Math.min(Math.max(page, 1), totalPages);
+  const { properties, isReady } = useAdminProperties();
+
+  const homes = useMemo(() => {
+    const adminHomes = isReady
+      ? properties
+          .filter(
+            (item) =>
+              item.market === market &&
+              propertyMatchesCategory(item, category.path),
+          )
+          .map(adminToListingHome)
+      : [];
+    const seen = new Set(adminHomes.map((item) => item.slug));
+    const mockHomes = (category.homes || []).filter((item) => !seen.has(item.slug));
+    return [...adminHomes, ...mockHomes];
+  }, [isReady, properties, market, category]);
+
+  const computedTotalPages = Math.max(
+    totalPages,
+    Math.ceil(homes.length / homesPerPage) || 1,
+  );
+  const currentPage = Math.min(Math.max(page, 1), computedTotalPages);
   const start = (currentPage - 1) * homesPerPage;
-  const pageItems = category.homes.slice(start, start + homesPerPage);
+  const pageItems = homes.slice(start, start + homesPerPage);
 
   return (
     <section className="section-full bg-[#111111] py-12 sm:py-14 lg:pb-20 lg:pt-16">
@@ -38,7 +68,7 @@ export default function PropertyGrid({
           aria-label="Property pagination"
           className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:justify-end"
         >
-          {Array.from({ length: totalPages }).map((_, index) => {
+          {Array.from({ length: computedTotalPages }).map((_, index) => {
             const pageNumber = index + 1;
             const active = pageNumber === currentPage;
 
@@ -59,11 +89,11 @@ export default function PropertyGrid({
             );
           })}
           <Link
-            href={pageHref(category.path, Math.min(currentPage + 1, totalPages))}
+            href={pageHref(category.path, Math.min(currentPage + 1, computedTotalPages))}
             aria-label="Next page"
-            aria-disabled={currentPage === totalPages}
+            aria-disabled={currentPage === computedTotalPages}
             className={`flex size-10 items-center justify-center text-[#d4af37] transition hover:text-[#eec876] ${
-              currentPage === totalPages ? "pointer-events-none opacity-40" : ""
+              currentPage === computedTotalPages ? "pointer-events-none opacity-40" : ""
             }`}
           >
             <ChevronRight className="h-5 w-5" strokeWidth={1.5} />

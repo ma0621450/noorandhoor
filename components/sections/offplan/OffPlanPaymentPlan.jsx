@@ -12,8 +12,13 @@ import {
   getPaymentBreakdown,
 } from "@/components/sections/offplan/offPlanPayment";
 
-export default function OffPlanPaymentPlan() {
-  const [price, setPrice] = useState(PAYMENT_DEFAULT);
+export default function OffPlanPaymentPlan({ defaultPrice }) {
+  const initial = Number(defaultPrice);
+  const [price, setPrice] = useState(
+    Number.isFinite(initial) && initial > 0
+      ? Math.min(PAYMENT_MAX, Math.max(PAYMENT_MIN, initial))
+      : PAYMENT_DEFAULT,
+  );
   const { downPayment, financed, monthly } = getPaymentBreakdown(price);
   const fill = ((price - PAYMENT_MIN) / (PAYMENT_MAX - PAYMENT_MIN)) * 100;
 

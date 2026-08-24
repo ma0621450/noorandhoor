@@ -1,10 +1,4 @@
-import DetailHeader from "@/components/sections/detail/DetailHeader";
-import DetailGallery from "@/components/sections/detail/DetailGallery";
-import DetailAboutRent from "@/components/sections/detail/DetailAboutRent";
-import DetailRelated from "@/components/sections/detail/DetailRelated";
-import FaqSection from "@/components/common/FaqSection";
-import DetailAgentContactRent from "@/components/sections/detail/DetailAgentContactRent";
-import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
+import PropertyDetailShell from "@/components/sections/detail/PropertyDetailShell";
 import {
   RENT_PROPERTY_DETAIL,
   RELATED_PROPERTIES,
@@ -40,41 +34,36 @@ export default async function PropertyDetailPage({
 
   const { slug } = await params;
   const category = config.getCategory(categoryKey);
-  const home =
-    category.homes.find((item) => item.slug === slug) || category.homes[0];
+  const home = category.homes.find((item) => item.slug === slug);
+  const source = home || category.homes[0];
 
-  const property = {
+  const fallbackProperty = {
     ...RENT_PROPERTY_DETAIL,
     slug,
-    title: home.title,
-    location: home.location,
-    price: home.price ?? RENT_PROPERTY_DETAIL.price,
+    title: home?.title || RENT_PROPERTY_DETAIL.title,
+    location: home?.location || RENT_PROPERTY_DETAIL.location,
+    price: home?.price ?? RENT_PROPERTY_DETAIL.price,
     gallery:
-      home.images?.length >= 5
-        ? home.images
-        : [...(home.images || []), ...RENT_PROPERTY_DETAIL.gallery].slice(0, 5),
+      source.images?.length >= 5
+        ? source.images
+        : [...(source.images || []), ...RENT_PROPERTY_DETAIL.gallery].slice(0, 5),
   };
 
   return (
-    <div className="relative w-full overflow-x-clip bg-[#111111] text-white">
-      <DetailHeader
-        property={property}
-        breadcrumbLabel={config.breadcrumbLabel(category)}
-        breadcrumbHref={category.path}
-        breadcrumbCurrent={category.heading}
-        priceLabel={config.priceLabel}
-      />
-      <DetailGallery images={property.gallery} />
-      <DetailAboutRent property={property} />
-      <DetailRelated
-        basePath={category.path}
-        eyebrow="Related Properties"
-        heading={config.relatedHeading}
-        properties={RELATED_PROPERTIES}
-      />
-      <FaqSection variant="detail" />
-      <DetailAgentContactRent agent={property.agent} />
-      <PropertyJourneyCta variant="detail" />
-    </div>
+    <PropertyDetailShell
+      variant={market}
+      slug={slug}
+      market={market}
+      fallbackProperty={fallbackProperty}
+      hasMockHome={Boolean(home)}
+      related={RELATED_PROPERTIES}
+      relatedHeading={config.relatedHeading}
+      header={{
+        breadcrumbLabel: config.breadcrumbLabel(category),
+        breadcrumbHref: category.path,
+        breadcrumbCurrent: category.heading,
+        priceLabel: config.priceLabel,
+      }}
+    />
   );
 }

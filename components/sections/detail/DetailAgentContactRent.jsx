@@ -16,7 +16,10 @@ export default function DetailAgentContactRent({ agent }) {
                 Get Expert Guidance for Your Next Move
               </h3>
               <p className="m-0 pt-1 font-[family-name:var(--font-body)] text-[18px] font-normal leading-[30px] text-[#D1D5DB] sm:text-[20px]">
-                Contact our leasing specialist
+                {agent?.name
+                  ? `Contact ${agent.name}`
+                  : "Contact our leasing specialist"}
+                {agent?.phone ? ` · ${agent.phone}` : ""}
               </p>
             </div>
           </div>

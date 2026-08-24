@@ -136,7 +136,7 @@ export default function PropertyListing() {
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-white/8">
-                          <MediaThumb src={property.image} alt={property.title} />
+                          <MediaThumb src={property.image || property.images?.[0]} alt={property.title} />
                         </div>
                         <div className="min-w-0">
                           <p className="font-medium text-white">{property.title}</p>
@@ -197,7 +197,7 @@ export default function PropertyListing() {
               >
                 <div className="flex gap-3">
                   <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-white/8">
-                    <MediaThumb src={property.image} alt={property.title} />
+                    <MediaThumb src={property.image || property.images?.[0]} alt={property.title} />
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-white">{property.title}</p>
@@ -245,7 +245,7 @@ export default function PropertyListing() {
       <ConfirmDialog
         open={Boolean(pendingDelete)}
         title="Delete this listing?"
-        description={`“${pendingDelete?.title || ""}” will be removed from the admin preview. This does not yet affect the public site.`}
+        description={`“${pendingDelete?.title || ""}” will be removed from the admin store and will no longer appear on the public site.`}
         confirmLabel="Delete"
         onClose={() => setPendingDelete(null)}
         onConfirm={() => {

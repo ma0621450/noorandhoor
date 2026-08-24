@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+import MediaImage from "@/components/ui/MediaImage";
 
 function fillPhotos(images, count = 5) {
   if (!images.length) return [];
@@ -21,7 +21,7 @@ export default function DetailGallery({ images = [] }) {
           <div className="relative hidden h-[600px] w-full md:block">
             {main && (
               <div className="absolute left-0 top-0 h-[600px] w-[calc((100%-24px)/3)] overflow-hidden rounded-2xl">
-                <Image
+                <MediaImage
                   src={main}
                   alt="Property main photo"
                   fill
@@ -34,7 +34,7 @@ export default function DetailGallery({ images = [] }) {
 
             {midTop && (
               <div className="absolute left-[calc((100%-24px)/3+12px)] top-0 h-[294.5px] w-[calc((100%-24px)/3)] overflow-hidden rounded-2xl">
-                <Image
+                <MediaImage
                   src={midTop}
                   alt="Property photo 2"
                   fill
@@ -46,7 +46,7 @@ export default function DetailGallery({ images = [] }) {
 
             {rightTop && (
               <div className="absolute left-[calc(2*((100%-24px)/3)+24px)] top-0 h-[294.5px] w-[calc((100%-24px)/3)] overflow-hidden rounded-2xl">
-                <Image
+                <MediaImage
                   src={rightTop}
                   alt="Property photo 3"
                   fill
@@ -58,7 +58,7 @@ export default function DetailGallery({ images = [] }) {
 
             {midBottom && (
               <div className="absolute left-[calc((100%-24px)/3+12px)] top-[305.5px] h-[294.5px] w-[calc((100%-24px)/3)] overflow-hidden rounded-2xl">
-                <Image
+                <MediaImage
                   src={midBottom}
                   alt="Property photo 4"
                   fill
@@ -70,7 +70,7 @@ export default function DetailGallery({ images = [] }) {
 
             {rightBottom && (
               <div className="absolute left-[calc(2*((100%-24px)/3)+24px)] top-[305.5px] h-[294.5px] w-[calc((100%-24px)/3)] overflow-hidden rounded-2xl">
-                <Image
+                <MediaImage
                   src={rightBottom}
                   alt="Property photo 5"
                   fill
@@ -99,7 +99,7 @@ export default function DetailGallery({ images = [] }) {
                   key={index}
                   className="relative aspect-[4/3] overflow-hidden rounded-2xl"
                 >
-                  <Image
+                  <MediaImage
                     src={image}
                     alt={`Property photo ${index + 1}`}
                     fill
@@ -146,7 +146,7 @@ export default function DetailGallery({ images = [] }) {
                 key={index}
                 className="relative aspect-[4/3] overflow-hidden rounded-xl"
               >
-                <Image
+                <MediaImage
                   src={image}
                   alt=""
                   fill

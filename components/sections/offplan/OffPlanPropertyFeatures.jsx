@@ -25,15 +25,20 @@ function singularLabel(heading = "Apartment") {
 
 export default function OffPlanPropertyFeatures({
   categoryLabel = "Apartments",
+  property,
 }) {
   const typeLabel = singularLabel(categoryLabel);
-  const description = [
-    `Type: Luxury ${typeLabel}`,
-    "Bedrooms: 3 spacious bedrooms with built-in wardrobes",
-    "Bathrooms: 2 modern bathrooms with premium fixtures",
-    "Parking: 2 covered parking spaces",
-    "View: Stunning Burj Khalifa views",
-  ];
+  const about = property?.about?.length ? property.about : ABOUT;
+  const features = property?.features?.length ? property.features : FEATURES;
+  const description = property?.description?.length
+    ? property.description
+    : [
+        `Type: Luxury ${typeLabel}`,
+        "Bedrooms: 3 spacious bedrooms with built-in wardrobes",
+        "Bathrooms: 2 modern bathrooms with premium fixtures",
+        "Parking: 2 covered parking spaces",
+        "View: Stunning Burj Khalifa views",
+      ];
 
   return (
     <section className="w-full bg-[#111111] py-12 sm:py-16">
@@ -47,9 +52,9 @@ export default function OffPlanPropertyFeatures({
             <h3 className="detail-section-title m-0 text-2xl font-semibold leading-8 text-[#F5F5F5]">
               About This Property
             </h3>
-            {ABOUT.map((paragraph) => (
+            {about.map((paragraph, index) => (
               <p
-                key={paragraph.slice(0, 32)}
+                key={`${paragraph.slice(0, 32)}-${index}`}
                 className="m-0 pt-4 text-base leading-[26px] text-[#D1D5DB]"
               >
                 {paragraph}
@@ -77,7 +82,7 @@ export default function OffPlanPropertyFeatures({
               Features
             </h3>
             <ul className="mt-3 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
-              {FEATURES.map((feature) => (
+              {features.map((feature) => (
                 <li
                   key={feature}
                   className="flex items-center gap-2 text-base leading-6 text-[#D1D5DB]"
