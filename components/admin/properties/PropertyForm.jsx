@@ -120,7 +120,7 @@ export default function PropertyForm({ propertyId }) {
     return (
       <EmptyState
         title="Property not found"
-        description="This listing is no longer in the local admin store."
+        description="This listing is no longer in Supabase."
         actionLabel="Back to properties"
         onAction={() => router.push("/admin/properties")}
       />
@@ -153,6 +153,7 @@ function PropertyEditor({
   );
   const [errors, setErrors] = useState({});
   const [slugLocked, setSlugLocked] = useState(Boolean(initialProperty));
+  const [isSaving, setIsSaving] = useState(false);
 
   const setField = (key, value) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -190,7 +191,7 @@ function PropertyEditor({
     return next;
   }, [form]);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (Object.keys(validation).length) {
       setErrors(validation);
@@ -198,8 +199,9 @@ function PropertyEditor({
       return;
     }
 
+    setIsSaving(true);
     try {
-      onSave({
+      await onSave({
         ...form,
         about: form.aboutText,
         descriptionItems: form.descriptionItems.filter((item) => item.trim()),
@@ -208,11 +210,13 @@ function PropertyEditor({
       });
       showToast(initialProperty ? "Property updated." : "Property added.");
       router.push("/admin/properties");
-    } catch {
+    } catch (error) {
       showToast(
-        "Could not save. Try fewer or smaller gallery images until storage is connected.",
+        error?.message || "Could not save this property. Please try again.",
         "error",
       );
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -530,11 +534,14 @@ function PropertyEditor({
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <AdminButton
           variant="secondary"
+          disabled={isSaving}
           onClick={() => router.push("/admin/properties")}
         >
           Cancel
         </AdminButton>
-        <AdminButton type="submit">{submitLabel}</AdminButton>
+        <AdminButton type="submit" disabled={isSaving}>
+          {isSaving ? "Saving..." : submitLabel}
+        </AdminButton>
       </div>
     </form>
   );

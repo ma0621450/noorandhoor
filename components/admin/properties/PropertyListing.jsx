@@ -72,7 +72,7 @@ export default function PropertyListing() {
       <PageHeader
         eyebrow="Inventory"
         title="Properties"
-        description="Create, edit, and remove listings. Data is stored locally until Supabase is connected."
+        description="Create, edit, and remove listings. New properties are saved to Supabase."
         actionLabel="Add property"
         actionHref="/admin/properties/new"
       />
@@ -245,13 +245,20 @@ export default function PropertyListing() {
       <ConfirmDialog
         open={Boolean(pendingDelete)}
         title="Delete this listing?"
-        description={`“${pendingDelete?.title || ""}” will be removed from the admin store and will no longer appear on the public site.`}
+        description={`“${pendingDelete?.title || ""}” will be removed from Supabase and will no longer appear on the public site.`}
         confirmLabel="Delete"
         onClose={() => setPendingDelete(null)}
-        onConfirm={() => {
-          deleteProperty(pendingDelete.id);
-          setPendingDelete(null);
-          showToast("Property deleted.");
+        onConfirm={async () => {
+          try {
+            await deleteProperty(pendingDelete.id);
+            setPendingDelete(null);
+            showToast("Property deleted.");
+          } catch (error) {
+            showToast(
+              error?.message || "Could not delete this property.",
+              "error",
+            );
+          }
         }}
       />
     </div>

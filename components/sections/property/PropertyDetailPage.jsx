@@ -1,8 +1,4 @@
 import PropertyDetailShell from "@/components/sections/detail/PropertyDetailShell";
-import {
-  RENT_PROPERTY_DETAIL,
-  RELATED_PROPERTIES,
-} from "@/components/sections/detail/detailData";
 import { getRentCategory } from "@/components/sections/rent-properties/rentCategoryConfig";
 import { getSellCategory } from "@/components/sections/sell-properties/sellCategoryConfig";
 
@@ -34,29 +30,12 @@ export default async function PropertyDetailPage({
 
   const { slug } = await params;
   const category = config.getCategory(categoryKey);
-  const home = category.homes.find((item) => item.slug === slug);
-  const source = home || category.homes[0];
-
-  const fallbackProperty = {
-    ...RENT_PROPERTY_DETAIL,
-    slug,
-    title: home?.title || RENT_PROPERTY_DETAIL.title,
-    location: home?.location || RENT_PROPERTY_DETAIL.location,
-    price: home?.price ?? RENT_PROPERTY_DETAIL.price,
-    gallery:
-      source.images?.length >= 5
-        ? source.images
-        : [...(source.images || []), ...RENT_PROPERTY_DETAIL.gallery].slice(0, 5),
-  };
 
   return (
     <PropertyDetailShell
       variant={market}
       slug={slug}
       market={market}
-      fallbackProperty={fallbackProperty}
-      hasMockHome={Boolean(home)}
-      related={RELATED_PROPERTIES}
       relatedHeading={config.relatedHeading}
       header={{
         breadcrumbLabel: config.breadcrumbLabel(category),

@@ -14,16 +14,7 @@ function categoryEntries(groups) {
       priority: 0.8,
     };
 
-    const details = [...new Set(category.homes.map((home) => home.slug))].map(
-      (slug) => ({
-        url: `${SITE_URL}${category.path}/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.6,
-      }),
-    );
-
-    return [listing, ...details];
+    return [listing];
   });
 }
 

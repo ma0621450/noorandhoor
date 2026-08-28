@@ -5,9 +5,7 @@ import { generateListingItemMetadata } from "@/lib/seo";
 const category = getSellCategory("properties");
 
 export function generateStaticParams() {
-  return [...new Set(category.homes.map((home) => home.slug))].map((slug) => ({
-    slug,
-  }));
+  return [];
 }
 
 export async function generateMetadata({ params }) {

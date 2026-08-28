@@ -1,11 +1,10 @@
 import PropertyCard from "@/components/ui/PropertyCard";
-import { RELATED_PROPERTIES } from "@/components/sections/detail/detailData";
 
 export default function DetailRelated({
   basePath = "/buy/apartments",
   eyebrow = "Related Properties",
   heading = "Explore Similar Properties",
-  properties = RELATED_PROPERTIES,
+  properties = [],
 }) {
   if (!properties.length) return null;
 

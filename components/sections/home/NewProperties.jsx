@@ -1,14 +1,15 @@
-import FeaturedPropertySection from "@/components/sections/property/FeaturedPropertySection";
-import { FEATURED_BUY_PROPERTIES } from "@/components/sections/buy/FeaturedBuyProperties";
+import DynamicFeaturedProperties from "@/components/sections/property/DynamicFeaturedProperties";
 
 export default function NewProperties() {
   return (
-    <FeaturedPropertySection
+    <DynamicFeaturedProperties
+      market="buy"
+      featuredOnly={false}
+      recent
       eyebrow="New Properties"
       title="Recently Added Properties"
       href="/buy/properties"
       ctaLabel="View All New Properties"
-      properties={FEATURED_BUY_PROPERTIES}
       badge="New"
     />
   );

@@ -5,10 +5,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import PropertyCard from "@/components/ui/PropertyCard";
 import useAdminProperties from "@/hooks/useAdminProperties";
-import {
-  adminToListingHome,
-  propertyMatchesCategory,
-} from "@/lib/admin/propertyPublic";
+import { listingHomes } from "@/lib/admin/propertyPublic";
 
 function pageHref(path, pageNumber) {
   return pageNumber <= 1 ? path : `${path}?page=${pageNumber}`;
@@ -17,31 +14,17 @@ function pageHref(path, pageNumber) {
 export default function PropertyGrid({
   category,
   homesPerPage = 8,
-  totalPages = 3,
   page = 1,
   market = "buy",
 }) {
   const { properties, isReady } = useAdminProperties();
 
   const homes = useMemo(() => {
-    const adminHomes = isReady
-      ? properties
-          .filter(
-            (item) =>
-              item.market === market &&
-              propertyMatchesCategory(item, category.path),
-          )
-          .map(adminToListingHome)
-      : [];
-    const seen = new Set(adminHomes.map((item) => item.slug));
-    const mockHomes = (category.homes || []).filter((item) => !seen.has(item.slug));
-    return [...adminHomes, ...mockHomes];
-  }, [isReady, properties, market, category]);
+    if (!isReady) return [];
+    return listingHomes(properties, { market, category });
+  }, [category, isReady, market, properties]);
 
-  const computedTotalPages = Math.max(
-    totalPages,
-    Math.ceil(homes.length / homesPerPage) || 1,
-  );
+  const computedTotalPages = Math.max(1, Math.ceil(homes.length / homesPerPage) || 1);
   const currentPage = Math.min(Math.max(page, 1), computedTotalPages);
   const start = (currentPage - 1) * homesPerPage;
   const pageItems = homes.slice(start, start + homesPerPage);
@@ -54,16 +37,27 @@ export default function PropertyGrid({
           <h2 className="text-gold-gradient">{category.heading}</h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {pageItems.map((property) => (
-            <PropertyCard
-              key={`${currentPage}-${property.id}`}
-              property={property}
-              basePath={property.basePath || category.path}
-            />
-          ))}
-        </div>
+        {!isReady ? (
+          <p className="py-16 text-center text-sm text-white/45">
+            Loading properties...
+          </p>
+        ) : pageItems.length ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {pageItems.map((property) => (
+              <PropertyCard
+                key={`${currentPage}-${property.id}`}
+                property={property}
+                basePath={property.basePath || category.path}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="py-16 text-center text-sm text-white/45">
+            No properties listed in this category yet.
+          </p>
+        )}
 
+        {isReady && computedTotalPages > 1 ? (
         <nav
           aria-label="Property pagination"
           className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:justify-end"
@@ -99,6 +93,7 @@ export default function PropertyGrid({
             <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
           </Link>
         </nav>
+        ) : null}
       </div>
     </section>
   );

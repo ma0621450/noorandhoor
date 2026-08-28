@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import DetailHeader from "@/components/sections/detail/DetailHeader";
 import DetailGallery from "@/components/sections/detail/DetailGallery";
 import DetailAbout from "@/components/sections/detail/DetailAbout";
@@ -17,6 +18,8 @@ import useAdminProperties from "@/hooks/useAdminProperties";
 import {
   adminToDetailProperty,
   findAdminProperty,
+  isPublicProperty,
+  relatedListingHomes,
 } from "@/lib/admin/propertyPublic";
 import { formatDisplayDate } from "@/lib/admin/utils";
 
@@ -24,23 +27,34 @@ export default function PropertyDetailShell({
   variant = "buy",
   slug,
   market,
-  fallbackProperty,
-  hasMockHome = true,
   header,
-  related,
   relatedHeading,
   relatedEyebrow,
   offPlanCategoryLabel,
 }) {
   const { properties, isReady } = useAdminProperties();
-  const admin =
+  const matched =
     isReady && slug ? findAdminProperty(properties, slug, market) : null;
-  const property = admin
-    ? adminToDetailProperty(admin, fallbackProperty)
-    : fallbackProperty;
+  const admin = matched && isPublicProperty(matched) ? matched : null;
+  const property = admin ? adminToDetailProperty(admin) : null;
+  const related = admin ? relatedListingHomes(properties, admin) : [];
 
-  if (!isReady && !hasMockHome) {
+  if (!isReady) {
     return <div className="min-h-[70vh] w-full bg-[#111111]" />;
+  }
+
+  if (!property) {
+    return (
+      <div className="flex min-h-[70vh] w-full flex-col items-center justify-center gap-4 bg-[#111111] px-6 text-center text-white">
+        <p className="text-lg">This property is not available.</p>
+        <Link
+          href={header?.breadcrumbHref || "/buy/properties"}
+          className="text-sm text-[#eec876] underline-offset-4 hover:underline"
+        >
+          Back to listings
+        </Link>
+      </div>
+    );
   }
 
   if (variant === "off-plan") {

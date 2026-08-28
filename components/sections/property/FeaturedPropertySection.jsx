@@ -7,9 +7,10 @@ export default function FeaturedPropertySection({
   title,
   href,
   ctaLabel = "View Properties",
-  properties,
+  properties = [],
   badge,
   categoryLabel,
+  loading = false,
 }) {
   return (
     <section className="section-container">
@@ -34,15 +35,25 @@ export default function FeaturedPropertySection({
         </p>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {properties.map((property) => (
-          <PropertyCard
-            key={property.id}
-            property={property}
-            badge={property.badge || badge}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <p className="py-10 text-center text-sm text-white/45">
+          Loading properties...
+        </p>
+      ) : properties.length ? (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {properties.map((property) => (
+            <PropertyCard
+              key={property.id}
+              property={property}
+              badge={property.badge || badge}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="py-10 text-center text-sm text-white/45">
+          No properties available yet.
+        </p>
+      )}
     </section>
   );
 }
