@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import MediaImage from "@/components/ui/MediaImage";
 
 const BlogCard = ({ blog }) => {
   const { image, title, date, excerpt, slug, category } = blog;
@@ -13,13 +13,17 @@ const BlogCard = ({ blog }) => {
       )}
       <div className="transition-transform duration-300 ease-out group-hover:scale-102">
         <div className="relative aspect-[4/3] w-full overflow-hidden">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover"
-          />
+          {image ? (
+            <MediaImage
+              src={image}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-white/5" />
+          )}
         </div>
 
         <div className="flex flex-col gap-3 p-5">

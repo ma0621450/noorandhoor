@@ -22,12 +22,12 @@ export const CATEGORY_PILLS = [
 ];
 
 export const FEATURED_DEVELOPERS = [
-  { name: "Emaar", logo: developer1, image: carousel1, cta: "View Live Projects" },
-  { name: "Nakheel", logo: developer2, image: carousel2, cta: "View Live Projects" },
-  { name: "Damac", logo: developer3, image: carousel3, cta: "View Live Projects" },
-  { name: "Sobha", logo: developer4, image: carousel4, cta: "View Live Projects" },
-  { name: "Omniyat", logo: developer5, image: luxuryHome, cta: "Request Portfolio" },
-  { name: "wasl", logo: developer6, image: propertyImg, cta: "Request Portfolio" },
+  { name: "Emaar", region: "Dubai", logo: developer1, image: carousel1, cta: "View Live Projects" },
+  { name: "Nakheel", region: "Dubai", logo: developer2, image: carousel2, cta: "View Live Projects" },
+  { name: "Damac", region: "Dubai", logo: developer3, image: carousel3, cta: "View Live Projects" },
+  { name: "Sobha", region: "Dubai", logo: developer4, image: carousel4, cta: "View Live Projects" },
+  { name: "Omniyat", region: "Dubai", logo: developer5, image: luxuryHome, cta: "Request Portfolio" },
+  { name: "wasl", region: "Dubai", logo: developer6, image: propertyImg, cta: "Request Portfolio" },
 ];
 
 export const COMPARISON_ROWS = [

@@ -1,7 +1,10 @@
 import PropertyHero from "@/components/common/PropertyHero";
 import BlogListing from "@/components/sections/blog/BlogListing";
 import { BLOG_CATEGORIES } from "@/components/sections/blog/blogData";
+import { getPublishedPosts } from "@/lib/blog/queries";
 import { getCategoryFromSearchParams } from "@/lib/seo";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Blog | Noor & Hoor Properties",
@@ -10,15 +13,15 @@ export const metadata = {
 };
 
 export default async function BlogPage({ searchParams }) {
-  const activeCategory = await getCategoryFromSearchParams(
-    searchParams,
-    BLOG_CATEGORIES,
-  );
+  const [activeCategory, posts] = await Promise.all([
+    getCategoryFromSearchParams(searchParams, BLOG_CATEGORIES),
+    getPublishedPosts(),
+  ]);
 
   return (
     <>
       <PropertyHero variant="blog" />
-      <BlogListing activeCategory={activeCategory} />
+      <BlogListing activeCategory={activeCategory} posts={posts} />
     </>
   );
 }

@@ -70,7 +70,7 @@ export default async function CategoryListingPage({
         title={category.heroTitle || `Off Plan ${category.heading} in UAE`}
         description={category.heroDescription || category.metaDescription}
         filterPrefix={category.filterPrefix}
-        propertyTypes={category.propertyTypes}
+        listingPath={category.path}
         trustSignals={category.trustSignals}
       />
       <PropertyGrid

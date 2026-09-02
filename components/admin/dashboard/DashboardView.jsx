@@ -28,7 +28,7 @@ export default function DashboardView() {
       <PageHeader
         eyebrow="Overview"
         title="Dashboard"
-        description="Review listings and publish content. Properties added here are stored in Supabase."
+        description="Review listings and publish content. Properties and blogs are stored in Supabase."
         actionLabel="Add property"
         actionHref="/admin/properties/new"
       />

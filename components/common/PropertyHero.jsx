@@ -204,6 +204,7 @@ export default function PropertyHero({
   title,
   description,
   filterPrefix,
+  listingPath,
   propertyTypes,
   priceOptions,
   fields,
@@ -256,6 +257,8 @@ export default function PropertyHero({
           {resolvedFields.length > 0 ? (
             <HeroFilters
               prefix={filterPrefix || variant}
+              variant={variant}
+              listingPath={listingPath}
               fields={resolvedFields}
             />
           ) : null}

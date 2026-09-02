@@ -64,7 +64,7 @@ export default function BlogListing() {
       <PageHeader
         eyebrow="Content"
         title="Blogs"
-        description="Upload, edit, and unpublish articles. Posts are stored locally until Supabase is connected."
+        description="Upload, edit, and unpublish articles. Published posts appear on the public site."
         actionLabel="Upload blog"
         actionHref="/admin/blogs/new"
       />
@@ -198,13 +198,20 @@ export default function BlogListing() {
       <ConfirmDialog
         open={Boolean(pendingDelete)}
         title="Delete this article?"
-        description={`“${pendingDelete?.title || ""}” will be removed from the admin preview. This does not yet affect the public site.`}
+        description={`“${pendingDelete?.title || ""}” will be removed from the site.`}
         confirmLabel="Delete"
         onClose={() => setPendingDelete(null)}
-        onConfirm={() => {
-          deleteBlog(pendingDelete.id);
-          setPendingDelete(null);
-          showToast("Blog deleted.");
+        onConfirm={async () => {
+          try {
+            await deleteBlog(pendingDelete.id);
+            setPendingDelete(null);
+            showToast("Blog deleted.");
+          } catch (error) {
+            showToast(
+              error?.message || "Could not delete this blog.",
+              "error",
+            );
+          }
         }}
       />
     </div>
