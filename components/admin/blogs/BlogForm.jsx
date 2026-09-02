@@ -68,7 +68,7 @@ export default function BlogForm({ blogId }) {
     return (
       <EmptyState
         title="Blog not found"
-        description="This article is no longer in the local admin store."
+        description="This article is no longer in Supabase."
         actionLabel="Back to blogs"
         onAction={() => router.push("/admin/blogs")}
       />
@@ -95,6 +95,7 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
   );
   const [errors, setErrors] = useState({});
   const [slugLocked, setSlugLocked] = useState(Boolean(initialBlog));
+  const [isSaving, setIsSaving] = useState(false);
 
   const setField = (key, value) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -120,7 +121,7 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
     return next;
   }, [form]);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (Object.keys(validation).length) {
       setErrors(validation);
@@ -128,12 +129,22 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
       return;
     }
 
-    onSave({
-      ...form,
-      items: form.items.filter((item) => item.trim()),
-    });
-    showToast(initialBlog ? "Blog updated." : "Blog uploaded.");
-    router.push("/admin/blogs");
+    setIsSaving(true);
+    try {
+      await onSave({
+        ...form,
+        items: form.items.filter((item) => item.trim()),
+      });
+      showToast(initialBlog ? "Blog updated." : "Blog uploaded.");
+      router.push("/admin/blogs");
+    } catch (error) {
+      showToast(
+        error?.message || "Could not save this blog. Please try again.",
+        "error",
+      );
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -141,7 +152,7 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
       <PageHeader
         eyebrow={eyebrow}
         title={title}
-        description="Cover image, copy, and publishing state are stored locally for now."
+        description="Cover image, copy, and publishing state are stored in Supabase."
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
@@ -258,10 +269,16 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
       </div>
 
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-        <AdminButton variant="secondary" onClick={() => router.push("/admin/blogs")}>
+        <AdminButton
+          variant="secondary"
+          disabled={isSaving}
+          onClick={() => router.push("/admin/blogs")}
+        >
           Cancel
         </AdminButton>
-        <AdminButton type="submit">{submitLabel}</AdminButton>
+        <AdminButton type="submit" disabled={isSaving}>
+          {isSaving ? "Saving..." : submitLabel}
+        </AdminButton>
       </div>
     </form>
   );

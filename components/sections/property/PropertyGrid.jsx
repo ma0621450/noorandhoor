@@ -1,36 +1,54 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import PropertyCard from "@/components/ui/PropertyCard";
 import useAdminProperties from "@/hooks/useAdminProperties";
 import { listingHomes } from "@/lib/admin/propertyPublic";
+import { filtersFromSearchParams } from "@/lib/listingFilters";
 
-function pageHref(path, pageNumber) {
-  return pageNumber <= 1 ? path : `${path}?page=${pageNumber}`;
+function pageHref(path, pageNumber, searchParams) {
+  const params = new URLSearchParams(searchParams?.toString() || "");
+  if (pageNumber <= 1) params.delete("page");
+  else params.set("page", String(pageNumber));
+  const query = params.toString();
+  return query ? `${path}?${query}` : path;
 }
 
-export default function PropertyGrid({
+function PropertyGridBody({
   category,
   homesPerPage = 8,
   page = 1,
   market = "buy",
 }) {
+  const searchParams = useSearchParams();
   const { properties, isReady } = useAdminProperties();
+  const filters = useMemo(
+    () => filtersFromSearchParams(searchParams),
+    [searchParams],
+  );
 
   const homes = useMemo(() => {
     if (!isReady) return [];
-    return listingHomes(properties, { market, category });
-  }, [category, isReady, market, properties]);
+    return listingHomes(properties, { market, category, filters });
+  }, [category, filters, isReady, market, properties]);
 
-  const computedTotalPages = Math.max(1, Math.ceil(homes.length / homesPerPage) || 1);
+  const computedTotalPages = Math.max(
+    1,
+    Math.ceil(homes.length / homesPerPage) || 1,
+  );
   const currentPage = Math.min(Math.max(page, 1), computedTotalPages);
   const start = (currentPage - 1) * homesPerPage;
   const pageItems = homes.slice(start, start + homesPerPage);
+  const hasFilters = Object.keys(filters).length > 0;
 
   return (
-    <section className="section-full bg-[#111111] py-12 sm:py-14 lg:pb-20 lg:pt-16">
+    <section
+      id="property-listings"
+      className="section-full scroll-mt-28 bg-[#111111] py-12 sm:py-14 lg:pb-20 lg:pt-16"
+    >
       <div className="section-inner">
         <div className="mb-10 flex flex-col items-center gap-4 text-center sm:mb-12">
           <p className="section-sub-heading">{category.eyebrow}</p>
@@ -53,48 +71,72 @@ export default function PropertyGrid({
           </div>
         ) : (
           <p className="py-16 text-center text-sm text-white/45">
-            No properties listed in this category yet.
+            {hasFilters
+              ? "No properties match these filters."
+              : "No properties listed in this category yet."}
           </p>
         )}
 
         {isReady && computedTotalPages > 1 ? (
-        <nav
-          aria-label="Property pagination"
-          className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:justify-end"
-        >
-          {Array.from({ length: computedTotalPages }).map((_, index) => {
-            const pageNumber = index + 1;
-            const active = pageNumber === currentPage;
-
-            return (
-              <Link
-                key={pageNumber}
-                href={pageHref(category.path, pageNumber)}
-                aria-label={`Go to page ${pageNumber}`}
-                aria-current={active ? "page" : undefined}
-                className={`flex size-10 items-center justify-center rounded-full border text-sm font-medium transition ${
-                  active
-                    ? "border-[#d4af37] bg-[#d4af37]/15 text-[#d4af37]"
-                    : "border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37]/10"
-                }`}
-              >
-                {pageNumber}
-              </Link>
-            );
-          })}
-          <Link
-            href={pageHref(category.path, Math.min(currentPage + 1, computedTotalPages))}
-            aria-label="Next page"
-            aria-disabled={currentPage === computedTotalPages}
-            className={`flex size-10 items-center justify-center text-[#d4af37] transition hover:text-[#eec876] ${
-              currentPage === computedTotalPages ? "pointer-events-none opacity-40" : ""
-            }`}
+          <nav
+            aria-label="Property pagination"
+            className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:justify-end"
           >
-            <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
-          </Link>
-        </nav>
+            {Array.from({ length: computedTotalPages }).map((_, index) => {
+              const pageNumber = index + 1;
+              const active = pageNumber === currentPage;
+
+              return (
+                <Link
+                  key={pageNumber}
+                  href={pageHref(category.path, pageNumber, searchParams)}
+                  aria-label={`Go to page ${pageNumber}`}
+                  aria-current={active ? "page" : undefined}
+                  className={`flex size-10 items-center justify-center rounded-full border text-sm font-medium transition ${
+                    active
+                      ? "border-[#d4af37] bg-[#d4af37]/15 text-[#d4af37]"
+                      : "border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37]/10"
+                  }`}
+                >
+                  {pageNumber}
+                </Link>
+              );
+            })}
+            <Link
+              href={pageHref(
+                category.path,
+                Math.min(currentPage + 1, computedTotalPages),
+                searchParams,
+              )}
+              aria-label="Next page"
+              aria-disabled={currentPage === computedTotalPages}
+              className={`flex size-10 items-center justify-center text-[#d4af37] transition hover:text-[#eec876] ${
+                currentPage === computedTotalPages
+                  ? "pointer-events-none opacity-40"
+                  : ""
+              }`}
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
+            </Link>
+          </nav>
         ) : null}
       </div>
     </section>
+  );
+}
+
+export default function PropertyGrid(props) {
+  return (
+    <Suspense
+      fallback={
+        <section className="section-full bg-[#111111] py-12 sm:py-14 lg:pb-20 lg:pt-16">
+          <p className="py-16 text-center text-sm text-white/45">
+            Loading properties...
+          </p>
+        </section>
+      }
+    >
+      <PropertyGridBody {...props} />
+    </Suspense>
   );
 }

@@ -20,6 +20,8 @@ import ListYourProperty from "@/components/sections/home/ListYourProperty";
 import GetStarted from "@/components/sections/home/GetStarted";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: `${SITE_NAME} | Explore Your Dream Property in UAE`,
   description: SITE_DESCRIPTION,

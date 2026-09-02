@@ -1,13 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
-import { getRelatedPosts } from "@/components/sections/blog/blogData";
+import MediaImage from "@/components/ui/MediaImage";
 
-export default function BlogArticle({ post }) {
-  const related = getRelatedPosts(post.slug);
-
+export default function BlogArticle({ post, related = [] }) {
   return (
     <div className="min-h-screen bg-[#111] pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
       <article className="section-inner">
@@ -33,7 +30,7 @@ export default function BlogArticle({ post }) {
         </h1>
 
         <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl border border-[#ba8a44]/30 sm:mt-10">
-          <Image
+          <MediaImage
             src={post.image}
             alt={post.title}
             fill

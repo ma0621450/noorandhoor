@@ -2,7 +2,7 @@ import { BUY_CATEGORIES } from "@/components/sections/buy-category/categoryConfi
 import { RENT_CATEGORIES } from "@/components/sections/rent-properties/rentCategoryConfig";
 import { SELL_CATEGORIES } from "@/components/sections/sell-properties/sellCategoryConfig";
 import { OFF_PLAN_CATEGORIES } from "@/components/sections/offplan/offplanCategoryConfig";
-import { BLOG_POSTS } from "@/components/sections/blog/blogData";
+import { getPublishedPosts } from "@/lib/blog/queries";
 import { SITE_URL } from "@/lib/seo";
 
 function categoryEntries(groups) {
@@ -18,7 +18,9 @@ function categoryEntries(groups) {
   });
 }
 
-export default function sitemap() {
+export default async function sitemap() {
+  const posts = await getPublishedPosts();
+
   const staticRoutes = [
     "",
     "/buy",
@@ -38,7 +40,7 @@ export default function sitemap() {
     priority: path === "" ? 1 : 0.7,
   }));
 
-  const blogs = BLOG_POSTS.map((post) => ({
+  const blogs = posts.map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly",

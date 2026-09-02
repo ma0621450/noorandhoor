@@ -1,23 +1,29 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
-import { BLOG_CATEGORIES, BLOG_POSTS } from "@/components/sections/blog/blogData";
+import MediaImage from "@/components/ui/MediaImage";
+import { BLOG_CATEGORIES } from "@/components/sections/blog/blogData";
+import { pickFeaturedPost } from "@/lib/blog/public";
 
 function categoryHref(category) {
-  return category === "All" ? "/blog" : `/blog?category=${encodeURIComponent(category)}`;
+  return category === "All"
+    ? "/blog"
+    : `/blog?category=${encodeURIComponent(category)}`;
 }
 
-export default function BlogListing({ activeCategory = "All" }) {
-  const featured = BLOG_POSTS.find((post) => post.featured) || BLOG_POSTS[0];
-  const remaining = BLOG_POSTS.filter((post) => post.slug !== featured.slug);
-  const posts =
+export default function BlogListing({ activeCategory = "All", posts = [] }) {
+  const featured = pickFeaturedPost(posts);
+  const remaining = featured
+    ? posts.filter((post) => post.slug !== featured.slug)
+    : [];
+  const filtered =
     activeCategory === "All"
       ? remaining
       : remaining.filter((post) => post.category === activeCategory);
   const showFeatured =
-    activeCategory === "All" || featured.category === activeCategory;
+    Boolean(featured) &&
+    (activeCategory === "All" || featured.category === activeCategory);
 
   return (
     <div className="bg-[#111] pb-16 sm:pb-20 lg:pb-24">
@@ -41,13 +47,13 @@ export default function BlogListing({ activeCategory = "All" }) {
           })}
         </div>
 
-        {showFeatured && (
+        {showFeatured ? (
           <Link
             href={`/blog/${featured.slug}`}
             className="group mt-10 grid overflow-hidden rounded-2xl border border-[#ba8a44]/40 bg-[#121212] transition-colors hover:border-[#ba8a44] lg:mt-14 lg:grid-cols-2"
           >
             <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[420px]">
-              <Image
+              <MediaImage
                 src={featured.image}
                 alt={featured.title}
                 fill
@@ -75,19 +81,23 @@ export default function BlogListing({ activeCategory = "All" }) {
               </span>
             </div>
           </Link>
-        )}
+        ) : null}
 
-        {posts.length > 0 ? (
+        {filtered.length > 0 ? (
           <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
-            {posts.map((blog) => (
+            {filtered.map((blog) => (
               <BlogCard key={blog.id} blog={blog} />
             ))}
           </div>
-        ) : (
+        ) : null}
+
+        {!showFeatured && filtered.length === 0 ? (
           <p className="mt-12 text-center text-sm text-white/60">
-            No articles in this category yet.
+            {posts.length
+              ? "No articles in this category yet."
+              : "No articles published yet."}
           </p>
-        )}
+        ) : null}
 
         <div className="mt-16 rounded-2xl bg-[#171717] px-6 py-10 text-center sm:px-10 sm:py-12">
           <h2 className="text-gold-gradient text-3xl sm:text-4xl">

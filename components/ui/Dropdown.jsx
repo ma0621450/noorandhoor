@@ -18,12 +18,14 @@ export default function Dropdown({
   id,
   options = [],
   placeholder = "Select",
+  value,
+  onChange,
   className = "",
   compact = false,
 }) {
   const context = useContext(DropdownContext);
-  const [selected, setSelected] = useState(placeholder);
-
+  const [internal, setInternal] = useState(placeholder);
+  const selected = value === undefined ? internal : value || placeholder;
   const isOpen = context ? context.openId === id : false;
 
   const toggle = () => {
@@ -34,6 +36,12 @@ export default function Dropdown({
   const close = () => {
     if (!context) return;
     context.setOpenId(null);
+  };
+
+  const select = (item) => {
+    if (value === undefined) setInternal(item);
+    onChange?.(item);
+    close();
   };
 
   return (
@@ -61,10 +69,7 @@ export default function Dropdown({
               <button
                 key={item}
                 type="button"
-                onClick={() => {
-                  setSelected(item);
-                  close();
-                }}
+                onClick={() => select(item)}
                 className={`flex w-full cursor-pointer items-center text-left text-[#f5f5f5] transition-colors ${
                   compact
                     ? `rounded px-2 py-0.5 text-xs font-normal ${

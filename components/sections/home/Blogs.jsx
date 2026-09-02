@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
-import { LATEST_POSTS } from "@/components/sections/blog/blogData";
+import { getLatestPosts } from "@/lib/blog/queries";
 
-export default function Blogs() {
+export default async function Blogs() {
+  const posts = await getLatestPosts(3);
+
   return (
     <section className="section-container">
       <div className="mb-10 flex flex-col gap-6 sm:mb-12 sm:gap-8 lg:mb-16 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
@@ -22,20 +24,23 @@ export default function Blogs() {
         </div>
 
         <Link href="/blog" className="w-full shrink-0 sm:w-auto lg:self-start">
-          <Button
-            variant="secondary"
-            className="w-full sm:w-auto"
-          >
+          <Button variant="secondary" className="w-full sm:w-auto">
             View All Articles
           </Button>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
-        {LATEST_POSTS.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))}
-      </div>
+      {posts.length ? (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
+          {posts.map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
+          ))}
+        </div>
+      ) : (
+        <p className="py-10 text-center text-sm text-white/45">
+          New articles will appear here once they are published.
+        </p>
+      )}
     </section>
   );
 }
