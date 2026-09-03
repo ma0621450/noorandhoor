@@ -84,11 +84,13 @@ export const NAV_ITEMS = [
     label: "Developers",
     href: "/developers",
     footerCta: "View all developers",
+    footerCtaHref: "/developers#developer-listings",
   },
   {
     label: "Blog",
     href: "/blog",
     footerCta: "View all articles",
+    footerCtaHref: "/blog#blog-listings",
   },
   {
     label: "About",

@@ -10,7 +10,7 @@ import carousel2 from "@/public/images/landingpage/landingpagecarousel2.jpg";
 import carousel3 from "@/public/images/landingpage/landingpagecarousel3.jpg";
 import carousel4 from "@/public/images/landingpage/landingpagecarousel4.jpg";
 
-export const HOMES_PER_PAGE = 8;
+export const HOMES_PER_PAGE = 9;
 export const TOTAL_PAGES = 3;
 
 const LOCATIONS = [

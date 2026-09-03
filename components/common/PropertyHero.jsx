@@ -8,6 +8,7 @@ import HeroFilters from "@/components/common/HeroFilters";
 import HeroBackgroundCarousel, {
   HeroCarouselDots,
 } from "@/components/ui/HeroBackgroundCarousel";
+import { CONTACT_INFO } from "@/components/sections/contact/contactData";
 
 const LOCATIONS = [
   "Dubai Marina",
@@ -146,8 +147,16 @@ const PRESETS = {
       "Get in touch with Noor and Hoor Properties. Speak with our team in Dubai about buying, selling, renting, or investing.",
     fields: [],
     actions: [
-      { label: "Send a Message", variant: "primary" },
-      { label: "Call Our Team", variant: "outline" },
+      {
+        label: "Send a Message",
+        variant: "primary",
+        href: CONTACT_INFO.whatsappHref,
+      },
+      {
+        label: "Call Our Team",
+        variant: "outline",
+        href: CONTACT_INFO.phoneHref,
+      },
     ],
   },
   about: {
@@ -269,6 +278,7 @@ export default function PropertyHero({
                 <Button
                   key={action.label}
                   variant={action.variant}
+                  href={action.href}
                   className="h-14 w-full rounded-xl text-xs tracking-[1.3px] sm:flex-1 sm:text-sm"
                 >
                   {action.label}

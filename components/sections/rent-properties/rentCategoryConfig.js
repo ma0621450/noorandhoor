@@ -22,7 +22,7 @@ function trustSignals(items) {
   }));
 }
 
-export const HOMES_PER_PAGE = 8;
+export const HOMES_PER_PAGE = 9;
 export const TOTAL_PAGES = 3;
 
 const LOCATIONS = [

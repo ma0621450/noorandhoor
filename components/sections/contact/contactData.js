@@ -34,6 +34,7 @@ export const CONTACT_INFO = {
     "Whether you are buying, selling, or exploring off-plan opportunities, our team is ready to guide you with clarity and discretion.",
   phone: "+971 52 693 8886",
   phoneHref: "tel:+971526938886",
+  whatsappHref: "https://wa.me/971526938886",
   email: "Shakeeb@noorandhoorproperties.com",
   emailHref: "mailto:Shakeeb@noorandhoorproperties.com",
 };

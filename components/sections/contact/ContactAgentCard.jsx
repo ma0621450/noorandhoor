@@ -1,9 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import Button from "@/components/ui/Button";
 
 export default function ContactAgentCard({ agent }) {
-  const { role, name, image, bio, email } = agent;
+  const { role, name, image, bio } = agent;
 
   return (
     <article className="flex w-full flex-col overflow-hidden rounded-xl border border-[rgba(201,168,76,0.18)] bg-[#141416] shadow-[0_2.5px_15px_rgba(0,0,0,0.4)]">
@@ -29,14 +27,6 @@ export default function ContactAgentCard({ agent }) {
         <p className="mt-1 flex-1 text-sm font-medium leading-4 text-[#9E9070]">
           {bio}
         </p>
-        <Link href={`mailto:${email}`} className="mt-3 inline-flex self-start">
-          <Button
-            type="button"
-            className="h-8 min-h-0 rounded-[2px] px-5 py-2 text-sm tracking-[1.3px] sm:px-10"
-          >
-            Contact Agent
-          </Button>
-        </Link>
       </div>
     </article>
   );

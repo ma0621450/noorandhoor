@@ -1,26 +1,24 @@
 "use client";
 
 import { Suspense, useMemo } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight } from "lucide-react";
 import PropertyCard from "@/components/ui/PropertyCard";
+import Pagination from "@/components/ui/Pagination";
 import useAdminProperties from "@/hooks/useAdminProperties";
 import { listingHomes } from "@/lib/admin/propertyPublic";
 import { filtersFromSearchParams } from "@/lib/listingFilters";
+import {
+  LISTING_PAGE_SIZE,
+  listingPageHref,
+  pageFromSearchParams,
+  paginateItems,
+} from "@/lib/listingPagination";
 
-function pageHref(path, pageNumber, searchParams) {
-  const params = new URLSearchParams(searchParams?.toString() || "");
-  if (pageNumber <= 1) params.delete("page");
-  else params.set("page", String(pageNumber));
-  const query = params.toString();
-  return query ? `${path}?${query}` : path;
-}
+export const PROPERTIES_PER_PAGE = LISTING_PAGE_SIZE;
 
 function PropertyGridBody({
   category,
-  homesPerPage = 8,
-  page = 1,
+  homesPerPage = PROPERTIES_PER_PAGE,
   market = "buy",
 }) {
   const searchParams = useSearchParams();
@@ -35,13 +33,12 @@ function PropertyGridBody({
     return listingHomes(properties, { market, category, filters });
   }, [category, filters, isReady, market, properties]);
 
-  const computedTotalPages = Math.max(
-    1,
-    Math.ceil(homes.length / homesPerPage) || 1,
+  const requestedPage = pageFromSearchParams(searchParams);
+  const { currentPage, totalPages, pageItems } = paginateItems(
+    homes,
+    requestedPage,
+    homesPerPage,
   );
-  const currentPage = Math.min(Math.max(page, 1), computedTotalPages);
-  const start = (currentPage - 1) * homesPerPage;
-  const pageItems = homes.slice(start, start + homesPerPage);
   const hasFilters = Object.keys(filters).length > 0;
 
   return (
@@ -60,7 +57,7 @@ function PropertyGridBody({
             Loading properties...
           </p>
         ) : pageItems.length ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {pageItems.map((property) => (
               <PropertyCard
                 key={`${currentPage}-${property.id}`}
@@ -70,55 +67,37 @@ function PropertyGridBody({
             ))}
           </div>
         ) : (
-          <p className="py-16 text-center text-sm text-white/45">
-            {hasFilters
-              ? "No properties match these filters."
-              : "No properties listed in this category yet."}
-          </p>
+          <div className="flex flex-col items-center gap-3 py-16 text-center">
+            <p className="text-sm text-white/45">
+              {hasFilters
+                ? "No properties match these filters."
+                : "No properties listed in this category yet."}
+            </p>
+            {hasFilters ? (
+              <a
+                href={`${category.path}#property-listings`}
+                className="text-xs font-semibold uppercase tracking-[1.3px] text-[#eec876] transition hover:text-[#f5f5f5]"
+              >
+                Reset filters
+              </a>
+            ) : null}
+          </div>
         )}
 
-        {isReady && computedTotalPages > 1 ? (
-          <nav
-            aria-label="Property pagination"
-            className="mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12 sm:justify-end"
-          >
-            {Array.from({ length: computedTotalPages }).map((_, index) => {
-              const pageNumber = index + 1;
-              const active = pageNumber === currentPage;
-
-              return (
-                <Link
-                  key={pageNumber}
-                  href={pageHref(category.path, pageNumber, searchParams)}
-                  aria-label={`Go to page ${pageNumber}`}
-                  aria-current={active ? "page" : undefined}
-                  className={`flex size-10 items-center justify-center rounded-full border text-sm font-medium transition ${
-                    active
-                      ? "border-[#d4af37] bg-[#d4af37]/15 text-[#d4af37]"
-                      : "border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37]/10"
-                  }`}
-                >
-                  {pageNumber}
-                </Link>
-              );
-            })}
-            <Link
-              href={pageHref(
+        {isReady && homes.length ? (
+          <Pagination
+            label="Property pagination"
+            currentPage={currentPage}
+            totalPages={totalPages}
+            hrefForPage={(pageNumber) =>
+              listingPageHref(
                 category.path,
-                Math.min(currentPage + 1, computedTotalPages),
+                pageNumber,
                 searchParams,
-              )}
-              aria-label="Next page"
-              aria-disabled={currentPage === computedTotalPages}
-              className={`flex size-10 items-center justify-center text-[#d4af37] transition hover:text-[#eec876] ${
-                currentPage === computedTotalPages
-                  ? "pointer-events-none opacity-40"
-                  : ""
-              }`}
-            >
-              <ChevronRight className="h-5 w-5" strokeWidth={1.5} />
-            </Link>
-          </nav>
+                "property-listings",
+              )
+            }
+          />
         ) : null}
       </div>
     </section>
