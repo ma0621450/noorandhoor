@@ -42,7 +42,7 @@ const BlogCard = ({ blog }) => {
             {excerpt}
           </p>
           <span className="mt-1 flex w-fit items-center gap-1 text-xs font-semibold uppercase tracking-wide text-[#ba8a44] transition-all duration-300 group-hover:gap-2">
-            Read More
+            Read Article
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
           </span>
         </div>

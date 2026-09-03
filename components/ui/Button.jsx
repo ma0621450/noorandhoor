@@ -2,6 +2,10 @@ const Button = ({
   children,
   variant = "primary",
   className = "",
+  href,
+  target,
+  rel,
+  type = "button",
   ...props
 }) => {
   const variants = {
@@ -13,10 +17,7 @@ const Button = ({
       "border border-[#eec876] text-[#eec876] bg-transparent hover:bg-[#ba8a44]/20 hover:text-[#eec876] hover:border-[#eec876]",
   };
 
-  return (
-    <button
-      type="button"
-      className={`
+  const classes = `
         inline-flex items-center justify-center
         min-h-11
         px-4 sm:px-5 lg:px-6
@@ -31,9 +32,25 @@ const Button = ({
         disabled:cursor-not-allowed disabled:opacity-50
         ${variants[variant]}
         ${className}
-      `}
-      {...props}
-    >
+      `;
+
+  if (href) {
+    const isExternal = href.startsWith("http");
+    return (
+      <a
+        href={href}
+        target={target ?? (isExternal ? "_blank" : undefined)}
+        rel={rel ?? (isExternal ? "noreferrer" : undefined)}
+        className={classes}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <button type={type} className={classes} {...props}>
       {children}
     </button>
   );

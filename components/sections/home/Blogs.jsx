@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
 import { getLatestPosts } from "@/lib/blog/queries";
@@ -23,11 +22,13 @@ export default async function Blogs() {
           </p>
         </div>
 
-        <Link href="/blog" className="w-full shrink-0 sm:w-auto lg:self-start">
-          <Button variant="secondary" className="w-full sm:w-auto">
-            View All Articles
-          </Button>
-        </Link>
+        <Button
+          href="/blog#blog-listings"
+          variant="secondary"
+          className="w-full sm:w-auto lg:self-start"
+        >
+          View All Articles
+        </Button>
       </div>
 
       {posts.length ? (
