@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { Building2, Handshake, KeyRound } from "lucide-react";
 import PropertyHero from "@/components/common/PropertyHero";
 import Button from "@/components/ui/Button";
+import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
 export const metadata = {
   title: "About Us | Noor & Hoor Properties",
@@ -76,9 +76,9 @@ export default function AboutUsPage() {
               Tell us what you are looking for and our team will help you take the
               next step.
             </p>
-            <Link href="/contact" className="mt-7 inline-flex">
-              <Button className="px-7 py-3 text-sm">Contact Our Team</Button>
-            </Link>
+            <Button href={CONTACT_FORM_HREF} className="mt-7 px-7 py-3 text-sm">
+              Contact Our Team
+            </Button>
           </div>
         </div>
       </section>

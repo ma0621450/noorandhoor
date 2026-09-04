@@ -16,8 +16,12 @@ export default function AuthGate({ children }) {
     router.replace(`/admin/login?next=${next}`);
   }, [isReady, user, router, pathname]);
 
-  if (!isReady || !user) {
+  if (!isReady) {
     return <AdminSplash label="Checking session" />;
+  }
+
+  if (!user) {
+    return <AdminSplash label="Redirecting to login" />;
   }
 
   return children;

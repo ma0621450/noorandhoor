@@ -5,7 +5,8 @@ import BlogCard from "@/components/ui/BlogCard";
 import MediaImage from "@/components/ui/MediaImage";
 import Pagination from "@/components/ui/Pagination";
 import { BLOG_CATEGORIES } from "@/components/sections/blog/blogData";
-import { pickFeaturedPost } from "@/lib/blog/public";
+import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
+import { pickHeroPost } from "@/lib/blog/public";
 import {
   LISTING_PAGE_SIZE,
   listingPageHref,
@@ -33,7 +34,7 @@ export default function BlogListing({
   posts = [],
   page = 1,
 }) {
-  const featured = pickFeaturedPost(posts);
+  const featured = pickHeroPost(posts);
   const remaining = featured
     ? posts.filter((post) => post.slug !== featured.slug)
     : [];
@@ -145,9 +146,9 @@ export default function BlogListing({
             Looking for advice on a community, launch, or investment? Our team
             can help you turn these insights into a clear plan.
           </p>
-          <Link href="/contact" className="mt-7 inline-flex">
-            <Button className="px-7 py-3 text-sm">Contact Our Team</Button>
-          </Link>
+          <Button href={CONTACT_FORM_HREF} className="mt-7 px-7 py-3 text-sm">
+            Contact Our Team
+          </Button>
         </div>
       </section>
     </div>

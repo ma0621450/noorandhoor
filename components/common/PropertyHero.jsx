@@ -8,7 +8,10 @@ import HeroFilters from "@/components/common/HeroFilters";
 import HeroBackgroundCarousel, {
   HeroCarouselDots,
 } from "@/components/ui/HeroBackgroundCarousel";
-import { CONTACT_INFO } from "@/components/sections/contact/contactData";
+import {
+  CONTACT_FORM_HREF,
+  CONTACT_INFO,
+} from "@/components/sections/contact/contactData";
 
 const LOCATIONS = [
   "Dubai Marina",
@@ -28,7 +31,11 @@ const STANDARD_TRUST_SIGNALS = [
 ];
 
 const DEFAULT_ACTIONS = [
-  { label: "Book Free Consultation", variant: "outline" },
+  {
+    label: "Book Free Consultation",
+    variant: "outline",
+    href: CONTACT_FORM_HREF,
+  },
   { label: "Investment Guide", variant: "primary" },
 ];
 

@@ -23,7 +23,7 @@ export default function BuyPage() {
   return (
     <>
       <PropertyHero variant="buy" />
-      <PropertyCategories />
+      <PropertyCategories market="buy" />
       <FeaturedBuyProperties />
       <MatchMaking />
       <InvestmentMatrix />

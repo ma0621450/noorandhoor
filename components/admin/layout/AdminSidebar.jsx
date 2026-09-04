@@ -85,10 +85,6 @@ export default function AdminSidebar({ open, onClose }) {
             );
           })}
         </nav>
-
-        <p className="px-5 py-4 text-[11px] leading-5 text-white/30">
-          Frontend preview. Swap the data layer for Supabase when you are ready.
-        </p>
       </aside>
     </>
   );

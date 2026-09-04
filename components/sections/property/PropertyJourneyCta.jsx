@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 import getStartedBg from "@/public/images/buy/get-started-bg.png";
 
 const CTA_PRESETS = {
@@ -78,13 +79,13 @@ export default function PropertyJourneyCta({
 
         <div className="mt-1 flex w-full flex-col items-stretch justify-center gap-5 sm:w-auto sm:flex-row sm:items-center">
           <Button
-            type="button"
+            href={CONTACT_FORM_HREF}
             className="h-[58px] w-full rounded-xl px-10 text-sm tracking-[1.3px] sm:w-auto"
           >
             {primaryLabel || preset.primaryLabel}
           </Button>
           <Button
-            type="button"
+            href={CONTACT_FORM_HREF}
             variant="secondary"
             className="h-[58px] w-full rounded-xl px-10 text-sm tracking-[1.3px] sm:w-auto"
           >

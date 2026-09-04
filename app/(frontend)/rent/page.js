@@ -1,4 +1,5 @@
 import PropertyHero from "@/components/common/PropertyHero";
+import PropertyCategories from "@/components/sections/property/PropertyCategories";
 import FeaturedRentals from "@/components/sections/rent/FeaturedRentals";
 import PrimeLocations from "@/components/sections/rent/PrimeLocations";
 import RentalMatrix from "@/components/sections/rent/RentalMatrix";
@@ -23,6 +24,7 @@ export default function RentPage() {
   return (
     <>
       <PropertyHero variant="rent" />
+      <PropertyCategories market="rent" />
       <FeaturedRentals />
       <PrimeLocations />
       <RentalMatrix />

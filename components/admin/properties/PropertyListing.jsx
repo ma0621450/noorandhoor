@@ -18,13 +18,33 @@ import useAdminProperties from "@/hooks/useAdminProperties";
 import useDebouncedValue from "@/hooks/useDebouncedValue";
 import {
   PAGE_SIZE,
-  PROPERTY_MARKETS,
+  PROPERTY_MARKET_OPTIONS,
   PROPERTY_STATUSES,
-  PROPERTY_TYPES,
+  PROPERTY_TYPES_BY_MARKET,
+  propertyTypeLabel,
+  propertyTypesForMarket,
 } from "@/lib/admin/constants";
 import { formatPrice } from "@/lib/admin/utils";
 
 const ALL = "all";
+
+function typeFilterOptions(market) {
+  if (market === ALL) {
+    const seen = new Set();
+    return Object.values(PROPERTY_TYPES_BY_MARKET)
+      .flat()
+      .filter((item) => {
+        if (seen.has(item.value)) return false;
+        seen.add(item.value);
+        return true;
+      })
+      .map((item) => ({ value: item.value, label: item.label }));
+  }
+  return propertyTypesForMarket(market).map((item) => ({
+    value: item.value,
+    label: item.label,
+  }));
+}
 
 export default function PropertyListing() {
   const { properties, isReady, deleteProperty } = useAdminProperties();
@@ -36,6 +56,8 @@ export default function PropertyListing() {
   const [page, setPage] = useState(1);
   const [pendingDelete, setPendingDelete] = useState(null);
   const debouncedQuery = useDebouncedValue(query);
+
+  const typeOptions = useMemo(() => typeFilterOptions(market), [market]);
 
   const filtered = useMemo(() => {
     const needle = debouncedQuery.trim().toLowerCase();
@@ -65,6 +87,12 @@ export default function PropertyListing() {
     setPage(1);
   };
 
+  const onMarketFilterChange = (value) => {
+    setMarket(value);
+    setType(ALL);
+    setPage(1);
+  };
+
   if (!isReady) return <AdminSplash label="Loading properties" />;
 
   return (
@@ -86,20 +114,17 @@ export default function PropertyListing() {
         <SelectField
           id="market"
           value={market}
-          onChange={(event) => updateFilter(setMarket)(event.target.value)}
+          onChange={(event) => onMarketFilterChange(event.target.value)}
           options={[
             { value: ALL, label: "All markets" },
-            ...PROPERTY_MARKETS.map((item) => ({
-              value: item,
-              label: item,
-            })),
+            ...PROPERTY_MARKET_OPTIONS,
           ]}
         />
         <SelectField
           id="type"
           value={type}
           onChange={(event) => updateFilter(setType)(event.target.value)}
-          options={[{ value: ALL, label: "All types" }, ...PROPERTY_TYPES]}
+          options={[{ value: ALL, label: "All types" }, ...typeOptions]}
         />
         <SelectField
           id="status"
@@ -149,8 +174,13 @@ export default function PropertyListing() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-5 py-4 capitalize text-white/70">{property.market}</td>
-                    <td className="px-5 py-4 text-white/70">{property.type}</td>
+                    <td className="px-5 py-4 text-white/70">
+                      {PROPERTY_MARKET_OPTIONS.find((item) => item.value === property.market)
+                        ?.label || property.market}
+                    </td>
+                    <td className="px-5 py-4 text-white/70">
+                      {propertyTypeLabel(property.market, property.type)}
+                    </td>
                     <td className="px-5 py-4 text-[#eec876]">{formatPrice(property.price)}</td>
                     <td className="px-5 py-4">
                       <StatusBadge status={property.status} />
@@ -207,8 +237,11 @@ export default function PropertyListing() {
                 </div>
                 <div className="mt-4 flex flex-wrap items-center gap-2">
                   <StatusBadge status={property.status} />
+                  {property.featured ? <StatusBadge status="featured" /> : null}
                   <span className="text-xs capitalize text-white/45">
-                    {property.market} · {property.type}
+                    {PROPERTY_MARKET_OPTIONS.find((item) => item.value === property.market)
+                      ?.label || property.market}{" "}
+                    · {propertyTypeLabel(property.market, property.type)}
                   </span>
                 </div>
                 <div className="mt-4 flex gap-2">

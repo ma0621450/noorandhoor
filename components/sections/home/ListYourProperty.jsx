@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import listYourPropertyImage from "@/public/images/landingpage/LuxuryHome.png";
+import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
 export default function ListYourProperty() {
   return (
@@ -19,7 +20,9 @@ export default function ListYourProperty() {
             buyers, and finalize deals smoothly, maximizing value with complete
             peace of mind.
           </p>
-          <Button className="w-full sm:w-auto">List Your Property</Button>
+          <Button href={CONTACT_FORM_HREF} className="w-full sm:w-auto">
+            List Your Property
+          </Button>
         </div>
 
         <div className="w-full max-w-lg shrink-0 xl:max-w-md">

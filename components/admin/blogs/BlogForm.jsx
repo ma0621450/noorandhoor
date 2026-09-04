@@ -9,11 +9,11 @@ import ImageUploader from "@/components/admin/ui/ImageUploader";
 import AdminSplash from "@/components/admin/ui/AdminSplash";
 import EmptyState from "@/components/admin/ui/EmptyState";
 import {
-  CheckboxField,
   SelectField,
   TextArea,
   TextField,
 } from "@/components/admin/ui/Fields";
+import VisibilityPanel from "@/components/admin/ui/VisibilityPanel";
 import { useToast } from "@/components/admin/providers/ToastProvider";
 import useAdminBlogs from "@/hooks/useAdminBlogs";
 import { BLOG_STATUSES } from "@/lib/admin/constants";
@@ -28,7 +28,8 @@ const EMPTY_FORM = {
   content: "",
   items: [""],
   coverImage: "",
-  featured: false,
+  featuredOnHome: false,
+  featuredAsHero: false,
   status: "published",
 };
 
@@ -41,7 +42,8 @@ function toForm(blog) {
     content: blog.content,
     items: blog.items?.length ? blog.items : [""],
     coverImage: blog.coverImage,
-    featured: blog.featured,
+    featuredOnHome: Boolean(blog.featuredOnHome),
+    featuredAsHero: Boolean(blog.featuredAsHero),
     status: blog.status,
   };
 }
@@ -58,6 +60,7 @@ export default function BlogForm({ blogId }) {
         title="Upload blog"
         eyebrow="Create"
         submitLabel="Upload blog"
+        blogs={blogs}
         onSave={createBlog}
       />
     );
@@ -82,12 +85,20 @@ export default function BlogForm({ blogId }) {
       eyebrow="Edit"
       submitLabel="Save changes"
       initialBlog={blog}
+      blogs={blogs}
       onSave={(payload) => updateBlog(blog.id, payload)}
     />
   );
 }
 
-function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
+function BlogEditor({
+  title,
+  eyebrow,
+  submitLabel,
+  initialBlog,
+  blogs = [],
+  onSave,
+}) {
   const router = useRouter();
   const { showToast } = useToast();
   const [form, setForm] = useState(() =>
@@ -96,6 +107,14 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
   const [errors, setErrors] = useState({});
   const [slugLocked, setSlugLocked] = useState(Boolean(initialBlog));
   const [isSaving, setIsSaving] = useState(false);
+
+  const currentHero = useMemo(
+    () => blogs.find((item) => item.featuredAsHero) || null,
+    [blogs],
+  );
+  const heroTakenByOther = Boolean(
+    currentHero && currentHero.id !== initialBlog?.id,
+  );
 
   const setField = (key, value) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -175,6 +194,7 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
             }}
             error={errors.slug}
             hint="Used in the public URL: /blog/your-slug"
+            tooltip="Auto-fills from the title. Change only if you need a custom URL."
           />
           <TextArea
             id="excerpt"
@@ -184,6 +204,7 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
             onChange={(event) => setField("excerpt", event.target.value)}
             error={errors.excerpt}
             placeholder="A short summary for listing cards."
+            tooltip="Short summary shown on blog cards and the home Blog section."
           />
           <TextArea
             id="content"
@@ -193,6 +214,7 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
             onChange={(event) => setField("content", event.target.value)}
             error={errors.content}
             hint="Separate paragraphs with a blank line."
+            tooltip="Main article content. Use a blank line between paragraphs."
           />
 
           <div className="space-y-3">
@@ -239,31 +261,59 @@ function BlogEditor({ title, eyebrow, submitLabel, initialBlog, onSave }) {
           </div>
         </div>
 
-        <aside className="space-y-5 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">
-          <ImageUploader
-            value={form.coverImage}
-            onChange={(value) => setField("coverImage", value)}
-            error={errors.coverImage}
-          />
-          <SelectField
-            id="category"
-            label="Category"
-            value={form.category}
-            onChange={(event) => setField("category", event.target.value)}
-            options={ADMIN_BLOG_CATEGORIES}
-          />
-          <SelectField
-            id="status"
-            label="Status"
-            value={form.status}
-            onChange={(event) => setField("status", event.target.value)}
-            options={BLOG_STATUSES}
-          />
-          <CheckboxField
-            id="featured"
-            label="Feature this article"
-            checked={form.featured}
-            onChange={(checked) => setField("featured", checked)}
+        <aside className="space-y-5">
+          <div className="space-y-5 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">
+            <ImageUploader
+              value={form.coverImage}
+              onChange={(value) => setField("coverImage", value)}
+              error={errors.coverImage}
+            />
+            <SelectField
+              id="category"
+              label="Category"
+              value={form.category}
+              onChange={(event) => setField("category", event.target.value)}
+              options={ADMIN_BLOG_CATEGORIES}
+              tooltip="Used for blog filters and labels on listing cards."
+            />
+            <SelectField
+              id="status"
+              label="Status"
+              value={form.status}
+              onChange={(event) => setField("status", event.target.value)}
+              options={BLOG_STATUSES}
+              tooltip="Published posts are public. Drafts stay hidden until you publish."
+            />
+          </div>
+
+          <VisibilityPanel
+            title="Featured placement"
+            description="Home can feature several articles. The blog listing hero is limited to one."
+            items={[
+              {
+                id: "featured-on-home",
+                label: "Feature on home page",
+                description:
+                  "Include this post in Blog & Latest News on the home page. Multiple articles can be featured.",
+                tooltip:
+                  "Home shows featured articles first. If none are featured, it falls back to the latest posts.",
+                checked: form.featuredOnHome,
+                onChange: (checked) => setField("featuredOnHome", checked),
+              },
+              {
+                id: "featured-as-hero",
+                label: "Use as blog hero",
+                description: heroTakenByOther
+                  ? `Hero is already set to “${currentHero.title}”. Uncheck it there first to choose a different hero.`
+                  : "Show this post as the large hero at the top of the Blog listing page. Only one hero is allowed.",
+                tooltip: heroTakenByOther
+                  ? "Only one blog hero is allowed. Open the current hero article and turn this off first."
+                  : "Only one article can be the blog hero at a time.",
+                checked: form.featuredAsHero,
+                onChange: (checked) => setField("featuredAsHero", checked),
+                disabled: heroTakenByOther,
+              },
+            ]}
           />
         </aside>
       </div>

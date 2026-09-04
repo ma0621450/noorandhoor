@@ -3,23 +3,23 @@
 import { useState } from "react";
 import { Building2, Mail, Phone, User } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { Select } from "@/components/ui/CaretDown";
+import { Select } from "@/components/ui/Select";
 import { SERVICE_OPTIONS } from "@/components/sections/contact/contactData";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 
 const INPUT =
   "h-[46px] w-full rounded-[9px] border border-[#d1d5dc] bg-transparent py-3 pl-11 pr-4 text-[15px] text-[#f5f5f5] placeholder:text-[#f5f5f5]/50 outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
 const SELECT =
-  "h-[46px] w-full appearance-none rounded-[9px] border border-[#d1d5dc] bg-transparent px-4 pr-10 text-[15px] text-[#f5f5f5]/50 outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40 focus:text-[#f5f5f5]";
+  "h-[46px] w-full appearance-none rounded-[9px] border border-[#d1d5dc] bg-transparent px-4 pr-10 text-[15px] text-[#f5f5f5] outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
 const TEXTAREA =
   "min-h-[169px] w-full resize-y rounded-[9px] border border-[#d1d5dc] bg-transparent px-4 py-3 text-[15px] text-[#f5f5f5] placeholder:text-[#f5f5f5]/50 outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
 
 function Field({ label, children }) {
   return (
-    <label className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-2">
       <span className="text-[13px] font-medium text-[#f5f5f5]">{label}</span>
       {children}
-    </label>
+    </div>
   );
 }
 

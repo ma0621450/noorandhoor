@@ -24,11 +24,11 @@ export default function TrustedDeveloperPartners() {
           <h2 className="text-gold-gradient">Trusted Developer Partners</h2>
         </div>
 
-        <div className="flex justify-start gap-[16px] overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] md:justify-center [&::-webkit-scrollbar]:hidden">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
           {PARTNERS.map((partner) => (
             <article
               key={partner.name}
-              className="relative h-[160px] w-[207px] shrink-0 cursor-pointer overflow-hidden rounded-[11px] transition hover:-translate-y-1"
+              className="relative h-[140px] w-[min(207px,calc(50%-0.5rem))] overflow-hidden rounded-[11px] transition hover:-translate-y-1 sm:h-[160px] sm:w-[207px]"
             >
               <Image
                 src={partner.image}

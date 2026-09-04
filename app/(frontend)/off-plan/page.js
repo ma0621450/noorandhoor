@@ -1,4 +1,5 @@
 import PropertyHero from "@/components/common/PropertyHero";
+import PropertyCategories from "@/components/sections/property/PropertyCategories";
 import OffPlanFeatured from "@/components/sections/offplan/OffPlanFeatured";
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 
@@ -12,6 +13,7 @@ export default function OffPlanPage() {
   return (
     <>
       <PropertyHero variant="offplan" />
+      <PropertyCategories market="off-plan" />
       <OffPlanFeatured />
       <PropertyJourneyCta variant="offplan" />
     </>

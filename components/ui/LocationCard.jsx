@@ -14,33 +14,32 @@ const LocationCard = ({
     (propertyCount != null ? `${propertyCount} Properties` : null);
 
   const content = (
-    <article
-      className="group relative h-[360px] w-[min(240px,75vw)] shrink-0 snap-start cursor-pointer overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02] sm:h-[450px] sm:w-[min(290px,80vw)]"
-      style={width !== 290 ? { width: `min(${width}px, 80vw)` } : undefined}
-    >
+    <article className="group relative mx-auto h-[300px] w-[min(280px,calc(100vw-2rem))] overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02] sm:h-[380px] lg:h-[420px]">
       <Image
         src={image}
         alt={name}
         fill
-        sizes={`${width}px`}
+        sizes="(max-width: 640px) 100vw, 280px"
         draggable={false}
         className="pointer-events-none object-cover object-center transition-transform duration-300 group-hover:scale-105"
       />
 
       <div className="pointer-events-none absolute inset-0 rounded-[10px] border border-[rgba(212,175,55,0.6)] transition-colors group-hover:border-[#eec876]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
 
-      <div className="absolute bottom-[17px] left-4 flex items-stretch gap-3">
-        <div className="w-[2px] shrink-0 bg-[#E9C349]" />
-        <div className="flex flex-col gap-[7px]">
-          <h3 className="!font-accent text-[clamp(1.5rem,2.2vw,2rem)] font-normal uppercase leading-9 text-white">
-            {name}
-          </h3>
-          {caption && (
-            <p className="text-[11px] font-normal uppercase tracking-[0.98px] text-[#E9C349]">
-              {caption}
-            </p>
-          )}
+      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+        <div className="flex items-stretch gap-3">
+          <div className="w-[2px] shrink-0 bg-[#E9C349]" />
+          <div className="min-w-0 flex flex-col gap-1.5">
+            <h3 className="!font-accent text-[1.15rem] font-normal uppercase leading-snug text-white sm:text-[1.35rem]">
+              {name}
+            </h3>
+            {caption ? (
+              <p className="text-[11px] font-normal uppercase tracking-[0.98px] text-[#E9C349]">
+                {caption}
+              </p>
+            ) : null}
+          </div>
         </div>
       </div>
     </article>
@@ -49,7 +48,11 @@ const LocationCard = ({
   if (!href) return content;
 
   return (
-    <Link href={href} className="shrink-0" aria-label={`Browse ${name}`}>
+    <Link
+      href={href}
+      className="relative z-[1] w-full max-w-[280px] shrink-0"
+      aria-label={`Browse ${name}`}
+    >
       {content}
     </Link>
   );

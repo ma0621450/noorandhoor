@@ -17,7 +17,7 @@ export default function DetailAbout({ property }) {
               </h2>
               {about.map((paragraph, index) => (
                 <p
-                  key={`${paragraph.slice(0, 28)}-${index}`}
+                  key={`about-${index}`}
                   className="m-0 pt-4 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px] text-[#F5F5F5]"
                 >
                   {paragraph}
@@ -25,8 +25,11 @@ export default function DetailAbout({ property }) {
               ))}
               {description.length ? (
                 <ul className="m-0 flex list-none flex-col p-0 pt-4">
-                  {description.map((item) => (
-                    <li key={item} className="flex items-start gap-2 pt-2">
+                  {description.map((item, index) => (
+                    <li
+                      key={`desc-${index}`}
+                      className="flex items-start gap-2 pt-2"
+                    >
                       <span
                         className="mt-0.5 font-[family-name:var(--font-body)] text-[16px] leading-6 text-[#D6A85E]"
                         aria-hidden
@@ -80,9 +83,9 @@ export default function DetailAbout({ property }) {
                 Property Documents
               </h3>
               <ul className="flex flex-col gap-3">
-                {documents.map((doc) => (
+                {documents.map((doc, index) => (
                   <li
-                    key={doc.name}
+                    key={`doc-${index}-${doc.name}`}
                     className="flex items-start gap-2 leading-[26px]"
                   >
                     <FileText
