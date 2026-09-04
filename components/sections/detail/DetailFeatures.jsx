@@ -29,11 +29,11 @@ export default function DetailFeatures({ features }) {
           </h2>
 
           <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-            {columns.map((column) => (
-              <ul key={column[0]} className="flex flex-col gap-4">
-                {column.map((feature) => (
+            {columns.map((column, columnIndex) => (
+              <ul key={`feature-col-${columnIndex}`} className="flex flex-col gap-4">
+                {column.map((feature, featureIndex) => (
                   <li
-                    key={feature}
+                    key={`feature-${columnIndex}-${featureIndex}-${feature}`}
                     className="flex items-center gap-3 font-[family-name:var(--font-body)] text-[16px] font-normal leading-6 text-[#F5F5F5]"
                   >
                     <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-[#c5a059]">

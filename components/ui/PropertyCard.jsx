@@ -111,10 +111,10 @@ export default function PropertyCard({
       </button>
 
       <div className="relative z-[2] flex flex-col gap-1.5 px-4 py-4">
-        <h3 className="!font-accent mb-0.5 text-sm font-normal uppercase text-[#f5f5f5] transition-colors group-hover:text-[#ba8a44]">
+        <h3 className="!font-accent mb-0.5 break-words text-sm font-normal uppercase text-[#f5f5f5] transition-colors group-hover:text-[#ba8a44]">
           {title}
         </h3>
-        <p className="text-xs font-medium text-[#f5f5f5]">{location}</p>
+        <p className="break-words text-xs font-medium text-[#f5f5f5]">{location}</p>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white">
           <span className="flex items-center gap-1.5">

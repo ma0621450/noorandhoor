@@ -7,6 +7,7 @@ import StatCard from "@/components/admin/ui/StatCard";
 import AdminSplash from "@/components/admin/ui/AdminSplash";
 import useAdminBlogs from "@/hooks/useAdminBlogs";
 import useAdminProperties from "@/hooks/useAdminProperties";
+import { propertyTypeLabel } from "@/lib/admin/constants";
 import { getPropertyStats } from "@/lib/admin/data/properties";
 import { getBlogStats } from "@/lib/admin/data/blogs";
 
@@ -54,7 +55,8 @@ export default function DashboardView() {
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium text-white">{property.title}</p>
                   <p className="mt-1 text-xs text-white/45">
-                    {property.type} · {property.location}
+                    {propertyTypeLabel(property.market, property.type)} ·{" "}
+                    {property.location}
                   </p>
                 </div>
                 <Link

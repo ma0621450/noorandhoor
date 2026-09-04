@@ -39,6 +39,8 @@ export const CONTACT_INFO = {
   emailHref: "mailto:Shakeeb@noorandhoorproperties.com",
 };
 
+export const CONTACT_FORM_HREF = "/contact#contact-form";
+
 export const SERVICE_OPTIONS = [
   "Buy",
   "Rent",

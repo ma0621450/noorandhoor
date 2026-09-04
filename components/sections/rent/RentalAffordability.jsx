@@ -1,6 +1,6 @@
 import { Calculator } from "lucide-react";
 import Button from "@/components/ui/Button";
-import { Select } from "@/components/ui/CaretDown";
+import { Select } from "@/components/ui/Select";
 
 const COST_ROWS = [
   { label: "Calendar Price", value: "Price" },

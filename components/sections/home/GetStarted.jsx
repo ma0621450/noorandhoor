@@ -1,6 +1,6 @@
-import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { ArrowRight } from "lucide-react";
+import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
 export default function GetStarted() {
   return (
@@ -13,12 +13,10 @@ export default function GetStarted() {
           From your first inquiry to the final handshake, our experts turn
           property goals into golden opportunities.
         </p>
-        <Link href="/contact" className="inline-flex w-full sm:w-auto">
-          <Button className="w-full gap-2 sm:w-auto">
-            Get In Touch
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </Link>
+        <Button href={CONTACT_FORM_HREF} className="w-full gap-2 sm:w-auto">
+          Get In Touch
+          <ArrowRight className="h-4 w-4" />
+        </Button>
       </div>
     </section>
   );

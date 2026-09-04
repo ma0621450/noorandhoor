@@ -1,7 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Button from "@/components/ui/Button";
-import { Select } from "@/components/ui/CaretDown";
+import { Select } from "@/components/ui/Select";
+import { formValues, submitEnquiry } from "@/lib/enquiry-client";
+import { validateSellMatching } from "@/lib/enquiry-validation";
 
 const FIELD_CLASS =
   "w-full rounded-[11px] bg-[#111] px-5 py-3 text-[11px] font-semibold text-[#f5f5f5] placeholder:text-[#f5f5f5]/70 outline-none transition focus:ring-1 focus:ring-[#ba8a44] sm:text-sm";
@@ -9,7 +12,59 @@ const FIELD_CLASS =
 const LABEL_CLASS =
   "mb-3 block text-left text-sm font-semibold capitalize text-[#f5f5f5]";
 
+const ERROR_CLASS = "mt-1.5 text-left text-xs font-medium text-red-400";
+
 export default function SellPropertyMatching() {
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [intent, setIntent] = useState("matches");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const values = formValues(form);
+    const validation = validateSellMatching(values);
+
+    if (!validation.ok) {
+      setFieldErrors(validation.errors);
+      setStatus("error");
+      setError(validation.message);
+      return;
+    }
+
+    setFieldErrors({});
+    setStatus("submitting");
+    setError("");
+
+    try {
+      const details = [
+        `Intent: ${intent === "review" ? "Confidential review" : "Buyer matches"}`,
+        values.brief && `Property brief: ${values.brief}`,
+        values.asking && `Asking range: ${values.asking}`,
+        values.timeline && `Timeline: ${values.timeline}`,
+        values.occupancy && `Occupancy: ${values.occupancy}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      await submitEnquiry({
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        service: intent === "review" ? "Confidential review" : "Sell / buyer matching",
+        details,
+        botcheck: values.botcheck,
+        source: "sell-matching",
+      });
+      form.reset();
+      setStatus("success");
+    } catch (err) {
+      setStatus("error");
+      setError(err.message || "Could not send your enquiry. Please try again.");
+    }
+  }
+
   return (
     <section className="section-full py-12 sm:py-14 lg:py-16">
       <div className="section-inner">
@@ -29,18 +84,34 @@ export default function SellPropertyMatching() {
 
           <form
             className="mx-auto mt-8 flex max-w-[1099px] flex-col gap-5"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
+            noValidate
           >
+            <input
+              type="checkbox"
+              name="botcheck"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+              style={{ display: "none" }}
+            />
+
             <div>
               <label htmlFor="sell-brief" className={LABEL_CLASS}>
                 Property Brief
               </label>
               <textarea
                 id="sell-brief"
+                name="brief"
                 rows={5}
+                required
                 placeholder="Describe the property (type, location, size, condition, occupancy, and any seller constraints)"
                 className={`${FIELD_CLASS} min-h-[160px] resize-none capitalize-none`}
               />
+              {fieldErrors.brief ? (
+                <p className={ERROR_CLASS}>{fieldErrors.brief}</p>
+              ) : null}
             </div>
 
             <div className="grid gap-5 lg:grid-cols-2">
@@ -51,6 +122,7 @@ export default function SellPropertyMatching() {
                   </label>
                   <input
                     id="sell-asking"
+                    name="asking"
                     type="text"
                     placeholder="e.g PKR 8-10 Crore"
                     className={FIELD_CLASS}
@@ -62,17 +134,22 @@ export default function SellPropertyMatching() {
                   </label>
                   <Select
                     id="sell-timeline"
+                    name="timeline"
+                    required
                     defaultValue=""
                     className={`${FIELD_CLASS} h-[41px] cursor-pointer`}
                   >
                     <option value="" disabled>
                       Select Timeline
                     </option>
-                    <option>ASAP</option>
-                    <option>1–3 Months</option>
-                    <option>3–6 Months</option>
-                    <option>6+ Months</option>
+                    <option value="ASAP">ASAP</option>
+                    <option value="1–3 Months">1–3 Months</option>
+                    <option value="3–6 Months">3–6 Months</option>
+                    <option value="6+ Months">6+ Months</option>
                   </Select>
+                  {fieldErrors.timeline ? (
+                    <p className={ERROR_CLASS}>{fieldErrors.timeline}</p>
+                  ) : null}
                 </div>
                 <div>
                   <label htmlFor="sell-occupancy" className={LABEL_CLASS}>
@@ -80,16 +157,21 @@ export default function SellPropertyMatching() {
                   </label>
                   <Select
                     id="sell-occupancy"
+                    name="occupancy"
+                    required
                     defaultValue=""
                     className={`${FIELD_CLASS} h-[41px] cursor-pointer`}
                   >
                     <option value="" disabled>
                       Select Occupancy
                     </option>
-                    <option>Vacant</option>
-                    <option>Owner Occupied</option>
-                    <option>Tenanted</option>
+                    <option value="Vacant">Vacant</option>
+                    <option value="Owner Occupied">Owner Occupied</option>
+                    <option value="Tenanted">Tenanted</option>
                   </Select>
+                  {fieldErrors.occupancy ? (
+                    <p className={ERROR_CLASS}>{fieldErrors.occupancy}</p>
+                  ) : null}
                 </div>
               </div>
 
@@ -100,38 +182,86 @@ export default function SellPropertyMatching() {
                   </label>
                   <input
                     id="sell-name"
+                    name="name"
                     type="text"
+                    autoComplete="name"
+                    required
                     placeholder="Full Name"
                     className={FIELD_CLASS}
                   />
+                  {fieldErrors.name ? (
+                    <p className={ERROR_CLASS}>{fieldErrors.name}</p>
+                  ) : null}
                 </div>
                 <div>
-                  <label htmlFor="sell-contact" className={LABEL_CLASS}>
-                    Email / Phone / Address
+                  <label htmlFor="sell-email" className={LABEL_CLASS}>
+                    Email
                   </label>
                   <input
-                    id="sell-contact"
-                    type="text"
-                    placeholder="you@example.com / +92 xxx xxxxxxxx / City"
+                    id="sell-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    placeholder="you@example.com"
                     className={FIELD_CLASS}
                   />
+                  {fieldErrors.email ? (
+                    <p className={ERROR_CLASS}>{fieldErrors.email}</p>
+                  ) : null}
+                </div>
+                <div>
+                  <label htmlFor="sell-phone" className={LABEL_CLASS}>
+                    Phone
+                  </label>
+                  <input
+                    id="sell-phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    required
+                    placeholder="+971 50 000 0000"
+                    className={FIELD_CLASS}
+                  />
+                  {fieldErrors.phone ? (
+                    <p className={ERROR_CLASS}>{fieldErrors.phone}</p>
+                  ) : null}
                 </div>
               </div>
             </div>
 
+            {status === "success" && (
+              <p className="text-center text-sm font-medium text-[#d6a85e]">
+                Thank you. We received your enquiry and will be in touch shortly.
+              </p>
+            )}
+            {status === "error" && error && (
+              <p className="text-center text-sm font-medium text-red-400">
+                {error}
+              </p>
+            )}
+
             <div className="mt-2 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
               <Button
                 type="submit"
+                disabled={status === "submitting"}
+                onClick={() => setIntent("matches")}
                 className="h-14 w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[266px] sm:px-10 sm:text-sm"
               >
-                Generate Buyer Matches
+                {status === "submitting" && intent === "matches"
+                  ? "Sending..."
+                  : "Generate Buyer Matches"}
               </Button>
               <Button
-                type="button"
+                type="submit"
                 variant="secondary"
+                disabled={status === "submitting"}
+                onClick={() => setIntent("review")}
                 className="h-[58px] w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[328px] sm:px-10 sm:text-sm"
               >
-                Request Confidential Review
+                {status === "submitting" && intent === "review"
+                  ? "Sending..."
+                  : "Request Confidential Review"}
               </Button>
             </div>
           </form>

@@ -51,12 +51,12 @@ export default function LoginForm() {
   return (
     <div className="flex min-h-dvh items-center justify-center bg-[#111] px-4 py-10">
       <div className="w-full max-w-md rounded-3xl border border-[#ba8a44]/30 bg-[#161616] p-8 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
-        <div className="mb-8 text-center">
+        <div className="mb-8 flex flex-col items-center text-center">
           <Image src={logo} alt="Noor and Hoor" width={96} height={64} className="mx-auto" />
           <h1 className="admin-heading mt-5 text-2xl font-semibold text-white">
             Admin sign in
           </h1>
-          <p className="mt-2 text-sm text-white/55">
+          <p className="mt-2 max-w-sm text-sm text-white/55">
             Sign in with your admin email and password.
           </p>
         </div>

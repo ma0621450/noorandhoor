@@ -1,4 +1,5 @@
 import PropertyHero from "@/components/common/PropertyHero";
+import PropertyCategories from "@/components/sections/property/PropertyCategories";
 import FeaturedSellProperties from "@/components/sections/sell/FeaturedSellProperties";
 import SellPropertyMatching from "@/components/sections/sell/SellPropertyMatching";
 import SellingProcess from "@/components/sections/sell/SellingProcess";
@@ -21,6 +22,7 @@ export default function SellPage() {
   return (
     <>
       <PropertyHero variant="sell" />
+      <PropertyCategories market="sell" />
       <FeaturedSellProperties />
       <SellPropertyMatching />
       <SellingProcess />

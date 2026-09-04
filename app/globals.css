@@ -67,8 +67,13 @@
     cursor: pointer;
   }
 
-  select option {
-    background-color: #111;
+  select {
+    color-scheme: dark;
+  }
+
+  select option,
+  select optgroup {
+    background-color: #171717;
     color: #f5f5f5;
   }
 }
@@ -121,7 +126,7 @@ h2.detail-section-title,
 h3.detail-section-title,
 h1.admin-heading,
 h2.admin-heading {
-  text-align: left;
+  text-align: inherit;
   text-transform: none;
   font-family: var(--font-body);
   font-size: inherit;
@@ -149,6 +154,13 @@ h2.admin-heading {
 
 html {
   overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -156,6 +168,11 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-body);
   overflow-x: hidden;
+}
+
+img,
+video {
+  max-width: 100%;
 }
 
 a {

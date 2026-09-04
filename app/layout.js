@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${abhayaLibre.variable} ${cinzel.variable} ${josefinSans.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${abhayaLibre.variable} ${cinzel.variable} ${josefinSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full" suppressHydrationWarning>
         {children}

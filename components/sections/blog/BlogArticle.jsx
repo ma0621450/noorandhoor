@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
 import MediaImage from "@/components/ui/MediaImage";
+import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
 export default function BlogArticle({ post, related = [] }) {
   return (
@@ -68,9 +69,9 @@ export default function BlogArticle({ post, related = [] }) {
             Speak with Noor &amp; Hoor Properties about buying, selling,
             renting, or investing in Dubai.
           </p>
-          <Link href="/contact" className="mt-7 inline-flex">
-            <Button className="px-7 py-3 text-sm">Contact Our Team</Button>
-          </Link>
+          <Button href={CONTACT_FORM_HREF} className="mt-7 px-7 py-3 text-sm">
+            Contact Our Team
+          </Button>
         </div>
 
         {related.length > 0 && (

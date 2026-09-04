@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import CaretDown from "@/components/ui/CaretDown";
 
 const DropdownContext = createContext(null);
@@ -24,6 +25,7 @@ export default function Dropdown({
   compact = false,
 }) {
   const context = useContext(DropdownContext);
+  const rootRef = useRef(null);
   const [internal, setInternal] = useState(placeholder);
   const selected = value === undefined ? internal : value || placeholder;
   const isOpen = context ? context.openId === id : false;
@@ -44,23 +46,41 @@ export default function Dropdown({
     close();
   };
 
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const onPointerDown = (event) => {
+      if (!rootRef.current?.contains(event.target)) close();
+    };
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") close();
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
+
   return (
-    <div className={`relative min-w-0 ${className}`}>
+    <div ref={rootRef} className={`relative min-w-0 ${className}`}>
       <button
         type="button"
         onClick={toggle}
-        className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left text-sm text-white sm:gap-4 sm:px-4"
+        className="relative z-[1] flex h-full w-full min-h-11 cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left text-sm text-white sm:gap-4 sm:px-4 lg:min-h-14"
       >
         <span className="truncate">{selected}</span>
         <CaretDown open={isOpen} className="text-white" />
       </button>
 
-      {isOpen && (
+      {isOpen ? (
         <div
-          className={`absolute top-full left-0 z-50 mt-2 max-w-[min(100vw-2rem,280px)] bg-[#1a1a1a] shadow-[0_12px_40px_rgba(0,0,0,0.45)] ${
+          className={`absolute left-0 right-0 top-[calc(100%+10px)] z-[60] w-full min-w-0 border border-[#ba8a44]/55 bg-[#141414] shadow-[0_16px_40px_rgba(0,0,0,0.55)] ${
             compact
-              ? "flex w-max min-w-[185px] flex-col gap-3 rounded-lg p-5"
-              : "w-full min-w-[160px] rounded-xl p-2"
+              ? "flex flex-col gap-3 rounded-lg p-5"
+              : "rounded-xl p-2"
           }`}
         >
           {options.map((item) => {
@@ -74,13 +94,13 @@ export default function Dropdown({
                   compact
                     ? `rounded px-2 py-0.5 text-xs font-normal ${
                         active
-                          ? "bg-gradient-to-r from-[rgba(188,135,65,0.35)] to-[rgba(214,168,94,0.35)]"
-                          : "hover:bg-white/5"
+                          ? "bg-[#ba8a44]/25 text-[#eec876]"
+                          : "hover:bg-[#ba8a44]/20 hover:text-white"
                       }`
                     : `rounded-lg px-3 py-2.5 text-sm font-medium ${
                         active
-                          ? "bg-gradient-to-r from-[#bc8741] to-[#d6a85e]"
-                          : "hover:bg-[#7b613b]"
+                          ? "bg-[#ba8a44]/25 text-[#eec876]"
+                          : "hover:bg-[#ba8a44]/20 hover:text-white"
                       }`
                 }`}
               >
@@ -89,7 +109,7 @@ export default function Dropdown({
             );
           })}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

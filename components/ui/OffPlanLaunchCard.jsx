@@ -1,20 +1,30 @@
-import Image from "next/image";
-import Button from "@/components/ui/Button";
+"use client";
 
-const OffPlanLaunchCard = ({ launch }) => {
-  const { image, title, developer, price } = launch;
+import Link from "next/link";
+import Button from "@/components/ui/Button";
+import MediaImage from "@/components/ui/MediaImage";
+
+export default function OffPlanLaunchCard({ launch }) {
+  const { image, title, developer, price, href } = launch;
+  const to = href || "/off-plan";
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-[#ba8a44]/40 bg-[#121212]">
-      <div className="relative aspect-[4/3] w-full">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover"
-        />
-      </div>
+    <article className="group flex flex-col overflow-hidden rounded-xl border border-[#ba8a44]/40 bg-[#121212]">
+      <Link
+        href={to}
+        className="relative aspect-[4/3] w-full overflow-hidden"
+        aria-label={title}
+      >
+        {image ? (
+          <MediaImage
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition duration-300 group-hover:scale-105"
+          />
+        ) : null}
+      </Link>
 
       <div className="flex flex-col gap-4 p-5">
         <div className="flex flex-col gap-2">
@@ -25,17 +35,14 @@ const OffPlanLaunchCard = ({ launch }) => {
             by <span className="text-[#ba8a44]">{developer}</span>
           </p>
           <p className="text-xs font-medium text-white">
-            Starting Price{" "}
-            <span className="text-[#ba8a44]">AED {price}</span>
+            Starting Price <span className="text-[#ba8a44]">AED {price}</span>
           </p>
         </div>
 
-        <Button variant="primary" className="w-full py-3 text-xs">
+        <Button href={to} variant="primary" className="w-full py-3 text-xs">
           View Details
         </Button>
       </div>
     </article>
   );
-};
-
-export default OffPlanLaunchCard;
+}

@@ -13,9 +13,9 @@ export default function DetailAboutRent({ property }) {
             <h2 className="m-0 font-[family-name:var(--font-body)] text-[24px] font-semibold leading-8 text-[#F5F5F5]">
               About This Property
             </h2>
-            {about.map((paragraph) => (
+            {about.map((paragraph, index) => (
               <p
-                key={paragraph.slice(0, 32)}
+                key={`about-${index}`}
                 className="m-0 pt-4 font-[family-name:var(--font-body)] text-[16px] font-normal leading-[26px] text-[#D1D5DB]"
               >
                 {paragraph}
@@ -28,7 +28,7 @@ export default function DetailAboutRent({ property }) {
             <ul className="m-0 flex list-none flex-col p-0 pt-3">
               {description.map((item, index) => (
                 <li
-                  key={item}
+                  key={`desc-${index}`}
                   className={`flex items-start gap-2 ${index === 0 ? "" : "pt-2"}`}
                 >
                   <span
@@ -48,8 +48,8 @@ export default function DetailAboutRent({ property }) {
               Features
             </h3>
             <div className="grid grid-cols-1 gap-x-3 gap-y-3 pt-3 sm:grid-cols-2">
-              {features.map((feature) => (
-                <div key={feature} className="flex items-center gap-2">
+              {features.map((feature, index) => (
+                <div key={`feature-${index}`} className="flex items-center gap-2">
                   <span
                     className="size-2 shrink-0 rounded-full bg-[linear-gradient(90deg,#BC8741_0%,#C5924B_33.33%,#CD9D54_66.67%,#D6A85E_100%)]"
                     aria-hidden

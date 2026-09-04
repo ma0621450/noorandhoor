@@ -128,7 +128,12 @@ export default function BlogListing() {
                     <td className="px-5 py-4">
                       <div className="flex flex-wrap gap-2">
                         <StatusBadge status={blog.status} />
-                        {blog.featured ? <StatusBadge status="featured" /> : null}
+                        {blog.featuredOnHome ? (
+                          <StatusBadge status="home" />
+                        ) : null}
+                        {blog.featuredAsHero ? (
+                          <StatusBadge status="hero" />
+                        ) : null}
                       </div>
                     </td>
                     <td className="px-5 py-4">
@@ -164,8 +169,10 @@ export default function BlogListing() {
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-white">{blog.title}</p>
                     <p className="mt-1 text-xs text-white/45">{blog.category}</p>
-                    <div className="mt-2">
+                    <div className="mt-2 flex flex-wrap gap-2">
                       <StatusBadge status={blog.status} />
+                      {blog.featuredOnHome ? <StatusBadge status="home" /> : null}
+                      {blog.featuredAsHero ? <StatusBadge status="hero" /> : null}
                     </div>
                   </div>
                 </div>

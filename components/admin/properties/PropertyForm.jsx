@@ -15,24 +15,35 @@ import {
   TextArea,
   TextField,
 } from "@/components/admin/ui/Fields";
+import VisibilityPanel from "@/components/admin/ui/VisibilityPanel";
 import { useToast } from "@/components/admin/providers/ToastProvider";
 import useAdminProperties from "@/hooks/useAdminProperties";
 import {
   DEFAULT_PROPERTY_AGENT,
   DEFAULT_PROPERTY_DOCUMENTS,
   DEFAULT_PROPERTY_FEATURES,
-  PROPERTY_MARKETS,
+  PROPERTY_LOCATIONS,
+  PROPERTY_LOCATION_OTHER,
+  PROPERTY_MARKET_OPTIONS,
   PROPERTY_STATUSES,
-  PROPERTY_TYPES,
+  defaultPropertyType,
+  normalizePropertyType,
+  propertyTypesForMarket,
 } from "@/lib/admin/constants";
 import { slugify } from "@/lib/admin/utils";
+
+function locationChoiceFromValue(location) {
+  if (!location) return "";
+  if (PROPERTY_LOCATIONS.includes(location)) return location;
+  return PROPERTY_LOCATION_OTHER;
+}
 
 const EMPTY_FORM = {
   title: "",
   slug: "",
   location: "",
   market: "buy",
-  type: "Apartment",
+  type: defaultPropertyType("buy"),
   price: "",
   bedrooms: "",
   bathrooms: "",
@@ -70,7 +81,7 @@ function toForm(property) {
     slug: property.slug,
     location: property.location,
     market: property.market,
-    type: property.type,
+    type: normalizePropertyType(property.market, property.type),
     price: String(property.price ?? ""),
     bedrooms: String(property.bedrooms ?? ""),
     bathrooms: String(property.bathrooms ?? ""),
@@ -154,10 +165,43 @@ function PropertyEditor({
   const [errors, setErrors] = useState({});
   const [slugLocked, setSlugLocked] = useState(Boolean(initialProperty));
   const [isSaving, setIsSaving] = useState(false);
+  const [locationChoice, setLocationChoice] = useState(() =>
+    locationChoiceFromValue(
+      initialProperty ? initialProperty.location : EMPTY_FORM.location,
+    ),
+  );
 
   const setField = (key, value) => {
     setForm((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: undefined }));
+  };
+
+  const onLocationChoiceChange = (value) => {
+    setLocationChoice(value);
+    setErrors((current) => ({ ...current, location: undefined }));
+    if (value === PROPERTY_LOCATION_OTHER) {
+      setForm((current) => ({
+        ...current,
+        location: PROPERTY_LOCATIONS.includes(current.location)
+          ? ""
+          : current.location,
+      }));
+      return;
+    }
+    setField("location", value);
+  };
+
+  const onMarketChange = (value) => {
+    setForm((current) => ({
+      ...current,
+      market: value,
+      type: normalizePropertyType(value, current.type),
+    }));
+    setErrors((current) => ({
+      ...current,
+      market: undefined,
+      type: undefined,
+    }));
   };
 
   const onTitleChange = (value) => {
@@ -185,11 +229,15 @@ function PropertyEditor({
     if (!form.title.trim()) next.title = "Title is required.";
     if (!form.slug.trim()) next.slug = "Slug is required.";
     if (!form.location.trim()) next.location = "Location is required.";
+    if (!form.market) next.market = "Market is required.";
+    if (!form.type) next.type = "Type is required.";
     if (form.price === "" || Number(form.price) < 0) {
       next.price = "Enter a valid price.";
     }
     return next;
   }, [form]);
+
+  const typeOptions = propertyTypesForMarket(form.market);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -250,32 +298,58 @@ function PropertyEditor({
               }}
               error={errors.slug}
               hint="Used in the public URL"
+              tooltip="Auto-fills from the title. Change only if you need a custom URL."
             />
-            <TextField
+            <SelectField
               id="property-location"
               label="Location"
-              value={form.location}
-              onChange={(event) => setField("location", event.target.value)}
-              error={errors.location}
-              placeholder="Dubai Marina, Dubai"
+              value={locationChoice}
+              onChange={(event) => onLocationChoiceChange(event.target.value)}
+              error={
+                locationChoice === PROPERTY_LOCATION_OTHER
+                  ? undefined
+                  : errors.location
+              }
+              placeholder="Select location"
+              tooltip="Choose a listed area, or Other to type a custom location."
+              options={[
+                ...PROPERTY_LOCATIONS.map((item) => ({
+                  value: item,
+                  label: item,
+                })),
+                { value: PROPERTY_LOCATION_OTHER, label: "Other" },
+              ]}
             />
+            {locationChoice === PROPERTY_LOCATION_OTHER ? (
+              <TextField
+                id="property-location-other"
+                label="Custom location"
+                value={form.location}
+                onChange={(event) => setField("location", event.target.value)}
+                error={errors.location}
+                placeholder="Enter location"
+              />
+            ) : null}
             <div className="grid gap-4 sm:grid-cols-2">
               <SelectField
                 id="property-market"
                 label="Market"
                 value={form.market}
-                onChange={(event) => setField("market", event.target.value)}
-                options={PROPERTY_MARKETS.map((item) => ({
-                  value: item,
-                  label: item,
-                }))}
+                onChange={(event) => onMarketChange(event.target.value)}
+                error={errors.market}
+                placeholder="Select market"
+                tooltip="Matches the Buy, Rent, Sell, and Off Plan sections of the website."
+                options={PROPERTY_MARKET_OPTIONS}
               />
               <SelectField
                 id="property-type"
                 label="Type"
                 value={form.type}
                 onChange={(event) => setField("type", event.target.value)}
-                options={PROPERTY_TYPES}
+                error={errors.type}
+                placeholder="Select type"
+                tooltip="Sub-page under the selected market. This controls where the listing appears."
+                options={typeOptions}
               />
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -494,6 +568,7 @@ function PropertyEditor({
               value={form.status}
               onChange={(event) => setField("status", event.target.value)}
               options={PROPERTY_STATUSES}
+              tooltip="Available listings are public. Reserved stays visible. Sold is hidden from public pages."
             />
             <TextField
               id="property-listed-at"
@@ -502,14 +577,25 @@ function PropertyEditor({
               value={form.listedAt}
               onChange={(event) => setField("listedAt", event.target.value)}
               hint="Drives the “listed ago” tag and off-plan listed date."
-            />
-            <CheckboxField
-              id="property-featured"
-              label="Feature this listing"
-              checked={form.featured}
-              onChange={(checked) => setField("featured", checked)}
+              tooltip="Used for sorting recent listings and the listed-ago label on the detail page."
             />
           </div>
+
+          <VisibilityPanel
+            title="Featured property"
+            description="Featured properties appear in the Featured Properties section on the home page and on market pages."
+            items={[
+              {
+                id: "property-featured",
+                label: "Feature this property",
+                description:
+                  "Show this listing in Featured Properties on the home page and in market featured sections.",
+                tooltip: "Also displays a Featured badge on property cards.",
+                checked: form.featured,
+                onChange: (checked) => setField("featured", checked),
+              },
+            ]}
+          />
 
           <div className="space-y-5 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">
             <h2 className="text-sm font-semibold text-white">Contact agent</h2>

@@ -7,6 +7,8 @@ const STYLES = {
   published: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
   draft: "border-white/15 bg-white/8 text-white/70",
   featured: "border-[#ba8a44]/40 bg-[#ba8a44]/15 text-[#eec876]",
+  home: "border-sky-500/30 bg-sky-500/10 text-sky-200",
+  hero: "border-violet-500/30 bg-violet-500/10 text-violet-200",
 };
 
 export default function StatusBadge({ status }) {
