@@ -28,7 +28,7 @@ export default function MortgageResultCard({ result, onRedo }) {
   const { inputs } = result;
 
   return (
-    <div className="flex w-full flex-col rounded-[10px] bg-[#0e1112] p-5 shadow-[0_10px_15px_rgba(0,0,0,0.1)] sm:p-6">
+    <div className="flex h-full w-full flex-col rounded-[10px] bg-[#0e1112] p-5 shadow-[0_10px_15px_rgba(0,0,0,0.1)] sm:p-6">
       <div className="mb-1 flex items-center gap-2">
         <div className="flex size-8 items-center justify-center rounded-full border-[1.6px] border-[#bc8741]">
           <div className="size-4 rounded-full border-[1.6px] border-[#bc8741]" />
@@ -46,7 +46,7 @@ export default function MortgageResultCard({ result, onRedo }) {
       <div className="pt-1">
         <Row
           label="Price of Property"
-          value={formatAed(result.price)}
+          value={result.priceRangeLabel || formatAed(result.price)}
           strong
           last
         />
@@ -55,7 +55,7 @@ export default function MortgageResultCard({ result, onRedo }) {
       <SectionTitle>Upfront Payment</SectionTitle>
       <Row
         label="Down Payment"
-        value={`${formatAed(result.downPaymentAmount)} (${result.downPercent}%)`}
+        value={`${formatAed(result.downPaymentAmount)} (${result.downPaymentRangeLabel || `${result.downPercent}%`})`}
       />
       <Row label="Loan Term" value={`${result.years} Years`} />
       <Row
@@ -76,13 +76,15 @@ export default function MortgageResultCard({ result, onRedo }) {
         valuation.
       </p>
 
-      <Button
-        type="button"
-        onClick={onRedo}
-        className="mt-5 h-11 w-full rounded-xl text-sm font-semibold tracking-[1.2px]"
-      >
-        Redo
-      </Button>
+      <div className="mt-auto pt-5">
+        <Button
+          type="button"
+          onClick={onRedo}
+          className="h-11 w-full rounded-xl text-sm font-semibold tracking-[1.2px]"
+        >
+          Redo
+        </Button>
+      </div>
     </div>
   );
 }

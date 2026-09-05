@@ -27,7 +27,7 @@ export default function DevelopersPage() {
       <DevelopersLeadForm />
       <DevelopersWhyChoose />
       <FaqSection variant="developers" />
-      <PropertyJourneyCta variant="buy" />
+      <PropertyJourneyCta variant="developers" />
     </>
   );
 }

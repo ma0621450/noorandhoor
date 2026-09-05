@@ -8,7 +8,6 @@ import {
   Eye,
   CalendarDays,
 } from "lucide-react";
-import DetailHeaderActions from "@/components/sections/detail/DetailHeaderActions";
 
 const TAG_ICONS = {
   bed: Bed,
@@ -87,16 +86,13 @@ export default function DetailHeader({
               </div>
             </div>
 
-            <div className="flex shrink-0 flex-col items-start gap-3 lg:items-end">
-              <div className="flex flex-col items-start lg:items-end">
-                <span className="font-[family-name:var(--font-body)] text-[14px] font-normal leading-5 text-[#F5F5F5]">
-                  {priceLabel}
-                </span>
-                <p className="m-0 pt-1 font-accent text-[28px] font-bold uppercase leading-[1.25] tracking-normal text-gold-gradient sm:text-[36px] lg:text-[40px] lg:leading-[51px]">
-                  {priceText}
-                </p>
-              </div>
-              <DetailHeaderActions />
+            <div className="flex shrink-0 flex-col items-start lg:items-end">
+              <span className="font-[family-name:var(--font-body)] text-[14px] font-normal leading-5 text-[#F5F5F5]">
+                {priceLabel}
+              </span>
+              <p className="m-0 pt-1 font-accent text-[28px] font-bold uppercase leading-[1.25] tracking-normal text-gold-gradient sm:text-[36px] lg:text-[40px] lg:leading-[51px]">
+                {priceText}
+              </p>
             </div>
           </div>
         </div>

@@ -77,7 +77,7 @@ export default function Dropdown({
 
       {isOpen ? (
         <div
-          className={`absolute left-0 right-0 top-[calc(100%+10px)] z-[60] w-full min-w-0 border border-[#ba8a44]/55 bg-[#141414] shadow-[0_16px_40px_rgba(0,0,0,0.55)] ${
+          className={`absolute left-0 right-0 top-[calc(100%+10px)] z-[60] max-h-60 w-full min-w-0 overflow-y-auto overscroll-contain border border-[#ba8a44]/55 bg-[#141414] shadow-[0_16px_40px_rgba(0,0,0,0.55)] ${
             compact
               ? "flex flex-col gap-3 rounded-lg p-5"
               : "rounded-xl p-2"

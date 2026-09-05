@@ -66,12 +66,6 @@ export const BUYER_GUIDES = [
   },
 ];
 
-export const FAQ_RESOURCES = [
-  { title: "The 2030 Strategic Plan", image: carousel1 },
-  { title: "Understanding Real Estate Market Development", image: carousel2 },
-  { title: "Developer Reputation & Strategic Choices", image: carousel3 },
-];
-
 export const DEVELOPER_FAQS = [
   {
     id: 1,

@@ -9,35 +9,54 @@ const CTA_PRESETS = {
     description:
       "Your dream property is just one conversation away. Let's make it happen today.",
     primaryLabel: "Contact Us Now",
+    primaryHref: "/contact",
     secondaryLabel: "Explore Exclusive Offers",
+    secondaryHref: "/off-plan",
   },
   rent: {
     heading: "Still Searching for the Perfect Rental?",
     description:
       "Let us match you with a home that fits your budget and lifestyle, starting today.",
     primaryLabel: "Get a Free Consultation",
+    primaryHref: "/contact",
     secondaryLabel: "See Owner Guide",
+    secondaryHref: "/rent",
   },
   sell: {
     heading: "Start Your Property Selling Journey Today",
     description:
       "Reach out and start your exclusive property journey with premium services and professional guidance tailored just for you.",
     primaryLabel: "Contact Us Now",
+    primaryHref: "/contact",
     secondaryLabel: "Explore Exclusive Offers",
+    secondaryHref: "/off-plan",
+  },
+  developers: {
+    heading: "Ready to Make the UAE Your Next Address?",
+    description:
+      "Your dream property is just one conversation away. Let's make it happen today.",
+    primaryLabel: "Contact Us Now",
+    primaryHref: "/contact",
+    secondaryLabel: "Explore Exclusive Offers",
+    secondaryHref: "/off-plan",
   },
   offplan: {
     heading: "Off-Plan Properties: Your Future Home, Ready to Choose Today",
     description:
       "Whether you are looking for a weekend retreat or a long-term rental, we can help you find your ideal property.",
     primaryLabel: "Schedule Viewing",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "Contact Agent",
+    secondaryHref: "/contact",
   },
   detail: {
     heading: "Ready to Start Your Holiday Property Journey?",
     description:
       "Whether you are looking for a weekend retreat or a long-term rental, we can help you find your ideal property.",
     primaryLabel: "Schedule Viewing",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "Contact Agent",
+    secondaryHref: "/contact",
   },
 };
 
@@ -47,6 +66,8 @@ export default function PropertyJourneyCta({
   description,
   primaryLabel,
   secondaryLabel,
+  primaryHref,
+  secondaryHref,
 }) {
   const preset = CTA_PRESETS[variant] || CTA_PRESETS.buy;
 
@@ -79,13 +100,13 @@ export default function PropertyJourneyCta({
 
         <div className="mt-1 flex w-full flex-col items-stretch justify-center gap-5 sm:w-auto sm:flex-row sm:items-center">
           <Button
-            href={CONTACT_FORM_HREF}
+            href={primaryHref || preset.primaryHref || CONTACT_FORM_HREF}
             className="h-[58px] w-full rounded-xl px-10 text-sm tracking-[1.3px] sm:w-auto"
           >
             {primaryLabel || preset.primaryLabel}
           </Button>
           <Button
-            href={CONTACT_FORM_HREF}
+            href={secondaryHref || preset.secondaryHref || CONTACT_FORM_HREF}
             variant="secondary"
             className="h-[58px] w-full rounded-xl px-10 text-sm tracking-[1.3px] sm:w-auto"
           >

@@ -225,13 +225,15 @@ export default function PreApprovalForm({ estimatedPayment = "" }) {
         </p>
       ) : null}
 
-      <Button
-        type="submit"
-        disabled={status === "submitting"}
-        className="mt-5 h-12 w-full !rounded-xl text-sm font-semibold tracking-[1.2px]"
-      >
-        {status === "submitting" ? "Sending..." : "Request Pre-Approval"}
-      </Button>
+      <div className="mt-auto pt-5">
+        <Button
+          type="submit"
+          disabled={status === "submitting"}
+          className="h-12 w-full !rounded-xl text-sm font-semibold tracking-[1.2px]"
+        >
+          {status === "submitting" ? "Sending..." : "Request Pre-Approval"}
+        </Button>
+      </div>
     </form>
   );
 }

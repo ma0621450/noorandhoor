@@ -54,7 +54,7 @@ export const PROPERTY_DETAIL = {
     "WiFi",
   ],
   agent: {
-    name: "Waqar ahmed",
+    name: "Shakeeb Ahmad Khan",
     phone: "+971526938886",
   },
 };
@@ -105,7 +105,7 @@ export const RENT_PROPERTY_DETAIL = {
     label: "Ajman, UAE",
   },
   agent: {
-    name: "Waqar ahmed",
+    name: "Shakeeb Ahmad Khan",
     phone: "+971526938886",
   },
 };

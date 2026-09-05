@@ -1,9 +1,22 @@
-import Button from "@/components/ui/Button";
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Button from "@/components/ui/Button";
+import EnquiryModal from "@/components/layout/EnquiryModal";
 import listYourPropertyImage from "@/public/images/landingpage/LuxuryHome.png";
-import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
 export default function ListYourProperty() {
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
+
+  useEffect(() => {
+    if (!enquiryOpen) return undefined;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [enquiryOpen]);
+
   return (
     <section className="section-container">
       <div className="flex flex-col items-center gap-10 xl:flex-row xl:items-center xl:justify-between xl:gap-12">
@@ -20,7 +33,11 @@ export default function ListYourProperty() {
             buyers, and finalize deals smoothly, maximizing value with complete
             peace of mind.
           </p>
-          <Button href={CONTACT_FORM_HREF} className="w-full sm:w-auto">
+          <Button
+            type="button"
+            className="w-full sm:w-auto"
+            onClick={() => setEnquiryOpen(true)}
+          >
             List Your Property
           </Button>
         </div>
@@ -35,6 +52,8 @@ export default function ListYourProperty() {
           />
         </div>
       </div>
+
+      <EnquiryModal open={enquiryOpen} onClose={() => setEnquiryOpen(false)} />
     </section>
   );
 }

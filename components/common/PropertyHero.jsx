@@ -12,17 +12,7 @@ import {
   CONTACT_FORM_HREF,
   CONTACT_INFO,
 } from "@/components/sections/contact/contactData";
-
-const LOCATIONS = [
-  "Dubai Marina",
-  "Downtown",
-  "Palm Jumeirah",
-  "Business Bay",
-  "JBR",
-];
-
-const SALE_PRICES = ["0 - 500K", "500K - 1M", "1M - 5M", "5M+"];
-const RENT_PRICES = ["0 - 50K", "50K - 100K", "100K - 200K", "200K+"];
+import { buildPropertyFilterFields } from "@/lib/listingFilters";
 
 const STANDARD_TRUST_SIGNALS = [
   { icon: starIcon, lines: ["Rated 4.95 by", "Global Investors"] },
@@ -45,29 +35,25 @@ const HOME_FEATURES = [
   "Trusted Property Guides",
 ];
 
+const PROPERTY_FILTER_VARIANTS = new Set([
+  "home",
+  "buy",
+  "rent",
+  "sell",
+  "offplan",
+]);
+
 const PRESETS = {
   home: {
     title: "Explore Your Dream Property in UAE",
     description:
       "Your trusted UAE real estate firm offering expert guidance for property buying, selling, and investment.",
-    fields: [
-      { key: "transaction", placeholder: "Rent", options: ["Rent", "Buy"] },
-      { key: "location", placeholder: "Location", options: LOCATIONS },
-      {
-        key: "type",
-        placeholder: "Property Type",
-        options: ["Apartment", "Villa", "Penthouse", "Townhouse"],
-      },
-      { key: "price", placeholder: "Price Range", options: SALE_PRICES },
-    ],
     features: HOME_FEATURES,
   },
   buy: {
     title: "Build Your Future on the UAE's Prime Real Estate",
     description:
       "Discover, compare, and secure premium UAE properties that support your lifestyle and long term investment goals.",
-    propertyTypes: ["Apartment", "Villa", "Penthouse", "Townhouse"],
-    priceOptions: SALE_PRICES,
     trustSignals: [
       { icon: starIcon, lines: ["1000+", "Premium Properties"] },
       { icon: securityIcon, lines: ["Trusted Developer", "Network"] },
@@ -78,8 +64,6 @@ const PRESETS = {
     title: "Your Trusted Partner for Renting Property in the UAE",
     description:
       "We connect you with verified landlords and quality rentals across the UAE, making renting simple and stress-free.",
-    propertyTypes: ["Apartment", "Villa", "Townhouse", "Penthouse"],
-    priceOptions: RENT_PRICES,
     trustSignals: [
       { icon: starIcon, lines: ["900+", "Verified Rental Properties"] },
       { icon: securityIcon, lines: ["Prime Locations", "Across the UAE"] },
@@ -90,69 +74,20 @@ const PRESETS = {
     title: "Your Dream Luxury Home Awaits in UAE",
     description:
       "Curated collection of the world's most prestigious properties. Experience unparalleled luxury and timeless elegance.",
-    propertyTypes: [
-      "Apartments",
-      "Villas",
-      "Townhouses",
-      "Commercial spaces",
-      "Penthouses",
-    ],
-    priceOptions: SALE_PRICES,
   },
   offplan: {
     title: "Off Plan Properties in UAE",
     description:
       "Off-plan properties in the UAE are real estate developments purchased directly from developers before construction is completed.",
-    fields: [
-      {
-        key: "property-type",
-        placeholder: "Property Type",
-        options: ["Commercial", "Residential", "Default"],
-      },
-      {
-        key: "property-status",
-        placeholder: "Property Status",
-        options: ["Ready", "Off plan", "Development phase"],
-      },
-      {
-        key: "sales-status",
-        placeholder: "Sales Status",
-        options: ["Available property", "Prelaunch", "Sold out property"],
-      },
-      {
-        key: "developer",
-        placeholder: "Developer",
-        options: ["Emaar", "Damac", "Sobha", "Azizi", "Nakheel"],
-      },
-      { key: "location", placeholder: "Location", options: LOCATIONS },
-    ],
   },
   developers: {
     title: "Navigate the UAE's Real Estate Architects",
     description: "Explore trusted property developers and premier investments.",
-    fields: [
-      {
-        key: "name",
-        placeholder: "Developer Name",
-        options: ["Emaar", "Damac", "Nakheel", "Sobha", "wasl", "Omniyat"],
-      },
-      {
-        key: "region",
-        placeholder: "Region",
-        options: ["Dubai", "Abu Dhabi", "Sharjah", "Ajman"],
-      },
-      {
-        key: "budget",
-        placeholder: "Budget",
-        options: ["0 - 1M", "1M - 5M", "5M - 10M", "10M+"],
-      },
-    ],
   },
   contact: {
     title: "Contact Us",
     description:
       "Get in touch with Noor and Hoor Properties. Speak with our team in Dubai about buying, selling, renting, or investing.",
-    fields: [],
     actions: [
       {
         label: "Send a Message",
@@ -170,23 +105,13 @@ const PRESETS = {
     title: "About Us",
     description:
       "Noor & Hoor Properties connects clients with exceptional real estate opportunities across Dubai, with local knowledge and personal service.",
-    fields: [],
   },
   blog: {
     title: "Blog & Latest News",
     description:
       "Market updates, investment guidance, and neighbourhood insight from the Noor & Hoor Properties team.",
-    fields: [],
   },
 };
-
-function buildDefaultFields(propertyTypes, priceOptions) {
-  return [
-    { key: "type", placeholder: "Property Type", options: propertyTypes },
-    { key: "location", placeholder: "Location", options: LOCATIONS },
-    { key: "price", placeholder: "Price Range", options: priceOptions },
-  ];
-}
 
 function TrustSignals({ signals }) {
   if (!signals.length) return null;
@@ -221,23 +146,14 @@ export default function PropertyHero({
   description,
   filterPrefix,
   listingPath,
-  propertyTypes,
-  priceOptions,
   fields,
   actions,
   trustSignals,
 }) {
   const preset = PRESETS[variant] || PRESETS.buy;
-  const resolvedPropertyTypes =
-    propertyTypes || preset.propertyTypes || PRESETS.buy.propertyTypes;
-  const resolvedPriceOptions =
-    priceOptions || preset.priceOptions || SALE_PRICES;
   const resolvedFields =
     fields ||
-    preset.fields ||
-    (preset.propertyTypes
-      ? buildDefaultFields(resolvedPropertyTypes, resolvedPriceOptions)
-      : []);
+    (PROPERTY_FILTER_VARIANTS.has(variant) ? buildPropertyFilterFields() : []);
   const resolvedActions =
     actions?.length || preset.actions?.length
       ? actions || preset.actions

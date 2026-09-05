@@ -1,15 +1,14 @@
-import Image from "next/image";
-import { FileText, Building2, Minus, Plus } from "lucide-react";
-import mapBg from "@/public/images/detail/world-map.svg";
+import { FileText } from "lucide-react";
+import PropertyLocationMap from "@/components/common/PropertyLocationMap";
 
 export default function DetailAbout({ property }) {
-  const { about = [], documents = [], description = [] } = property;
+  const { about = [], documents = [], description = [], map, location = "" } =
+    property;
 
   return (
     <section className="w-full bg-[#111111]">
-      <div className="mx-auto w-full max-w-[1280px] px-4 my-10">
+      <div className="mx-auto my-10 w-full max-w-[1280px] px-4">
         <div className="flex flex-col pt-12">
-          {/* About + map row: gap 32 */}
           <div className="flex w-full flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-8">
             <div className="flex w-full max-w-[736px] flex-1 flex-col">
               <h2 className="detail-section-title m-0 text-[18px] font-medium leading-[27px] text-[#F5F5F5]">
@@ -45,36 +44,11 @@ export default function DetailAbout({ property }) {
               ) : null}
             </div>
 
-            {/* Map: 453.6×270, radius 6.75, white card */}
-            <div className="relative h-[270px] w-full shrink-0 overflow-hidden rounded-[7px] border border-[#E5E7EB] bg-white shadow-[0px_6.75px_10.125px_-2.025px_rgba(0,0,0,0.1),0px_2.7px_4.05px_-2.7px_rgba(0,0,0,0.1)] lg:w-[454px]">
-              <Image
-                src={mapBg}
-                alt=""
-                fill
-                sizes="454px"
-                className="object-cover"
-                unoptimized
-              />
-              <div className="absolute left-[11px] top-[11px] flex flex-col overflow-hidden rounded-[5px] bg-white shadow-md">
-                <button
-                  type="button"
-                  className="flex size-[27px] cursor-pointer items-center justify-center border-b border-[#D1D5DC] text-[13.5px] font-light text-[#364153]"
-                  aria-label="Zoom in"
-                >
-                  <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </button>
-                <button
-                  type="button"
-                  className="flex size-[27px] cursor-pointer items-center justify-center text-[13.5px] font-light text-[#364153]"
-                  aria-label="Zoom out"
-                >
-                  <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                </button>
-              </div>
-              <div className="btn-gold absolute left-1/2 top-[103px] flex size-[32px] -translate-x-1/2 items-center justify-center rounded-full border-[2.7px] border-white shadow-md">
-                <Building2 className="h-4 w-4 text-white" strokeWidth={1.6} />
-              </div>
-            </div>
+            <PropertyLocationMap
+              map={map}
+              location={location}
+              className="relative h-[270px] w-full shrink-0 overflow-hidden rounded-[7px] border border-[#E5E7EB] bg-white shadow-[0px_6.75px_10.125px_-2.025px_rgba(0,0,0,0.1),0px_2.7px_4.05px_-2.7px_rgba(0,0,0,0.1)] lg:w-[454px]"
+            />
           </div>
 
           {documents.length ? (

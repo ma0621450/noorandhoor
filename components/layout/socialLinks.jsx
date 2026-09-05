@@ -14,22 +14,6 @@ function FacebookIcon(props) {
   );
 }
 
-function PinterestIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
-      <path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.64 7.86 6.37 9.3-.09-.79-.17-2 .04-2.86.18-.78 1.18-5 1.18-5s-.3-.6-.3-1.5c0-1.4.81-2.45 1.82-2.45.86 0 1.28.65 1.28 1.42 0 .87-.55 2.16-.84 3.36-.24 1.01.5 1.83 1.49 1.83 1.79 0 3.16-1.89 3.16-4.61 0-2.41-1.73-4.1-4.21-4.1-2.87 0-4.55 2.15-4.55 4.37 0 .87.33 1.8.75 2.3a.3.3 0 0 1 .07.29c-.08.32-.25 1.01-.28 1.15-.05.18-.15.22-.35.13-1.3-.61-2.11-2.5-2.11-4.03 0-3.28 2.38-6.29 6.88-6.29 3.61 0 6.42 2.57 6.42 6.01 0 3.59-2.26 6.47-5.4 6.47-1.05 0-2.05-.55-2.39-1.19l-.65 2.48c-.23.9-.87 2.03-1.29 2.72A10 10 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z" />
-    </svg>
-  );
-}
-
-function TikTokIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.9-2.88 2.89 2.89 0 0 1 2.9-2.88c.28 0 .55.04.81.1v-3.5a6.37 6.37 0 0 0-.81-.05A6.34 6.34 0 0 0 3.16 15.3 6.34 6.34 0 0 0 9.5 21.64a6.34 6.34 0 0 0 6.34-6.34V8.73a8.27 8.27 0 0 0 4.84 1.56V6.84a4.84 4.84 0 0 1-1.09-.15Z" />
-    </svg>
-  );
-}
-
 function XIcon(props) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
@@ -46,22 +30,6 @@ function YouTubeIcon(props) {
   );
 }
 
-function RedditIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
-      <path d="M14.5 3.2c.2 1.1.4 2 .6 2.7 1.6.2 3.1.8 4.3 1.7.7-.4 1.6-.5 2.4-.2 1.2.5 1.8 1.8 1.4 3-.2.7-.8 1.3-1.5 1.6.1.6.2 1.2.2 1.8 0 4.4-4.7 8-10.9 8S0 18.2 0 13.8c0-.6.1-1.2.2-1.8A2.3 2.3 0 0 1 .7 7.4c.8-.3 1.7-.2 2.4.2 1.2-.9 2.7-1.5 4.3-1.7.2-.7.4-1.6.6-2.7L11.2 2l3.3 1.2ZM7.7 12.3a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm8.6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3ZM12 19.2c-2.1 0-3.9-.9-4.7-2.2.3.1 1.7.7 4.7.7s4.4-.6 4.7-.7c-.8 1.3-2.6 2.2-4.7 2.2Z" />
-    </svg>
-  );
-}
-
-function QuoraIcon(props) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
-      <path d="M12.5 2C7.3 2 3.1 6.4 3.1 12.1c0 3.7 1.9 6.9 4.8 8.7L6.4 22h3.2l1.1-.8c.6.1 1.2.2 1.8.2 5.2 0 9.4-4.4 9.4-10.1S17.7 2 12.5 2Zm.1 16.4c-.5 0-1-.1-1.4-.2l2.4 1.8c.7-.3 1.3-.8 1.8-1.3-.8-.2-1.8-.3-2.8-.3Zm0-2.2c2.9 0 5.1-2.1 5.1-5.3S15.5 5.6 12.6 5.6 7.4 7.7 7.4 10.9s2.3 5.3 5.2 5.3Z" />
-    </svg>
-  );
-}
-
 export const SOCIAL_LINKS = [
   {
     Icon: FacebookIcon,
@@ -74,16 +42,6 @@ export const SOCIAL_LINKS = [
     href: "https://www.instagram.com/noorandhoorproperties/",
   },
   {
-    Icon: PinterestIcon,
-    label: "Pinterest",
-    href: "https://www.pinterest.com/noorandhoorproperties/",
-  },
-  {
-    Icon: TikTokIcon,
-    label: "TikTok",
-    href: "https://www.tiktok.com/@noorandhoorproperties",
-  },
-  {
     Icon: XIcon,
     label: "X",
     href: "https://x.com/NoorAndHoorProp",
@@ -92,15 +50,5 @@ export const SOCIAL_LINKS = [
     Icon: YouTubeIcon,
     label: "YouTube",
     href: "https://www.youtube.com/channel/UCcuQGa1wURspFzN5oQSoz2g",
-  },
-  {
-    Icon: RedditIcon,
-    label: "Reddit",
-    href: "https://www.reddit.com/user/NoorandHoorProperty/",
-  },
-  {
-    Icon: QuoraIcon,
-    label: "Quora",
-    href: "https://www.quora.com/profile/Noor-and-Hoor-Properties",
   },
 ];
