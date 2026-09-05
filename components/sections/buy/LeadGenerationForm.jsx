@@ -11,6 +11,7 @@ export default function LeadGenerationForm() {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
+  const [formKey, setFormKey] = useState(0);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -20,8 +21,8 @@ export default function LeadGenerationForm() {
 
     if (!validation.ok) {
       setFieldErrors(validation.errors);
-      setStatus("error");
-      setError(validation.message);
+      setStatus("idle");
+      setError("");
       return;
     }
 
@@ -51,6 +52,8 @@ export default function LeadGenerationForm() {
         source: "lead-generation",
       });
       form.reset();
+      setFormKey((current) => current + 1);
+      setFieldErrors({});
       setStatus("success");
     } catch (err) {
       setStatus("error");
@@ -93,7 +96,18 @@ export default function LeadGenerationForm() {
               </h3>
             </div>
 
-            <LeadFormFields errors={fieldErrors} />
+            <LeadFormFields
+              key={formKey}
+              errors={fieldErrors}
+              onClearError={(key) => {
+                setFieldErrors((current) => {
+                  if (!current[key]) return current;
+                  const next = { ...current };
+                  delete next[key];
+                  return next;
+                });
+              }}
+            />
 
             {status === "success" && (
               <p className="mt-4 text-center text-sm font-medium text-[#d6a85e]">
@@ -101,11 +115,11 @@ export default function LeadGenerationForm() {
                 shortly.
               </p>
             )}
-            {status === "error" && error && (
+            {status === "error" && error ? (
               <p className="mt-4 text-center text-sm font-medium text-red-400">
                 {error}
               </p>
-            )}
+            ) : null}
 
             <Button
               type="submit"

@@ -106,7 +106,7 @@ export default function PropertyCategories({ market = "buy" }) {
         </p>
       </div>
 
-      <div className="mt-8 flex flex-wrap justify-center gap-4 sm:gap-6 lg:mt-12 lg:gap-8">
+      <div className="mx-auto mt-8 grid w-full max-w-[1200px] grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:mt-12 lg:grid-cols-4 lg:gap-6">
         {categories.map((category) => (
           <LocationCard
             key={category.key}
@@ -118,7 +118,7 @@ export default function PropertyCategories({ market = "buy" }) {
                 : countLabel(category.propertyCount)
             }
             href={category.href}
-            width={290}
+            fluid
           />
         ))}
       </div>

@@ -1,5 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { Building2, Mail, Phone, User } from "lucide-react";
 import { Select } from "@/components/ui/Select";
+import {
+  MARKET_FILTER_OPTIONS,
+  subcategoryOptionsForMarket,
+} from "@/lib/listingFilters";
 
 const INPUT =
   "h-[50px] w-full cursor-pointer rounded-[10px] border border-[#d1d5dc] bg-transparent px-4 text-base text-[#f5f5f5] outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
@@ -26,25 +33,33 @@ function IconInput({ icon: Icon, className = "", ...props }) {
   );
 }
 
-export default function LeadFormFields({ errors = {} }) {
+export default function LeadFormFields({ errors = {}, onClearError }) {
+  const [interest, setInterest] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [request, setRequest] = useState("");
+  const typeOptions = subcategoryOptionsForMarket(interest);
+
+  const clear = (key) => onClearError?.(key);
+
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
       <Field label="Property Interest" error={errors.interest}>
         <Select
           name="interest"
           required
+          value={interest}
+          placeholder="Select interest"
+          options={MARKET_FILTER_OPTIONS}
           className={`${INPUT} ${errors.interest ? INPUT_ERROR : ""}`}
-          defaultValue=""
           aria-label="Property Interest"
-        >
-          <option value="" disabled>
-            Select interest
-          </option>
-          <option value="Buy">Buy</option>
-          <option value="Invest">Invest</option>
-          <option value="Rent">Rent</option>
-          <option value="Sell">Sell</option>
-        </Select>
+          onChange={(event) => {
+            const next = event.target.value;
+            setInterest(next);
+            setPropertyType("");
+            clear("interest");
+            clear("propertyType");
+          }}
+        />
       </Field>
 
       <Field label="Full Name" error={errors.fullName}>
@@ -56,6 +71,7 @@ export default function LeadFormFields({ errors = {} }) {
           placeholder="Enter your name"
           required
           className={errors.fullName ? INPUT_ERROR : ""}
+          onChange={() => clear("fullName")}
         />
       </Field>
 
@@ -63,19 +79,17 @@ export default function LeadFormFields({ errors = {} }) {
         <Select
           name="propertyType"
           required
+          value={propertyType}
+          placeholder={interest ? "Select type" : "Select interest first"}
+          options={typeOptions}
+          disabled={!interest || !typeOptions.length}
           className={`${INPUT} ${errors.propertyType ? INPUT_ERROR : ""}`}
-          defaultValue=""
           aria-label="Property Type"
-        >
-          <option value="" disabled>
-            Select type
-          </option>
-          <option value="Villa">Villa</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Penthouse">Penthouse</option>
-          <option value="Townhouse">Townhouse</option>
-          <option value="Commercial">Commercial</option>
-        </Select>
+          onChange={(event) => {
+            setPropertyType(event.target.value);
+            clear("propertyType");
+          }}
+        />
       </Field>
 
       <Field label="Email Address" error={errors.email}>
@@ -87,6 +101,7 @@ export default function LeadFormFields({ errors = {} }) {
           placeholder="your.email@example.com"
           required
           className={errors.email ? INPUT_ERROR : ""}
+          onChange={() => clear("email")}
         />
       </Field>
 
@@ -99,6 +114,7 @@ export default function LeadFormFields({ errors = {} }) {
           placeholder="+971 50 000 0000"
           required
           className={errors.phone ? INPUT_ERROR : ""}
+          onChange={() => clear("phone")}
         />
       </Field>
 
@@ -134,17 +150,16 @@ export default function LeadFormFields({ errors = {} }) {
         <Select
           name="request"
           required
+          value={request}
+          placeholder="Select request"
+          options={["Viewing", "Consultation", "Valuation"]}
           className={`${INPUT} ${errors.request ? INPUT_ERROR : ""}`}
-          defaultValue=""
           aria-label="Custom Request"
-        >
-          <option value="" disabled>
-            Select request
-          </option>
-          <option value="Viewing">Viewing</option>
-          <option value="Consultation">Consultation</option>
-          <option value="Valuation">Valuation</option>
-        </Select>
+          onChange={(event) => {
+            setRequest(event.target.value);
+            clear("request");
+          }}
+        />
       </Field>
     </div>
   );

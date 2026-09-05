@@ -10,9 +10,13 @@ export default function PropertyValueReturns() {
             Property Value &amp; Seller Returns
           </h2>
 
-          <div className="mx-auto mt-10 flex max-w-[876px] flex-col items-center justify-center gap-8 lg:mt-12 lg:flex-row lg:items-start lg:justify-between lg:gap-10">
-            <SellerProceedsCalculator />
-            <PropertyValuationRequest />
+          <div className="mx-auto mt-10 grid w-full max-w-[920px] grid-cols-1 items-stretch gap-8 lg:mt-12 lg:grid-cols-2 lg:gap-10">
+            <div className="flex h-full min-h-0 w-full">
+              <SellerProceedsCalculator />
+            </div>
+            <div className="flex h-full min-h-0 w-full">
+              <PropertyValuationRequest />
+            </div>
           </div>
         </div>
       </div>
