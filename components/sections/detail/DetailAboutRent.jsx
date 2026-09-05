@@ -4,7 +4,6 @@ export default function DetailAboutRent({ property }) {
   const {
     about = [],
     description = [],
-    features = [],
     map,
     location = "",
   } = property;
@@ -47,23 +46,6 @@ export default function DetailAboutRent({ property }) {
                 </li>
               ))}
             </ul>
-
-            <h3 className="m-0 pt-6 font-[family-name:var(--font-body)] text-[20px] font-semibold leading-7 text-[#F5F5F5]">
-              Features
-            </h3>
-            <div className="grid grid-cols-1 gap-x-3 gap-y-3 pt-3 sm:grid-cols-2">
-              {features.map((feature, index) => (
-                <div key={`feature-${index}`} className="flex items-center gap-2">
-                  <span
-                    className="size-2 shrink-0 rounded-full bg-[linear-gradient(90deg,#BC8741_0%,#C5924B_33.33%,#CD9D54_66.67%,#D6A85E_100%)]"
-                    aria-hidden
-                  />
-                  <span className="font-[family-name:var(--font-body)] text-[16px] font-normal leading-6 text-[#D1D5DB]">
-                    {feature}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="relative w-full shrink-0 lg:w-[496px]">

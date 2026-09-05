@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { UserRound } from "lucide-react";
+import FieldError from "@/components/ui/FieldError";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 import { validateContactBasics } from "@/lib/enquiry-validation";
 
@@ -12,6 +13,15 @@ export default function DetailAgentContactRent() {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
+
+  function clearError(key) {
+    setFieldErrors((current) => {
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -29,8 +39,8 @@ export default function DetailAgentContactRent() {
 
     if (!validation.ok) {
       setFieldErrors(validation.errors);
-      setStatus("error");
-      setError(validation.message);
+      setStatus("idle");
+      setError("");
       return;
     }
 
@@ -82,7 +92,7 @@ export default function DetailAgentContactRent() {
           </div>
 
           <form
-            className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2"
+            className="mt-8 grid grid-cols-1 items-start gap-5 sm:grid-cols-2"
             onSubmit={handleSubmit}
             noValidate
           >
@@ -104,10 +114,9 @@ export default function DetailAgentContactRent() {
                 required
                 placeholder="Your Name"
                 className={FIELD_CLASS}
+                onChange={() => clearError("name")}
               />
-              {fieldErrors.name ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>
-              ) : null}
+              <FieldError message={fieldErrors.name} />
             </div>
             <div>
               <input
@@ -117,10 +126,9 @@ export default function DetailAgentContactRent() {
                 required
                 placeholder="Email Address"
                 className={FIELD_CLASS}
+                onChange={() => clearError("email")}
               />
-              {fieldErrors.email ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>
-              ) : null}
+              <FieldError message={fieldErrors.email} />
             </div>
             <div>
               <input
@@ -130,17 +138,19 @@ export default function DetailAgentContactRent() {
                 required
                 placeholder="Phone Number"
                 className={FIELD_CLASS}
+                onChange={() => clearError("phone")}
               />
-              {fieldErrors.phone ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
-              ) : null}
+              <FieldError message={fieldErrors.phone} />
             </div>
-            <input
-              type="text"
-              name="moveInDate"
-              placeholder="Preferred Move-in Date"
-              className={FIELD_CLASS}
-            />
+            <div>
+              <input
+                type="text"
+                name="moveInDate"
+                placeholder="Preferred Move-in Date"
+                className={FIELD_CLASS}
+              />
+              <FieldError />
+            </div>
             <div className="sm:col-span-2">
               <textarea
                 name="message"
@@ -148,10 +158,9 @@ export default function DetailAgentContactRent() {
                 required
                 placeholder="Message"
                 className="min-h-[152px] w-full resize-none rounded-[12px] border border-[#2A2A2A] bg-[#0A0A0A] px-5 py-4 font-[family-name:var(--font-body)] text-[18px] text-[#F5F5F5] outline-none placeholder:text-[#F5F5F5]/50 focus:border-[#BC8741] sm:text-[20px]"
+                onChange={() => clearError("details")}
               />
-              {fieldErrors.details ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.details}</p>
-              ) : null}
+              <FieldError message={fieldErrors.details} />
             </div>
 
             {status === "success" ? (

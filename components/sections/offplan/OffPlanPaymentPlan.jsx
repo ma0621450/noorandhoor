@@ -1,26 +1,45 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Percent, FileCheck } from "lucide-react";
 import OffPlanInstallmentSchedule from "@/components/sections/offplan/OffPlanInstallmentSchedule";
 import {
-  PAYMENT_MIN,
-  PAYMENT_MAX,
-  PAYMENT_DEFAULT,
-  INSTALLMENT_COUNT,
-  formatUsd,
+  formatMoney,
   getPaymentBreakdown,
+  paymentSliderBounds,
+  resolvePaymentPlan,
 } from "@/components/sections/offplan/offPlanPayment";
 
-export default function OffPlanPaymentPlan({ defaultPrice }) {
-  const initial = Number(defaultPrice);
-  const [price, setPrice] = useState(
-    Number.isFinite(initial) && initial > 0
-      ? Math.min(PAYMENT_MAX, Math.max(PAYMENT_MIN, initial))
-      : PAYMENT_DEFAULT,
+export default function OffPlanPaymentPlan({
+  defaultPrice,
+  downPercent,
+  installments,
+  startDate,
+}) {
+  const planConfig = useMemo(
+    () => ({ downPercent, installments, startDate }),
+    [downPercent, installments, startDate],
   );
-  const { downPayment, financed, monthly } = getPaymentBreakdown(price);
-  const fill = ((price - PAYMENT_MIN) / (PAYMENT_MAX - PAYMENT_MIN)) * 100;
+  const plan = useMemo(() => resolvePaymentPlan(planConfig), [planConfig]);
+  const bounds = useMemo(
+    () => paymentSliderBounds(defaultPrice),
+    [defaultPrice],
+  );
+
+  const [price, setPrice] = useState(bounds.defaultPrice);
+
+  useEffect(() => {
+    setPrice(bounds.defaultPrice);
+  }, [bounds.defaultPrice]);
+
+  const { downPayment, financed, monthly } = getPaymentBreakdown(
+    price,
+    planConfig,
+  );
+  const fill =
+    bounds.max === bounds.min
+      ? 100
+      : ((price - bounds.min) / (bounds.max - bounds.min)) * 100;
 
   return (
     <>
@@ -39,15 +58,15 @@ export default function OffPlanPaymentPlan({ defaultPrice }) {
                 Property Price
               </p>
               <p className="text-gold-gradient mt-2 font-[family-name:var(--font-heading)] text-4xl font-extrabold tracking-[-0.9px]">
-                {formatUsd(price)}
+                {formatMoney(price)}
               </p>
 
               <div className="mt-8">
                 <input
                   type="range"
-                  min={PAYMENT_MIN}
-                  max={PAYMENT_MAX}
-                  step={10000}
+                  min={bounds.min}
+                  max={bounds.max}
+                  step={bounds.step}
                   value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
                   aria-label="Property price"
@@ -57,8 +76,12 @@ export default function OffPlanPaymentPlan({ defaultPrice }) {
                   }}
                 />
                 <div className="mt-2 flex justify-between text-xs">
-                  <span className="text-gold-gradient">{formatUsd(PAYMENT_MIN)}</span>
-                  <span className="text-gold-gradient">{formatUsd(PAYMENT_MAX)}</span>
+                  <span className="text-gold-gradient">
+                    {formatMoney(bounds.min)}
+                  </span>
+                  <span className="text-gold-gradient">
+                    {formatMoney(bounds.max)}
+                  </span>
                 </div>
               </div>
 
@@ -68,14 +91,27 @@ export default function OffPlanPaymentPlan({ defaultPrice }) {
                 </p>
                 <dl className="mt-5 flex flex-col gap-4">
                   {[
-                    ["Property Price", formatUsd(price)],
-                    ["Down Payment (10%)", formatUsd(downPayment)],
-                    ["Financed Amount (90%)", formatUsd(financed)],
-                    ["Duration", `${INSTALLMENT_COUNT} months`],
+                    ["Property Price", formatMoney(price)],
+                    [
+                      `Down Payment (${Math.round(plan.downPercent)}%)`,
+                      formatMoney(downPayment),
+                    ],
+                    [
+                      `Financed Amount (${Math.round(100 - plan.downPercent)}%)`,
+                      formatMoney(financed),
+                    ],
+                    ["Duration", `${plan.installments} months`],
                   ].map(([label, value]) => (
-                    <div key={label} className="flex items-center justify-between gap-4">
-                      <dt className="text-gold-gradient text-sm font-normal">{label}</dt>
-                      <dd className="text-gold-gradient m-0 text-sm font-medium">{value}</dd>
+                    <div
+                      key={label}
+                      className="flex items-center justify-between gap-4"
+                    >
+                      <dt className="text-gold-gradient text-sm font-normal">
+                        {label}
+                      </dt>
+                      <dd className="text-gold-gradient m-0 text-sm font-medium">
+                        {value}
+                      </dd>
                     </div>
                   ))}
                 </dl>
@@ -88,10 +124,10 @@ export default function OffPlanPaymentPlan({ defaultPrice }) {
                   Monthly Installment
                 </p>
                 <p className="text-gold-gradient mt-3 font-[family-name:var(--font-heading)] text-4xl font-extrabold leading-none sm:text-5xl">
-                  {formatUsd(monthly)}
+                  {formatMoney(monthly)}
                 </p>
                 <p className="mt-1 text-sm text-[#F5F5F5]">
-                  per month × {INSTALLMENT_COUNT} installments
+                  per month × {plan.installments} installments
                 </p>
                 <p className="mt-6 border-t border-[rgba(245,239,227,0.12)] pt-5 text-xs leading-4 text-[#F5F5F5]">
                   All installments are fixed. No variable rates, no surprises.
@@ -115,7 +151,7 @@ export default function OffPlanPaymentPlan({ defaultPrice }) {
         </div>
       </section>
 
-      <OffPlanInstallmentSchedule price={price} />
+      <OffPlanInstallmentSchedule price={price} plan={planConfig} />
     </>
   );
 }
@@ -125,7 +161,9 @@ function BenefitCard({ icon: Icon, title, body }) {
     <div className="flex flex-col rounded-xl border border-[rgba(184,147,90,0.22)] p-6">
       <div className="flex items-center gap-3">
         <Icon className="h-6 w-6 shrink-0 text-[#B8935A]" strokeWidth={1.5} />
-        <p className="text-gold-gradient m-0 text-sm font-medium leading-5">{title}</p>
+        <p className="text-gold-gradient m-0 text-sm font-medium leading-5">
+          {title}
+        </p>
       </div>
       <p className="mt-2 text-sm leading-[23px] text-[#F5F5F5]">{body}</p>
     </div>

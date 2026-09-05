@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
+import FieldError from "@/components/ui/FieldError";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 import { validateContactBasics } from "@/lib/enquiry-validation";
 
@@ -19,6 +20,15 @@ export default function MatchMakingForm({
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
 
+  function clearError(key) {
+    setFieldErrors((current) => {
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -27,8 +37,8 @@ export default function MatchMakingForm({
 
     if (!validation.ok) {
       setFieldErrors(validation.errors);
-      setStatus("error");
-      setError(validation.message);
+      setStatus("idle");
+      setError("");
       return;
     }
 
@@ -63,7 +73,7 @@ export default function MatchMakingForm({
         style={{ display: "none" }}
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <input
             type="text"
@@ -72,10 +82,9 @@ export default function MatchMakingForm({
             autoComplete="name"
             required
             className={`${FIELD_CLASS} h-12 py-2`}
+            onChange={() => clearError("name")}
           />
-          {fieldErrors.name ? (
-            <p className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>
-          ) : null}
+          <FieldError message={fieldErrors.name} />
         </div>
         <div>
           <input
@@ -85,10 +94,9 @@ export default function MatchMakingForm({
             autoComplete="email"
             required
             className={`${FIELD_CLASS} h-12 py-2`}
+            onChange={() => clearError("email")}
           />
-          {fieldErrors.email ? (
-            <p className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>
-          ) : null}
+          <FieldError message={fieldErrors.email} />
         </div>
         <div>
           <input
@@ -98,10 +106,9 @@ export default function MatchMakingForm({
             autoComplete="tel"
             required
             className={`${FIELD_CLASS} h-12 py-2`}
+            onChange={() => clearError("phone")}
           />
-          {fieldErrors.phone ? (
-            <p className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
-          ) : null}
+          <FieldError message={fieldErrors.phone} />
         </div>
       </div>
 
@@ -112,20 +119,19 @@ export default function MatchMakingForm({
           placeholder={detailsPlaceholder}
           required
           className={`${FIELD_CLASS} ${compact ? "min-h-[120px]" : "min-h-[160px]"}`}
+          onChange={() => clearError("details")}
         />
-        {fieldErrors.details ? (
-          <p className="mt-1 text-xs text-red-400">{fieldErrors.details}</p>
-        ) : null}
+        <FieldError message={fieldErrors.details} />
       </div>
 
-      {status === "success" && (
+      {status === "success" ? (
         <p className="text-center text-sm font-medium text-[#d6a85e]">
           Thank you. We received your enquiry and will be in touch shortly.
         </p>
-      )}
-      {status === "error" && (
+      ) : null}
+      {status === "error" && error ? (
         <p className="text-center text-sm font-medium text-red-400">{error}</p>
-      )}
+      ) : null}
 
       <div className="mt-2 flex justify-center">
         <Button

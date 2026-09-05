@@ -69,11 +69,17 @@ export default function PropertyDetailShell({
               : "27 June 2026"
           }
         />
-        <OffPlanPaymentPlan defaultPrice={property.price} />
+        <OffPlanPaymentPlan
+          defaultPrice={property.price}
+          downPercent={property.paymentDownPercent}
+          installments={property.paymentInstallments}
+          startDate={property.paymentStartDate}
+        />
         <OffPlanPropertyFeatures
           categoryLabel={offPlanCategoryLabel}
           property={property}
         />
+        <DetailFeatures features={property.features} />
         <DetailRelated
           basePath={header.breadcrumbHref}
           properties={related}
@@ -110,6 +116,7 @@ export default function PropertyDetailShell({
       <DetailHeader property={property} {...header} />
       <DetailGallery images={property.gallery} />
       <DetailAboutRent property={property} />
+      <DetailFeatures features={property.features} />
       <DetailRelated
         basePath={header.breadcrumbHref}
         eyebrow={relatedEyebrow || "Related Properties"}

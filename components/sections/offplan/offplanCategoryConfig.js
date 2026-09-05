@@ -117,9 +117,9 @@ export const OFF_PLAN_CATEGORIES = {
     path: "/off-plan/commercial",
     heading: "Commercial",
     breadcrumb: "Off plan commercial",
-    metaTitle: "Off Plan Commercial & Residential | Noor and Hoor",
+    metaTitle: "Off Plan Commercial | Noor and Hoor",
     metaDescription:
-      "Browse off-plan commercial and residential developments in the UAE.",
+      "Browse off-plan commercial developments in the UAE.",
     titles: [
       "Downtown Commercial",
       "Mixed-Use Residence",

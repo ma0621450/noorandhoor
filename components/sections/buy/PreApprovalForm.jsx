@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
+import FieldError from "@/components/ui/FieldError";
 import { Select } from "@/components/ui/Select";
 import { submitEnquiry } from "@/lib/enquiry-client";
 
@@ -139,9 +140,7 @@ export default function PreApprovalForm({ estimatedPayment = "" }) {
             options={LOAN_OPTIONS}
             aria-label="Loan type"
           />
-          {fieldErrors.loanType ? (
-            <span className="text-xs text-red-400">{fieldErrors.loanType}</span>
-          ) : null}
+          <FieldError message={fieldErrors.loanType} />
         </label>
 
         <label className="flex flex-col gap-1.5">
@@ -157,11 +156,7 @@ export default function PreApprovalForm({ estimatedPayment = "" }) {
             options={CREDIT_OPTIONS}
             aria-label="Credit status"
           />
-          {fieldErrors.creditStatus ? (
-            <span className="text-xs text-red-400">
-              {fieldErrors.creditStatus}
-            </span>
-          ) : null}
+          <FieldError message={fieldErrors.creditStatus} />
         </label>
 
         <label className="flex flex-col gap-1.5">
@@ -176,9 +171,7 @@ export default function PreApprovalForm({ estimatedPayment = "" }) {
             placeholder="Enter borrower full name"
             className={INPUT_CLASS}
           />
-          {fieldErrors.name ? (
-            <span className="text-xs text-red-400">{fieldErrors.name}</span>
-          ) : null}
+          <FieldError message={fieldErrors.name} />
         </label>
 
         <label className="flex flex-col gap-1.5">
@@ -191,9 +184,7 @@ export default function PreApprovalForm({ estimatedPayment = "" }) {
             placeholder="you@example.com"
             className={INPUT_CLASS}
           />
-          {fieldErrors.email ? (
-            <span className="text-xs text-red-400">{fieldErrors.email}</span>
-          ) : null}
+          <FieldError message={fieldErrors.email} />
         </label>
 
         <label className="flex flex-col gap-1.5">
@@ -206,9 +197,7 @@ export default function PreApprovalForm({ estimatedPayment = "" }) {
             placeholder="+971 50 000 0000"
             className={INPUT_CLASS}
           />
-          {fieldErrors.phone ? (
-            <span className="text-xs text-red-400">{fieldErrors.phone}</span>
-          ) : null}
+          <FieldError message={fieldErrors.phone} />
         </label>
       </div>
 

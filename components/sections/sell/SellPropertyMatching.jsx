@@ -2,22 +2,42 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
+import FieldError from "@/components/ui/FieldError";
 import { Select } from "@/components/ui/Select";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 import { validateSellMatching } from "@/lib/enquiry-validation";
 
-const FIELD_CLASS =
-  "w-full rounded-[11px] bg-[#111] px-5 py-3 text-[11px] font-semibold text-[#f5f5f5] placeholder:text-[#f5f5f5]/70 outline-none transition focus:ring-1 focus:ring-[#ba8a44] sm:text-sm";
+const CONTROL_CLASS =
+  "box-border h-12 w-full rounded-[11px] bg-[#111] px-5 text-[11px] font-semibold leading-none text-[#f5f5f5] placeholder:text-[#f5f5f5]/70 outline-none transition focus:ring-1 focus:ring-[#ba8a44] sm:text-sm";
 
 const LABEL_CLASS =
-  "mb-3 block text-left text-sm font-semibold capitalize text-[#f5f5f5]";
+  "mb-2 block text-left text-sm font-semibold capitalize text-[#f5f5f5]";
 
-const ERROR_CLASS = "mt-1.5 text-left text-xs font-medium text-red-400";
+function Field({ id, label, error, children }) {
+  return (
+    <div className="min-w-0">
+      <label htmlFor={id} className={LABEL_CLASS}>
+        {label}
+      </label>
+      {children}
+      <FieldError message={error} />
+    </div>
+  );
+}
 
 export default function SellPropertyMatching() {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
+
+  function clearError(key) {
+    setFieldErrors((current) => {
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -96,137 +116,112 @@ export default function SellPropertyMatching() {
               style={{ display: "none" }}
             />
 
-            <div>
-              <label htmlFor="sell-brief" className={LABEL_CLASS}>
-                Property Brief
-              </label>
+            <Field id="sell-brief" label="Property Brief" error={fieldErrors.brief}>
               <textarea
                 id="sell-brief"
                 name="brief"
                 rows={5}
                 required
                 placeholder="Describe the property (type, location, size, condition, occupancy, and any seller constraints)"
-                className={`${FIELD_CLASS} min-h-[160px] resize-none capitalize-none`}
+                className={`${CONTROL_CLASS} h-auto min-h-[160px] resize-none py-3 leading-5 capitalize-none`}
+                onChange={() => clearError("brief")}
               />
-              {fieldErrors.brief ? (
-                <p className={ERROR_CLASS}>{fieldErrors.brief}</p>
-              ) : null}
-            </div>
+            </Field>
 
-            <div className="grid gap-5 lg:grid-cols-2">
-              <div className="flex flex-col gap-5">
-                <div>
-                  <label htmlFor="sell-asking" className={LABEL_CLASS}>
-                    Asking Range (optional)
-                  </label>
-                  <input
-                    id="sell-asking"
-                    name="asking"
-                    type="text"
-                    placeholder="e.g PKR 8-10 Crore"
-                    className={FIELD_CLASS}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="sell-timeline" className={LABEL_CLASS}>
-                    Desired Timeline
-                  </label>
-                  <Select
-                    id="sell-timeline"
-                    name="timeline"
-                    required
-                    defaultValue=""
-                    className={`${FIELD_CLASS} h-[41px] cursor-pointer`}
-                  >
-                    <option value="" disabled>
-                      Select Timeline
-                    </option>
-                    <option value="ASAP">ASAP</option>
-                    <option value="1–3 Months">1–3 Months</option>
-                    <option value="3–6 Months">3–6 Months</option>
-                    <option value="6+ Months">6+ Months</option>
-                  </Select>
-                  {fieldErrors.timeline ? (
-                    <p className={ERROR_CLASS}>{fieldErrors.timeline}</p>
-                  ) : null}
-                </div>
-                <div>
-                  <label htmlFor="sell-occupancy" className={LABEL_CLASS}>
-                    Occupancy Status
-                  </label>
-                  <Select
-                    id="sell-occupancy"
-                    name="occupancy"
-                    required
-                    defaultValue=""
-                    className={`${FIELD_CLASS} h-[41px] cursor-pointer`}
-                  >
-                    <option value="" disabled>
-                      Select Occupancy
-                    </option>
-                    <option value="Vacant">Vacant</option>
-                    <option value="Owner Occupied">Owner Occupied</option>
-                    <option value="Tenanted">Tenanted</option>
-                  </Select>
-                  {fieldErrors.occupancy ? (
-                    <p className={ERROR_CLASS}>{fieldErrors.occupancy}</p>
-                  ) : null}
-                </div>
-              </div>
+            <div className="grid grid-cols-1 gap-x-5 gap-y-4 lg:grid-cols-2">
+              <Field id="sell-asking" label="Asking Range (optional)">
+                <input
+                  id="sell-asking"
+                  name="asking"
+                  type="text"
+                  placeholder="e.g PKR 8-10 Crore"
+                  className={CONTROL_CLASS}
+                />
+              </Field>
 
-              <div className="flex flex-col gap-5">
-                <div>
-                  <label htmlFor="sell-name" className={LABEL_CLASS}>
-                    Name
-                  </label>
-                  <input
-                    id="sell-name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    required
-                    placeholder="Full Name"
-                    className={FIELD_CLASS}
-                  />
-                  {fieldErrors.name ? (
-                    <p className={ERROR_CLASS}>{fieldErrors.name}</p>
-                  ) : null}
-                </div>
-                <div>
-                  <label htmlFor="sell-email" className={LABEL_CLASS}>
-                    Email
-                  </label>
-                  <input
-                    id="sell-email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    placeholder="you@example.com"
-                    className={FIELD_CLASS}
-                  />
-                  {fieldErrors.email ? (
-                    <p className={ERROR_CLASS}>{fieldErrors.email}</p>
-                  ) : null}
-                </div>
-                <div>
-                  <label htmlFor="sell-phone" className={LABEL_CLASS}>
-                    Phone
-                  </label>
-                  <input
-                    id="sell-phone"
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    required
-                    placeholder="+971 50 000 0000"
-                    className={FIELD_CLASS}
-                  />
-                  {fieldErrors.phone ? (
-                    <p className={ERROR_CLASS}>{fieldErrors.phone}</p>
-                  ) : null}
-                </div>
-              </div>
+              <Field id="sell-name" label="Name" error={fieldErrors.name}>
+                <input
+                  id="sell-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  placeholder="Full Name"
+                  className={CONTROL_CLASS}
+                  onChange={() => clearError("name")}
+                />
+              </Field>
+
+              <Field
+                id="sell-timeline"
+                label="Desired Timeline"
+                error={fieldErrors.timeline}
+              >
+                <Select
+                  id="sell-timeline"
+                  name="timeline"
+                  required
+                  defaultValue=""
+                  className={`${CONTROL_CLASS} cursor-pointer`}
+                  onChange={() => clearError("timeline")}
+                >
+                  <option value="" disabled>
+                    Select Timeline
+                  </option>
+                  <option value="ASAP">ASAP</option>
+                  <option value="1–3 Months">1–3 Months</option>
+                  <option value="3–6 Months">3–6 Months</option>
+                  <option value="6+ Months">6+ Months</option>
+                </Select>
+              </Field>
+
+              <Field id="sell-email" label="Email" error={fieldErrors.email}>
+                <input
+                  id="sell-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  placeholder="you@example.com"
+                  className={CONTROL_CLASS}
+                  onChange={() => clearError("email")}
+                />
+              </Field>
+
+              <Field
+                id="sell-occupancy"
+                label="Occupancy Status"
+                error={fieldErrors.occupancy}
+              >
+                <Select
+                  id="sell-occupancy"
+                  name="occupancy"
+                  required
+                  defaultValue=""
+                  className={`${CONTROL_CLASS} cursor-pointer`}
+                  onChange={() => clearError("occupancy")}
+                >
+                  <option value="" disabled>
+                    Select Occupancy
+                  </option>
+                  <option value="Vacant">Vacant</option>
+                  <option value="Owner Occupied">Owner Occupied</option>
+                  <option value="Tenanted">Tenanted</option>
+                </Select>
+              </Field>
+
+              <Field id="sell-phone" label="Phone" error={fieldErrors.phone}>
+                <input
+                  id="sell-phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  required
+                  placeholder="+971 50 000 0000"
+                  className={CONTROL_CLASS}
+                  onChange={() => clearError("phone")}
+                />
+              </Field>
             </div>
 
             {status === "success" && (
@@ -248,7 +243,7 @@ export default function SellPropertyMatching() {
               >
                 {status === "submitting"
                   ? "Sending..."
-                  : "Submit for Buyer Review"}
+                  : "Get My Property Match"}
               </Button>
             </div>
           </form>
