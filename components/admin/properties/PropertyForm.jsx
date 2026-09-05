@@ -604,7 +604,7 @@ function PropertyEditor({
               label="Agent name"
               value={form.agentName}
               onChange={(event) => setField("agentName", event.target.value)}
-              placeholder="Waqar ahmed"
+              placeholder="Shakeeb Ahmad Khan"
             />
             <TextField
               id="property-agent-phone"

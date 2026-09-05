@@ -8,15 +8,13 @@ import Dropdown, { DropdownGroup } from "@/components/ui/Dropdown";
 import {
   RENT_PRICE_OPTIONS,
   SALE_PRICE_OPTIONS,
+  defaultPropertyFilterValues,
   isActiveFilterValue,
   readFilterValues,
   searchDestination,
+  subcategoryOptionsForMarket,
   toFilterQuery,
 } from "@/lib/listingFilters";
-
-function listingHash(variant) {
-  return variant === "developers" ? "developer-listings" : "property-listings";
-}
 
 function hasActiveFilters(values, fields) {
   return fields.some((field) =>
@@ -24,23 +22,39 @@ function hasActiveFilters(values, fields) {
   );
 }
 
-function withPriceOptions(fields, transaction) {
-  if (!transaction) return fields;
+function selectedMarket(values) {
+  return values.category || values.transaction || "";
+}
+
+function withCascadingOptions(fields, values) {
+  const market = selectedMarket(values);
+  const typeOptions = subcategoryOptionsForMarket(market);
+  const priceOptions =
+    market === "Rent" ? RENT_PRICE_OPTIONS : SALE_PRICE_OPTIONS;
+
   return fields.map((field) => {
-    if (field.key !== "price") return field;
-    return {
-      ...field,
-      options: transaction === "Rent" ? RENT_PRICE_OPTIONS : SALE_PRICE_OPTIONS,
-    };
+    if (field.key === "type" && typeOptions.length) {
+      return { ...field, options: typeOptions };
+    }
+    if (field.key === "price" && market) {
+      return { ...field, options: priceOptions };
+    }
+    return field;
   });
+}
+
+function mergeFilterValues(searchParams, fields, variant) {
+  return {
+    ...defaultPropertyFilterValues(variant),
+    ...readFilterValues(searchParams, fields),
+  };
 }
 
 function searchHref({ variant, listingPath, values, fields }) {
   const dest = searchDestination({ variant, listingPath, values });
   const params = toFilterQuery(values, fields);
-  const hash = listingHash(variant);
   const query = params.toString();
-  return query ? `${dest}?${query}#${hash}` : `${dest}#${hash}`;
+  return query ? `${dest}?${query}#property-listings` : `${dest}#property-listings`;
 }
 
 function ResetFiltersButton({ disabled, onReset }) {
@@ -106,22 +120,22 @@ function HeroFiltersForm({ prefix, variant, listingPath, fields }) {
   const pathname = usePathname();
   const router = useRouter();
   const [values, setValues] = useState(() =>
-    readFilterValues(searchParams, fields),
+    mergeFilterValues(searchParams, fields, variant),
   );
 
   const query = searchParams.toString();
 
   useEffect(() => {
-    setValues(readFilterValues(searchParams, fields));
-  }, [query]);
+    setValues(mergeFilterValues(searchParams, fields, variant));
+  }, [fields, query, variant]);
 
   const visibleFields = useMemo(() => {
-    const next = withPriceOptions(fields, values.transaction);
+    const next = withCascadingOptions(fields, values);
     return next.map((field) => ({
       ...field,
       id: `${prefix}-${field.key}`,
     }));
-  }, [fields, prefix, values.transaction]);
+  }, [fields, prefix, values]);
 
   const href = searchHref({
     variant,
@@ -133,7 +147,13 @@ function HeroFiltersForm({ prefix, variant, listingPath, fields }) {
     readFilterValues(searchParams, visibleFields),
     visibleFields,
   );
-  const canReset = hasActiveFilters(values, visibleFields) || urlHasFilters;
+  const defaults = defaultPropertyFilterValues(variant);
+  const canReset =
+    urlHasFilters ||
+    Boolean(values.type || values.location || values.price) ||
+    (defaults.category
+      ? values.category !== defaults.category
+      : Boolean(values.category));
 
   return (
     <FilterBar
@@ -142,12 +162,28 @@ function HeroFiltersForm({ prefix, variant, listingPath, fields }) {
       href={href}
       canReset={canReset}
       onChange={(key, value) => {
-        setValues((current) => ({ ...current, [key]: value }));
+        setValues((current) => {
+          if (key !== "category" && key !== "transaction") {
+            return { ...current, [key]: value };
+          }
+
+          const next = { ...current, [key]: value };
+          const typeOptions = subcategoryOptionsForMarket(value);
+          if (next.type && !typeOptions.includes(next.type)) {
+            delete next.type;
+          }
+          if (next.price) {
+            const priceOptions =
+              value === "Rent" ? RENT_PRICE_OPTIONS : SALE_PRICE_OPTIONS;
+            if (!priceOptions.includes(next.price)) delete next.price;
+          }
+          return next;
+        });
       }}
       onReset={() => {
-        setValues({});
+        setValues(defaultPropertyFilterValues(variant));
         if (urlHasFilters) {
-          router.replace(`${pathname}#${listingHash(variant)}`);
+          router.replace(`${pathname}#property-listings`);
         }
       }}
     />
@@ -155,21 +191,24 @@ function HeroFiltersForm({ prefix, variant, listingPath, fields }) {
 }
 
 export default function HeroFilters({ prefix, variant, listingPath, fields }) {
-  const fallbackFields = fields.map((field) => ({
-    ...field,
-    id: `${prefix}-${field.key}`,
-  }));
+  const fallbackValues = defaultPropertyFilterValues(variant);
+  const fallbackFields = withCascadingOptions(fields, fallbackValues).map(
+    (field) => ({
+      ...field,
+      id: `${prefix}-${field.key}`,
+    }),
+  );
 
   return (
     <Suspense
       fallback={
         <FilterBar
           fields={fallbackFields}
-          values={{}}
+          values={fallbackValues}
           href={searchHref({
             variant,
             listingPath,
-            values: {},
+            values: fallbackValues,
             fields: fallbackFields,
           })}
           canReset={false}

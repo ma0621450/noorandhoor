@@ -87,7 +87,6 @@ export default function Locations() {
   pb-2
   select-none
   snap-x snap-mandatory
-  [scrollbar-width:thin]
   ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
       >
         {LOCATIONS.map((location) => (

@@ -12,25 +12,9 @@ import {
   paginateItems,
 } from "@/lib/listingPagination";
 
-function matchesDeveloper(developer, name, region) {
-  if (name && developer.name.toLowerCase() !== name.toLowerCase()) return false;
-  if (region && developer.region.toLowerCase() !== region.toLowerCase()) {
-    return false;
-  }
-  return true;
-}
-
 function DevelopersFeaturedBody() {
   const searchParams = useSearchParams();
-  const name = searchParams.get("name") || "";
-  const region = searchParams.get("region") || "";
-  const developers = useMemo(
-    () =>
-      FEATURED_DEVELOPERS.filter((developer) =>
-        matchesDeveloper(developer, name, region),
-      ),
-    [name, region],
-  );
+  const developers = useMemo(() => FEATURED_DEVELOPERS, []);
   const { currentPage, totalPages, pageItems } = paginateItems(
     developers,
     pageFromSearchParams(searchParams),
@@ -56,17 +40,9 @@ function DevelopersFeaturedBody() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center gap-3 py-10 text-center">
-          <p className="text-sm text-white/45">
-            No developers match these filters.
-          </p>
-          <a
-            href="/developers#developer-listings"
-            className="text-xs font-semibold uppercase tracking-[1.3px] text-[#eec876] transition hover:text-[#f5f5f5]"
-          >
-            Reset filters
-          </a>
-        </div>
+        <p className="py-10 text-center text-sm text-white/45">
+          No developers listed yet.
+        </p>
       )}
 
       {developers.length ? (

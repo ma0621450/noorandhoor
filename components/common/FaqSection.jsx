@@ -1,13 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import CaretDown from "@/components/ui/CaretDown";
 import { DETAIL_FAQS } from "@/components/sections/detail/detailData";
-import {
-  DEVELOPER_FAQS,
-  FAQ_RESOURCES,
-} from "@/components/sections/developers/developersData";
+import { DEVELOPER_FAQS } from "@/components/sections/developers/developersData";
 
 const FAQ_PRESETS = {
   home: {
@@ -159,7 +155,6 @@ const FAQ_PRESETS = {
     title: "FAQs",
     description: "Doing solid-time analysis for semantic investments",
     items: DEVELOPER_FAQS,
-    resources: FAQ_RESOURCES,
   },
 };
 
@@ -223,29 +218,6 @@ export default function FaqSection({ variant = "home" }) {
           {preset.description}
         </p>
       </div>
-      {preset.resources?.length ? (
-        <div className="mb-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {preset.resources.map((resource) => (
-            <article
-              key={resource.title}
-              className="relative h-[215px] overflow-hidden rounded-xl"
-            >
-              <Image
-                src={resource.image}
-                alt={resource.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 346px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-black/60" />
-              <p className="absolute bottom-6 left-4 right-4 text-lg font-semibold leading-[23px] text-[#E9C349]">
-                {resource.title}
-              </p>
-            </article>
-          ))}
-        </div>
-      ) : null}
-
       <FaqAccordion items={preset.items} />
     </section>
   );

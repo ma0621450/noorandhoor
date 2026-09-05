@@ -48,15 +48,6 @@ export default function DetailFeatures({ features }) {
               </ul>
             ))}
           </div>
-
-          <div className="mt-5 flex justify-stretch sm:justify-end">
-            <button
-              type="button"
-              className="flex h-[58px] w-full cursor-pointer items-center justify-center rounded-xl border border-[#c5a059] font-[family-name:var(--font-body)] text-[13px] font-semibold uppercase leading-6 tracking-[1.3px] text-white transition hover:bg-[#c5a059]/15 sm:w-[234px]"
-            >
-              see all
-            </button>
-          </div>
         </div>
       </div>
     </section>

@@ -1,9 +1,13 @@
-import Image from "next/image";
-import { Building2, Minus, Plus } from "lucide-react";
-import mapBg from "@/public/images/detail/world-map.svg";
+import PropertyLocationMap from "@/components/common/PropertyLocationMap";
 
 export default function DetailAboutRent({ property }) {
-  const { about = [], description = [], features = [] } = property;
+  const {
+    about = [],
+    description = [],
+    features = [],
+    map,
+    location = "",
+  } = property;
 
   return (
     <section className="w-full bg-[#111111]">
@@ -64,35 +68,7 @@ export default function DetailAboutRent({ property }) {
 
           <div className="relative w-full shrink-0 lg:w-[496px]">
             <div className="rounded-2xl p-6">
-              <div className="relative h-[270px] w-full overflow-hidden rounded-[7px] border border-[#E5E7EB] bg-white shadow-[0px_6.75px_10.125px_-2.025px_rgba(0,0,0,0.1),0px_2.7px_4.05px_-2.7px_rgba(0,0,0,0.1)]">
-                <Image
-                  src={mapBg}
-                  alt=""
-                  fill
-                  sizes="454px"
-                  className="object-cover"
-                  unoptimized
-                />
-                <div className="absolute left-[11px] top-[11px] flex flex-col overflow-hidden rounded-[5px] bg-white shadow-md">
-                  <button
-                    type="button"
-                    className="flex size-[27px] cursor-pointer items-center justify-center border-b border-[#D1D5DC] text-[13.5px] font-light text-[#364153]"
-                    aria-label="Zoom in"
-                  >
-                    <Plus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                  </button>
-                  <button
-                    type="button"
-                    className="flex size-[27px] cursor-pointer items-center justify-center text-[13.5px] font-light text-[#364153]"
-                    aria-label="Zoom out"
-                  >
-                    <Minus className="h-3.5 w-3.5" strokeWidth={1.5} />
-                  </button>
-                </div>
-                <div className="btn-gold absolute left-1/2 top-[103px] flex size-[32px] -translate-x-1/2 items-center justify-center rounded-full border-[2.7px] border-white shadow-md">
-                  <Building2 className="h-4 w-4 text-white" strokeWidth={1.6} />
-                </div>
-              </div>
+              <PropertyLocationMap map={map} location={location} />
             </div>
           </div>
         </div>

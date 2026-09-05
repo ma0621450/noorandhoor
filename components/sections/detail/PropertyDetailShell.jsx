@@ -99,7 +99,7 @@ export default function PropertyDetailShell({
           properties={related}
         />
         <FaqSection variant="detail" />
-        <DetailAgentContact agent={property.agent} />
+        <DetailAgentContact />
         <PropertyJourneyCta variant="buy" />
       </div>
     );
@@ -117,7 +117,7 @@ export default function PropertyDetailShell({
         properties={related}
       />
       <FaqSection variant="detail" />
-      <DetailAgentContactRent agent={property.agent} />
+      <DetailAgentContactRent />
       <PropertyJourneyCta variant="detail" />
     </div>
   );

@@ -53,7 +53,7 @@ export default function FinancialArchitecture() {
               />
             </div>
           ) : (
-            <div className="mx-auto mt-10 grid max-w-[920px] gap-8 lg:mt-12 lg:grid-cols-2 lg:items-start">
+            <div className="mx-auto mt-10 grid max-w-[920px] items-stretch gap-8 lg:mt-12 lg:grid-cols-2">
               <MortgageResultCard result={result} onRedo={handleRedo} />
               <PreApprovalForm estimatedPayment={estimatedPayment} />
             </div>

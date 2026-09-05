@@ -130,18 +130,6 @@ export default function LeadFormFields({ errors = {} }) {
         />
       </Field>
 
-      <Field label="Assign to Team Member" error={errors.assignee}>
-        <Select
-          name="assignee"
-          className={INPUT}
-          defaultValue=""
-          aria-label="Team Member"
-        >
-          <option value="">Select member (optional)</option>
-          <option value="Andrew Smith">Andrew Smith</option>
-        </Select>
-      </Field>
-
       <Field label="Custom Request" error={errors.request}>
         <Select
           name="request"

@@ -8,9 +8,9 @@ import { ChevronRight, Menu, X } from "lucide-react";
 import logo from "@/public/svgs/logo.svg";
 import Button from "@/components/ui/Button";
 import CaretDown from "@/components/ui/CaretDown";
+import EnquiryModal from "@/components/layout/EnquiryModal";
 import { NAV_ITEMS } from "@/components/layout/navData";
 import NavDropdownMenu from "@/components/layout/NavDropdownMenu";
-import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
 const NAV_LINK_CLASS =
   "text-sm font-medium uppercase tracking-wide !text-white transition-colors duration-300 ease-in-out hover:!text-[#ba8a44] group-hover:!text-[#ba8a44]";
@@ -189,6 +189,12 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [enquiryOpen, setEnquiryOpen] = useState(false);
+
+  const openEnquiry = () => {
+    setMobileOpen(false);
+    setEnquiryOpen(true);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -201,11 +207,11 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    document.body.style.overflow = mobileOpen || enquiryOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, enquiryOpen]);
 
   const closeMobile = () => setMobileOpen(false);
 
@@ -225,8 +231,7 @@ export default function Header() {
 
             <Button
               variant="primary"
-              href={CONTACT_FORM_HREF}
-              onClick={closeMobile}
+              onClick={openEnquiry}
               className="mt-6 w-full justify-center gap-2 py-3 text-xs"
             >
               <span>Inquire Now</span>
@@ -268,8 +273,8 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <Button
               variant="primary"
-              href={CONTACT_FORM_HREF}
-          className="hidden gap-2 px-4 py-2 text-xs lg:inline-flex lg:px-6 lg:py-3 lg:text-sm"
+              onClick={openEnquiry}
+              className="hidden gap-2 px-4 py-2 text-xs lg:inline-flex lg:px-6 lg:py-3 lg:text-sm"
             >
               <span>Inquire Now</span>
               <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
@@ -286,6 +291,8 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      <EnquiryModal open={enquiryOpen} onClose={() => setEnquiryOpen(false)} />
     </>
   );
 }
