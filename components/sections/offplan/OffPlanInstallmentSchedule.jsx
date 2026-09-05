@@ -1,19 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import CaretDown from "@/components/ui/CaretDown";
 import {
-  INSTALLMENT_COUNT,
-  formatUsd,
+  formatMoney,
   buildInstallments,
+  resolvePaymentPlan,
 } from "@/components/sections/offplan/offPlanPayment";
 
 const PREVIEW_COUNT = 7;
 
-export default function OffPlanInstallmentSchedule({ price }) {
+export default function OffPlanInstallmentSchedule({ price, plan = {} }) {
   const [expanded, setExpanded] = useState(false);
-  const rows = buildInstallments(price);
+  const resolved = useMemo(() => resolvePaymentPlan(plan), [plan]);
+  const rows = useMemo(
+    () => buildInstallments(price, plan),
+    [price, plan],
+  );
   const visible = expanded ? rows : rows.slice(0, PREVIEW_COUNT);
+  const canExpand = rows.length > PREVIEW_COUNT;
 
   return (
     <section className="w-full bg-[#111111] pb-12 sm:pb-16">
@@ -23,7 +28,9 @@ export default function OffPlanInstallmentSchedule({ price }) {
         </h2>
         <p className="mt-3 max-w-[672px] text-center text-sm leading-[23px] text-[#F5F5F5]">
           Based on your selected price of{" "}
-          <span className="text-gold-gradient font-medium">{formatUsd(price)}</span>
+          <span className="text-gold-gradient font-medium">
+            {formatMoney(price)}
+          </span>
           . Adjust the calculator above to update this schedule.
         </p>
 
@@ -35,18 +42,20 @@ export default function OffPlanInstallmentSchedule({ price }) {
             <table className="w-full min-w-[640px] border-collapse text-left">
               <thead>
                 <tr className="bg-[#111111]">
-                  {["#", "Due Date", "Amount", "Balance Remaining"].map((col) => (
-                    <th
-                      key={col}
-                      className={`px-6 py-3.5 text-[11.2px] font-medium uppercase tracking-[0.9px] ${
-                        col === "Amount" || col === "Balance Remaining"
-                          ? "text-right"
-                          : ""
-                      } ${col === "#" ? "sticky left-0 z-10 bg-[#111111]" : ""}`}
-                    >
-                      <span className="text-gold-gradient">{col}</span>
-                    </th>
-                  ))}
+                  {["#", "Due Date", "Amount", "Balance Remaining"].map(
+                    (col) => (
+                      <th
+                        key={col}
+                        className={`px-6 py-3.5 text-[11.2px] font-medium uppercase tracking-[0.9px] ${
+                          col === "Amount" || col === "Balance Remaining"
+                            ? "text-right"
+                            : ""
+                        } ${col === "#" ? "sticky left-0 z-10 bg-[#111111]" : ""}`}
+                      >
+                        <span className="text-gold-gradient">{col}</span>
+                      </th>
+                    ),
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -57,7 +66,9 @@ export default function OffPlanInstallmentSchedule({ price }) {
                     <tr key={row.id} className={stripe}>
                       <td
                         className={`sticky left-0 z-10 px-6 py-4 text-[12.8px] ${stripe} ${
-                          isDown ? "font-medium text-[#B8935A]" : "text-[#7A6E5F]"
+                          isDown
+                            ? "font-medium text-[#B8935A]"
+                            : "text-[#7A6E5F]"
                         }`}
                       >
                         {row.index}
@@ -72,11 +83,11 @@ export default function OffPlanInstallmentSchedule({ price }) {
                         >
                           {row.date}
                         </span>
-                        {row.badge && (
+                        {row.badge ? (
                           <span className="btn-gold ml-3 inline-flex rounded-lg px-2 py-0.5 text-xs font-normal text-[#F5F5F5]">
                             {row.badge}
                           </span>
-                        )}
+                        ) : null}
                       </td>
                       <td
                         className={`px-6 py-4 text-right text-sm tabular-nums ${
@@ -85,10 +96,10 @@ export default function OffPlanInstallmentSchedule({ price }) {
                             : "text-[#111111]"
                         }`}
                       >
-                        {formatUsd(row.amount)}
+                        {formatMoney(row.amount)}
                       </td>
                       <td className="text-gold-gradient px-6 py-4 text-right text-sm tabular-nums">
-                        {formatUsd(row.remaining)}
+                        {formatMoney(row.remaining)}
                       </td>
                     </tr>
                   );
@@ -97,16 +108,18 @@ export default function OffPlanInstallmentSchedule({ price }) {
             </table>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setExpanded((open) => !open)}
-            className="flex w-full items-center justify-center gap-2 bg-[#F5F5F5] py-4 text-sm font-medium text-[#111111]"
-          >
-            {expanded
-              ? "Show fewer installments"
-              : `Show all ${INSTALLMENT_COUNT} installments`}
-            <CaretDown open={expanded} className="text-[#111111]" />
-          </button>
+          {canExpand ? (
+            <button
+              type="button"
+              onClick={() => setExpanded((open) => !open)}
+              className="flex w-full items-center justify-center gap-2 bg-[#F5F5F5] py-4 text-sm font-medium text-[#111111]"
+            >
+              {expanded
+                ? "Show fewer installments"
+                : `Show all ${resolved.installments} installments`}
+              <CaretDown open={expanded} className="text-[#111111]" />
+            </button>
+          ) : null}
         </div>
       </div>
     </section>

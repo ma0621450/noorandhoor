@@ -71,7 +71,7 @@ export const NAV_ITEMS = [
       { label: "Villas", href: "/off-plan/villas", Icon: IconVillas },
       { label: "Apartments", href: "/off-plan/apartments", Icon: IconApartments },
       {
-        label: "Commercial / Residential",
+        label: "Commercial",
         href: "/off-plan/commercial",
         Icon: IconResidential,
       },

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
+import FieldError from "@/components/ui/FieldError";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 import { validateContactBasics } from "@/lib/enquiry-validation";
 
@@ -50,6 +51,15 @@ export default function DevelopersLeadForm() {
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
 
+  function clearError(key) {
+    setFieldErrors((current) => {
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
@@ -65,8 +75,8 @@ export default function DevelopersLeadForm() {
 
     if (!validation.ok) {
       setFieldErrors(validation.errors);
-      setStatus("error");
-      setError(validation.message);
+      setStatus("idle");
+      setError("");
       return;
     }
 
@@ -146,7 +156,7 @@ export default function DevelopersLeadForm() {
               </div>
             ))}
 
-            <div className="grid gap-3 sm:grid-cols-1">
+            <div className="grid items-start gap-3 sm:grid-cols-1">
               <div>
                 <input
                   name="name"
@@ -155,10 +165,9 @@ export default function DevelopersLeadForm() {
                   required
                   placeholder="Full name"
                   className={FIELD_CLASS}
+                  onChange={() => clearError("name")}
                 />
-                {fieldErrors.name ? (
-                  <p className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>
-                ) : null}
+                <FieldError message={fieldErrors.name} />
               </div>
               <div>
                 <input
@@ -168,10 +177,9 @@ export default function DevelopersLeadForm() {
                   required
                   placeholder="Email address"
                   className={FIELD_CLASS}
+                  onChange={() => clearError("email")}
                 />
-                {fieldErrors.email ? (
-                  <p className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>
-                ) : null}
+                <FieldError message={fieldErrors.email} />
               </div>
               <div>
                 <input
@@ -181,10 +189,9 @@ export default function DevelopersLeadForm() {
                   required
                   placeholder="Phone number"
                   className={FIELD_CLASS}
+                  onChange={() => clearError("phone")}
                 />
-                {fieldErrors.phone ? (
-                  <p className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
-                ) : null}
+                <FieldError message={fieldErrors.phone} />
               </div>
             </div>
 

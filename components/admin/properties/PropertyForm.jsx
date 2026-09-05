@@ -63,6 +63,9 @@ const EMPTY_FORM = {
   mapLabel: "",
   agentName: DEFAULT_PROPERTY_AGENT.name,
   agentPhone: DEFAULT_PROPERTY_AGENT.phone,
+  paymentDownPercent: "10",
+  paymentInstallments: "24",
+  paymentStartDate: "",
 };
 
 function toForm(property) {
@@ -105,6 +108,9 @@ function toForm(property) {
     mapLabel: property.mapLabel || "",
     agentName: property.agentName || DEFAULT_PROPERTY_AGENT.name,
     agentPhone: property.agentPhone || DEFAULT_PROPERTY_AGENT.phone,
+    paymentDownPercent: String(property.paymentDownPercent ?? 10),
+    paymentInstallments: String(property.paymentInstallments ?? 24),
+    paymentStartDate: property.paymentStartDate || "",
   };
 }
 
@@ -409,6 +415,52 @@ function PropertyEditor({
                 hint="Optional tag, e.g. sea view or skyline"
               />
             </div>
+            {form.market === "off-plan" ? (
+              <div className="space-y-4 rounded-xl border border-white/8 bg-[#111] p-4">
+                <div>
+                  <p className="text-sm font-semibold text-white">
+                    Payment plan
+                  </p>
+                  <p className="mt-1 text-xs text-white/45">
+                    Controls the off-plan calculator and installment schedule on
+                    the detail page.
+                  </p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <TextField
+                    id="property-down-percent"
+                    label="Down payment %"
+                    type="number"
+                    min="1"
+                    max="99"
+                    value={form.paymentDownPercent}
+                    onChange={(event) =>
+                      setField("paymentDownPercent", event.target.value)
+                    }
+                  />
+                  <TextField
+                    id="property-installments"
+                    label="Installments"
+                    type="number"
+                    min="1"
+                    value={form.paymentInstallments}
+                    onChange={(event) =>
+                      setField("paymentInstallments", event.target.value)
+                    }
+                  />
+                  <TextField
+                    id="property-payment-start"
+                    label="First installment date"
+                    type="date"
+                    value={form.paymentStartDate}
+                    onChange={(event) =>
+                      setField("paymentStartDate", event.target.value)
+                    }
+                    hint="Optional. Defaults to next month."
+                  />
+                </div>
+              </div>
+            ) : null}
           </section>
 
           <section className="space-y-5 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">

@@ -106,20 +106,24 @@ export default function PropertyCategories({ market = "buy" }) {
         </p>
       </div>
 
-      <div className="mx-auto mt-8 grid w-full max-w-[1200px] grid-cols-1 gap-4 min-[480px]:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:mt-12 lg:grid-cols-4 lg:gap-6">
+      <div className="mx-auto mt-8 flex w-full max-w-[1200px] flex-wrap justify-center gap-4 sm:gap-5 lg:mt-12 lg:gap-6">
         {categories.map((category) => (
-          <LocationCard
+          <div
             key={category.key}
-            image={category.image}
-            name={category.name}
-            subtitle={
-              category.propertyCount == null
-                ? "Loading..."
-                : countLabel(category.propertyCount)
-            }
-            href={category.href}
-            fluid
-          />
+            className="w-full min-[480px]:w-[calc((100%-1.25rem)/2)] md:w-[calc((100%-2.5rem)/3)] lg:w-[calc((100%-4.5rem)/4)]"
+          >
+            <LocationCard
+              image={category.image}
+              name={category.name}
+              subtitle={
+                category.propertyCount == null
+                  ? "Loading..."
+                  : countLabel(category.propertyCount)
+              }
+              href={category.href}
+              fluid
+            />
+          </div>
         ))}
       </div>
     </section>

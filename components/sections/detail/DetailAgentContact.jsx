@@ -5,6 +5,7 @@ import { Phone, UserRound } from "lucide-react";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 import { validateContactBasics } from "@/lib/enquiry-validation";
 import { CONTACT_INFO } from "@/components/sections/contact/contactData";
+import FieldError from "@/components/ui/FieldError";
 
 const FIELD_CLASS =
   "w-full rounded-lg border border-white/20 bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-white/40 focus:border-[#c59d5f]";
@@ -22,8 +23,8 @@ export default function DetailAgentContact() {
 
     if (!validation.ok) {
       setFieldErrors(validation.errors);
-      setStatus("error");
-      setError(validation.message);
+      setStatus("idle");
+      setError("");
       return;
     }
 
@@ -97,7 +98,7 @@ export default function DetailAgentContact() {
             style={{ display: "none" }}
           />
 
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="grid items-start gap-3 sm:grid-cols-3">
             <div>
               <input
                 type="text"
@@ -106,10 +107,16 @@ export default function DetailAgentContact() {
                 required
                 placeholder="Your Name"
                 className={FIELD_CLASS}
+                onChange={() =>
+                  setFieldErrors((current) => {
+                    if (!current.name) return current;
+                    const next = { ...current };
+                    delete next.name;
+                    return next;
+                  })
+                }
               />
-              {fieldErrors.name ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.name}</p>
-              ) : null}
+              <FieldError message={fieldErrors.name} />
             </div>
             <div>
               <input
@@ -119,10 +126,16 @@ export default function DetailAgentContact() {
                 required
                 placeholder="Email Address"
                 className={FIELD_CLASS}
+                onChange={() =>
+                  setFieldErrors((current) => {
+                    if (!current.email) return current;
+                    const next = { ...current };
+                    delete next.email;
+                    return next;
+                  })
+                }
               />
-              {fieldErrors.email ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.email}</p>
-              ) : null}
+              <FieldError message={fieldErrors.email} />
             </div>
             <div>
               <input
@@ -132,23 +145,37 @@ export default function DetailAgentContact() {
                 required
                 placeholder="Phone Number"
                 className={FIELD_CLASS}
+                onChange={() =>
+                  setFieldErrors((current) => {
+                    if (!current.phone) return current;
+                    const next = { ...current };
+                    delete next.phone;
+                    return next;
+                  })
+                }
               />
-              {fieldErrors.phone ? (
-                <p className="mt-1 text-xs text-red-400">{fieldErrors.phone}</p>
-              ) : null}
+              <FieldError message={fieldErrors.phone} />
             </div>
           </div>
 
-          <textarea
-            name="message"
-            rows={5}
-            required
-            placeholder="write your Message"
-            className="mt-3 w-full resize-none bg-transparent text-sm text-white outline-none placeholder:text-white/40"
-          />
-          {fieldErrors.details ? (
-            <p className="mt-1 text-xs text-red-400">{fieldErrors.details}</p>
-          ) : null}
+          <div className="mt-3">
+            <textarea
+              name="message"
+              rows={5}
+              required
+              placeholder="write your Message"
+              className="w-full resize-none bg-transparent text-sm text-white outline-none placeholder:text-white/40"
+              onChange={() =>
+                setFieldErrors((current) => {
+                  if (!current.details) return current;
+                  const next = { ...current };
+                  delete next.details;
+                  return next;
+                })
+              }
+            />
+            <FieldError message={fieldErrors.details} />
+          </div>
 
           {status === "success" ? (
             <p className="mt-3 text-sm font-medium text-[#d6a85e]">

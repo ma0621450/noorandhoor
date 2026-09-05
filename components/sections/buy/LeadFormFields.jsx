@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Building2, Mail, Phone, User } from "lucide-react";
+import FieldError from "@/components/ui/FieldError";
 import { Select } from "@/components/ui/Select";
 import {
   MARKET_FILTER_OPTIONS,
@@ -19,7 +20,7 @@ function Field({ label, error, children }) {
     <div className="flex flex-col gap-2">
       <span className="text-sm font-medium text-[#f5f5f5]">{label}</span>
       {children}
-      {error ? <span className="text-xs text-red-400">{error}</span> : null}
+      <FieldError message={error} />
     </div>
   );
 }
@@ -42,7 +43,7 @@ export default function LeadFormFields({ errors = {}, onClearError }) {
   const clear = (key) => onClearError?.(key);
 
   return (
-    <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2">
+    <div className="grid grid-cols-1 items-start gap-x-6 gap-y-6 sm:grid-cols-2">
       <Field label="Property Interest" error={errors.interest}>
         <Select
           name="interest"

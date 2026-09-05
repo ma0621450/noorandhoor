@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Button from "@/components/ui/Button";
+import FieldError from "@/components/ui/FieldError";
 import { Select } from "@/components/ui/Select";
 import { formValues, submitEnquiry } from "@/lib/enquiry-client";
 import { FILTER_LOCATION_OPTIONS } from "@/lib/listingFilters";
@@ -127,9 +128,7 @@ export default function RentalEligibilityForm() {
               clearError("propertyType");
             }}
           />
-          {fieldErrors.propertyType ? (
-            <span className="text-xs text-red-400">{fieldErrors.propertyType}</span>
-          ) : null}
+          <FieldError message={fieldErrors.propertyType} />
         </label>
 
         <label className="flex flex-col gap-1">
@@ -186,9 +185,7 @@ export default function RentalEligibilityForm() {
             className={`${INPUT_CLASS} ${fieldErrors.name ? "border-red-400" : ""}`}
             onChange={() => clearError("name")}
           />
-          {fieldErrors.name ? (
-            <span className="text-xs text-red-400">{fieldErrors.name}</span>
-          ) : null}
+          <FieldError message={fieldErrors.name} />
         </label>
 
         <label className="flex flex-col gap-1">
@@ -202,9 +199,7 @@ export default function RentalEligibilityForm() {
             className={`${INPUT_CLASS} ${fieldErrors.email ? "border-red-400" : ""}`}
             onChange={() => clearError("email")}
           />
-          {fieldErrors.email ? (
-            <span className="text-xs text-red-400">{fieldErrors.email}</span>
-          ) : null}
+          <FieldError message={fieldErrors.email} />
         </label>
 
         <label className="flex flex-col gap-1">
@@ -218,9 +213,7 @@ export default function RentalEligibilityForm() {
             className={`${INPUT_CLASS} ${fieldErrors.phone ? "border-red-400" : ""}`}
             onChange={() => clearError("phone")}
           />
-          {fieldErrors.phone ? (
-            <span className="text-xs text-red-400">{fieldErrors.phone}</span>
-          ) : null}
+          <FieldError message={fieldErrors.phone} />
         </label>
       </div>
 

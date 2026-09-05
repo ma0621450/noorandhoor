@@ -2,23 +2,12 @@
 
 import { Check } from "lucide-react";
 
-const COLUMNS = [
-  ["Air Conditioning", "Sauna", "Window Coverings"],
-  ["Laundry", "Swimming Pool"],
-  ["Lawn", "WiFi"],
-];
+export default function DetailFeatures({ features = [] }) {
+  const items = (Array.isArray(features) ? features : [])
+    .map((feature) => String(feature || "").trim())
+    .filter(Boolean);
 
-function toColumns(features) {
-  if (!features?.length) return COLUMNS;
-  const columns = [[], [], []];
-  features.forEach((feature, index) => {
-    columns[index % 3].push(feature);
-  });
-  return columns.filter((column) => column.length);
-}
-
-export default function DetailFeatures({ features }) {
-  const columns = toColumns(features);
+  if (!items.length) return null;
 
   return (
     <section className="w-full bg-[#111111] pb-10 sm:pb-14">
@@ -28,26 +17,22 @@ export default function DetailFeatures({ features }) {
             Features
           </h2>
 
-          <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-            {columns.map((column, columnIndex) => (
-              <ul key={`feature-col-${columnIndex}`} className="flex flex-col gap-4">
-                {column.map((feature, featureIndex) => (
-                  <li
-                    key={`feature-${columnIndex}-${featureIndex}-${feature}`}
-                    className="flex items-center gap-3 font-[family-name:var(--font-body)] text-[16px] font-normal leading-6 text-[#F5F5F5]"
-                  >
-                    <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-[#c5a059]">
-                      <Check
-                        className="h-3 w-3 text-[#c5a059]"
-                        strokeWidth={2.5}
-                      />
-                    </span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+          <ul className="mt-8 grid list-none grid-cols-1 gap-x-8 gap-y-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((feature, index) => (
+              <li
+                key={`${feature}-${index}`}
+                className="flex items-center gap-3 font-[family-name:var(--font-body)] text-[16px] font-normal leading-6 text-[#F5F5F5]"
+              >
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-[#c5a059]">
+                  <Check
+                    className="h-3 w-3 text-[#c5a059]"
+                    strokeWidth={2.5}
+                  />
+                </span>
+                {feature}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </section>

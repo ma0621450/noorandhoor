@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Button from "@/components/ui/Button";
 import card1 from "@/public/images/buy/partners/card-1.png";
 import card2 from "@/public/images/buy/partners/card-2.png";
 import card3 from "@/public/images/buy/partners/card-3.png";
@@ -39,6 +40,12 @@ export default function TrustedDeveloperPartners() {
               />
             </article>
           ))}
+        </div>
+
+        <div className="mt-8 flex justify-center sm:mt-10">
+          <Button href="/developers" className="min-w-[220px] px-8">
+            View All Developers
+          </Button>
         </div>
       </div>
     </section>
