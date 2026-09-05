@@ -6,12 +6,12 @@ import AdminButton from "@/components/admin/ui/AdminButton";
 export default function ListEditor({
   label,
   hint,
-  items,
+  items = [],
   onChange,
   addLabel = "Add item",
   placeholder = "Item",
 }) {
-  const rows = items.length ? items : [""];
+  const rows = Array.isArray(items) ? items : [];
 
   const updateRow = (index, value) => {
     const next = [...rows];
@@ -20,8 +20,7 @@ export default function ListEditor({
   };
 
   const removeRow = (index) => {
-    const next = rows.filter((_, itemIndex) => itemIndex !== index);
-    onChange(next.length ? next : [""]);
+    onChange(rows.filter((_, itemIndex) => itemIndex !== index));
   };
 
   return (
@@ -44,24 +43,28 @@ export default function ListEditor({
           {addLabel}
         </AdminButton>
       </div>
-      {rows.map((item, index) => (
-        <div key={`list-${index}`} className="flex gap-2">
-          <input
-            value={item}
-            onChange={(event) => updateRow(index, event.target.value)}
-            placeholder={`${placeholder} ${index + 1}`}
-            className="h-11 w-full rounded-xl border border-white/10 bg-[#171717] px-3 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40"
-          />
-          <AdminButton
-            size="icon"
-            variant="ghost"
-            aria-label="Remove item"
-            onClick={() => removeRow(index)}
-          >
-            <Trash2 className="h-4 w-4" />
-          </AdminButton>
-        </div>
-      ))}
+      {rows.length ? (
+        rows.map((item, index) => (
+          <div key={`list-${index}`} className="flex gap-2">
+            <input
+              value={item}
+              onChange={(event) => updateRow(index, event.target.value)}
+              placeholder={`${placeholder} ${index + 1}`}
+              className="h-11 w-full rounded-xl border border-white/10 bg-[#171717] px-3 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40"
+            />
+            <AdminButton
+              size="icon"
+              variant="ghost"
+              aria-label="Remove item"
+              onClick={() => removeRow(index)}
+            >
+              <Trash2 className="h-4 w-4" />
+            </AdminButton>
+          </div>
+        ))
+      ) : (
+        <p className="text-xs text-white/40">None added yet.</p>
+      )}
     </div>
   );
 }

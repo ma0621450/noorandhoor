@@ -18,7 +18,6 @@ export default function SellPropertyMatching() {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
-  const [intent, setIntent] = useState("matches");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -28,8 +27,8 @@ export default function SellPropertyMatching() {
 
     if (!validation.ok) {
       setFieldErrors(validation.errors);
-      setStatus("error");
-      setError(validation.message);
+      setStatus("idle");
+      setError("");
       return;
     }
 
@@ -39,7 +38,7 @@ export default function SellPropertyMatching() {
 
     try {
       const details = [
-        `Intent: ${intent === "review" ? "Confidential review" : "Buyer matches"}`,
+        "Intent: Submit for buyer review",
         values.brief && `Property brief: ${values.brief}`,
         values.asking && `Asking range: ${values.asking}`,
         values.timeline && `Timeline: ${values.timeline}`,
@@ -52,7 +51,7 @@ export default function SellPropertyMatching() {
         name: values.name,
         email: values.email,
         phone: values.phone,
-        service: intent === "review" ? "Confidential review" : "Sell / buyer matching",
+        service: "Sell / submit for buyer review",
         details,
         botcheck: values.botcheck,
         source: "sell-matching",
@@ -241,27 +240,15 @@ export default function SellPropertyMatching() {
               </p>
             )}
 
-            <div className="mt-2 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
+            <div className="mt-2 flex w-full justify-center">
               <Button
                 type="submit"
                 disabled={status === "submitting"}
-                onClick={() => setIntent("matches")}
-                className="h-14 w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[266px] sm:px-10 sm:text-sm"
+                className="h-14 w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[280px] sm:px-10 sm:text-sm"
               >
-                {status === "submitting" && intent === "matches"
+                {status === "submitting"
                   ? "Sending..."
-                  : "Generate Buyer Matches"}
-              </Button>
-              <Button
-                type="submit"
-                variant="secondary"
-                disabled={status === "submitting"}
-                onClick={() => setIntent("review")}
-                className="h-[58px] w-full rounded-xl px-4 text-xs tracking-[1.3px] sm:w-auto sm:min-w-[328px] sm:px-10 sm:text-sm"
-              >
-                {status === "submitting" && intent === "review"
-                  ? "Sending..."
-                  : "Request Confidential Review"}
+                  : "Submit for Buyer Review"}
               </Button>
             </div>
           </form>

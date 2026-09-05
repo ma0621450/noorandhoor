@@ -6,20 +6,30 @@ const LocationCard = ({
   name,
   propertyCount,
   subtitle,
-  width = 290,
   href,
+  fluid = false,
 }) => {
   const caption =
     subtitle ||
     (propertyCount != null ? `${propertyCount} Properties` : null);
 
   const content = (
-    <article className="group relative mx-auto h-[300px] w-[min(280px,calc(100vw-2rem))] overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02] sm:h-[380px] lg:h-[420px]">
+    <article
+      className={`group relative overflow-hidden rounded-[10px] transition-transform duration-200 hover:scale-[1.02] ${
+        fluid
+          ? "mx-auto h-[280px] w-full sm:h-[340px] lg:h-[380px]"
+          : "mx-auto h-[300px] w-[min(280px,calc(100vw-2rem))] sm:h-[380px] lg:h-[420px]"
+      }`}
+    >
       <Image
         src={image}
         alt={name}
         fill
-        sizes="(max-width: 640px) 100vw, 280px"
+        sizes={
+          fluid
+            ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            : "(max-width: 640px) 100vw, 280px"
+        }
         draggable={false}
         className="pointer-events-none object-cover object-center transition-transform duration-300 group-hover:scale-105"
       />
@@ -30,7 +40,7 @@ const LocationCard = ({
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
         <div className="flex items-stretch gap-3">
           <div className="w-[2px] shrink-0 bg-[#E9C349]" />
-          <div className="min-w-0 flex flex-col gap-1.5">
+          <div className="flex min-w-0 flex-col gap-1.5">
             <h3 className="!font-accent text-[1.15rem] font-normal uppercase leading-snug text-white sm:text-[1.35rem]">
               {name}
             </h3>
@@ -50,7 +60,7 @@ const LocationCard = ({
   return (
     <Link
       href={href}
-      className="relative z-[1] w-full max-w-[280px] shrink-0"
+      className={`relative z-[1] ${fluid ? "block w-full" : "w-full max-w-[280px] shrink-0"}`}
       aria-label={`Browse ${name}`}
     >
       {content}

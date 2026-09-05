@@ -56,7 +56,7 @@ const EMPTY_FORM = {
   images: [],
   aboutText: "",
   descriptionItems: [""],
-  features: [""],
+  features: [],
   documents: DEFAULT_PROPERTY_DOCUMENTS.map((doc) => ({ ...doc })),
   mapLat: "",
   mapLng: "",
@@ -96,7 +96,7 @@ function toForm(property) {
     descriptionItems: property.descriptionItems?.length
       ? property.descriptionItems
       : [""],
-    features: property.features?.length ? property.features : [""],
+    features: property.features?.length ? property.features : [],
     documents: property.documents?.length
       ? property.documents.map((doc) => ({ ...doc }))
       : DEFAULT_PROPERTY_DOCUMENTS.map((doc) => ({ ...doc })),
@@ -217,10 +217,13 @@ function PropertyEditor({
     setForm((current) => {
       const existing = current.features.map((item) => item.trim()).filter(Boolean);
       if (existing.includes(feature)) return current;
-      const next = current.features.some((item) => !item.trim())
-        ? current.features.map((item) => (item.trim() ? item : feature))
-        : [...current.features, feature];
-      return { ...current, features: next };
+      const blankIndex = current.features.findIndex((item) => !item.trim());
+      if (blankIndex >= 0) {
+        const next = [...current.features];
+        next[blankIndex] = feature;
+        return { ...current, features: next };
+      }
+      return { ...current, features: [...current.features, feature] };
     });
   };
 
@@ -568,7 +571,7 @@ function PropertyEditor({
               value={form.status}
               onChange={(event) => setField("status", event.target.value)}
               options={PROPERTY_STATUSES}
-              tooltip="Available listings are public. Reserved stays visible. Sold is hidden from public pages."
+              tooltip="Available and for sale listings are public. Reserved stays visible. Sold is hidden from public pages."
             />
             <TextField
               id="property-listed-at"

@@ -16,21 +16,21 @@ export const BUYING_STEPS = [
     step: "01",
     title: "Initial Consultation",
     description:
-      "We begin by understanding your budget, preferred location, lifestyle, and investment goals to show you properties that truly match your needs.",
+      "We start by understanding your budget, location, lifestyle, and investment goals to show properties that truly match your needs.",
     icon: icon01,
   },
   {
     step: "02",
-    title: "Property Requirement Analysis",
+    title: "Property Analysis",
     description:
-      "We study market trends, pricing, and available opportunities to build a buying strategy tailored specifically to your requirements.",
+      "We study current market trends, pricing, and available opportunities to build a buying strategy tailored to your requirements.",
     icon: icon02,
   },
   {
     step: "03",
     title: "Curated Property Selection",
     description:
-      "We shortlist our properties based on location, quality, legal status, amenities, and long-term value, saving you time and effort.",
+      "We shortlist our properties based on location, quality, legal status, amenities, and long-term value, saving your time and effort.",
     icon: icon03,
   },
   {
