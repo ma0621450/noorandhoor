@@ -34,7 +34,11 @@ export default function BuyPage() {
       <TestimonialSection variant="buy" />
       <FaqSection variant="buy" />
       <TrustedDeveloperPartners />
-      <LeadGenerationForm />
+      <LeadGenerationForm
+        title="Let's Find Your Perfect Property"
+        description="Tell us what you're looking for, and our property experts will help you find the right opportunity within 24 hours."
+        showAgent={true}
+      />
       <PropertyJourneyCta variant="buy" />
     </>
   );

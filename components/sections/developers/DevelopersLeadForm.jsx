@@ -111,7 +111,7 @@ export default function DevelopersLeadForm() {
       <div className="section-inner">
         <div className="rounded-[20px] bg-[#252525] px-4 py-[60px] sm:px-6">
           <div className="mb-8 flex flex-col items-center gap-4 text-center">
-            <h2 className="text-gold-gradient">Lead Generation</h2>
+            <h2 className="text-gold-gradient">Let&apos;s Find What Fits You Best</h2>
             <div className="section-divider" />
           </div>
 

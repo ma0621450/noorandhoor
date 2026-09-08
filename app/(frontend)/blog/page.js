@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Blog | Noor & Hoor Properties",
   description:
-    "Read Dubai real estate market insights, off-plan guidance, and buying advice from Noor & Hoor Properties.",
+    "Stay ahead with the latest market trends, buying tips, and neighbourhood guides from Noor & Hoor Properties.",
 };
 
 export default async function BlogPage({ searchParams }) {

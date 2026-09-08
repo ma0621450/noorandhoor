@@ -4,7 +4,7 @@ import ContactMain from "@/components/sections/contact/ContactMain";
 export const metadata = {
   title: "Contact Us | Noor and Hoor",
   description:
-    "Get in touch with Noor and Hoor Properties. Speak with our General Manager, telecaller, or off-plan specialist in Dubai.",
+    "Have questions about buying, selling, renting, or investing in Dubai? Talk to our experts for reliable guidance and support tailored to your needs.",
 };
 
 export default function ContactPage() {

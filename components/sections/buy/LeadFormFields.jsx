@@ -17,10 +17,10 @@ const INPUT_ERROR = "border-red-400 focus:border-red-400 focus:ring-red-400/40";
 
 function Field({ label, error, children }) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1.5">
       <span className="text-sm font-medium text-[#f5f5f5]">{label}</span>
       {children}
-      <FieldError message={error} />
+      {error ? <FieldError message={error} /> : null}
     </div>
   );
 }
@@ -43,7 +43,7 @@ export default function LeadFormFields({ errors = {}, onClearError }) {
   const clear = (key) => onClearError?.(key);
 
   return (
-    <div className="grid grid-cols-1 items-start gap-x-6 gap-y-6 sm:grid-cols-2">
+    <div className="grid grid-cols-1 items-start gap-x-5 gap-y-3 sm:grid-cols-2">
       <Field label="Property Interest" error={errors.interest}>
         <Select
           name="interest"

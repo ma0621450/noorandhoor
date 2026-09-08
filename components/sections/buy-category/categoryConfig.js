@@ -78,7 +78,7 @@ export const BUY_CATEGORIES = {
     ctaDescription:
       "Browse our curated listings and book a free consultation, your perfect apartment is closer than you think.",
     trustSignals: trustSignals([
-      ["AED 1.5B+", "In Apartment Sales"],
+      ["15%+", "Average Annual ROI"],
       ["150+", "Happy Apartment Owners"],
       ["98%", "On-Time Handovers"],
     ]),
@@ -126,7 +126,7 @@ export const BUY_CATEGORIES = {
     ctaDescription:
       "Explore townhouses built for space and community, book a free consultation to get started.",
     trustSignals: trustSignals([
-      ["AED 1.2B+", "In Townhouse Sales"],
+      ["13%+", "Average Annual ROI"],
       ["200+", "Families Settled"],
       ["96%", "Client Satisfaction Rate"],
     ]),
@@ -174,7 +174,7 @@ export const BUY_CATEGORIES = {
     ctaDescription:
       "Explore penthouses built for those who settle for nothing less, book a free consultation today.",
     trustSignals: trustSignals([
-      ["AED 3B+", "In Penthouse Sales"],
+      ["18%+", "Average Annual ROI"],
       ["80+", "Penthouses Sold"],
       ["99%", "Client Satisfaction Rate"],
     ]),
@@ -222,7 +222,7 @@ export const BUY_CATEGORIES = {
     ctaDescription:
       "Explore villas built for space, privacy, and community, book a free consultation to get started.",
     trustSignals: trustSignals([
-      ["AED 2.5B+", "In Villa Sales"],
+      ["14%+", "Average Annual ROI"],
       ["250+", "Families Settled"],
       ["97%", "Client Satisfaction Rate"],
     ]),
@@ -270,7 +270,7 @@ export const BUY_CATEGORIES = {
     ctaDescription:
       "Search apartments, villas, townhouses, and more, book a free consultation to get started.",
     trustSignals: trustSignals([
-      ["AED 8B+", "In Total Property Sales"],
+      ["15%+", "Average Portfolio ROI"],
       ["1000+", "Properties Listed"],
       ["98%", "Client Satisfaction Rate"],
     ]),

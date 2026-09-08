@@ -46,8 +46,9 @@ function categoryKeyFromHref(href) {
 const COPY = {
   buy: {
     eyebrow: "Categories",
-    title: "Property Categories",
-    description: "Tailored architecture to match your intent",
+    title: "Find Your Property Type",
+    description:
+      "Explore carefully selected property categories designed around your goals and preferences.",
   },
   rent: {
     eyebrow: "Categories",
@@ -55,9 +56,10 @@ const COPY = {
     description: "Find the right rental type for your lifestyle",
   },
   sell: {
-    eyebrow: "Categories",
-    title: "Selling Categories",
-    description: "Choose how you want to list and sell",
+    eyebrow: "Sell By Property Type",
+    title: "Sell By Property Type",
+    description:
+      "Every property is different, so choose the category that fits yours and start the selling process.",
   },
   "off-plan": {
     eyebrow: "Categories",

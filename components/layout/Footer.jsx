@@ -70,9 +70,9 @@ export default function Footer() {
             </Link>
 
             <p className="max-w-md text-sm leading-relaxed text-white/70">
-              Your access to the globe&apos;s most esteemed real estate. We guide
-              buyers, sellers, and investors across the UAE with trusted local
-              expertise.
+              Trusted UAE real estate experts helping buyers, sellers, and
+              investors find the right residential, commercial, and off-plan
+              properties.
             </p>
 
             <ul className="flex flex-col gap-3">
@@ -106,12 +106,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="flex flex-col gap-6 rounded-2xl border border-[#ba8a44]/25 bg-[#141414] p-6 sm:p-8">
+          <div
+            id="newsletter"
+            className="flex flex-col gap-6 rounded-2xl border border-[#ba8a44]/25 bg-[#141414] p-6 sm:p-8"
+          >
             <div className="flex flex-col gap-3">
               <ColumnHeading>Newsletter</ColumnHeading>
               <p className="text-sm leading-relaxed text-white/70">
-                Get new launches, market insights, and exclusive listings
-                delivered to your inbox.
+                Never miss a new listing, market update, or investment
+                opportunity in the UAE.
               </p>
             </div>
 

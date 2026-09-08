@@ -28,7 +28,7 @@ function DevelopersFeaturedBody() {
     >
       <div className="mb-10 flex flex-col gap-4">
         <p className="text-xs font-normal uppercase tracking-[2.2px] text-white">
-          Developers
+          Developers We Work With
         </p>
         <h2 className="text-gold-gradient text-left">Featured Developers</h2>
       </div>

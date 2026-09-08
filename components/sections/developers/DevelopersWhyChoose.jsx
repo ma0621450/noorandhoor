@@ -7,23 +7,23 @@ import personalizationIcon from "@/public/svgs/personalization.svg";
 const REASONS = [
   {
     icon: exclusiveIcon,
-    title: "Exceptional local market insight",
-    highlight: "100% Market Coverage",
+    title: "Deep Market Expertise",
+    highlight: "Trusted Local Knowledge",
   },
   {
     icon: expertsIcon,
-    title: "Architectural Excellence",
-    highlight: "Premium sold",
+    title: "Design That Stands Out",
+    highlight: "Award Winning Builds",
   },
   {
     icon: analyticIcon,
-    title: "Historical Growth Metrics",
-    highlight: "Proven Track Record",
+    title: "Consistent Growth Track Record",
+    highlight: "Reliable Returns",
   },
   {
     icon: personalizationIcon,
-    title: "Master-Planned Communities",
-    highlight: "High Capital appreciation",
+    title: "Fully Planned Communities",
+    highlight: "Strong Value Appreciation",
   },
 ];
 
@@ -31,7 +31,7 @@ export default function DevelopersWhyChoose() {
   return (
     <section className="section-container">
       <div className="mb-10 flex flex-col items-center gap-4 text-center">
-        <h2 className="text-gold-gradient">Why Choose These Developers</h2>
+        <h2 className="text-gold-gradient">What Sets Our Top Developers Apart</h2>
         <div className="section-divider" />
       </div>
 

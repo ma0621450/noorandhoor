@@ -229,7 +229,7 @@ export const RENT_CATEGORIES = {
       "New to the city or switching neighborhoods? Explore rental options across Dubai's top communities, matched to your budget, work location, and daily lifestyle.",
     ctaHeading: "Ready to Start Renting in Dubai?",
     ctaDescription:
-      "Let us guide you to the right home, in the right community, the right way.",
+      "Let us guide you to the right home, in the right community, for the right future.",
     trustSignals: trustSignals([
       ["8,000+", "Rentals Listed In Dubai"],
       ["RERA", "Certified Rental Process"],

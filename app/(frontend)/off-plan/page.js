@@ -6,7 +6,7 @@ import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCt
 export const metadata = {
   title: "Off Plan Properties in UAE | Noor and Hoor",
   description:
-    "Off-plan properties in the UAE are real estate developments purchased directly from developers before construction is completed.",
+    "Buy directly from trusted developers, secure flexible payment plans, and invest in tomorrow's most popular locations before they're built.",
 };
 
 export default function OffPlanPage() {

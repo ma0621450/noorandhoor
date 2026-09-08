@@ -91,13 +91,13 @@ export default function SellPropertyMatching() {
           <div className="mx-auto flex max-w-[1099px] flex-col items-center gap-4 text-center">
             <h3 className="section-sub-heading">Sell Property</h3>
             <h2 className="text-gold-gradient max-w-[1086px]">
-              Intelligent Property Matching
+              Smart Property Matching
             </h2>
             <div className="section-divider" />
             <p className="max-w-[1097px] text-sm font-medium leading-[26px] text-[#f5f5f5] sm:text-base">
-              Tell us about your property, timeline, and goals, and our buyer
-              network will surface the top off-market matches in under 60
-              seconds.
+              Share a few details about your property and goals, and we&apos;ll
+              connect you with serious buyers actively looking for a match like
+              yours.
             </p>
           </div>
 

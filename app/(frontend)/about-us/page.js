@@ -6,27 +6,27 @@ import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 export const metadata = {
   title: "About Us | Noor & Hoor Properties",
   description:
-    "Learn about Noor & Hoor Properties, our approach, and our commitment to helping clients navigate Dubai real estate.",
+    "Trusted UAE real estate experts helping buyers, sellers, and investors find the right residential, commercial, and off-plan properties.",
 };
 
 const values = [
   {
     icon: Handshake,
-    title: "Trusted Guidance",
+    title: "Proven Results",
     description:
-      "Clear, honest advice that keeps your goals at the centre of every property decision.",
+      "Years of successful deals across Dubai's top communities and off-plan launches.",
   },
   {
     icon: Building2,
-    title: "Market Expertise",
+    title: "Smart Guidance",
     description:
-      "Local knowledge across Dubai's established communities and leading off-plan developments.",
+      "Practical advice helps you identify opportunities that fit your property goals.",
   },
   {
     icon: KeyRound,
-    title: "Personal Service",
+    title: "Stress Free Process",
     description:
-      "Dedicated support from your first conversation through viewings, negotiation, and handover.",
+      "From property selection to paperwork, we keep every step simple and clear.",
   },
 ];
 
@@ -53,28 +53,27 @@ export default function AboutUsPage() {
             <div>
               <h2 className="text-gold-gradient text-3xl sm:text-4xl">Our Mission</h2>
               <p className="mt-5 text-sm leading-7 text-white/75 sm:text-base">
-                To make buying, selling, renting, and investing in Dubai property
-                straightforward. We provide the insight and support clients need to
-                move forward with confidence.
+                We help clients navigate the UAE property market with clarity and
+                confidence. Our goal is to deliver honest guidance and real value,
+                from first inquiry to final handover.
               </p>
             </div>
             <div>
               <h2 className="text-gold-gradient text-3xl sm:text-4xl">Our Approach</h2>
               <p className="mt-5 text-sm leading-7 text-white/75 sm:text-base">
-                We listen first, recommend carefully, and stay involved throughout
-                the journey. Every search is shaped around the client&apos;s priorities,
-                timeline, and long-term ambitions.
+                Every client&apos;s goals come first. We combine deep market knowledge
+                with personalized attention, guiding decisions that align with both
+                immediate needs and long term investment plans.
               </p>
             </div>
           </div>
 
           <div className="mt-12 rounded-2xl bg-[#171717] px-6 py-10 text-center sm:mt-16 sm:px-10">
             <h2 className="text-gold-gradient text-3xl sm:text-4xl">
-              Start Your Property Journey
+              Let&apos;s Find Your Next Property
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/70">
-              Tell us what you are looking for and our team will help you take the
-              next step.
+              Share your goals with us, and we&apos;ll guide you toward the right fit.
             </p>
             <Button href={CONTACT_FORM_HREF} className="mt-7 px-7 py-3 text-sm">
               Contact Our Team

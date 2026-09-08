@@ -36,12 +36,12 @@ export default function FinancialArchitecture() {
       <div className="section-inner">
         <div className="w-full rounded-[20px] bg-[#252525] px-3 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-16">
           <h2 className="text-gold-gradient text-center">
-            Financial Architecture
+            Plan Your Property Financing
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-[#f5f5f5]/70 sm:text-base">
             {result
               ? "Review Option 1, then submit a pre-approval request."
-              : "Select your mortgage details and click Calculate."}
+              : "Enter your details to estimate your monthly mortgage payments and click calculate."}
           </p>
 
           {!result ? (

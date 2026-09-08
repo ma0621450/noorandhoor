@@ -5,6 +5,7 @@ import PropertyCard from "@/components/ui/PropertyCard";
 export default function FeaturedPropertySection({
   eyebrow = "Featured Properties",
   title,
+  description,
   href,
   ctaLabel = "View Properties",
   properties = [],
@@ -18,6 +19,11 @@ export default function FeaturedPropertySection({
         <div className="flex min-w-0 flex-col gap-4">
           <h3 className="section-sub-heading">{eyebrow}</h3>
           <h2 className="text-gold-gradient max-w-[640px]">{title}</h2>
+          {description ? (
+            <p className="max-w-[640px] text-sm leading-relaxed text-white/75 sm:text-base">
+              {description}
+            </p>
+          ) : null}
         </div>
 
         {href ? (

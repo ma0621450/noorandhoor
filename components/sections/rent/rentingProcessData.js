@@ -79,7 +79,7 @@ export const RENTING_STEPS = [
     step: "10",
     title: "Ejari Registration",
     description:
-      "We handle your tenancy contract registration with Ejari, completing this mandatory legal requirement fully and correctly on your behalf always.",
+      "We handle your tenancy contract registration with Ejari, completing this mandatory legal requirement fully and correctly on your behalf.",
     icon: icon10,
   },
   {
