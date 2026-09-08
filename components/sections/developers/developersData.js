@@ -52,7 +52,7 @@ function featuredDeveloper(name, logo, image, cta = "View Live Projects") {
 }
 
 export const FEATURED_DEVELOPERS = [
-  featuredDeveloper("All Real Estate", partnerAll, cardAll),
+  featuredDeveloper("All Real Estate", partnerAll, card1),
   featuredDeveloper("Modern House Real Estate", partnerModern, cardModern),
   featuredDeveloper("Eco House Real Estate", partnerEco, card3),
   featuredDeveloper("Luxury Real Estate", partnerLuxury, card4),
