@@ -10,19 +10,19 @@ const SERVICES = [
     icon: salesIcon,
     title: "Property Sales",
     description:
-      "Buy or sell prime properties effortlessly. We connect you with top-tier buyers and premium homes that match your exact lifestyle and financial goals.",
+      "Buy or sell prime properties easily. We connect you with trusted buyers and premium homes that match your lifestyle and financial goals.",
   },
   {
     icon: managementIcon,
     title: "Property Management",
     description:
-      "Leave the hard work to us. From finding reliable tenants to handling maintenance, we maximize your rental income while keeping your property in perfect shape.",
+      "We take care of tenant searches and maintenance, helping maximize your rental income while keeping your property in excellent condition",
   },
   {
     icon: advisoryIcon,
     title: "Investment Advisory",
     description:
-      "Grow your wealth with smart choices. Get data-backed advice on high-ROI projects, off-plan deals, and market trends to secure your financial future.",
+      "Make confident investment choices with data-backed guidance on high-ROI projects, off-plan deals, and market trends to grow your wealth.",
   },
 ];
 

@@ -260,7 +260,7 @@ export const BUY_CATEGORIES = {
     breadcrumb: "Buy properties",
     eyebrow: "Buy Properties",
     heading: "Properties",
-    heroTitle: "Explore The UAE's Full Property Market In One Place",
+    heroTitle: "Explore UAE's Full Property Market In One Place",
     heroDescription:
       "Apartments, villas, townhouses, and penthouses, all under one roof. Discover a property that matches your goals, whichever type you're looking for.",
     metaTitle: "Buy Properties | Noor and Hoor",

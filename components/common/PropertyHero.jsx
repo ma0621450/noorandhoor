@@ -251,7 +251,7 @@ export default function PropertyHero({
     <section className="relative isolate z-20 w-full overflow-x-clip">
       <HeroBackgroundCarousel overlayClassName="bg-black/60">
         <div className="relative flex min-h-svh w-full flex-col items-center justify-center gap-5 px-4 pt-28 pb-10 text-center sm:gap-7 sm:px-6 sm:pt-32 lg:gap-8 lg:px-10">
-          <h1 className="text-gold-gradient max-w-[1120px] text-[clamp(2.25rem,7vw,5.125rem)] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+          <h1 className="text-gold-gradient max-w-[1140px] text-[clamp(2.25rem,7vw,5.125rem)] drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
             {title || preset.title}
           </h1>
 

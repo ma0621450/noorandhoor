@@ -1,6 +1,11 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
+
 import Button from "@/components/ui/Button";
 import CommunityCard from "@/components/ui/CommunityCard";
+
 import villasImage from "@/public/images/buy/villas.png";
 import apartmentsImage from "@/public/images/buy/apartments.png";
 import otherPropertiesImage from "@/public/images/buy/otherproperties.png";
@@ -44,8 +49,30 @@ export default function PopularCommunities({
   cardCtaLabel,
   href = "/buy",
 }) {
+  const carouselRef = useRef(null);
+
+  const scrollCarousel = (direction) => {
+    if (!carouselRef.current) return;
+
+    const container = carouselRef.current;
+    const firstCard = container.firstElementChild;
+
+    if (!firstCard) return;
+
+    const cardWidth = firstCard.getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(container).gap) || 0;
+
+    const scrollAmount = cardWidth + gap;
+
+    container.scrollBy({
+      left: direction === "right" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className="section-container">
+      {/* Section Header */}
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-gold-gradient max-w-xl">{title}</h2>
 
@@ -56,15 +83,47 @@ export default function PopularCommunities({
         </Link>
       </div>
 
-      <div className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 sm:gap-8 lg:gap-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {/* Communities Carousel */}
+      <div
+        ref={carouselRef}
+        className="mt-10 flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 sm:gap-8 lg:gap-10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {communities.map((community) => (
-          <div key={community.id} className="snap-start">
+          <div
+            key={community.id}
+            className="shrink-0 snap-start"
+          >
             <CommunityCard
               {...community}
               ctaLabel={cardCtaLabel || community.ctaLabel}
             />
           </div>
         ))}
+      </div>
+
+      {/* Carousel Arrows */}
+      <div className="mt-6 flex items-center justify-end gap-2">
+        <button
+          type="button"
+          onClick={() => scrollCarousel("left")}
+          aria-label="Previous community"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-[#80651F] text-white transition-colors hover:bg-[#C9A24D] hover:text-black"
+        >
+          <span className="mb-1 text-3xl font-light leading-none">
+            ‹
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => scrollCarousel("right")}
+          aria-label="Next community"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-[#80651F] text-white transition-colors hover:bg-[#C9A24D] hover:text-black"
+        >
+          <span className="mb-1 text-3xl font-light leading-none">
+            ›
+          </span>
+        </button>
       </div>
     </section>
   );
