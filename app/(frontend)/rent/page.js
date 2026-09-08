@@ -36,7 +36,7 @@ export default function RentPage() {
       <TestimonialSection variant="rent" />
       <FaqSection variant="rent" />
       <TrustedDeveloperPartners />
-      <LeadGenerationForm />
+      <LeadGenerationForm showAgent={true} />
       <PropertyJourneyCta variant="rent" />
     </>
   );

@@ -15,7 +15,7 @@ import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCt
 export const metadata = {
   title: "Sell Properties | Noor and Hoor",
   description:
-    "Sell your UAE property with Noor and Hoor — expert valuation, buyer matching, and end-to-end selling support.",
+    "A trusted network of serious buyers, expert pricing insight, and a seamless process from listing to sale.",
 };
 
 export default function SellPage() {
@@ -32,7 +32,11 @@ export default function SellPage() {
       <TestimonialSection variant="sell" />
       <FaqSection variant="sell" />
       <TrustedDeveloperPartners />
-      <LeadGenerationForm />
+      <LeadGenerationForm
+        title="Start Your Selling Journey"
+        description="Fill out the form below and our team will get in touch to guide you through the next steps."
+        showAgent={true}
+      />
       <PropertyJourneyCta variant="sell" />
     </>
   );

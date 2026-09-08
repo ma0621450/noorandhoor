@@ -7,7 +7,7 @@ import { DEVELOPER_FAQS } from "@/components/sections/developers/developersData"
 
 const FAQ_PRESETS = {
   home: {
-    description: "Find answers to common questions about Noor & Hoor",
+    description: "Clear answers to help you move forward with confidence.",
     items: [
       {
         question: "Are your real estate agents fully licensed?",
@@ -113,37 +113,38 @@ const FAQ_PRESETS = {
     ],
   },
   sell: {
-    description: "Frequently asked questions for property sellers",
+    description:
+      "Find quick answers to the most common questions about selling your property in the UAE.",
     items: [
-      {
-        question: "How do I determine the value of my property?",
-        answer:
-          "We use recent transactions, local demand, condition, and comparable listings to provide an accurate valuation.",
-      },
       {
         question: "How long does it take to sell a property?",
         answer:
-          "Timelines vary by location, pricing, and demand. Well-priced properties can attract buyers within weeks.",
+          "Timelines vary based on property type, location, and pricing, but our team works to keep the process moving as quickly as possible.",
       },
       {
         question: "What documents do I need to sell?",
         answer:
-          "Usually a title deed, Emirates ID or passport, NOC, service-charge clearance, and tenancy details if occupied.",
+          "You'll typically need your Emirates ID or passport, title deed, and NOC from the developer (if applicable). We'll guide you through the exact requirements for your property.",
       },
       {
-        question: "Can I sell a property that has a mortgage?",
+        question: "Can I sell a property that still has a mortgage on it?",
         answer:
-          "Yes. We coordinate liability clearance with the bank and settlement during transfer.",
+          "Yes, mortgaged properties can be sold. The outstanding loan is typically settled as part of the transaction process before transfer.",
       },
       {
-        question: "What costs are involved in selling?",
+        question: "How much commission do you charge?",
         answer:
-          "Common costs include commission, trustee and transfer fees, service charges, and mortgage liabilities.",
+          "Our commission structure is discussed and agreed upon during your initial consultation, based on your property and requirements.",
       },
       {
-        question: "Should I renovate before selling?",
+        question: "When do I receive the sale proceeds?",
         answer:
-          "Light improvements may help, but we advise based on buyer demand and expected return.",
+          "Proceeds are typically released once the transfer is completed and all conditions of the sale agreement are met.",
+      },
+      {
+        question: "Can I cancel the listing if I change my mind?",
+        answer:
+          "Yes, you can discuss cancelling or pausing your listing with our team at any time before a binding agreement is signed.",
       },
     ],
   },
@@ -153,7 +154,8 @@ const FAQ_PRESETS = {
   },
   developers: {
     title: "FAQs",
-    description: "Doing solid-time analysis for semantic investments",
+    description:
+      "Find quick answers about our trusted developers, projects, and investment opportunities.",
     items: DEVELOPER_FAQS,
   },
 };

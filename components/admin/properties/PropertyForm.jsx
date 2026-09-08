@@ -11,6 +11,7 @@ import AdminSplash from "@/components/admin/ui/AdminSplash";
 import EmptyState from "@/components/admin/ui/EmptyState";
 import {
   CheckboxField,
+  DateField,
   SelectField,
   TextArea,
   TextField,
@@ -448,15 +449,14 @@ function PropertyEditor({
                       setField("paymentInstallments", event.target.value)
                     }
                   />
-                  <TextField
+                  <DateField
                     id="property-payment-start"
                     label="First installment date"
-                    type="date"
                     value={form.paymentStartDate}
                     onChange={(event) =>
                       setField("paymentStartDate", event.target.value)
                     }
-                    hint="Optional. Defaults to next month."
+                    hint="Optional. Defaults to next month. Past dates are disabled."
                   />
                 </div>
               </div>
@@ -625,13 +625,12 @@ function PropertyEditor({
               options={PROPERTY_STATUSES}
               tooltip="Available and for sale listings are public. Reserved stays visible. Sold is hidden from public pages."
             />
-            <TextField
+            <DateField
               id="property-listed-at"
               label="Listed date"
-              type="date"
               value={form.listedAt}
               onChange={(event) => setField("listedAt", event.target.value)}
-              hint="Drives the “listed ago” tag and off-plan listed date."
+              hint="Drives the “listed ago” tag and off-plan listed date. Past dates are disabled."
               tooltip="Used for sorting recent listings and the listed-ago label on the detail page."
             />
           </div>

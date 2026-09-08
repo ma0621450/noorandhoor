@@ -8,52 +8,97 @@ export const metadata = {
 
 const sections = [
   {
-    title: "Using This Website",
+    title: "Eligibility",
     paragraphs: [
-      "By accessing this website, you agree to these terms and conditions. If you do not agree, please stop using the website. You must use the website only for lawful purposes and must not interfere with its operation or security.",
+      "You must be at least 18 years old to use this website or submit an enquiry to us. By using this site, you confirm that you meet this requirement.",
     ],
   },
   {
-    title: "Property Information",
+    title: "Your Acceptance of These Terms",
     paragraphs: [
-      "Property listings, prices, sizes, availability, payment plans, images, and descriptions are provided for general information. They may be supplied by owners, landlords, developers, or other third parties and may change without notice.",
-      "While we aim to keep information accurate, you should independently verify material details before making a decision, signing a document, or transferring funds. Website content does not constitute legal, financial, tax, or investment advice.",
+      "Continuing to browse this site means you're on board with everything below, if not, it's best to step away. This platform is meant for lawful use only, and any attempt to disrupt, hack, or interfere with it is off limits.",
+    ],
+  },
+  {
+    title: "About Our Listings",
+    paragraphs: [
+      "Pricing, square footage, availability, payment structures, photos, and descriptions are shared as general reference points. Since much of this comes from owners, landlords, developers, or outside sources, it can change without warning.",
+      "We do our best to keep everything current, but always double-check the important details yourself before signing anything or sending money. Nothing published here should be treated as legal, tax, or financial advice, or as an official property valuation.",
     ],
   },
   {
     title: "Enquiries and Transactions",
     paragraphs: [
-      "Submitting an enquiry does not reserve a property or create a binding agreement. Any property transaction is subject to availability, identity and compliance checks, agreed documentation, and the terms signed by the relevant parties.",
+      "Reaching out to us doesn't hold a property for you or create any formal commitment. Every deal is subject to availability, identity checks, compliance review, signed paperwork, and terms both parties agree to directly.",
     ],
   },
   {
-    title: "Intellectual Property",
-    paragraphs: [
-      "The website design, branding, text, graphics, and other original content belong to Noor & Hoor Properties or are used with permission. You may view and print content for personal, non-commercial use, but you may not reproduce, distribute, modify, or commercially exploit it without prior written permission.",
+    title: "Prohibited Uses",
+    paragraphs: ["You agree not to use this website to:"],
+    items: [
+      "Break any applicable law or regulation.",
+      "Submit false, misleading, or fraudulent information.",
+      "Scrape, mine, or extract data from the site using automated tools.",
+      "Upload viruses, malware, or any code intended to disrupt the site.",
+      "Attempt to gain unauthorized access to any part of the site or its systems.",
+      "Harass, impersonate, or misrepresent your identity to us or others.",
+    ],
+    paragraphsAfter: [
+      "We reserve the right to suspend or terminate access for anyone who violates these terms.",
     ],
   },
   {
-    title: "Third-Party Links",
+    title: "Content Rights & Usage",
     paragraphs: [
-      "This website may contain links to third-party websites or services. These links are provided for convenience. We do not control and are not responsible for third-party content, availability, security, or privacy practices.",
+      "The look, branding, wording, and visuals on this website either belong to Noor & Hoor Properties or are used with proper permission. Feel free to view or print material for your own personal use, anything beyond that, like copying, sharing, editing, or commercial use, needs our written sign-off first.",
+    ],
+  },
+  {
+    title: "Third Party Links",
+    paragraphs: [
+      "Occasionally you'll spot links to other websites while browsing here, added purely for your convenience. We have no control over, and take no responsibility for, what happens on those external sites.",
+    ],
+  },
+  {
+    title: "Service Availability",
+    paragraphs: [
+      "We aim to keep this website running smoothly but don't guarantee it will always be available, uninterrupted, or error free. We may update, suspend, or modify the site or its content at any time, including for maintenance, without prior notice.",
     ],
   },
   {
     title: "Limitation of Liability",
     paragraphs: [
-      "To the fullest extent permitted by applicable law, Noor & Hoor Properties is not liable for indirect or consequential loss arising from use of, or reliance on, this website. Nothing in these terms excludes liability that cannot legally be excluded.",
+      "To whatever extent the law allows, Noor & Hoor Properties isn't liable for indirect or secondary losses connected to using or relying on this site. That said, nothing here overrides liability that can't legally be waived.",
     ],
   },
   {
-    title: "Changes to These Terms",
+    title: "Compensation",
     paragraphs: [
-      "We may update these terms to reflect changes to the website, our services, or applicable requirements. Updated terms take effect when published on this page. Last updated: 15 August 2026.",
+      "You agree to protect Noor & Hoor Properties from any claims or demands resulting from your misuse of this website or violation of these Terms.",
     ],
   },
   {
-    title: "Contact",
+    title: "Governing Law",
     paragraphs: [
-      "Questions about these terms can be sent to Admin@noorandhoorproperties.com or discussed with our team by calling +971 52 693 8886.",
+      "This website and your use of it fall under UAE law, and any legal disputes will be handled through the courts of Dubai.",
+    ],
+  },
+  {
+    title: "Severability",
+    paragraphs: [
+      "If any part of these Terms is found invalid or unenforceable, that part will be removed or limited to the minimum extent necessary, and the rest of the Terms will remain in full effect.",
+    ],
+  },
+  {
+    title: "Policy Updates",
+    paragraphs: [
+      "We may revise this page from time to time to reflect updates to our site, services, or legal requirements. Any changes take effect the moment they're published here. Last updated: 15 August 2026.",
+    ],
+  },
+  {
+    title: "Get In Touch",
+    paragraphs: [
+      "Got a question about these terms? Email us at Admin@noorandhoorproperties.com or give us a call at +971 52 693 8886, we're happy to walk you through it.",
     ],
   },
 ];
@@ -63,7 +108,7 @@ export default function TermsAndConditionsPage() {
     <InfoPage
       eyebrow="Legal"
       title="Terms & Conditions"
-      introduction="These terms govern your use of the Noor & Hoor Properties website and the information made available through it."
+      introduction="This page outlines the rules for browsing Noor & Hoor Properties online and using the property details we share here. By accessing or using this website, you confirm that you meet the eligibility requirements below and agree to be bound by these Terms."
       sections={sections}
     />
   );

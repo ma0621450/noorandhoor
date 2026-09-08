@@ -6,9 +6,9 @@ export const CONTACT_AGENTS = [
   {
     id: "shakeeb",
     role: "General Manager",
-    name: "Shakeeb Ahmad Khan",
+    name: "Shakeeb Ahmed Khan",
     image: team2,
-    bio: "Shakeeb expertly manages our daily brokerage operations, ensuring seamless client experiences and market-leading results across Dubai's luxury property landscape.",
+    bio: "Shakeeb directs daily operations, supports agent teams, streamlines sales workflows, and manages complex property deals while maintaining full DLD compliance.",
     email: "Shakeeb@noorandhoorproperties.com",
   },
   {
@@ -16,7 +16,7 @@ export const CONTACT_AGENTS = [
     role: "Telecaller",
     name: "Ayesha Saleem",
     image: team3,
-    bio: "Ayesha is the first point of contact for inquiries, connecting clients with the right specialists and ensuring every call receives prompt, professional attention.",
+    bio: "Ayesha is our frontline client relations expert, identifying premium buyer needs, qualifying investor leads, and connecting clients with the right consultants.",
     email: "Admin@noorandhoorproperties.com",
   },
   {
@@ -24,14 +24,14 @@ export const CONTACT_AGENTS = [
     role: "Off-Plan Officer",
     name: "Usman Sarwar",
     image: team4,
-    bio: "Usman specializes in Dubai's fast-moving off-plan market, guiding investors through launches, payment plans, and developer portfolios with clarity and confidence.",
+    bio: "Usman specializes in Dubai's off-plan market, analyzing ROI projections and using elite developer ties to guide investors toward exclusive pre-launch assets.",
     email: "Admin@noorandhoorproperties.com",
   },
 ];
 
 export const CONTACT_INFO = {
   intro:
-    "Whether you are buying, selling, or exploring off-plan opportunities, our team is ready to guide you with clarity and discretion.",
+    "Have questions about buying, selling, renting, or investing in Dubai? Talk to our experts for reliable guidance and support tailored to your needs.",
   phone: "+971 52 693 8886",
   phoneHref: "tel:+971526938886",
   whatsappHref: "https://wa.me/971526938886",

@@ -140,15 +140,24 @@ export default function BlogListing({
 
         <div className="mt-16 rounded-2xl bg-[#171717] px-6 py-10 text-center sm:px-10 sm:py-12">
           <h2 className="text-gold-gradient text-3xl sm:text-4xl">
-            Talk Through Your Next Move
+            Want Market Updates Delivered To You?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/70">
-            Looking for advice on a community, launch, or investment? Our team
-            can help you turn these insights into a clear plan.
+            Subscribe to get the latest property trends, price updates, and
+            expert tips, straight to your inbox.
           </p>
-          <Button href={CONTACT_FORM_HREF} className="mt-7 px-7 py-3 text-sm">
-            Contact Our Team
-          </Button>
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button href="#newsletter" className="px-7 py-3 text-sm">
+              Subscribe to Newsletter
+            </Button>
+            <Button
+              href={CONTACT_FORM_HREF}
+              variant="secondary"
+              className="px-7 py-3 text-sm"
+            >
+              Talk to a Specialist
+            </Button>
+          </div>
         </div>
       </section>
     </div>

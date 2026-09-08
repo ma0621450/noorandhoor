@@ -61,6 +61,7 @@ export default function CategoryListingPage({
         filterPrefix={category.filterPrefix}
         listingPath={category.path}
         trustSignals={category.trustSignals}
+        actions={category.heroActions}
       />
       <PropertyGrid
         category={category}

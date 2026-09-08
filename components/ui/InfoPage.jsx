@@ -36,6 +36,9 @@ export default function InfoPage({ eyebrow, title, introduction, sections }) {
                       ))}
                     </ul>
                   )}
+                  {section.paragraphsAfter?.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
                 </div>
               </section>
             ))}

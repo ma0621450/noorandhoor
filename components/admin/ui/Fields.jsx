@@ -1,11 +1,19 @@
 "use client";
 
-import { Info } from "lucide-react";
+import { Calendar, Info } from "lucide-react";
 import { Select } from "@/components/ui/Select";
 import { cx } from "@/lib/admin/utils";
 
 const FIELD =
   "w-full rounded-xl border border-white/10 bg-[#171717] px-3 py-2.5 text-sm text-white outline-none transition placeholder:text-white/35 focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
+
+function todayISO() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 function FieldTooltip({ text }) {
   if (!text) return null;
@@ -60,6 +68,63 @@ export function TextField({
   return (
     <FieldShell id={id} label={label} hint={hint} error={error} tooltip={tooltip}>
       <input id={id} className={cx(FIELD, className)} {...props} />
+    </FieldShell>
+  );
+}
+
+export function DateField({
+  id,
+  label,
+  hint,
+  error,
+  tooltip,
+  className = "",
+  disablePast = true,
+  min,
+  ...props
+}) {
+  const minDate = min ?? (disablePast ? todayISO() : undefined);
+
+  function openPicker(event) {
+    const input = event.currentTarget
+      .closest("[data-date-field]")
+      ?.querySelector('input[type="date"]');
+    if (!input) return;
+    if (typeof input.showPicker === "function") {
+      try {
+        input.showPicker();
+      } catch {
+        input.focus();
+      }
+    } else {
+      input.focus();
+    }
+  }
+
+  return (
+    <FieldShell id={id} label={label} hint={hint} error={error} tooltip={tooltip}>
+      <div data-date-field className="relative">
+        <input
+          id={id}
+          type="date"
+          min={minDate}
+          className={cx(
+            FIELD,
+            "pr-11 [color-scheme:dark] [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0",
+            className,
+          )}
+          {...props}
+        />
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-label="Open calendar"
+          onClick={openPicker}
+          className="absolute right-3 top-1/2 z-[1] -translate-y-1/2 text-[#eec876] transition hover:text-white"
+        >
+          <Calendar className="h-4 w-4" strokeWidth={1.8} />
+        </button>
+      </div>
     </FieldShell>
   );
 }

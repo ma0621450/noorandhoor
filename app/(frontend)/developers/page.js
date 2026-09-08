@@ -12,7 +12,7 @@ import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCt
 export const metadata = {
   title: "Developers | Noor and Hoor",
   description:
-    "Explore trusted UAE property developers, compare portfolios, and invest in premier off-plan and luxury projects with Noor and Hoor.",
+    "Meet the trusted developers building landmark communities, luxury residences, and the UAE's highest value opportunities.",
 };
 
 export default function DevelopersPage() {

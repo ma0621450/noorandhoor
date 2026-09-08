@@ -24,13 +24,14 @@ export default function DevelopersChoice() {
             Beyond Concrete
           </p>
           <h2 className="text-gold-gradient text-left text-[clamp(1.75rem,4vw,2.875rem)] leading-[1.3]">
-            Why Your Choice of Developer Defines Your Investment ROI
+            Why Our Developers Deserve Your Trust
           </h2>
           <div className="h-px w-12 bg-[#E9C349]" />
           <p className="text-base font-medium leading-[26px] text-[#F5F5F5]">
-            Not all UAE properties are created equal. Selecting a reputable
-            developer influences everything from build quality and resale value
-            to project completion timelines and long-term appreciation.
+            We check every developer&apos;s history, build quality, and financial
+            background before adding them to our platform. If they don&apos;t meet
+            our standards, we don&apos;t list them. So every developer you see here
+            is one we truly trust.
           </p>
         </div>
 

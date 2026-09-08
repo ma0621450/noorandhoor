@@ -47,8 +47,13 @@ const PRESETS = {
   home: {
     title: "Explore Your Dream Property in UAE",
     description:
-      "Your trusted UAE real estate firm offering expert guidance for property buying, selling, and investment.",
+      "Your trusted UAE real estate firm offers expert guidance for property buying, selling, and investment.",
     features: HOME_FEATURES,
+    trustSignals: [
+      { icon: starIcon, lines: ["25+", "Trusted Developer Partners"] },
+      { icon: securityIcon, lines: ["800+", "Keys Handed Over"] },
+      { icon: googleLogo, lines: ["90%", "Repeat & Referral Clients"] },
+    ],
   },
   buy: {
     title: "Build Your Future on the UAE's Prime Real Estate",
@@ -71,23 +76,75 @@ const PRESETS = {
     ],
   },
   sell: {
-    title: "Your Dream Luxury Home Awaits in UAE",
+    title: "Turn Your UAE Property Into Your Next Smart Move",
     description:
-      "Curated collection of the world's most prestigious properties. Experience unparalleled luxury and timeless elegance.",
+      "A trusted network of serious buyers, expert pricing insight, and a seamless process from listing to sale.",
+    actions: [
+      {
+        label: "Book Free Consultation",
+        variant: "outline",
+        href: CONTACT_FORM_HREF,
+      },
+      {
+        label: "List Your Property",
+        variant: "primary",
+        href: CONTACT_FORM_HREF,
+      },
+    ],
+    trustSignals: [
+      { icon: starIcon, lines: ["30", "Days to Sell"] },
+      { icon: securityIcon, lines: ["400+", "Properties Sold"] },
+      { icon: googleLogo, lines: ["95%", "Seller Satisfaction Rate"] },
+    ],
   },
   offplan: {
-    title: "Off Plan Properties in UAE",
+    title: "Discover Off-Plan Opportunities in UAE",
     description:
-      "Off-plan properties in the UAE are real estate developments purchased directly from developers before construction is completed.",
+      "Buy directly from trusted developers, secure flexible payment plans, and invest in tomorrow's most popular locations before they're built.",
+    actions: [
+      {
+        label: "View Off-Plan Projects",
+        variant: "primary",
+        href: "/off-plan/apartments",
+      },
+      {
+        label: "Book Free Consultation",
+        variant: "outline",
+        href: CONTACT_FORM_HREF,
+      },
+    ],
+    trustSignals: [
+      { icon: starIcon, lines: ["50+", "Off-Plan Projects Available"] },
+      { icon: securityIcon, lines: ["1–8 Years", "Flexible Payment Plans"] },
+      { icon: googleLogo, lines: ["15%", "Average Booking Deposit"] },
+    ],
   },
   developers: {
-    title: "Navigate the UAE's Real Estate Architects",
-    description: "Explore trusted property developers and premier investments.",
+    title: "Discover the Names Behind the UAE's Most Iconic Developments",
+    description:
+      "Meet the trusted developers building landmark communities, luxury residences, and the UAE's highest value opportunities.",
+    actions: [
+      {
+        label: "Book Free Consultation",
+        variant: "outline",
+        href: CONTACT_FORM_HREF,
+      },
+      {
+        label: "Request Developer Portfolio",
+        variant: "primary",
+        href: CONTACT_FORM_HREF,
+      },
+    ],
+    trustSignals: [
+      { icon: starIcon, lines: ["75+", "Trusted Developers"] },
+      { icon: securityIcon, lines: ["150+", "Iconic Projects Delivered"] },
+      { icon: googleLogo, lines: ["20+", "Years of Development Expertise"] },
+    ],
   },
   contact: {
     title: "Contact Us",
     description:
-      "Get in touch with Noor and Hoor Properties. Speak with our team in Dubai about buying, selling, renting, or investing.",
+      "Have questions about buying, selling, renting, or investing in Dubai? Talk to our experts for reliable guidance and support tailored to your needs.",
     actions: [
       {
         label: "Send a Message",
@@ -100,16 +157,43 @@ const PRESETS = {
         href: CONTACT_INFO.phoneHref,
       },
     ],
+    trustSignals: [
+      { icon: starIcon, lines: ["UAE-Wide", "Property Expertise"] },
+      { icon: securityIcon, lines: ["500+", "Successful Transactions"] },
+      { icon: googleLogo, lines: ["1,000+", "Properties Handled"] },
+    ],
   },
   about: {
     title: "About Us",
     description:
-      "Noor & Hoor Properties connects clients with exceptional real estate opportunities across Dubai, with local knowledge and personal service.",
+      "Noor & Hoor Properties opens doors across the UAE, pairing sharp market insight with honest, personal guidance on every property journey.",
+    trustSignals: [
+      { icon: starIcon, lines: ["10+", "Years Combined Team Experience"] },
+      { icon: securityIcon, lines: ["500+", "Properties Successfully Listed"] },
+      { icon: googleLogo, lines: ["25+", "Verified Developer Partnerships"] },
+    ],
   },
   blog: {
-    title: "Blog & Latest News",
+    title: "Blogs & Insights That Keep You Ahead",
     description:
-      "Market updates, investment guidance, and neighbourhood insight from the Noor & Hoor Properties team.",
+      "Stay ahead with the latest market trends, buying tips, and neighbourhood guides from Noor & Hoor Properties.",
+    actions: [
+      {
+        label: "Book Free Consultation",
+        variant: "outline",
+        href: CONTACT_FORM_HREF,
+      },
+      {
+        label: "Explore All Articles",
+        variant: "primary",
+        href: "/blog",
+      },
+    ],
+    trustSignals: [
+      { icon: starIcon, lines: ["50+", "Neighbourhoods Covered"] },
+      { icon: securityIcon, lines: ["Weekly", "New Market Updates"] },
+      { icon: googleLogo, lines: ["10K+", "Monthly Readers"] },
+    ],
   },
 };
 
