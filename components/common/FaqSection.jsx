@@ -114,7 +114,7 @@ const FAQ_PRESETS = {
   },
   sell: {
     description:
-      "Find quick answers to the most common questions about selling your property in the UAE.",
+      "Find quick answers to common questions about selling your property in the UAE.",
     items: [
       {
         question: "How long does it take to sell a property?",

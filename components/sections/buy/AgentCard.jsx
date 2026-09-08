@@ -52,7 +52,6 @@ export default function AgentCard() {
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-[#f5f5f5]">
           <span className="inline-flex items-center gap-1">
-            <Star className="h-4 w-4 fill-[#ba8a44] text-[#ba8a44]" />
             Market Insights
           </span>
           <span className="text-[#6a7282]">|</span>
