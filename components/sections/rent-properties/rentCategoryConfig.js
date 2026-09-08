@@ -76,10 +76,10 @@ export const RENT_CATEGORIES = {
     heading: "Properties",
     heroTitle: "Find A Rental That Feels Like Home In The UAE",
     heroDescription:
-      "Looking for a place to call home without the long-term commitment? Explore verified rental apartments across the UAE, chosen to match your lifestyle, budget, and location needs.",
+      " Looking for a home without a long term commitment? Explore verified rental apartments across the UAE, matched to your lifestyle, budget, and preferred location.",
     metaTitle: "Properties Rent | Noor and Hoor",
     metaDescription:
-      "Looking for a place to call home without the long-term commitment? Explore verified rental apartments across the UAE, chosen to match your lifestyle, budget, and location needs.",
+      " Looking for a home without a long term commitment? Explore verified rental apartments across the UAE, matched to your lifestyle, budget, and preferred location.",
     ctaHeading: "Ready to Find a Rental Property You'll Actually Love?",
     ctaDescription:
       "Let us help you secure the perfect rental property quickly, easily, and with complete peace of mind.",
