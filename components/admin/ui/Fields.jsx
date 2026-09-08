@@ -79,7 +79,7 @@ export function DateField({
   error,
   tooltip,
   className = "",
-  disablePast = true,
+  disablePast = false,
   min,
   ...props
 }) {
