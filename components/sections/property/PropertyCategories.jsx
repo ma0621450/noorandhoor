@@ -103,7 +103,7 @@ export default function PropertyCategories({ market = "buy" }) {
         <h3 className="section-sub-heading !text-[#B3813D]">{copy.eyebrow}</h3>
         <h2 className="text-gold-gradient">{copy.title}</h2>
         <div className="section-divider" />
-        <p className="max-w-[346px] text-sm text-[#f5f5f5] md:text-base">
+        <p className="max-w-[365px] text-sm text-[#f5f5f5] md:text-base">
           {copy.description}
         </p>
       </div>

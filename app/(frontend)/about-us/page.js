@@ -24,7 +24,7 @@ const values = [
   },
   {
     icon: KeyRound,
-    title: "Stress Free Process",
+    title: "Smooth Process",
     description:
       "From property selection to paperwork, we keep every step simple and clear.",
   },
@@ -62,8 +62,8 @@ export default function AboutUsPage() {
               <h2 className="text-gold-gradient text-3xl sm:text-4xl">Our Approach</h2>
               <p className="mt-5 text-sm leading-7 text-white/75 sm:text-base">
                 Every client&apos;s goals come first. We combine deep market knowledge
-                with personalized attention, guiding decisions that align with both
-                immediate needs and long term investment plans.
+                with personal attention to guide decisions that meet immediate needs
+                and long term investment goals.
               </p>
             </div>
           </div>
