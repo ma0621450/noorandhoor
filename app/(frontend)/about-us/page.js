@@ -26,7 +26,7 @@ const values = [
     icon: KeyRound,
     title: "Smooth Process",
     description:
-      "From property selection to paperwork, we keep every step simple and clear.",
+      "From property selection to paperwork, we make the process smooth, simple, and easy.",
   },
 ];
 

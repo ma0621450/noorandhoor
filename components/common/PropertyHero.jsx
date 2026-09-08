@@ -66,7 +66,7 @@ const PRESETS = {
     ],
   },
   rent: {
-    title: "Your Trusted Partner for Renting Property in the UAE",
+    title: "Your Trusted Partner for Renting Property in UAE",
     description:
       "We connect you with verified landlords and quality rentals across the UAE, making renting simple and stress-free.",
     trustSignals: [
