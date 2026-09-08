@@ -1,3 +1,4 @@
+import PropertyHero from "@/components/common/PropertyHero";
 import InfoPage from "@/components/ui/InfoPage";
 
 export const metadata = {
@@ -105,11 +106,13 @@ const sections = [
 
 export default function TermsAndConditionsPage() {
   return (
-    <InfoPage
-      eyebrow="Legal"
-      title="Terms & Conditions"
-      introduction="This page outlines the rules for browsing Noor & Hoor Properties online and using the property details we share here. By accessing or using this website, you confirm that you meet the eligibility requirements below and agree to be bound by these Terms."
-      sections={sections}
-    />
+    <>
+      <PropertyHero variant="terms" />
+      <InfoPage
+        withHero
+        introduction="By accessing or using this website, you confirm that you meet the eligibility requirements below and agree to be bound by these Terms."
+        sections={sections}
+      />
+    </>
   );
 }

@@ -8,10 +8,7 @@ import HeroFilters from "@/components/common/HeroFilters";
 import HeroBackgroundCarousel, {
   HeroCarouselDots,
 } from "@/components/ui/HeroBackgroundCarousel";
-import {
-  CONTACT_FORM_HREF,
-  CONTACT_INFO,
-} from "@/components/sections/contact/contactData";
+import { CONTACT_INFO } from "@/components/sections/contact/contactData";
 import { buildPropertyFilterFields } from "@/lib/listingFilters";
 
 const STANDARD_TRUST_SIGNALS = [
@@ -21,11 +18,6 @@ const STANDARD_TRUST_SIGNALS = [
 ];
 
 const DEFAULT_ACTIONS = [
-  {
-    label: "Book Free Consultation",
-    variant: "outline",
-    href: CONTACT_FORM_HREF,
-  },
   { label: "Investment Guide", variant: "primary" },
 ];
 
@@ -79,18 +71,6 @@ const PRESETS = {
     title: "Turn Your UAE Property Into Your Next Smart Move",
     description:
       "A trusted network of serious buyers, expert pricing insight, and a seamless process from listing to sale.",
-    actions: [
-      {
-        label: "Book Free Consultation",
-        variant: "outline",
-        href: CONTACT_FORM_HREF,
-      },
-      {
-        label: "List Your Property",
-        variant: "primary",
-        href: CONTACT_FORM_HREF,
-      },
-    ],
     trustSignals: [
       { icon: starIcon, lines: ["30", "Days to Sell"] },
       { icon: securityIcon, lines: ["400+", "Properties Sold"] },
@@ -101,18 +81,6 @@ const PRESETS = {
     title: "Discover Off-Plan Opportunities in UAE",
     description:
       "Buy directly from trusted developers, secure flexible payment plans, and invest in tomorrow's most popular locations before they're built.",
-    actions: [
-      {
-        label: "View Off-Plan Projects",
-        variant: "primary",
-        href: "/off-plan/apartments",
-      },
-      {
-        label: "Book Free Consultation",
-        variant: "outline",
-        href: CONTACT_FORM_HREF,
-      },
-    ],
     trustSignals: [
       { icon: starIcon, lines: ["50+", "Off-Plan Projects Available"] },
       { icon: securityIcon, lines: ["1–8 Years", "Flexible Payment Plans"] },
@@ -123,18 +91,6 @@ const PRESETS = {
     title: "Discover the Names Behind the UAE's Most Iconic Developments",
     description:
       "Meet the trusted developers building landmark communities, luxury residences, and the UAE's highest value opportunities.",
-    actions: [
-      {
-        label: "Book Free Consultation",
-        variant: "outline",
-        href: CONTACT_FORM_HREF,
-      },
-      {
-        label: "Request Developer Portfolio",
-        variant: "primary",
-        href: CONTACT_FORM_HREF,
-      },
-    ],
     trustSignals: [
       { icon: starIcon, lines: ["75+", "Trusted Developers"] },
       { icon: securityIcon, lines: ["150+", "Iconic Projects Delivered"] },
@@ -142,7 +98,7 @@ const PRESETS = {
     ],
   },
   contact: {
-    title: "Contact Us",
+    title: "Get in touch with our experts.",
     description:
       "Have questions about buying, selling, renting, or investing in Dubai? Talk to our experts for reliable guidance and support tailored to your needs.",
     actions: [
@@ -179,14 +135,9 @@ const PRESETS = {
       "Stay ahead with the latest market trends, buying tips, and neighbourhood guides from Noor & Hoor Properties.",
     actions: [
       {
-        label: "Book Free Consultation",
-        variant: "outline",
-        href: CONTACT_FORM_HREF,
-      },
-      {
         label: "Explore All Articles",
         variant: "primary",
-        href: "/blog",
+        href: "#blog-listings",
       },
     ],
     trustSignals: [
@@ -194,6 +145,18 @@ const PRESETS = {
       { icon: securityIcon, lines: ["Weekly", "New Market Updates"] },
       { icon: googleLogo, lines: ["10K+", "Monthly Readers"] },
     ],
+  },
+  privacy: {
+    title: "Privacy Policy",
+    description:
+      "Here's how Noor & Hoor Properties handles your personal data, why we collect it, and the control you have over it.",
+    actions: [],
+  },
+  terms: {
+    title: "Terms & Conditions",
+    description:
+      "The rules for browsing Noor & Hoor Properties online and using the property details we share here.",
+    actions: [],
   },
 };
 
@@ -239,9 +202,11 @@ export default function PropertyHero({
     fields ||
     (PROPERTY_FILTER_VARIANTS.has(variant) ? buildPropertyFilterFields() : []);
   const resolvedActions =
-    actions?.length || preset.actions?.length
-      ? actions || preset.actions
-      : DEFAULT_ACTIONS;
+    actions !== undefined
+      ? actions
+      : preset.actions !== undefined
+        ? preset.actions
+        : DEFAULT_ACTIONS;
   const resolvedTrustSignals =
     trustSignals?.length || preset.trustSignals?.length
       ? trustSignals || preset.trustSignals

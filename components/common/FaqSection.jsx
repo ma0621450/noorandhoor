@@ -43,7 +43,7 @@ const FAQ_PRESETS = {
   },
   buy: {
     description:
-      "Got questions about buying property directly from us? We've got answers to help you decide with confidence.",
+      "Got questions about buying property directly from us?\nWe've got answers to help you decide with confidence.",
     items: [
       {
         question: "Do I need to be in the UAE to buy?",
@@ -216,7 +216,7 @@ export default function FaqSection({ variant = "home" }) {
         <p className="section-sub-heading">Frequently Asked Questions</p>
         <h2 className="text-gold-gradient">{preset.title || "FAQs"}</h2>
         <div className="section-divider" />
-        <p className="max-w-3xl text-sm text-white/85 sm:text-base lg:text-lg">
+        <p className="max-w-3xl whitespace-pre-line text-sm text-white/85 sm:text-base lg:text-lg">
           {preset.description}
         </p>
       </div>

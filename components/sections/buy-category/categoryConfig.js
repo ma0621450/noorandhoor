@@ -76,7 +76,7 @@ export const BUY_CATEGORIES = {
       "Whether you're buying your first home or expanding your portfolio, discover UAE apartments that fit your vision and budget.",
     ctaHeading: "Ready to Find Your Ideal Apartment in the UAE?",
     ctaDescription:
-      "Browse our curated listings and book a free consultation, your perfect apartment is closer than you think.",
+      "Browse our curated listings and talk to our team — your perfect apartment is closer than you think.",
     trustSignals: trustSignals([
       ["15%+", "Average Annual ROI"],
       ["150+", "Happy Apartment Owners"],
@@ -124,7 +124,7 @@ export const BUY_CATEGORIES = {
       "More space, more privacy, more room to grow. Discover townhouses designed for families who want a home, not just an apartment.",
     ctaHeading: "Ready to Find Your Family's Next Home?",
     ctaDescription:
-      "Explore townhouses built for space and community, book a free consultation to get started.",
+      "Explore townhouses built for space and community, and talk to our team to get started.",
     trustSignals: trustSignals([
       ["13%+", "Average Annual ROI"],
       ["200+", "Families Settled"],
@@ -172,7 +172,7 @@ export const BUY_CATEGORIES = {
       "Unmatched views, private elevators, and space that redefines luxury. Discover penthouses built for those who expect nothing less than the best.",
     ctaHeading: "Ready to Own the View Everyone Else Is Chasing?",
     ctaDescription:
-      "Explore penthouses built for those who settle for nothing less, book a free consultation today.",
+      "Explore penthouses built for those who settle for nothing less, and talk to our team today.",
     trustSignals: trustSignals([
       ["18%+", "Average Annual ROI"],
       ["80+", "Penthouses Sold"],
@@ -220,7 +220,7 @@ export const BUY_CATEGORIES = {
       "Private gardens, extra space, and a neighborhood built for living, not just visiting. Discover villas designed for families who want room to grow.",
     ctaHeading: "Ready to Find Your Family's Forever Home?",
     ctaDescription:
-      "Explore villas built for space, privacy, and community, book a free consultation to get started.",
+      "Explore villas built for space, privacy, and community, and talk to our team to get started.",
     trustSignals: trustSignals([
       ["14%+", "Average Annual ROI"],
       ["250+", "Families Settled"],
@@ -268,7 +268,7 @@ export const BUY_CATEGORIES = {
       "Apartments, villas, townhouses, and penthouses, all under one roof. Discover a property that matches your goals, whichever type you're looking for.",
     ctaHeading: "Ready to Explore the UAE's Full Property Market?",
     ctaDescription:
-      "Search apartments, villas, townhouses, and more, book a free consultation to get started.",
+      "Search apartments, villas, townhouses, and more, and talk to our team to get started.",
     trustSignals: trustSignals([
       ["15%+", "Average Portfolio ROI"],
       ["1000+", "Properties Listed"],

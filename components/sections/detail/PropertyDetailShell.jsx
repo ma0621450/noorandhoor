@@ -22,6 +22,27 @@ import {
   relatedListingHomes,
 } from "@/lib/admin/propertyPublic";
 import { formatDisplayDate } from "@/lib/admin/utils";
+import { buildMapExternalUrl } from "@/lib/propertyMap";
+
+function detailJourneyCta(property, variant, heading) {
+  const mapHref = buildMapExternalUrl({
+    lat: property.map?.lat,
+    lng: property.map?.lng,
+    label: property.map?.label,
+    location: property.location,
+  });
+
+  return (
+    <PropertyJourneyCta
+      variant={variant}
+      heading={heading}
+      primaryLabel="Contact Agent"
+      primaryHref="/contact"
+      secondaryLabel="View Location on map"
+      secondaryHref={mapHref}
+    />
+  );
+}
 
 export default function PropertyDetailShell({
   variant = "buy",
@@ -85,10 +106,11 @@ export default function PropertyDetailShell({
           properties={related}
           heading={relatedHeading || "Explore Similar Offplan Properties"}
         />
-        <PropertyJourneyCta
-          variant="offplan"
-          heading="Ready to Start Your Holiday Property Journey?"
-        />
+        {detailJourneyCta(
+          property,
+          "offplan",
+          "Ready to Start Your Holiday Property Journey?",
+        )}
       </div>
     );
   }
@@ -106,7 +128,7 @@ export default function PropertyDetailShell({
         />
         <FaqSection variant="detail" />
         <DetailAgentContact />
-        <PropertyJourneyCta variant="buy" />
+        {detailJourneyCta(property, "buy")}
       </div>
     );
   }
@@ -125,7 +147,7 @@ export default function PropertyDetailShell({
       />
       <FaqSection variant="detail" />
       <DetailAgentContactRent />
-      <PropertyJourneyCta variant="detail" />
+      {detailJourneyCta(property, "detail")}
     </div>
   );
 }

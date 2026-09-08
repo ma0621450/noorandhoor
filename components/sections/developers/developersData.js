@@ -68,8 +68,8 @@ export const FEATURED_DEVELOPERS = [
   featuredDeveloper("Aldar", developer3, DEVELOPER_IMAGES[2]),
   featuredDeveloper("Azizi", developer4, DEVELOPER_IMAGES[3]),
   featuredDeveloper("Samana", developer5, DEVELOPER_IMAGES[4]),
-  featuredDeveloper("Omniyat", developer5, luxuryHome, "Request Portfolio"),
-  featuredDeveloper("Wasl", developer6, propertyImg, "Request Portfolio"),
+  featuredDeveloper("Omniyat", developer5, luxuryHome),
+  featuredDeveloper("Wasl", developer6, propertyImg),
   featuredDeveloper("Deyaar", developer1, DEVELOPER_IMAGES[5]),
   featuredDeveloper("Alain", developer2, DEVELOPER_IMAGES[6]),
 ];
@@ -139,6 +139,6 @@ export const DEVELOPER_FAQS = [
     id: 5,
     question: "How do I start working with a developer?",
     answer:
-      "Simply book a free consultation with our team. We'll understand your goals, budget, and preferences, then connect you with a developer and project that best matches your needs.",
+      "Reach out to our team. We'll understand your goals, budget, and preferences, then connect you with a developer and project that best matches your needs.",
   },
 ];
