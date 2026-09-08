@@ -22,7 +22,7 @@ export default function DeveloperCard({ developer }) {
             alt={name}
             fill
             sizes="206px"
-            className="object-contain"
+            className="object-cover"
           />
         </div>
 
