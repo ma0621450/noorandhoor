@@ -1,3 +1,4 @@
+import PropertyHero from "@/components/common/PropertyHero";
 import InfoPage from "@/components/ui/InfoPage";
 
 export const metadata = {
@@ -92,11 +93,13 @@ const sections = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <InfoPage
-      eyebrow="Legal"
-      title="Privacy Policy"
-      introduction="Here's how Noor & Hoor Properties handles your personal data, why we collect it, and the control you have over it. By using this website or submitting your information to us, you agree to the practices described below. Noor & Hoor Properties acts as the controller of your personal data for all purposes described in this policy."
-      sections={sections}
-    />
+    <>
+      <PropertyHero variant="privacy" />
+      <InfoPage
+        withHero
+        introduction="By using this website or submitting your information to us, you agree to the practices described below. Noor & Hoor Properties acts as the controller of your personal data for all purposes described in this policy."
+        sections={sections}
+      />
+    </>
   );
 }

@@ -11,7 +11,13 @@ import {
 } from "@/lib/rentalCostCalculator";
 
 const FIELD_CLASS =
-  "h-11 w-full rounded-lg border border-[#d1d5dc]/70 bg-[#111] px-4 text-sm text-[#f5f5f5] outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
+  "h-[38px] w-full rounded border border-[#d1d5dc] bg-transparent px-4 text-sm text-[#f5f5f5] outline-none transition focus:border-[#ba8a44] focus:ring-1 focus:ring-[#ba8a44]/40";
+
+const COST_TIPS = [
+  "Security deposits are usually 5% of the annual rent for unfurnished homes.",
+  "Agency fees are typically charged once at move-in, not every month.",
+  "More cheques can ease cash flow, but some landlords prefer fewer payments.",
+];
 
 export default function RentalCostEstimator() {
   const [inputs, setInputs] = useState(DEFAULT_RENTAL_COST_INPUTS);
@@ -56,7 +62,7 @@ export default function RentalCostEstimator() {
             type="button"
             variant="secondary"
             onClick={() => setResult(null)}
-            className="h-12 w-full rounded-xl text-sm font-medium tracking-[1.2px]"
+            className="h-12 w-full !rounded-xl text-sm font-medium tracking-[1.2px]"
           >
             Recalculate
           </Button>
@@ -84,10 +90,10 @@ export default function RentalCostEstimator() {
         Select your rental details, then estimate total move-in cost.
       </p>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {RENTAL_COST_FIELDS.map((field) => (
-          <label key={field.key} className="flex flex-col gap-1.5">
-            <span className="text-xs font-medium uppercase tracking-[1.2px] text-[#f5f5f5]/55">
+          <label key={field.key} className="flex flex-col gap-1">
+            <span className="text-sm font-medium text-[#f5f5f5]">
               {field.label}
             </span>
             <Select
@@ -101,10 +107,29 @@ export default function RentalCostEstimator() {
         ))}
       </div>
 
+      <div className="mt-5 flex flex-1 flex-col justify-end">
+        <div className="rounded-xl border border-[#ba8a44]/35 bg-[#151515] p-4">
+          <p className="text-xs font-semibold uppercase tracking-[1.2px] text-[#eec876]">
+            Move-in tips
+          </p>
+          <ul className="mt-3 space-y-2.5">
+            {COST_TIPS.map((tip) => (
+              <li
+                key={tip}
+                className="flex gap-2 text-sm leading-5 text-[#f5f5f5]/75"
+              >
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ba8a44]" />
+                <span>{tip}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       <div className="mt-auto pt-6">
         <Button
           type="submit"
-          className="h-12 w-full rounded-xl text-sm font-medium tracking-[1.2px]"
+          className="h-12 w-full !rounded-xl text-sm font-medium tracking-[1.2px]"
         >
           Estimate Costs
         </Button>

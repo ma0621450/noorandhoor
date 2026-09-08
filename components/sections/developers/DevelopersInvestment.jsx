@@ -16,6 +16,7 @@ function formatAedShort(value) {
 
 export default function DevelopersInvestment() {
   const [amount, setAmount] = useState(DEFAULT);
+  const [showRoi, setShowRoi] = useState(false);
   const fill = ((amount - MIN) / (MAX - MIN)) * 100;
   const roi = amount * ROI_RATE;
 
@@ -34,7 +35,7 @@ export default function DevelopersInvestment() {
                 ROI Dynamic
               </h3>
               <p className="flex items-center gap-3 text-xs tracking-[1.2px] text-[#F5F5F5]">
-                [ SELECT INVESTMENT AMOUNT ]
+                SELECT INVESTMENT AMOUNT
                 <span className="text-2xl text-[#D6A85E]">→</span>
               </p>
 
@@ -45,7 +46,10 @@ export default function DevelopersInvestment() {
                   max={MAX}
                   step={100000}
                   value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value))}
+                  onChange={(e) => {
+                    setAmount(Number(e.target.value));
+                    setShowRoi(false);
+                  }}
                   aria-label="Investment amount"
                   className="h-1 w-full cursor-pointer appearance-none rounded-full [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#E9C349] [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#E9C349]"
                   style={{
@@ -59,16 +63,25 @@ export default function DevelopersInvestment() {
                 </div>
               </div>
 
-              <p className="text-center text-xs text-[#F5F5F5]">
-                Est. ROI:{" "}
-                <span className="text-[#E9C349]">{formatAedShort(roi)}</span> / year
-              </p>
+              {showRoi ? (
+                <p className="text-center text-xs text-[#F5F5F5]">
+                  Est. ROI:{" "}
+                  <span className="text-[#E9C349]">{formatAedShort(roi)}</span>{" "}
+                  / year
+                </p>
+              ) : (
+                <p className="text-center text-xs text-[#F5F5F5]/60">
+                  Click below to view projected ROI
+                </p>
+              )}
 
               <Button
                 variant="outline"
+                type="button"
+                onClick={() => setShowRoi(true)}
                 className="mx-auto h-[34px] min-h-0 rounded border-[#E9C349] px-6 text-xs tracking-[1.2px] text-[#E9C349]"
               >
-                [ View Projected ROI ]
+                View Projected ROI
               </Button>
             </div>
 

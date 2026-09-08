@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { CATEGORY_PILLS } from "@/components/sections/developers/developersData";
-import advisorImage from "@/public/images/buy/andrew-smith.png";
+import shakeebImage from "@/public/images/landingpage/team2.png";
 
 export default function DevelopersChoice() {
   return (
@@ -39,8 +39,8 @@ export default function DevelopersChoice() {
           <div className="overflow-hidden rounded-sm border border-[rgba(233,195,73,0.15)] bg-[#1C1B1B] p-2">
             <div className="relative aspect-square w-full overflow-hidden">
               <Image
-                src={advisorImage}
-                alt="Property advisor"
+                src={shakeebImage}
+                alt="Shakeeb Ahmed Khan"
                 fill
                 sizes="536px"
                 className="object-cover object-top"

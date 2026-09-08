@@ -94,7 +94,7 @@ export const OFF_PLAN_CATEGORIES = {
     ctaDescription:
       "Secure your apartment early, with flexible payment plans and pre-launch pricing before construction is complete.",
     heroActions: heroActions([
-      "Book Free Consultation",
+      "Investment Guide",
       "Talk to an Apartment Specialist",
     ]),
     trustSignals: trustSignals([
@@ -142,7 +142,7 @@ export const OFF_PLAN_CATEGORIES = {
     ctaDescription:
       "Secure your villa early, with flexible payment plans and the chance to customize your future home before it's built.",
     heroActions: heroActions([
-      "Book Free Consultation",
+      "Investment Guide",
       "Download Payment Plan Guide",
     ]),
     trustSignals: trustSignals([
@@ -178,7 +178,7 @@ export const OFF_PLAN_CATEGORIES = {
     ctaDescription:
       "Secure your commercial space early, with flexible payment plans and pre-launch pricing before construction is complete.",
     heroActions: heroActions([
-      "Book Free Consultation",
+      "Investment Guide",
       "Talk to a Commercial Specialist",
     ]),
     trustSignals: trustSignals([
@@ -214,7 +214,7 @@ export const OFF_PLAN_CATEGORIES = {
     ctaDescription:
       "Whether you're seeking a private sky sanctuary or a landmark investment, we connect you with penthouses still in the earliest, most exclusive stage of development.",
     heroActions: heroActions([
-      "Book Free Consultation",
+      "Investment Guide",
       "Talk to a Penthouse Specialist",
     ]),
     trustSignals: trustSignals([
@@ -250,7 +250,7 @@ export const OFF_PLAN_CATEGORIES = {
     ctaDescription:
       "Reserve your townhouse ahead of launch, with flexible payment plans and early pricing before construction begins.",
     heroActions: heroActions([
-      "Book Free Consultation",
+      "Investment Guide",
       "Talk to a Townhouse Specialist",
     ]),
     trustSignals: trustSignals([
@@ -284,9 +284,9 @@ export const OFF_PLAN_CATEGORIES = {
       "Everything you need to know about buying off-plan in the UAE, from payment plans to handover, plus featured properties to get you started.",
     ctaHeading: "Still Figuring Out How Off-Plan Works?",
     ctaDescription:
-      "Get clear answers on payment plans, handover timelines, and developer reliability with a free consultation before you commit to anything.",
+      "Get clear answers on payment plans, handover timelines, and developer reliability before you commit to anything.",
     heroActions: heroActions([
-      "Book Free Consultation",
+      "Investment Guide",
       "Talk to an off-plan specialist",
     ]),
     trustSignals: trustSignals([
