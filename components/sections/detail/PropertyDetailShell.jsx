@@ -37,9 +37,10 @@ function detailJourneyCta(property, variant, heading) {
       variant={variant}
       heading={heading}
       primaryLabel="Contact Agent"
-      primaryHref="/contact"
+      primaryHref="/contact#contact-form"
       secondaryLabel="View Location on map"
       secondaryHref={mapHref}
+      secondaryExternal
     />
   );
 }
@@ -106,7 +107,7 @@ export default function PropertyDetailShell({
           properties={related}
           heading={relatedHeading || "Explore Similar Offplan Properties"}
         />
-        {detailJourneyCta(
+        {detailJourneyCta( 
           property,
           "offplan",
           "Ready to Start Your Holiday Property Journey?",

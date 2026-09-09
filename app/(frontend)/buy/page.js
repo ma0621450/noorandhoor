@@ -39,7 +39,7 @@ export default function BuyPage() {
         description="Tell us what you're looking for, and our property experts will help you find the right opportunity within 24 hours."
         showAgent={true}
       />
-      <PropertyJourneyCta variant="buy" />
+      <PropertyJourneyCta variant="buy" secondaryExternal/>
     </>
   );
 }

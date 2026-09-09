@@ -148,15 +148,17 @@ const PRESETS = {
   },
   privacy: {
     title: "Privacy Policy",
-    description:
-      "Here's how Noor & Hoor Properties handles your personal data, why we collect it, and the control you have over it.",
+    description: "",
     actions: [],
+    trustSignals: [],
+    showDots: false,
   },
   terms: {
     title: "Terms & Conditions",
-    description:
-      "The rules for browsing Noor & Hoor Properties online and using the property details we share here.",
+    description: "",
     actions: [],
+    trustSignals: [],
+    showDots: false,
   },
 };
 
@@ -208,9 +210,9 @@ export default function PropertyHero({
         ? preset.actions
         : DEFAULT_ACTIONS;
   const resolvedTrustSignals =
-    trustSignals?.length || preset.trustSignals?.length
-      ? trustSignals || preset.trustSignals
-      : STANDARD_TRUST_SIGNALS;
+    "trustSignals" in preset
+      ? preset.trustSignals ?? []
+      : trustSignals ?? STANDARD_TRUST_SIGNALS;
 
   return (
     <section className="relative isolate z-20 w-full overflow-x-clip">
@@ -260,7 +262,7 @@ export default function PropertyHero({
           ) : null}
 
           <TrustSignals signals={resolvedTrustSignals} />
-          <HeroCarouselDots />
+          {preset.showDots !== false && <HeroCarouselDots />}
         </div>
       </HeroBackgroundCarousel>
     </section>

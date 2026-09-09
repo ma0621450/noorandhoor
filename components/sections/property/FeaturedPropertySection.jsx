@@ -22,7 +22,7 @@ export default function FeaturedPropertySection({
           {description ? (
             <p className="max-w-[640px] text-sm leading-relaxed text-white/75 sm:text-base">
               {description}
-            </p>
+            </p> 
           ) : null}
         </div>
 
