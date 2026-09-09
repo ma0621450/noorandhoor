@@ -107,10 +107,12 @@ const sections = [
 export default function TermsAndConditionsPage() {
   return (
     <>
-      <PropertyHero variant="terms" />
+      <PropertyHero 
+        variant="terms" 
+        description="This page outlines the rules for browsing Noor & Hoor Properties online and using the property details we share here. By accessing or using this website, you confirm that you meet the eligibility requirements below and agree to be bound by these Terms."
+      />
       <InfoPage
         withHero
-        introduction="By accessing or using this website, you confirm that you meet the eligibility requirements below and agree to be bound by these Terms."
         sections={sections}
       />
     </>

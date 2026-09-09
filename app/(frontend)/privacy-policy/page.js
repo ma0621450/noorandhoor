@@ -94,10 +94,12 @@ const sections = [
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <PropertyHero variant="privacy" />
+      <PropertyHero
+        variant="privacy"
+        description="This page explains how Noor & Hoor Properties collects, uses, and protects your personal data and the choices you have when it comes to your information. By using this website or submitting your information to us, you agree to the practices described below. Noor & Hoor Properties acts as the controller of your personal data for all purposes described in this policy."
+      />
       <InfoPage
         withHero
-        introduction="By using this website or submitting your information to us, you agree to the practices described below. Noor & Hoor Properties acts as the controller of your personal data for all purposes described in this policy."
         sections={sections}
       />
     </>

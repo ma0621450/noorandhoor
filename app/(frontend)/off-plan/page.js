@@ -15,7 +15,7 @@ export default function OffPlanPage() {
       <PropertyHero variant="offplan" />
       <PropertyCategories market="off-plan" />
       <OffPlanFeatured />
-      <PropertyJourneyCta variant="offplan" />
+      <PropertyJourneyCta variant="offplan" secondaryExternal/>
     </>
   );
 }

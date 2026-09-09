@@ -3,22 +3,24 @@ import Button from "@/components/ui/Button";
 import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 import getStartedBg from "@/public/images/buy/get-started-bg.png";
 
+const OFFICE_MAP_HREF = "https://www.google.com/maps/place/B2B+Tower/@25.1910547,55.2823224,17z/data=!4m10!1m2!2m1!1sOffice+2208,+B2B+Tower,+Business+Bay,+Dubai,+UAE.!3m6!1s0x3e5f69004cb60db1:0xe3d98aee939b9911!8m2!3d25.1910547!4d55.2848973!15sCjFPZmZpY2UgMjIwOCwgQjJCIFRvd2VyLCBCdXNpbmVzcyBCYXksIER1YmFpLCBVQUUukgEQY29ycG9yYXRlX29mZmljZeABAA!16s%2Fg%2F11nb4rhpt2?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D";
+
 const CTA_PRESETS = {
   buy: {
     heading: "Ready to Make the UAE Your Next Address?",
     description:
       "Your dream property is just one conversation away. Let's make it happen today.",
     primaryLabel: "Contact Agent",
-    primaryHref: "/contact",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "View Location on map",
-    secondaryHref: "/contact",
+    secondaryHref: OFFICE_MAP_HREF,
   },
   rent: {
     heading: "Still Searching for the Perfect Rental?",
     description:
       "Let us match you with a home that fits your budget and lifestyle, starting today.",
     primaryLabel: "Contact Us",
-    primaryHref: "/contact",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "See Owner Guide",
     secondaryHref: "/rent",
   },
@@ -29,14 +31,14 @@ const CTA_PRESETS = {
     primaryLabel: "List Your Property",
     primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "Talk to a Specialist",
-    secondaryHref: "/contact",
+    secondaryHref: CONTACT_FORM_HREF,
   },
   developers: {
     heading: "Still Not Sure Which Developer Is Right For You?",
     description:
       "Let our team match you with a trusted developer based on your budget, goals, and preferred location.",
     primaryLabel: "Talk to a Specialist",
-    primaryHref: "/contact",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "Explore Off-Plan",
     secondaryHref: "/off-plan",
   },
@@ -45,18 +47,18 @@ const CTA_PRESETS = {
     description:
       "Explore new developments, flexible payment plans, and early stage pricing before these projects reach the open market.",
     primaryLabel: "Contact Agent",
-    primaryHref: "/contact",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "View Location on map",
-    secondaryHref: "/contact",
+    secondaryHref: OFFICE_MAP_HREF,
   },
   detail: {
     heading: "Ready to Start Your Holiday Property Journey?",
     description:
       "Whether you are looking for a weekend retreat or a long-term rental, we can help you find your ideal property.",
     primaryLabel: "Contact Agent",
-    primaryHref: "/contact",
+    primaryHref: CONTACT_FORM_HREF,
     secondaryLabel: "View Location on map",
-    secondaryHref: "/contact",
+    secondaryHref: OFFICE_MAP_HREF,
   },
 };
 
@@ -68,6 +70,7 @@ export default function PropertyJourneyCta({
   secondaryLabel,
   primaryHref,
   secondaryHref,
+  secondaryExternal,
 }) {
   const preset = CTA_PRESETS[variant] || CTA_PRESETS.buy;
 
@@ -108,6 +111,7 @@ export default function PropertyJourneyCta({
           <Button
             href={secondaryHref || preset.secondaryHref || CONTACT_FORM_HREF}
             variant="secondary"
+            {...(secondaryExternal && { target: "_blank", rel: "noopener noreferrer" })}
             className="h-[58px] w-full rounded-xl px-10 text-sm tracking-[1.3px] sm:w-auto"
           >
             {secondaryLabel || preset.secondaryLabel}

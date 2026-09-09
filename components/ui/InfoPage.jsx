@@ -28,7 +28,7 @@ export default function InfoPage({
                 </h1>
               ) : null}
               {introduction ? (
-                <p className="mx-auto mt-6 max-w-3xl text-sm leading-7 text-white/75 sm:text-base">
+                <p className="mt-6 max-w-3xl text-sm text-left leading-7 text-white/75 sm:text-base">
                   {introduction}
                 </p>
               ) : null}

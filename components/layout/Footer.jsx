@@ -26,7 +26,8 @@ const CONTACT_DETAILS = [
   },
   {
     Icon: MapPin,
-    label: "Dubai, United Arab Emirates",
+    label: "Office 2208, B2B Tower, Business Bay, Dubai, UAE",
+    href: "https://www.google.com/maps/place/B2B+Tower/@25.1910547,55.2823224,17z/data=!4m10!1m2!2m1!1sOffice+2208,+B2B+Tower,+Business+Bay,+Dubai,+UAE.!3m6!1s0x3e5f69004cb60db1:0xe3d98aee939b9911!8m2!3d25.1910547!4d55.2848973!15sCjFPZmZpY2UgMjIwOCwgQjJCIFRvd2VyLCBCdXNpbmVzcyBCYXksIER1YmFpLCBVQUUukgEQY29ycG9yYXRlX29mZmljZeABAA!16s%2Fg%2F11nb4rhpt2?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D",
   },
 ];
 
