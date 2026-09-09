@@ -253,7 +253,7 @@ export default function PropertyHero({
                   key={action.label}
                   variant={action.variant}
                   href={action.href}
-                  className="h-14 w-full rounded-xl text-xs tracking-[1.3px] sm:flex-1 sm:text-sm"
+                  className="h-14 w-full rounded-xl text-xs text-nowrap tracking-[1.3px] sm:flex-1 sm:text-sm"
                 >
                   {action.label}
                 </Button>

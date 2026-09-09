@@ -25,7 +25,7 @@ export default async function Blogs() {
         <Button
           href="/blog#blog-listings"
           variant="secondary"
-          className="w-full sm:w-auto lg:self-start"
+          className="w-fit lg:self-start lg:text-nowrap"
         >
           View All Articles
         </Button>

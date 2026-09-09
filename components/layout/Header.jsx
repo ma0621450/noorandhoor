@@ -228,15 +228,6 @@ export default function Header() {
                 pathname={pathname}
               />
             ))}
-
-            <Button
-              variant="primary"
-              onClick={openEnquiry}
-              className="mt-6 w-full justify-center gap-2 py-3 text-xs"
-            >
-              <span>Inquire Now</span>
-              <ChevronRight className="h-4 w-4" strokeWidth={2.5} />
-            </Button>
           </nav>
         </div>
       )}
