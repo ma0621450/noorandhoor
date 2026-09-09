@@ -46,53 +46,58 @@ export default function SellerInsights() {
             Seller Insights &amp; Resources
           </h2>
 
-          <div className="relative mx-auto mt-10 max-w-[896px] lg:mt-12">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div className="relative h-[220px] overflow-hidden rounded-[10px] sm:h-[256px]">
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 436px"
-                  className="object-cover"
-                />
+          <div className="mx-auto mt-10 max-w-[896px] lg:mt-12">
+            {/* Cards + Arrows wrapper */}
+            <div className="relative">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="relative h-[220px] overflow-hidden rounded-[10px] sm:h-[256px]">
+                  <Image
+                    src={slide.image}
+                    alt={slide.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 436px"
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="flex min-h-[220px] flex-col justify-center rounded-[10px] bg-black p-6 shadow-md sm:h-[256px] sm:p-8">
+                  <p className="mb-2 text-sm text-[#f5f5f5]">{slide.category}</p>
+                  <h3 className="mb-3 text-base font-medium text-[#f5f5f5] sm:mb-4 sm:text-lg">
+                    {slide.title}
+                  </h3>
+                  <p className="mb-5 text-sm text-[#f5f5f5] sm:mb-6">
+                    {slide.description}
+                  </p>
+                  <button
+                    type="button"
+                    className="inline-flex w-fit cursor-pointer items-center gap-2 text-sm font-medium text-[#f5f5f5] transition hover:text-[#eec876]"
+                  >
+                    <Download className="h-4 w-4" />
+                    Download Guide
+                  </button>
+                </div>
               </div>
 
-              <div className="flex min-h-[220px] flex-col justify-center rounded-[10px] bg-black p-6 shadow-md sm:h-[256px] sm:p-8">
-                <p className="mb-2 text-sm text-[#f5f5f5]">{slide.category}</p>
-                <h3 className="mb-3 text-base font-medium text-[#f5f5f5] sm:mb-4 sm:text-lg">
-                  {slide.title}
-                </h3>
-                <p className="mb-5 text-sm text-[#f5f5f5] sm:mb-6">
-                  {slide.description}
-                </p>
-                <button
-                  type="button"
-                  className="inline-flex w-fit cursor-pointer items-center gap-2 text-sm font-medium text-[#f5f5f5] transition hover:text-[#eec876]"
-                >
-                  <Download className="h-4 w-4" />
-                  Download Guide
-                </button>
-              </div>
+              {/* Arrows */}
+              <button
+                type="button"
+                aria-label="Previous slide"
+                onClick={prev}
+                className="absolute -left-5 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center size-10 cursor-pointer rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] md:flex"
+              >
+                <ChevronLeft className="h-6 w-6 text-black" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next slide"
+                onClick={next}
+                className="absolute -right-5 top-1/2 z-10 hidden -translate-y-1/2 items-center justify-center size-10 cursor-pointer rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] md:flex"
+              >
+                <ChevronRight className="h-6 w-6 text-black" />
+              </button>
             </div>
 
-            <button
-              type="button"
-              aria-label="Previous slide"
-              onClick={prev}
-              className="absolute left-2 top-[110px] z-10 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] sm:top-[128px] md:left-0 lg:-left-8"
-            >
-              <ChevronLeft className="h-6 w-6 text-black" />
-            </button>
-            <button
-              type="button"
-              aria-label="Next slide"
-              onClick={next}
-              className="absolute right-2 top-[110px] z-10 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg transition hover:bg-[#f5f5f5] sm:top-[128px] md:right-0 lg:-right-8"
-            >
-              <ChevronRight className="h-6 w-6 text-black" />
-            </button>
-
+            {/* Dots */}
             <div className="mt-8 flex items-center justify-center gap-2">
               {SLIDES.map((item, index) => (
                 <button

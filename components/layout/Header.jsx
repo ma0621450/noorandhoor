@@ -40,13 +40,9 @@ function NavItem({ item, openId, setOpenId, pathname }) {
 
   useEffect(() => {
     if (!isOpen) return;
-
     const handleClickOutside = (event) => {
-      if (!ref.current?.contains(event.target)) {
-        setOpenId(null);
-      }
+      if (!ref.current?.contains(event.target)) setOpenId(null);
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, setOpenId]);
@@ -197,10 +193,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 120);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 120);
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -217,20 +210,50 @@ export default function Header() {
 
   return (
     <>
-      {mobileOpen && (
-        <div className="fixed inset-0 z-[90] w-full bg-[#111] min-[1240px]:hidden">
-          <nav className="flex h-full w-full flex-col overflow-y-auto px-6 pt-24 pb-8">
-            {NAV_ITEMS.map((item) => (
-              <MobileNavItem
-                key={item.label}
-                item={item}
-                onClose={closeMobile}
-                pathname={pathname}
-              />
-            ))}
-          </nav>
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 z-[85] bg-black/60 transition-opacity duration-300 min-[1240px]:hidden ${
+          mobileOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={closeMobile}
+      />
+
+      {/* Side drawer — full width on mobile, w-80 on tablet */}
+      <div
+        className={`fixed inset-y-0 right-0 z-[90] w-full sm:w-80 bg-[#111] shadow-2xl transition-transform duration-300 ease-in-out min-[1240px]:hidden flex flex-col ${
+          mobileOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between px-6 py-5">
+          <Image
+            src={logo}
+            alt="Noor & Hoor Properties"
+            height={48}
+            width={160}
+            className="h-10 w-auto"
+          />
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="cursor-pointer text-white"
+            onClick={closeMobile}
+          >
+            <X className="h-6 w-6" />
+          </button>
         </div>
-      )}
+        <nav className="flex flex-1 flex-col overflow-y-auto px-6 py-4">
+          {NAV_ITEMS.map((item) => (
+            <MobileNavItem
+              key={item.label}
+              item={item}
+              onClose={closeMobile}
+              pathname={pathname}
+            />
+          ))}
+        </nav>
+      </div>
 
       <header
         className={`fixed top-0 z-[100] w-full transition-colors duration-300 ${
