@@ -92,6 +92,7 @@ export default function Footer() {
                     {href ? (
                       <a
                         href={href}
+                        target="_blank"
                         className="flex items-center gap-3 text-sm text-white/80 transition-colors duration-200 hover:text-[#eec876]"
                       >
                         {content}
