@@ -30,7 +30,7 @@ export default function Services() {
   return (
     <section className="section-container">
       <div className="flex flex-col items-center justify-center gap-10 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex w-full max-w-[540px] flex-col items-start gap-5">
+        <div className="flex w-full max-w-[540px] lg:max-w-[380px] flex-col items-start gap-5">
           <div className="flex w-full flex-col items-start gap-4">
             <h3 className="section-sub-heading">Our Services</h3>
             <h2 className="text-gold-gradient max-w-[540px]">

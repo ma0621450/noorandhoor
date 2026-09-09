@@ -35,14 +35,14 @@ export default function DevelopersChoice() {
           </p>
         </div>
 
-        <div className="w-full max-w-[536px] rounded-sm bg-gradient-to-br from-[#EEC876] to-[#B3813D] p-px">
+        <div className="w-full max-w-[436px] rounded-sm bg-gradient-to-br from-[#EEC876] to-[#B3813D] p-px">
           <div className="overflow-hidden rounded-sm border border-[rgba(233,195,73,0.15)] bg-[#1C1B1B] p-2">
-            <div className="relative aspect-square w-full overflow-hidden">
+            <div className="relative aspect-3/4 w-full overflow-hidden">
               <Image
                 src={shakeebImage}
                 alt="Shakeeb Ahmed Khan"
                 fill
-                sizes="536px"
+                sizes="436px"
                 className="object-cover object-top"
               />
             </div>

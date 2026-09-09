@@ -35,7 +35,7 @@ export default function ListYourProperty() {
           </p>
           <Button
             type="button"
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto md:w-fit"
             onClick={() => setEnquiryOpen(true)}
           >
             List Your Property
