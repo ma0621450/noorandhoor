@@ -96,7 +96,7 @@ function FilterBar({ fields, values, onChange, href, canReset, onReset }) {
           <Link
             href={href}
             aria-label="Search properties"
-            className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#bc8741] to-[#d6a85e] px-4 py-3 text-xs font-semibold uppercase tracking-[1.3px] text-white transition-all duration-200 hover:from-[#d6a85e] hover:to-[#eec876] lg:hidden"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#bc8741] to-[#d6a85e] px-4 py-3 text-xs font-semibold uppercase tracking-[1.3px] text-white transition-all duration-200 hover:from-[#d6a85e] hover:to-[#eec876] lg:hidden"
           >
             Search
             <Search className="h-4 w-4" strokeWidth={2.5} />
