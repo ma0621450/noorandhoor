@@ -155,7 +155,7 @@ const FAQ_PRESETS = {
   developers: {
     title: "FAQs",
     description:
-      "Find quick answers about our trusted developers, projects, and investment opportunities.",
+      "Find answers about our trusted developers, projects, and investment options.",
     items: DEVELOPER_FAQS,
   },
 };

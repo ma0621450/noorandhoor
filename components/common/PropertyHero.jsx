@@ -98,7 +98,7 @@ const PRESETS = {
     ],
   },
   contact: {
-    title: "Get in touch with our experts.",
+    title: "Get in touch with our experts",
     description:
       "Have questions about buying, selling, renting, or investing in Dubai? Talk to our experts for reliable guidance and support tailored to your needs.",
     actions: [
@@ -245,7 +245,7 @@ export default function PropertyHero({
           ) : null}
 
           {resolvedActions.length ? (
-            <div className="flex w-full max-w-[570px] flex-col gap-3 sm:flex-row sm:justify-center sm:gap-5">
+            <div className="flex w-full max-w-[350px] flex-col gap-3 sm:flex-row sm:justify-center sm:gap-5">
               {resolvedActions.map((action) => (
                 <Button
                   key={action.label}
