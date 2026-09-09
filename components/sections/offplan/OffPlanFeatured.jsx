@@ -5,7 +5,8 @@ export default function OffPlanFeatured() {
     <DynamicFeaturedProperties
       market="off-plan"
       title="Explore Off-Plan Apartments and Homes in Dubai"
-      href="/off-plan/apartments"
+      description="Discover standout apartments and homes in Dubai’s top locations, chosen for lifestyle and investment potential."
+      href="/off-plan/apartments" 
     />
   );
 }
