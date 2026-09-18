@@ -17,12 +17,15 @@ import {
   TextField,
 } from "@/components/admin/ui/Fields";
 import VisibilityPanel from "@/components/admin/ui/VisibilityPanel";
+import ProjectDetailsFields from "@/components/admin/properties/ProjectDetailsFields";
+import AmenitiesFields from "@/components/admin/properties/AmenitiesFields";
+import UnitsFields from "@/components/admin/properties/UnitsFields";
+import PaymentPlanFields from "@/components/admin/properties/PaymentPlanFields";
 import { useToast } from "@/components/admin/providers/ToastProvider";
 import useAdminProperties from "@/hooks/useAdminProperties";
 import {
   DEFAULT_PROPERTY_AGENT,
   DEFAULT_PROPERTY_DOCUMENTS,
-  DEFAULT_PROPERTY_FEATURES,
   PROPERTY_LOCATIONS,
   PROPERTY_LOCATION_OTHER,
   PROPERTY_MARKET_OPTIONS,
@@ -31,6 +34,17 @@ import {
   normalizePropertyType,
   propertyTypesForMarket,
 } from "@/lib/admin/constants";
+import {
+  DEFAULT_PROJECT_DETAILS,
+  projectDetailsToForm,
+} from "@/lib/admin/propertyDetails";
+import { amenitiesToForm } from "@/lib/admin/propertyAmenities";
+import { unitGroupsToForm } from "@/lib/admin/propertyUnits";
+import {
+  DEFAULT_PAYMENT_PLAN,
+  expandPaymentPlanToMilestones,
+  paymentPlanToForm,
+} from "@/lib/admin/propertyPaymentPlan";
 import { slugify } from "@/lib/admin/utils";
 
 function locationChoiceFromValue(location) {
@@ -58,15 +72,22 @@ const EMPTY_FORM = {
   aboutText: "",
   descriptionItems: [""],
   features: [],
+  amenities: [],
+  unitGroups: [],
   documents: DEFAULT_PROPERTY_DOCUMENTS.map((doc) => ({ ...doc })),
   mapLat: "",
   mapLng: "",
   mapLabel: "",
   agentName: DEFAULT_PROPERTY_AGENT.name,
   agentPhone: DEFAULT_PROPERTY_AGENT.phone,
-  paymentDownPercent: "10",
-  paymentInstallments: "24",
+  paymentPlan: {
+    bookingPercent: String(DEFAULT_PAYMENT_PLAN.bookingPercent),
+    constructionPercent: String(DEFAULT_PAYMENT_PLAN.constructionPercent),
+    constructionPayments: String(DEFAULT_PAYMENT_PLAN.constructionPayments),
+    handoverPercent: String(DEFAULT_PAYMENT_PLAN.handoverPercent),
+  },
   paymentStartDate: "",
+  ...projectDetailsToForm(DEFAULT_PROJECT_DETAILS),
 };
 
 function toForm(property) {
@@ -101,6 +122,8 @@ function toForm(property) {
       ? property.descriptionItems
       : [""],
     features: property.features?.length ? property.features : [],
+    amenities: amenitiesToForm(property.amenities),
+    unitGroups: unitGroupsToForm(property.unitGroups),
     documents: property.documents?.length
       ? property.documents.map((doc) => ({ ...doc }))
       : DEFAULT_PROPERTY_DOCUMENTS.map((doc) => ({ ...doc })),
@@ -109,9 +132,9 @@ function toForm(property) {
     mapLabel: property.mapLabel || "",
     agentName: property.agentName || DEFAULT_PROPERTY_AGENT.name,
     agentPhone: property.agentPhone || DEFAULT_PROPERTY_AGENT.phone,
-    paymentDownPercent: String(property.paymentDownPercent ?? 10),
-    paymentInstallments: String(property.paymentInstallments ?? 24),
+    paymentPlan: paymentPlanToForm(property.paymentMilestones),
     paymentStartDate: property.paymentStartDate || "",
+    ...projectDetailsToForm(property),
   };
 }
 
@@ -220,20 +243,6 @@ function PropertyEditor({
     setErrors((current) => ({ ...current, title: undefined }));
   };
 
-  const addFeature = (feature) => {
-    setForm((current) => {
-      const existing = current.features.map((item) => item.trim()).filter(Boolean);
-      if (existing.includes(feature)) return current;
-      const blankIndex = current.features.findIndex((item) => !item.trim());
-      if (blankIndex >= 0) {
-        const next = [...current.features];
-        next[blankIndex] = feature;
-        return { ...current, features: next };
-      }
-      return { ...current, features: [...current.features, feature] };
-    });
-  };
-
   const validation = useMemo(() => {
     const next = {};
     if (!form.title.trim()) next.title = "Title is required.";
@@ -257,13 +266,29 @@ function PropertyEditor({
       return;
     }
 
+    const isOffPlan = form.market === "off-plan";
+    const expandedPlan = isOffPlan
+      ? expandPaymentPlanToMilestones(form.paymentPlan)
+      : { ok: true, milestones: [] };
+
+    if (isOffPlan && !expandedPlan.ok) {
+      showToast(expandedPlan.error, "error");
+      return;
+    }
+
     setIsSaving(true);
     try {
       await onSave({
         ...form,
         about: form.aboutText,
         descriptionItems: form.descriptionItems.filter((item) => item.trim()),
-        features: form.features.filter((item) => item.trim()),
+        amenities: form.amenities.filter((item) => item.name?.trim()),
+        unitGroups: form.unitGroups.filter((item) => item.name?.trim()),
+        paymentPlan: isOffPlan ? form.paymentPlan : null,
+        paymentMilestones: expandedPlan.milestones,
+        features: form.amenities
+          .map((item) => String(item.name || "").trim())
+          .filter(Boolean),
         documents: form.documents.filter((doc) => doc.name.trim()),
       });
       showToast(initialProperty ? "Property updated." : "Property added.");
@@ -362,50 +387,15 @@ function PropertyEditor({
                 options={typeOptions}
               />
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               <TextField
                 id="property-price"
-                label="Price (AED)"
+                label="Price From"
                 type="number"
                 min="0"
                 value={form.price}
                 onChange={(event) => setField("price", event.target.value)}
                 error={errors.price}
-              />
-              <TextField
-                id="property-bedrooms"
-                label="Bedrooms"
-                type="number"
-                min="0"
-                value={form.bedrooms}
-                onChange={(event) => setField("bedrooms", event.target.value)}
-              />
-              <TextField
-                id="property-bathrooms"
-                label="Bathrooms"
-                type="number"
-                min="0"
-                value={form.bathrooms}
-                onChange={(event) => setField("bathrooms", event.target.value)}
-              />
-              <TextField
-                id="property-area"
-                label="Area (sq ft)"
-                type="number"
-                min="0"
-                value={form.area}
-                onChange={(event) => setField("area", event.target.value)}
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <TextField
-                id="property-parking"
-                label="Parking spaces"
-                type="number"
-                min="0"
-                value={form.parking}
-                onChange={(event) => setField("parking", event.target.value)}
-                hint="Shown as a tag on the detail page"
               />
               <TextField
                 id="property-view"
@@ -416,52 +406,16 @@ function PropertyEditor({
                 hint="Optional tag, e.g. sea view or skyline"
               />
             </div>
-            {form.market === "off-plan" ? (
-              <div className="space-y-4 rounded-xl border border-white/8 bg-[#111] p-4">
-                <div>
-                  <p className="text-sm font-semibold text-white">
-                    Payment plan
-                  </p>
-                  <p className="mt-1 text-xs text-white/45">
-                    Controls the off-plan calculator and installment schedule on
-                    the detail page.
-                  </p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-3">
-                  <TextField
-                    id="property-down-percent"
-                    label="Down payment %"
-                    type="number"
-                    min="1"
-                    max="99"
-                    value={form.paymentDownPercent}
-                    onChange={(event) =>
-                      setField("paymentDownPercent", event.target.value)
-                    }
-                  />
-                  <TextField
-                    id="property-installments"
-                    label="Installments"
-                    type="number"
-                    min="1"
-                    value={form.paymentInstallments}
-                    onChange={(event) =>
-                      setField("paymentInstallments", event.target.value)
-                    }
-                  />
-                  <DateField
-                    id="property-payment-start"
-                    label="First installment date"
-                    value={form.paymentStartDate}
-                    onChange={(event) =>
-                      setField("paymentStartDate", event.target.value)
-                    }
-                    hint="Optional. Defaults to next month. Past dates are disabled."
-                  />
-                </div>
-              </div>
-            ) : null}
           </section>
+
+          {form.market === "off-plan" ? (
+            <PaymentPlanFields
+              value={form.paymentPlan}
+              onChange={(paymentPlan) => setField("paymentPlan", paymentPlan)}
+            />
+          ) : null}
+
+          <ProjectDetailsFields form={form} setField={setField} />
 
           <section className="space-y-5 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">
             <GalleryUploader
@@ -492,33 +446,20 @@ function PropertyEditor({
             />
           </section>
 
-          <section className="space-y-4 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">
-            <ListEditor
-              label="Features"
-              hint="Amenities shown in the Features grid on the detail page."
-              items={form.features}
-              onChange={(features) => setField("features", features)}
-              addLabel="Add feature"
-              placeholder="Swimming Pool"
-            />
-            <div className="flex flex-wrap gap-2">
-              {DEFAULT_PROPERTY_FEATURES.map((feature) => (
-                <button
-                  key={feature}
-                  type="button"
-                  onClick={() => addFeature(feature)}
-                  className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/70 transition hover:border-[#ba8a44] hover:text-[#eec876]"
-                >
-                  {feature}
-                </button>
-              ))}
-            </div>
-          </section>
+          <AmenitiesFields
+            value={form.amenities}
+            onChange={(amenities) => setField("amenities", amenities)}
+          />
+
+          <UnitsFields
+            value={form.unitGroups}
+            onChange={(unitGroups) => setField("unitGroups", unitGroups)}
+          />
 
           <section className="space-y-4 rounded-2xl border border-white/8 bg-[#161616] p-5 sm:p-6">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-medium uppercase tracking-[1.4px] text-white/60">
+                <p className="mb-0 text-xs font-medium uppercase tracking-[1.4px] text-white/60">
                   Property documents
                 </p>
                 <p className="mt-1 text-xs text-white/40">

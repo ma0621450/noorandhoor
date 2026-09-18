@@ -1,19 +1,7 @@
 import Link from "next/link";
-import {
-  MapPin,
-  Bed,
-  Bath,
-  Scan,
-  Car,
-  Eye,
-  CalendarDays,
-} from "lucide-react";
+import { MapPin, Scan, Eye, CalendarDays } from "lucide-react";
 
 const TAG_ICONS = {
-  bed: Bed,
-  bath: Bath,
-  area: Scan,
-  parking: Car,
   view: Eye,
   calendar: CalendarDays,
 };
@@ -25,7 +13,7 @@ export default function DetailHeader({
   breadcrumbLabel = "Buy apartments",
   breadcrumbHref = "/buy/apartments",
   breadcrumbCurrent = "Home",
-  priceLabel = "Price",
+  priceLabel = "Price From",
 }) {
   const { title, location, price, tags = [] } = property;
   const priceText = `AED ${Number(price).toLocaleString("en-US")}`;

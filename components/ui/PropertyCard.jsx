@@ -117,22 +117,40 @@ export default function PropertyCard({
         <p className="break-words text-xs font-medium text-[#f5f5f5]">{location}</p>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white">
-          <span className="flex items-center gap-1.5">
-            <Bed className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
-            <span className="text-xs font-medium">{features?.bedroom ?? 0} bed</span>
-          </span>
-          <span className="text-white/50">•</span>
-          <span className="flex items-center gap-1.5">
-            <Bath className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
-            <span className="text-xs font-medium">{features?.bathroom ?? 0} bath</span>
-          </span>
-          <span className="text-white/50">•</span>
-          <span className="flex items-center gap-1.5">
-            <Scan className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
-            <span className="text-xs font-medium">
-              {(features?.area ?? 0).toLocaleString()}Sq Ft
+          {(features?.bedroom ?? 0) > 0 ? (
+            <span className="flex items-center gap-1.5">
+              <Bed className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
+              <span className="text-xs font-medium">
+                {features.bedroom} bed
+              </span>
             </span>
-          </span>
+          ) : null}
+          {(features?.bathroom ?? 0) > 0 ? (
+            <>
+              {(features?.bedroom ?? 0) > 0 ? (
+                <span className="text-white/50">•</span>
+              ) : null}
+              <span className="flex items-center gap-1.5">
+                <Bath className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
+                <span className="text-xs font-medium">
+                  {features.bathroom} bath
+                </span>
+              </span>
+            </>
+          ) : null}
+          {(features?.area ?? 0) > 0 ? (
+            <>
+              {(features?.bedroom ?? 0) > 0 || (features?.bathroom ?? 0) > 0 ? (
+                <span className="text-white/50">•</span>
+              ) : null}
+              <span className="flex items-center gap-1.5">
+                <Scan className="h-4 w-4 stroke-[#ba8a44]" strokeWidth={1.5} />
+                <span className="text-xs font-medium">
+                  {features.area.toLocaleString()} Sq Ft
+                </span>
+              </span>
+            </>
+          ) : null}
         </div>
 
         <p className="!font-accent text-lg font-bold text-[#E9C349]">

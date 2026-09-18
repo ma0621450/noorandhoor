@@ -6,14 +6,16 @@ import DetailGallery from "@/components/sections/detail/DetailGallery";
 import DetailAbout from "@/components/sections/detail/DetailAbout";
 import DetailAboutRent from "@/components/sections/detail/DetailAboutRent";
 import DetailFeatures from "@/components/sections/detail/DetailFeatures";
+import DetailProjectSpecs from "@/components/sections/detail/DetailProjectSpecs";
+import DetailUnitsAvailability from "@/components/sections/detail/DetailUnitsAvailability";
 import DetailRelated from "@/components/sections/detail/DetailRelated";
 import FaqSection from "@/components/common/FaqSection";
 import DetailAgentContact from "@/components/sections/detail/DetailAgentContact";
 import DetailAgentContactRent from "@/components/sections/detail/DetailAgentContactRent";
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 import OffPlanListedDate from "@/components/sections/offplan/OffPlanListedDate";
-import OffPlanPaymentPlan from "@/components/sections/offplan/OffPlanPaymentPlan";
 import OffPlanPropertyFeatures from "@/components/sections/offplan/OffPlanPropertyFeatures";
+import DetailPaymentPlan from "@/components/sections/detail/DetailPaymentPlan";
 import useAdminProperties from "@/hooks/useAdminProperties";
 import {
   adminToDetailProperty,
@@ -91,23 +93,26 @@ export default function PropertyDetailShell({
               : "27 June 2026"
           }
         />
-        <OffPlanPaymentPlan
-          defaultPrice={property.price}
-          downPercent={property.paymentDownPercent}
-          installments={property.paymentInstallments}
-          startDate={property.paymentStartDate}
+        <DetailProjectSpecs property={property} />
+        <DetailUnitsAvailability unitGroups={property.unitGroups} />
+        <DetailPaymentPlan
+          milestones={property.paymentMilestones}
+          totalPrice={property.price}
         />
         <OffPlanPropertyFeatures
           categoryLabel={offPlanCategoryLabel}
           property={property}
         />
-        <DetailFeatures features={property.features} />
+        <DetailFeatures
+          amenities={property.amenities}
+          features={property.features}
+        />
         <DetailRelated
           basePath={header.breadcrumbHref}
           properties={related}
           heading={relatedHeading || "Explore Similar Offplan Properties"}
         />
-        {detailJourneyCta( 
+        {detailJourneyCta(
           property,
           "offplan",
           "Ready to Start Your Holiday Property Journey?",
@@ -122,7 +127,12 @@ export default function PropertyDetailShell({
         <DetailHeader property={property} {...header} />
         <DetailGallery images={property.gallery} />
         <DetailAbout property={property} />
-        <DetailFeatures features={property.features} />
+        <DetailProjectSpecs property={property} />
+        <DetailUnitsAvailability unitGroups={property.unitGroups} />
+        <DetailFeatures
+          amenities={property.amenities}
+          features={property.features}
+        />
         <DetailRelated
           basePath={header.breadcrumbHref}
           properties={related}
@@ -139,7 +149,12 @@ export default function PropertyDetailShell({
       <DetailHeader property={property} {...header} />
       <DetailGallery images={property.gallery} />
       <DetailAboutRent property={property} />
-      <DetailFeatures features={property.features} />
+      <DetailProjectSpecs property={property} />
+      <DetailUnitsAvailability unitGroups={property.unitGroups} />
+      <DetailFeatures
+        amenities={property.amenities}
+        features={property.features}
+      />
       <DetailRelated
         basePath={header.breadcrumbHref}
         eyebrow={relatedEyebrow || "Related Properties"}

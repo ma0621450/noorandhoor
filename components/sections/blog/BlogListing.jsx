@@ -60,9 +60,10 @@ export default function BlogListing({
           {BLOG_CATEGORIES.map((category) => {
             const isActive = category === activeCategory;
             return (
-              <a
+              <Link
                 key={category}
                 href={categoryHref(category)}
+                scroll={false}
                 className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[1.3px] transition-colors duration-200 ${
                   isActive
                     ? "border-[#ba8a44] bg-[#ba8a44] text-white"
@@ -70,7 +71,7 @@ export default function BlogListing({
                 }`}
               >
                 {category}
-              </a>
+              </Link>
             );
           })}
         </div>

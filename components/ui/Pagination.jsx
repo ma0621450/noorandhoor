@@ -1,9 +1,11 @@
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function PageLink({ href, label, active, disabled, children }) {
   return (
-    <a
+    <Link
       href={href}
+      scroll={false}
       aria-label={label}
       aria-current={active ? "page" : undefined}
       aria-disabled={disabled || undefined}
@@ -14,7 +16,7 @@ function PageLink({ href, label, active, disabled, children }) {
       } ${disabled ? "pointer-events-none opacity-40" : ""}`}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
