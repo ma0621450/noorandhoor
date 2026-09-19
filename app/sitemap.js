@@ -1,6 +1,6 @@
 import { BUY_CATEGORIES } from "@/components/sections/buy-category/categoryConfig";
-import { RENT_CATEGORIES } from "@/components/sections/rent-properties/rentCategoryConfig";
-import { SELL_CATEGORIES } from "@/components/sections/sell-properties/sellCategoryConfig";
+// import { RENT_CATEGORIES } from "@/components/sections/rent-properties/rentCategoryConfig";
+// import { SELL_CATEGORIES } from "@/components/sections/sell-properties/sellCategoryConfig";
 import { OFF_PLAN_CATEGORIES } from "@/components/sections/offplan/offplanCategoryConfig";
 import { getPublishedPosts } from "@/lib/blog/queries";
 import { SITE_URL } from "@/lib/seo";
@@ -24,8 +24,8 @@ export default async function sitemap() {
   const staticRoutes = [
     "",
     "/buy",
-    "/rent",
-    "/sell",
+    // "/rent",
+    // "/sell",
     "/off-plan",
     "/developers",
     "/about-us",
@@ -50,8 +50,8 @@ export default async function sitemap() {
   return [
     ...staticRoutes,
     ...categoryEntries(BUY_CATEGORIES),
-    ...categoryEntries(RENT_CATEGORIES),
-    ...categoryEntries(SELL_CATEGORIES),
+    // ...categoryEntries(RENT_CATEGORIES),
+    // ...categoryEntries(SELL_CATEGORIES),
     ...categoryEntries(OFF_PLAN_CATEGORIES),
     ...blogs,
   ];

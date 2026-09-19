@@ -15,7 +15,7 @@ import DetailAgentContactRent from "@/components/sections/detail/DetailAgentCont
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
 import OffPlanListedDate from "@/components/sections/offplan/OffPlanListedDate";
 import OffPlanPropertyFeatures from "@/components/sections/offplan/OffPlanPropertyFeatures";
-import DetailPaymentPlan from "@/components/sections/detail/DetailPaymentPlan";
+import OffPlanPaymentPlan from "@/components/sections/offplan/OffPlanPaymentPlan";
 import useAdminProperties from "@/hooks/useAdminProperties";
 import {
   adminToDetailProperty,
@@ -95,9 +95,11 @@ export default function PropertyDetailShell({
         />
         <DetailProjectSpecs property={property} />
         <DetailUnitsAvailability unitGroups={property.unitGroups} />
-        <DetailPaymentPlan
-          milestones={property.paymentMilestones}
-          totalPrice={property.price}
+        <OffPlanPaymentPlan
+          defaultPrice={property.price}
+          downPercent={property.paymentDownPercent}
+          installments={property.paymentInstallments}
+          startDate={property.paymentStartDate}
         />
         <OffPlanPropertyFeatures
           categoryLabel={offPlanCategoryLabel}

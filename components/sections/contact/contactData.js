@@ -43,8 +43,8 @@ export const CONTACT_FORM_HREF = "/contact#contact-form";
 
 export const SERVICE_OPTIONS = [
   "Buy",
-  "Rent",
-  "Sell",
+  // "Rent",
+  // "Sell",
   "Off Plan",
   "Investment Consultation",
   "Other",

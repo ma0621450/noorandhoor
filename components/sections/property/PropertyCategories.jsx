@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import LocationCard from "@/components/ui/LocationCard";
 import useAdminProperties from "@/hooks/useAdminProperties";
-import { NAV_ITEMS } from "@/components/layout/navData";
+import { navItemByHref } from "@/components/layout/navData";
 import { listingHomes } from "@/lib/admin/propertyPublic";
 import villasImage from "@/public/images/buy/villas.png";
 import apartmentsImage from "@/public/images/buy/apartments.png";
@@ -36,7 +36,7 @@ const MARKET_NAV = {
 
 function navLinksForMarket(market) {
   const href = MARKET_NAV[market];
-  return NAV_ITEMS.find((item) => item.href === href)?.links || [];
+  return navItemByHref(href)?.links || [];
 }
 
 function categoryKeyFromHref(href) {

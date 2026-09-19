@@ -9,6 +9,51 @@ import {
   IconGuide,
 } from "@/components/layout/navIcons";
 
+// const RENT_NAV_ITEM = {
+//   label: "Rent",
+//   href: "/rent",
+//   links: [
+//     {
+//       label: "Properties rent",
+//       href: "/rent/properties",
+//       Icon: IconProperties,
+//     },
+//     {
+//       label: "Apartment rent",
+//       href: "/rent/apartments",
+//       Icon: IconApartments,
+//     },
+//     { label: "House rent", href: "/rent/houses", Icon: IconVillas },
+//     {
+//       label: "Renting in Dubai",
+//       href: "/rent/dubai",
+//       Icon: IconResidential,
+//     },
+//   ],
+// };
+// 
+// const SELL_NAV_ITEM = {
+//   label: "Sell",
+//   href: "/sell",
+//   links: [
+//     {
+//       label: "Noor & Hoor Properties",
+//       href: "/sell/noor-hoor",
+//       Icon: IconResidential,
+//     },
+//     {
+//       label: "Selling Properties",
+//       href: "/sell/properties",
+//       Icon: IconListProperty,
+//     },
+//     {
+//       label: "Selling Apartment",
+//       href: "/sell/apartments",
+//       Icon: IconApartments,
+//     },
+//   ],
+// };
+
 export const NAV_ITEMS = [
   {
     label: "Buy",
@@ -21,49 +66,9 @@ export const NAV_ITEMS = [
       { label: "Buy Properties", href: "/buy/properties", Icon: IconProperties },
     ],
   },
-  {
-    label: "Rent",
-    href: "/rent",
-    links: [
-      {
-        label: "Properties rent",
-        href: "/rent/properties",
-        Icon: IconProperties,
-      },
-      {
-        label: "Apartment rent",
-        href: "/rent/apartments",
-        Icon: IconApartments,
-      },
-      { label: "House rent", href: "/rent/houses", Icon: IconVillas },
-      {
-        label: "Renting in Dubai",
-        href: "/rent/dubai",
-        Icon: IconResidential,
-      },
-    ],
-  },
-  {
-    label: "Sell",
-    href: "/sell",
-    links: [
-      {
-        label: "Noor & Hoor Properties",
-        href: "/sell/noor-hoor",
-        Icon: IconResidential,
-      },
-      {
-        label: "Selling Properties",
-        href: "/sell/properties",
-        Icon: IconListProperty,
-      },
-      {
-        label: "Selling Apartment",
-        href: "/sell/apartments",
-        Icon: IconApartments,
-      },
-    ],
-  },
+  // Hidden from header/footer for now; rent/sell pages still use these items
+  // RENT_NAV_ITEM,
+  // SELL_NAV_ITEM,
   {
     label: "Off Plan",
     href: "/off-plan",
@@ -101,3 +106,12 @@ export const NAV_ITEMS = [
     href: "/contact",
   },
 ];
+
+// const HIDDEN_NAV_ITEMS = [RENT_NAV_ITEM, SELL_NAV_ITEM];
+
+export function navItemByHref(href) {
+  return (
+    NAV_ITEMS.find((item) => item.href === href)
+    // || HIDDEN_NAV_ITEMS.find((item) => item.href === href)
+  );
+}

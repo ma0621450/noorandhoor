@@ -40,11 +40,6 @@ import {
 } from "@/lib/admin/propertyDetails";
 import { amenitiesToForm } from "@/lib/admin/propertyAmenities";
 import { unitGroupsToForm } from "@/lib/admin/propertyUnits";
-import {
-  DEFAULT_PAYMENT_PLAN,
-  expandPaymentPlanToMilestones,
-  paymentPlanToForm,
-} from "@/lib/admin/propertyPaymentPlan";
 import { slugify } from "@/lib/admin/utils";
 
 function locationChoiceFromValue(location) {
@@ -80,12 +75,8 @@ const EMPTY_FORM = {
   mapLabel: "",
   agentName: DEFAULT_PROPERTY_AGENT.name,
   agentPhone: DEFAULT_PROPERTY_AGENT.phone,
-  paymentPlan: {
-    bookingPercent: String(DEFAULT_PAYMENT_PLAN.bookingPercent),
-    constructionPercent: String(DEFAULT_PAYMENT_PLAN.constructionPercent),
-    constructionPayments: String(DEFAULT_PAYMENT_PLAN.constructionPayments),
-    handoverPercent: String(DEFAULT_PAYMENT_PLAN.handoverPercent),
-  },
+  paymentDownPercent: "10",
+  paymentInstallments: "24",
   paymentStartDate: "",
   ...projectDetailsToForm(DEFAULT_PROJECT_DETAILS),
 };
@@ -132,7 +123,8 @@ function toForm(property) {
     mapLabel: property.mapLabel || "",
     agentName: property.agentName || DEFAULT_PROPERTY_AGENT.name,
     agentPhone: property.agentPhone || DEFAULT_PROPERTY_AGENT.phone,
-    paymentPlan: paymentPlanToForm(property.paymentMilestones),
+    paymentDownPercent: String(property.paymentDownPercent ?? 10),
+    paymentInstallments: String(property.paymentInstallments ?? 24),
     paymentStartDate: property.paymentStartDate || "",
     ...projectDetailsToForm(property),
   };
@@ -266,16 +258,6 @@ function PropertyEditor({
       return;
     }
 
-    const isOffPlan = form.market === "off-plan";
-    const expandedPlan = isOffPlan
-      ? expandPaymentPlanToMilestones(form.paymentPlan)
-      : { ok: true, milestones: [] };
-
-    if (isOffPlan && !expandedPlan.ok) {
-      showToast(expandedPlan.error, "error");
-      return;
-    }
-
     setIsSaving(true);
     try {
       await onSave({
@@ -284,8 +266,7 @@ function PropertyEditor({
         descriptionItems: form.descriptionItems.filter((item) => item.trim()),
         amenities: form.amenities.filter((item) => item.name?.trim()),
         unitGroups: form.unitGroups.filter((item) => item.name?.trim()),
-        paymentPlan: isOffPlan ? form.paymentPlan : null,
-        paymentMilestones: expandedPlan.milestones,
+        paymentMilestones: [],
         features: form.amenities
           .map((item) => String(item.name || "").trim())
           .filter(Boolean),
@@ -410,8 +391,19 @@ function PropertyEditor({
 
           {form.market === "off-plan" ? (
             <PaymentPlanFields
-              value={form.paymentPlan}
-              onChange={(paymentPlan) => setField("paymentPlan", paymentPlan)}
+              value={{
+                paymentDownPercent: form.paymentDownPercent,
+                paymentInstallments: form.paymentInstallments,
+                paymentStartDate: form.paymentStartDate,
+              }}
+              onChange={(next) =>
+                setForm((current) => ({
+                  ...current,
+                  paymentDownPercent: next.paymentDownPercent,
+                  paymentInstallments: next.paymentInstallments,
+                  paymentStartDate: next.paymentStartDate,
+                }))
+              }
             />
           ) : null}
 

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Building2, FileText, House, Key } from "lucide-react";
+import { FileText, House } from "lucide-react";
 import Button from "@/components/ui/Button";
 import PropertyCard from "@/components/ui/PropertyCard";
 import useAdminProperties from "@/hooks/useAdminProperties";
@@ -16,20 +16,20 @@ const TABS = [
     href: "/buy/properties",
     market: "buy",
   },
-  {
-    id: "sell",
-    label: "Sell",
-    icon: Building2,
-    href: "/sell/properties",
-    market: "sell",
-  },
-  {
-    id: "rent",
-    label: "Rent",
-    icon: Key,
-    href: "/rent/properties",
-    market: "rent",
-  },
+  // {
+  //   id: "sell",
+  //   label: "Sell",
+  //   icon: Building2,
+  //   href: "/sell/properties",
+  //   market: "sell",
+  // },
+  // {
+  //   id: "rent",
+  //   label: "Rent",
+  //   icon: Key,
+  //   href: "/rent/properties",
+  //   market: "rent",
+  // },
   {
     id: "offplan",
     label: "Off Plan",

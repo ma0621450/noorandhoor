@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { Car, ChevronDown, Eye } from "lucide-react";
-import Link from "next/link";
 import MediaImage from "@/components/ui/MediaImage";
-import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
+import UnitDetailModal from "@/components/sections/detail/UnitDetailModal";
 import {
   buildInventoryOverview,
   buildParkingGroups,
@@ -12,12 +11,7 @@ import {
   hasUnitAvailability,
 } from "@/lib/admin/propertyUnitSummaries";
 
-function enquireHref(unit) {
-  if (!unit?.unitNumber) return CONTACT_FORM_HREF;
-  return `/contact?unit=${encodeURIComponent(unit.unitNumber)}#contact-form`;
-}
-
-function AccordionGroup({ group, open, onToggle }) {
+function AccordionGroup({ group, open, onToggle, onViewUnit }) {
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 bg-[#161616]">
       <button
@@ -62,7 +56,7 @@ function AccordionGroup({ group, open, onToggle }) {
                     <th className="px-3 py-3 font-medium">Floor</th>
                     <th className="px-3 py-3 font-medium">Area</th>
                     <th className="px-3 py-3 font-medium">Price From</th>
-                    <th className="px-4 py-3 font-medium"> </th>
+                    <th className="px-4 py-3 font-medium">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -108,13 +102,19 @@ function AccordionGroup({ group, open, onToggle }) {
                         ) : null}
                       </td>
                       <td className="px-4 py-3">
-                        <Link
-                          href={enquireHref(unit)}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            onViewUnit({
+                              ...unit,
+                              parkingSpaces: group.parkingSpaces,
+                            })
+                          }
                           className="inline-flex size-9 items-center justify-center rounded-lg border border-[#ba8a44]/50 text-[#eec876] transition hover:bg-[#ba8a44]/15"
-                          aria-label={`Enquire about unit ${unit.unitNumber}`}
+                          aria-label={`View details for unit ${unit.unitNumber}`}
                         >
                           <Eye className="h-4 w-4" strokeWidth={1.75} />
-                        </Link>
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -202,6 +202,7 @@ export default function DetailUnitsAvailability({ unitGroups = [] }) {
   const [openId, setOpenId] = useState(
     () => summaries[0]?.clientKey || summaries[0]?.id || summaries[0]?.slug || null,
   );
+  const [selectedUnit, setSelectedUnit] = useState(null);
 
   if (!hasUnitAvailability(unitGroups)) return null;
 
@@ -224,6 +225,7 @@ export default function DetailUnitsAvailability({ unitGroups = [] }) {
                 group={group}
                 open={openId === id}
                 onToggle={() => setOpenId((current) => (current === id ? null : id))}
+                onViewUnit={setSelectedUnit}
               />
             );
           })}
@@ -234,6 +236,11 @@ export default function DetailUnitsAvailability({ unitGroups = [] }) {
           <ParkingCard groups={parking} />
         </div>
       </div>
+
+      <UnitDetailModal
+        unit={selectedUnit}
+        onClose={() => setSelectedUnit(null)}
+      />
     </section>
   );
 }

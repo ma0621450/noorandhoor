@@ -23,7 +23,8 @@ export default function Features() {
     <section className="section-container">
       <div className="mb-10 flex flex-col items-center gap-6 px-2 text-center sm:mb-12 sm:gap-8">
         <h3 className="section-sub-heading !tracking-[3.3px]">
-          Buy • Rent • Sell
+          {/* Buy • Rent • Sell */}
+          Buy • Off Plan
         </h3>
         <h2 className="text-gold-gradient max-w-full sm:max-w-[780px]">
           Your Trusted Real Estate Journey Starts Here
