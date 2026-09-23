@@ -55,7 +55,7 @@ function AccordionGroup({ group, open, onToggle, onViewUnit }) {
                     <th className="px-3 py-3 font-medium">Number</th>
                     <th className="px-3 py-3 font-medium">Floor</th>
                     <th className="px-3 py-3 font-medium">Area</th>
-                    <th className="px-3 py-3 font-medium">Price From</th>
+                    <th className="px-3 py-3 font-medium">From</th>
                     <th className="px-4 py-3 font-medium">Action</th>
                   </tr>
                 </thead>

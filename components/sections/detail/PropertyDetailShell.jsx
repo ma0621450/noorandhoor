@@ -10,6 +10,8 @@ import DetailProjectSpecs from "@/components/sections/detail/DetailProjectSpecs"
 import DetailUnitsAvailability from "@/components/sections/detail/DetailUnitsAvailability";
 import DetailRelated from "@/components/sections/detail/DetailRelated";
 import FaqSection from "@/components/common/FaqSection";
+import TeamCard from "@/components/ui/TeamCard";
+import { TEAM_MEMBERS } from "@/components/sections/home/OurTeam";
 import DetailAgentContact from "@/components/sections/detail/DetailAgentContact";
 import DetailAgentContactRent from "@/components/sections/detail/DetailAgentContactRent";
 import PropertyJourneyCta from "@/components/sections/property/PropertyJourneyCta";
@@ -135,6 +137,15 @@ export default function PropertyDetailShell({
           amenities={property.amenities}
           features={property.features}
         />
+        <section className="px-4 pb-8 pt-0 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-[1280px]">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {TEAM_MEMBERS.map((member) => (
+                <TeamCard key={member.id} member={member} />
+              ))}
+            </div>
+          </div>
+        </section>
         <DetailRelated
           basePath={header.breadcrumbHref}
           properties={related}
@@ -157,6 +168,15 @@ export default function PropertyDetailShell({
         amenities={property.amenities}
         features={property.features}
       />
+      <section className="px-4 pb-8 pt-0 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {TEAM_MEMBERS.map((member) => (
+              <TeamCard key={member.id} member={member} />
+            ))}
+          </div>
+        </div>
+      </section>
       <DetailRelated
         basePath={header.breadcrumbHref}
         eyebrow={relatedEyebrow || "Related Properties"}

@@ -354,7 +354,7 @@ function PropertyEditor({
                 onChange={(event) => onMarketChange(event.target.value)}
                 error={errors.market}
                 placeholder="Select market"
-                tooltip="Matches the Buy, Rent, Sell, and Off Plan sections of the website."
+                tooltip="Matches the active website market sections available in the admin tool."
                 options={PROPERTY_MARKET_OPTIONS}
               />
               <SelectField

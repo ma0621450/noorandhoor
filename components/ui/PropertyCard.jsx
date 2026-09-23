@@ -166,7 +166,7 @@ export default function PropertyCard({
 
         <div className="flex flex-col gap-0.5">
           <span className="text-xs font-medium uppercase tracking-[0.08em] text-white/55">
-            Price From
+            From
           </span>
           <p className="!font-accent m-0 text-lg font-bold text-[#E9C349]">
             AED {price.toLocaleString()}

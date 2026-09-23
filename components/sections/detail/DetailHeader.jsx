@@ -13,7 +13,7 @@ export default function DetailHeader({
   breadcrumbLabel = "Buy apartments",
   breadcrumbHref = "/buy/apartments",
   breadcrumbCurrent = "Home",
-  priceLabel = "Price From",
+  priceLabel = "From",
 }) {
   const { title, location, price, tags = [] } = property;
   const priceText = `AED ${Number(price).toLocaleString("en-US")}`;

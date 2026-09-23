@@ -3,7 +3,7 @@ import team2 from "@/public/images/landingpage/team2.png";
 import team3 from "@/public/images/landingpage/team3.png";
 import team4 from "@/public/images/landingpage/team4.png";
 
-const TEAM_MEMBERS = [
+export const TEAM_MEMBERS = [
   {
     id: 2,
     image: team2,
