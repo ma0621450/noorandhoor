@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Bed, Bath, Scan, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import Badge from "@/components/ui/Badge";
@@ -21,6 +21,7 @@ export default function PropertyCard({
     features,
     price,
     featured,
+    status,
     slug,
   } = property;
   const gallery = images?.length ? images : image ? [image] : [];
@@ -29,11 +30,17 @@ export default function PropertyCard({
     property.href ||
     (slug && basePath ? `${basePath}/${slug}` : undefined);
   const showCarousel = gallery.length > 1;
+  const showEoiTag = String(status || "").toUpperCase() === "EOI";
 
   const [index, setIndex] = useState(0);
   const [liked, setLiked] = useState(false);
+  const router = useRouter();
 
   const currentImage = gallery[index] || gallery[0];
+
+  const handleCardClick = () => {
+    if (to) router.push(to);
+  };
 
   const prev = (event) => {
     event.preventDefault();
@@ -49,12 +56,15 @@ export default function PropertyCard({
 
   return (
     <article
+      onClick={(event) => {
+        if (!to) return;
+        if (event.target instanceof HTMLElement && event.target.closest("button")) {
+          return;
+        }
+        handleCardClick();
+      }}
       className={`group relative flex w-full flex-col overflow-hidden rounded-[9.5px] border border-[rgba(212,175,55,0.4)] bg-[#0E1112] transition-all duration-200 hover:border-[#eec876] hover:shadow-[0_0_0_1px_rgba(238,200,118,0.35)] ${to ? "cursor-pointer" : ""} ${className}`}
     >
-      {to && (
-        <Link href={to} className="absolute inset-0 z-[1]" aria-label={title} />
-      )}
-
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         {currentImage && (
           <MediaImage
@@ -65,9 +75,10 @@ export default function PropertyCard({
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}
-        {featured && (
-          <div className="absolute left-3 top-3 z-[2]">
-            <Badge variant="gold">{badge}</Badge>
+        {(featured || showEoiTag) && (
+          <div className="absolute left-3 top-3 z-[2] flex flex-row flex-wrap items-center gap-2">
+            {featured ? <Badge variant="gold">{badge}</Badge> : null}
+            {showEoiTag ? <Badge variant="gold">EOI</Badge> : null}
           </div>
         )}
 

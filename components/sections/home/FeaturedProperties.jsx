@@ -76,7 +76,7 @@ const FeaturedProperties = () => {
           </div>
         </div>
 
-        <Link href={activeTab.href} className="w-full shrink-0 sm:w-auto lg:self-end">
+        <Link href="/buy" className="w-full shrink-0 sm:w-auto lg:self-end">
           <Button variant="secondary" className="w-full sm:w-auto">
             View All Properties
           </Button>
