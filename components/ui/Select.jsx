@@ -87,10 +87,6 @@ export function Select({
   );
 
   useEffect(() => {
-    if (isControlled) setInternal(String(value));
-  }, [isControlled, value]);
-
-  useEffect(() => {
     if (!open) return undefined;
 
     const onPointerDown = (event) => {
@@ -153,7 +149,6 @@ export function Select({
         aria-expanded={open}
         aria-controls={listId}
         aria-label={ariaLabel}
-        aria-required={required || undefined}
         onClick={() => {
           if (!disabled) setOpen((prev) => !prev);
         }}

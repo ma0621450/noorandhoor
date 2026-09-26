@@ -1,10 +1,10 @@
 "use client";
 
-import { Suspense, useMemo } from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import DeveloperCard from "@/components/sections/developers/DeveloperCard";
 import Pagination from "@/components/ui/Pagination";
-import { FEATURED_DEVELOPERS } from "@/components/sections/developers/developersData";
+import useAdminDevelopers from "@/hooks/useAdminDevelopers";
 import {
   LISTING_PAGE_SIZE,
   listingPageHref,
@@ -14,7 +14,7 @@ import {
 
 function DevelopersFeaturedBody() {
   const searchParams = useSearchParams();
-  const developers = useMemo(() => FEATURED_DEVELOPERS, []);
+  const { developers, isReady, error } = useAdminDevelopers();
   const { currentPage, totalPages, pageItems } = paginateItems(
     developers,
     pageFromSearchParams(searchParams),
@@ -33,10 +33,18 @@ function DevelopersFeaturedBody() {
         <h2 className="text-gold-gradient text-left">Featured Developers</h2>
       </div>
 
-      {pageItems.length ? (
+      {!isReady ? (
+        <p className="py-10 text-center text-sm text-white/45">
+          Loading developers...
+        </p>
+      ) : error ? (
+        <p role="alert" className="py-10 text-center text-sm text-red-200">
+          Could not load developers: {error}
+        </p>
+      ) : pageItems.length ? (
         <div className="grid grid-cols-1 gap-[33px] sm:grid-cols-2 lg:grid-cols-3">
           {pageItems.map((developer) => (
-            <DeveloperCard key={developer.name} developer={developer} />
+            <DeveloperCard key={developer.id} developer={developer} />
           ))}
         </div>
       ) : (
@@ -45,7 +53,7 @@ function DevelopersFeaturedBody() {
         </p>
       )}
 
-      {developers.length ? (
+      {isReady && developers.length ? (
         <Pagination
           label="Developer pagination"
           currentPage={currentPage}

@@ -2,60 +2,73 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 
 export default function DeveloperCard({ developer }) {
-  const { name, logo, image, cta } = developer;
+  const {
+    developerName,
+    title,
+    name,
+    image,
+    ctaUrl = "/off-plan",
+    pointOne = "Active Master Communities",
+    pointTwo = "Delivery Record (29,930)",
+    pointThree = "Starting Price",
+  } = developer;
+  const displayName = developerName || name;
 
   return (
-    <article className="relative flex min-h-[479px] w-full flex-col items-center justify-end overflow-hidden rounded-[12px] border border-[rgba(212,175,55,0.6)] px-3 py-5">
-      <Image
-        src={image}
-        alt=""
-        fill
-        sizes="351px"
-        className="object-cover"
-      />
+    <article className="relative flex min-h-[479px] w-full flex-col items-center justify-end overflow-hidden rounded-[12px] border border-[rgba(212,175,55,0.6)] px-4 py-6">
+      {image ? (
+        <Image
+          src={image}
+          alt=""
+          fill
+          sizes="351px"
+          className="object-cover"
+        />
+      ) : (
+        <div className="absolute inset-0 bg-[#25231f]" />
+      )}
       <div className="absolute inset-0 bg-black/60" />
+      {displayName ? (
+        <div className="pointer-events-none absolute inset-x-0 top-[26%] z-10 flex -translate-y-1/2 justify-center px-4">
+          <p className="w-full text-center text-5xl font-normal uppercase leading-tight text-white [text-shadow:0_2px_5px_rgba(0,0,0,1),0_0_18px_rgba(0,0,0,0.9)] sm:text-6xl">
+            {displayName}
+          </p>
+        </div>
+      ) : null}
 
       <div className="relative z-10 flex w-full flex-col items-center gap-8">
-        <div className="relative h-[72px] w-full max-w-[206px]">
-          <Image
-            src={logo}
-            alt={name}
-            fill
-            sizes="206px"
-            className="object-cover"
-          />
-        </div>
-
-        <div className="flex w-full flex-col items-start gap-2">
-          <p className="text-sm font-medium capitalize leading-7 text-[#F5F5F5]">
-            Avg. 3-Year Capital Growth{" "}
-            <span className="text-[#E9C349]">+16.2%</span>
-          </p>
+        <div className="flex w-full flex-col items-start gap-3">
+          <h3 className="w-full text-left text-base font-semibold text-[#E9C349]">
+            {title || name}
+          </h3>
           <div className="h-px w-full border-t-2 border-[#E9C349]" />
-          <ul className="flex flex-col gap-0 text-sm font-semibold capitalize leading-7 text-[#F5F5F5]">
+          <ul className="flex w-full flex-col gap-0 text-base font-semibold capitalize leading-8 text-[#F5F5F5]">
             <li className="flex items-center gap-1.5">
               <span className="text-[#E9C349]" aria-hidden>
                 •
               </span>
-              Active Master Communities
+              {pointOne}
             </li>
             <li className="flex items-center gap-1.5">
               <span className="text-[#E9C349]" aria-hidden>
                 •
               </span>
-              Delivery Record (29,930)
+              {pointTwo}
             </li>
             <li className="flex items-center gap-1.5">
               <span className="text-[#E9C349]" aria-hidden>
                 •
               </span>
-              Starting Price
+              {pointThree}
             </li>
           </ul>
         </div>
 
-        <Button className="h-[41px] w-full max-w-[288px] rounded-[8px] px-4 text-[13px] tracking-[1.66px] sm:text-sm">
-          {cta}
+        <Button
+          href={ctaUrl}
+          className="h-[56px] w-full max-w-[360px] rounded-[8px] px-4 text-sm tracking-[1.66px] sm:text-base"
+        >
+          VIEW LIVE PROJECTS
         </Button>
       </div>
     </article>

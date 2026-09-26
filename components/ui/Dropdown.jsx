@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import CaretDown from "@/components/ui/CaretDown";
 
 const DropdownContext = createContext(null);
@@ -25,6 +32,7 @@ export default function Dropdown({
   compact = false,
 }) {
   const context = useContext(DropdownContext);
+  const setOpenId = context?.setOpenId;
   const rootRef = useRef(null);
   const [internal, setInternal] = useState(placeholder);
   const selected = value === undefined ? internal : value || placeholder;
@@ -35,10 +43,7 @@ export default function Dropdown({
     context.setOpenId(isOpen ? null : id);
   };
 
-  const close = () => {
-    if (!context) return;
-    context.setOpenId(null);
-  };
+  const close = useCallback(() => setOpenId?.(null), [setOpenId]);
 
   const select = (item) => {
     if (value === undefined) setInternal(item);
@@ -62,7 +67,7 @@ export default function Dropdown({
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [isOpen]);
+  }, [close, isOpen]);
 
   return (
     <div ref={rootRef} className={`relative min-w-0 ${className}`}>

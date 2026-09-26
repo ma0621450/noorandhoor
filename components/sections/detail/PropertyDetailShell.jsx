@@ -98,6 +98,7 @@ export default function PropertyDetailShell({
         <DetailProjectSpecs property={property} />
         <DetailUnitsAvailability unitGroups={property.unitGroups} />
         <OffPlanPaymentPlan
+          key={`${property.id || property.slug || "property"}:${property.price}`}
           defaultPrice={property.price}
           downPercent={property.paymentDownPercent}
           installments={property.paymentInstallments}
@@ -139,6 +140,11 @@ export default function PropertyDetailShell({
         />
         <section className="px-4 pb-8 pt-0 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-[1280px]">
+            <div className="mb-8 pl-1 sm:mb-10 lg:pl-0">
+              <h2 className="text-left text-2xl font-semibold tracking-[0.02em] text-[#e3b76d] sm:text-3xl lg:text-[2rem]">
+                Sales Office
+              </h2>
+            </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
               {TEAM_MEMBERS.map((member) => (
                 <TeamCard key={member.id} member={member} />
@@ -170,6 +176,11 @@ export default function PropertyDetailShell({
       />
       <section className="px-4 pb-8 pt-0 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-[1280px]">
+          <div className="mb-8 pl-1 sm:mb-10 lg:pl-0">
+            <h2 className="text-left text-2xl font-semibold tracking-[0.02em] text-[#e3b76d] sm:text-3xl lg:text-[2rem]">
+              Sales Office
+            </h2>
+          </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
             {TEAM_MEMBERS.map((member) => (
               <TeamCard key={member.id} member={member} />

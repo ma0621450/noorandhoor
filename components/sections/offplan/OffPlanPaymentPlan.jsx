@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Percent, FileCheck } from "lucide-react";
 import OffPlanInstallmentSchedule from "@/components/sections/offplan/OffPlanInstallmentSchedule";
 import {
@@ -27,10 +27,6 @@ export default function OffPlanPaymentPlan({
   );
 
   const [price, setPrice] = useState(bounds.defaultPrice);
-
-  useEffect(() => {
-    setPrice(bounds.defaultPrice);
-  }, [bounds.defaultPrice]);
 
   const { downPayment, financed, monthly } = getPaymentBreakdown(
     price,

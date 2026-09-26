@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 
 function TestimonialCard({ quote, person }) {
@@ -60,14 +60,11 @@ export default function TestimonialSlider({ items }) {
   const perView = useSlidesPerView();
   const maxIndex = Math.max(0, items.length - perView);
   const [index, setIndex] = useState(0);
+  const activeIndex = Math.min(index, maxIndex);
   const [paused, setPaused] = useState(false);
   const touchStartX = useRef(null);
 
-  useEffect(() => {
-    setIndex((current) => Math.min(current, maxIndex));
-  }, [maxIndex]);
-
-  const goTo = useEffectEvent((next) => {
+  function goTo(next) {
     if (maxIndex === 0) return;
     if (next < 0) {
       setIndex(maxIndex);
@@ -78,13 +75,15 @@ export default function TestimonialSlider({ items }) {
       return;
     }
     setIndex(next);
-  });
+  }
 
   useEffect(() => {
     if (paused || maxIndex === 0) return undefined;
-    const timer = window.setInterval(() => goTo(index + 1), 5000);
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current >= maxIndex ? 0 : current + 1));
+    }, 5000);
     return () => window.clearInterval(timer);
-  }, [goTo, index, maxIndex, paused]);
+  }, [maxIndex, paused]);
 
   const slidePercent = 100 / perView;
 
@@ -104,7 +103,7 @@ export default function TestimonialSlider({ items }) {
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{
-            transform: `translateX(-${index * slidePercent}%)`,
+            transform: `translateX(-${activeIndex * slidePercent}%)`,
           }}
           onTouchStart={(event) => {
             touchStartX.current = event.touches[0]?.clientX ?? null;
@@ -114,7 +113,7 @@ export default function TestimonialSlider({ items }) {
             const delta = event.changedTouches[0].clientX - touchStartX.current;
             touchStartX.current = null;
             if (Math.abs(delta) < 40) return;
-            goTo(delta < 0 ? index + 1 : index - 1);
+            goTo(delta < 0 ? activeIndex + 1 : activeIndex - 1);
           }}
         >
           {items.map((item) => (
@@ -133,7 +132,7 @@ export default function TestimonialSlider({ items }) {
         <button
           type="button"
           aria-label="Previous testimonial"
-          onClick={() => goTo(index - 1)}
+          onClick={() => goTo(activeIndex - 1)}
           className="flex size-11 items-center justify-center rounded-full border border-[#ba8a44]/50 text-[#eec876] transition hover:border-[#eec876] hover:bg-[#ba8a44]/15"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -141,7 +140,7 @@ export default function TestimonialSlider({ items }) {
 
         <div className="flex items-center gap-2" role="tablist" aria-label="Testimonials">
           {Array.from({ length: maxIndex + 1 }).map((_, dotIndex) => {
-            const active = dotIndex === index;
+            const active = dotIndex === activeIndex;
             return (
               <button
                 key={dotIndex}
@@ -163,7 +162,7 @@ export default function TestimonialSlider({ items }) {
         <button
           type="button"
           aria-label="Next testimonial"
-          onClick={() => goTo(index + 1)}
+          onClick={() => goTo(activeIndex + 1)}
           className="flex size-11 items-center justify-center rounded-full border border-[#ba8a44]/50 text-[#eec876] transition hover:border-[#eec876] hover:bg-[#ba8a44]/15"
         >
           <ChevronRight className="h-5 w-5" />

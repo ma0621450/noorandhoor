@@ -12,6 +12,8 @@ const ICONS = {
   "/admin": LayoutDashboard,
   "/admin/properties": Building2,
   "/admin/properties/new": Plus,
+  "/admin/developers": Building2,
+  "/admin/developers/new": Plus,
   "/admin/blogs": Newspaper,
   "/admin/blogs/new": Plus,
 };

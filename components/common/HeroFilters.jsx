@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
@@ -115,19 +115,17 @@ function FilterBar({ fields, values, onChange, href, canReset, onReset }) {
   );
 }
 
-function HeroFiltersForm({ prefix, variant, listingPath, fields }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+function HeroFiltersForm({
+  prefix,
+  variant,
+  listingPath,
+  fields,
+  initialValues,
+  searchParams,
+  pathname,
+}) {
   const router = useRouter();
-  const [values, setValues] = useState(() =>
-    mergeFilterValues(searchParams, fields, variant),
-  );
-
-  const query = searchParams.toString();
-
-  useEffect(() => {
-    setValues(mergeFilterValues(searchParams, fields, variant));
-  }, [fields, query, variant]);
+  const [values, setValues] = useState(initialValues);
 
   const visibleFields = useMemo(() => {
     const next = withCascadingOptions(fields, values);
@@ -190,6 +188,27 @@ function HeroFiltersForm({ prefix, variant, listingPath, fields }) {
   );
 }
 
+function HeroFiltersBody(props) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const query = searchParams.toString();
+  const initialValues = mergeFilterValues(
+    searchParams,
+    props.fields,
+    props.variant,
+  );
+
+  return (
+    <HeroFiltersForm
+      key={`${props.prefix}:${props.variant}:${pathname}:${query}`}
+      {...props}
+      initialValues={initialValues}
+      searchParams={searchParams}
+      pathname={pathname}
+    />
+  );
+}
+
 export default function HeroFilters({ prefix, variant, listingPath, fields }) {
   const fallbackValues = defaultPropertyFilterValues(variant);
   const fallbackFields = withCascadingOptions(fields, fallbackValues).map(
@@ -217,7 +236,7 @@ export default function HeroFilters({ prefix, variant, listingPath, fields }) {
         />
       }
     >
-      <HeroFiltersForm
+      <HeroFiltersBody
         prefix={prefix}
         variant={variant}
         listingPath={listingPath}
