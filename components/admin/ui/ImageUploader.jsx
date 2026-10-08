@@ -7,16 +7,37 @@ import { MAX_COVER_IMAGE_BYTES } from "@/lib/admin/constants";
 import { fileToDataUrl } from "@/lib/admin/utils";
 import { createClient } from "@/lib/supabase/client";
 
+function readImageSize(src) {
+  return new Promise((resolve, reject) => {
+    const image = new window.Image();
+    image.onload = () =>
+      resolve({ width: image.naturalWidth, height: image.naturalHeight });
+    image.onerror = () => reject(new Error("Could not read image dimensions."));
+    image.src = src;
+  });
+}
+
 export default function ImageUploader({
   value,
   onChange,
   error,
   label = "Cover image",
   storageBucket,
+  maxBytes = MAX_COVER_IMAGE_BYTES,
+  requiredWidth,
+  requiredHeight,
+  aspectClassName = "aspect-[16/9]",
+  hint,
 }) {
   const inputRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [localError, setLocalError] = useState("");
+
+  const sizeHint =
+    hint ||
+    (requiredWidth && requiredHeight
+      ? `JPG, PNG or WebP · Exact size ${requiredWidth}×${requiredHeight}px · Max ${(maxBytes / (1024 * 1024)).toFixed(1)}MB`
+      : `JPG, PNG or WebP up to ${(maxBytes / (1024 * 1024)).toFixed(1)}MB`);
 
   const handleFile = async (file) => {
     if (!file) return;
@@ -26,8 +47,10 @@ export default function ImageUploader({
       return;
     }
 
-    if (file.size > MAX_COVER_IMAGE_BYTES) {
-      setLocalError("Choose an image smaller than 1.5MB.");
+    if (file.size > maxBytes) {
+      setLocalError(
+        `Choose an image smaller than ${(maxBytes / (1024 * 1024)).toFixed(1)}MB.`,
+      );
       return;
     }
 
@@ -48,7 +71,19 @@ export default function ImageUploader({
         return;
       }
 
-      onChange(await fileToDataUrl(file));
+      const dataUrl = await fileToDataUrl(file);
+
+      if (requiredWidth && requiredHeight) {
+        const { width, height } = await readImageSize(dataUrl);
+        if (width !== requiredWidth || height !== requiredHeight) {
+          setLocalError(
+            `Image must be exactly ${requiredWidth}×${requiredHeight}px (got ${width}×${height}).`,
+          );
+          return;
+        }
+      }
+
+      onChange(dataUrl);
     } catch (uploadError) {
       setLocalError(uploadError?.message || "Could not upload image.");
     }
@@ -73,7 +108,7 @@ export default function ImageUploader({
 
       {preview ? (
         <div className="overflow-hidden rounded-2xl border border-[#ba8a44]/30">
-          <div className="relative aspect-[16/9] bg-[#111]">
+          <div className={`relative bg-[#111] ${aspectClassName}`}>
             {/* Uploaded previews are data URLs and cannot use next/image. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -121,7 +156,7 @@ export default function ImageUploader({
             <p className="text-sm font-medium text-white">
               Drop an image here, or click to upload
             </p>
-            <p className="mt-1 text-xs text-white/45">JPG, PNG or WebP up to 1.5MB</p>
+            <p className="mt-1 text-xs text-white/45">{sizeHint}</p>
           </div>
         </button>
       )}
@@ -140,6 +175,11 @@ export default function ImageUploader({
       {(localError || error) && (
         <p className="text-xs text-red-300">{localError || error}</p>
       )}
+      {!localError && !error && requiredWidth && requiredHeight ? (
+        <p className="text-xs text-white/40">
+          Required cover size: {requiredWidth}×{requiredHeight}px (16:9).
+        </p>
+      ) : null}
     </div>
   );
 }

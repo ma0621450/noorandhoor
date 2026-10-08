@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import BlogArticle from "@/components/sections/blog/BlogArticle";
 import { getPublishedPostBySlug, getRelatedPosts } from "@/lib/blog/queries";
+import { buildBlogJsonLd, buildBlogMetadata } from "@/lib/blog/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -14,17 +15,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  return {
-    title: `${post.title} | Noor & Hoor Properties`,
-    description: post.excerpt,
-    alternates: { canonical: `/blog/${slug}` },
-    openGraph: {
-      title: `${post.title} | Noor & Hoor Properties`,
-      description: post.excerpt,
-      type: "article",
-      url: `/blog/${slug}`,
-    },
-  };
+  return buildBlogMetadata(post);
 }
 
 export default async function BlogArticlePage({ params }) {
@@ -36,6 +27,15 @@ export default async function BlogArticlePage({ params }) {
   }
 
   const related = await getRelatedPosts(slug);
+  const jsonLd = buildBlogJsonLd(post);
 
-  return <BlogArticle post={post} related={related} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BlogArticle post={post} related={related} />
+    </>
+  );
 }

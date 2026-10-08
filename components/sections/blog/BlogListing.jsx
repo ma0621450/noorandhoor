@@ -81,17 +81,17 @@ export default function BlogListing({
             href={`/blog/${featured.slug}`}
             className="group mt-10 grid overflow-hidden rounded-2xl border border-[#ba8a44]/40 bg-[#121212] transition-colors hover:border-[#ba8a44] lg:mt-14 lg:grid-cols-2"
           >
-            <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[420px]">
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#0d0d0d] lg:aspect-auto lg:h-full">
               <MediaImage
                 src={featured.image}
                 alt={featured.title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 priority
               />
             </div>
-            <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-12">
+            <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:min-h-[320px] lg:p-12">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-md bg-gradient-to-r from-[#BC8741] to-[#D6A85E] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.96px] text-white">
                   {featured.category}

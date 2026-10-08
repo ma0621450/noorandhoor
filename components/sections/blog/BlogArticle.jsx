@@ -5,6 +5,57 @@ import BlogCard from "@/components/ui/BlogCard";
 import MediaImage from "@/components/ui/MediaImage";
 import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
+function ArticleBody({ post }) {
+  if (post.contentHtml) {
+    return (
+      <div
+        className="blog-article-content mt-8 sm:mt-10"
+        dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+      />
+    );
+  }
+
+  return (
+    <div className="mt-8 space-y-5 text-sm leading-7 text-white/75 sm:mt-10 sm:text-base">
+      {post.paragraphs.map((paragraph, index) => (
+        <p key={`paragraph-${index}`}>{paragraph}</p>
+      ))}
+    </div>
+  );
+}
+
+function FaqSection({ faqs }) {
+  if (!faqs?.length) return null;
+
+  return (
+    <section className="mt-12 sm:mt-14">
+      <h2 className="detail-section-title text-gold-gradient text-2xl font-semibold sm:text-3xl">
+        Frequently Asked Questions
+      </h2>
+      <div className="mt-6 space-y-3">
+        {faqs.map((item, index) => (
+          <details
+            key={`faq-${index}`}
+            className="group rounded-2xl border border-white/10 bg-[#171717] px-5 py-4 open:border-[#ba8a44]/40"
+          >
+            <summary className="cursor-pointer list-none text-sm font-semibold text-white marker:content-none sm:text-base [&::-webkit-details-marker]:hidden">
+              <span className="flex items-start justify-between gap-4">
+                {item.question}
+                <span className="mt-0.5 text-[#ba8a44] transition group-open:rotate-45">
+                  +
+                </span>
+              </span>
+            </summary>
+            <p className="mt-3 text-sm leading-7 text-white/70 sm:text-base">
+              {item.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function BlogArticle({ post, related = [] }) {
   return (
     <div className="min-h-screen bg-[#111] pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24">
@@ -41,17 +92,13 @@ export default function BlogArticle({ post, related = [] }) {
           />
         </div>
 
-        <div className="mt-8 space-y-5 text-sm leading-7 text-white/75 sm:mt-10 sm:text-base">
-          {post.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+        <ArticleBody post={post} />
 
         {post.items?.length ? (
           <ul className="mt-8 space-y-3 rounded-2xl border border-white/10 bg-[#171717] p-6 sm:p-8">
-            {post.items.map((item) => (
+            {post.items.map((item, index) => (
               <li
-                key={item}
+                key={`item-${index}`}
                 className="flex gap-3 text-sm leading-7 text-white/80 sm:text-base"
               >
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ba8a44]" />
@@ -60,6 +107,8 @@ export default function BlogArticle({ post, related = [] }) {
             ))}
           </ul>
         ) : null}
+
+        <FaqSection faqs={post.faqs} />
 
         <div className="mt-12 rounded-2xl bg-[#171717] px-6 py-10 text-center sm:px-10">
           <h2 className="text-gold-gradient text-3xl sm:text-4xl">

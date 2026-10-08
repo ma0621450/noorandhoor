@@ -12,7 +12,7 @@ const BlogCard = ({ blog }) => {
         <Link href={href} className="absolute inset-0 z-[1]" aria-label={title} />
       )}
       <div className="transition-transform duration-300 ease-out group-hover:scale-102">
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <div className="relative aspect-[16/9] w-full overflow-hidden">
           {image ? (
             <MediaImage
               src={image}
