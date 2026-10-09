@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import BlogFaqFields from "@/components/admin/blogs/BlogFaqFields";
-import BlogKeyPointsFields from "@/components/admin/blogs/BlogKeyPointsFields";
 import BlogSeoFields from "@/components/admin/blogs/BlogSeoFields";
+import BlogTagFields from "@/components/admin/blogs/BlogTagFields";
 import RichTextEditor from "@/components/admin/blogs/RichTextEditor";
 import PageHeader from "@/components/admin/ui/PageHeader";
 import AdminButton from "@/components/admin/ui/AdminButton";
@@ -25,6 +25,7 @@ import {
 import { ADMIN_BLOG_CATEGORIES } from "@/lib/admin/data/blogs";
 import { slugify } from "@/lib/admin/utils";
 import { isContentEmpty } from "@/lib/blog/content";
+import { normalizeTags } from "@/lib/blog/tags";
 
 export const EMPTY_BLOG_FORM = {
   title: "",
@@ -32,7 +33,7 @@ export const EMPTY_BLOG_FORM = {
   category: ADMIN_BLOG_CATEGORIES[0],
   excerpt: "",
   content: "",
-  items: [""],
+  tags: [],
   coverImage: "",
   metaTitle: "",
   metaDescription: "",
@@ -50,7 +51,7 @@ export function blogToForm(blog) {
     category: blog.category,
     excerpt: blog.excerpt,
     content: blog.content,
-    items: blog.items?.length ? blog.items : [""],
+    tags: blog.tags?.length ? blog.tags : [],
     coverImage: blog.coverImage,
     metaTitle: blog.metaTitle || "",
     metaDescription: blog.metaDescription || "",
@@ -85,6 +86,10 @@ export default function BlogEditor({
   );
   const heroTakenByOther = Boolean(
     currentHero && currentHero.id !== initialBlog?.id,
+  );
+  const tagSuggestions = useMemo(
+    () => normalizeTags(blogs.flatMap((blog) => blog.tags || [])),
+    [blogs],
   );
 
   const setField = (key, value) => {
@@ -125,7 +130,7 @@ export default function BlogEditor({
     try {
       await onSave({
         ...form,
-        items: form.items.filter((item) => item.trim()),
+        tags: normalizeTags(form.tags),
       });
       showToast(initialBlog ? "Blog updated." : "Blog uploaded.");
       router.push("/admin/blogs");
@@ -144,7 +149,7 @@ export default function BlogEditor({
       <PageHeader
         eyebrow={eyebrow}
         title={title}
-        description="Cover image, SEO, rich content, and publishing state are stored in Supabase."
+        description="Cover image, tags, SEO, rich content, and publishing state are stored in Supabase."
       />
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
@@ -185,9 +190,10 @@ export default function BlogEditor({
               onChange={(value) => setField("content", value)}
               error={errors.content}
             />
-            <BlogKeyPointsFields
-              items={form.items}
-              onChange={(items) => setField("items", items)}
+            <BlogTagFields
+              tags={form.tags}
+              suggestions={tagSuggestions}
+              onChange={(tags) => setField("tags", tags)}
             />
           </div>
 

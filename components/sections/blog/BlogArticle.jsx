@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
+import BlogTags from "@/components/ui/BlogTags";
 import MediaImage from "@/components/ui/MediaImage";
 import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 
@@ -81,6 +82,12 @@ export default function BlogArticle({ post, related = [] }) {
           {post.title}
         </h1>
 
+        {post.tags?.length ? (
+          <div className="mt-5">
+            <BlogTags tags={post.tags} linked />
+          </div>
+        ) : null}
+
         <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl border border-[#ba8a44]/30 sm:mt-10">
           <MediaImage
             src={post.image}
@@ -93,20 +100,6 @@ export default function BlogArticle({ post, related = [] }) {
         </div>
 
         <ArticleBody post={post} />
-
-        {post.items?.length ? (
-          <ul className="mt-8 space-y-3 rounded-2xl border border-white/10 bg-[#171717] p-6 sm:p-8">
-            {post.items.map((item, index) => (
-              <li
-                key={`item-${index}`}
-                className="flex gap-3 text-sm leading-7 text-white/80 sm:text-base"
-              >
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#ba8a44]" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        ) : null}
 
         <FaqSection faqs={post.faqs} />
 

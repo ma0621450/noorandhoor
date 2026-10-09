@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import BlogCard from "@/components/ui/BlogCard";
-import MediaImage from "@/components/ui/MediaImage";
+import FeaturedPost from "@/components/sections/blog/FeaturedPost";
 import Pagination from "@/components/ui/Pagination";
 import { BLOG_CATEGORIES } from "@/components/sections/blog/blogData";
 import { CONTACT_FORM_HREF } from "@/components/sections/contact/contactData";
 import { pickHeroPost } from "@/lib/blog/public";
+import { postHasTag, tagLabelForSlug } from "@/lib/blog/tags";
 import {
   LISTING_PAGE_SIZE,
   listingPageHref,
@@ -15,36 +16,47 @@ import {
 
 export const BLOGS_PER_PAGE = LISTING_PAGE_SIZE;
 
-function categoryHref(category) {
-  const path =
-    category === "All"
-      ? "/blog"
-      : `/blog?category=${encodeURIComponent(category)}`;
-  return `${path}#blog-listings`;
-}
-
-function blogPageHref(category, pageNumber) {
+function listingParams(category, tag) {
   const params = new URLSearchParams();
   if (category && category !== "All") params.set("category", category);
-  return listingPageHref("/blog", pageNumber, params, "blog-listings");
+  if (tag) params.set("tag", tag);
+  return params;
+}
+
+function categoryHref(category, tag) {
+  return listingPageHref(
+    "/blog",
+    1,
+    listingParams(category, tag),
+    "blog-listings",
+  );
+}
+
+function blogPageHref(category, tag, pageNumber) {
+  return listingPageHref(
+    "/blog",
+    pageNumber,
+    listingParams(category, tag),
+    "blog-listings",
+  );
 }
 
 export default function BlogListing({
   activeCategory = "All",
+  activeTag = "",
   posts = [],
   page = 1,
 }) {
+  const activeTagLabel = tagLabelForSlug(posts, activeTag);
   const featured = pickHeroPost(posts);
   const remaining = featured
     ? posts.filter((post) => post.slug !== featured.slug)
     : [];
-  const filtered =
-    activeCategory === "All"
-      ? remaining
-      : remaining.filter((post) => post.category === activeCategory);
-  const showFeatured =
-    Boolean(featured) &&
-    (activeCategory === "All" || featured.category === activeCategory);
+  const matchesFilters = (post) =>
+    postHasTag(post, activeTag) &&
+    (activeCategory === "All" || post.category === activeCategory);
+  const filtered = remaining.filter(matchesFilters);
+  const showFeatured = Boolean(featured) && matchesFilters(featured);
 
   const { currentPage, totalPages, pageItems } = paginateItems(
     filtered,
@@ -62,7 +74,7 @@ export default function BlogListing({
             return (
               <Link
                 key={category}
-                href={categoryHref(category)}
+                href={categoryHref(category, activeTag)}
                 scroll={false}
                 className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[1.3px] transition-colors duration-200 ${
                   isActive
@@ -76,41 +88,20 @@ export default function BlogListing({
           })}
         </div>
 
-        {showFeaturedOnPage ? (
-          <Link
-            href={`/blog/${featured.slug}`}
-            className="group mt-10 grid overflow-hidden rounded-2xl border border-[#ba8a44]/40 bg-[#121212] transition-colors hover:border-[#ba8a44] lg:mt-14 lg:grid-cols-2"
-          >
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#0d0d0d] lg:aspect-auto lg:h-full">
-              <MediaImage
-                src={featured.image}
-                alt={featured.title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                priority
-              />
-            </div>
-            <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:min-h-[320px] lg:p-12">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-md bg-gradient-to-r from-[#BC8741] to-[#D6A85E] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.96px] text-white">
-                  {featured.category}
-                </span>
-                <p className="text-xs font-medium text-[#ba8a44]">{featured.date}</p>
-              </div>
-              <h2 className="!font-accent text-2xl font-normal uppercase leading-snug tracking-wide text-white transition-colors duration-300 sm:text-3xl group-hover:text-[#ba8a44]">
-                {featured.title}
-              </h2>
-              <p className="text-sm leading-7 text-white/75 sm:text-base">
-                {featured.excerpt}
-              </p>
-              <span className="mt-2 flex w-fit items-center gap-1 text-xs font-semibold uppercase tracking-wide text-[#ba8a44] transition-all duration-300 group-hover:gap-2">
-                Read Article
-                <ArrowRight className="h-4 w-4" strokeWidth={2} />
-              </span>
-            </div>
-          </Link>
+        {activeTag ? (
+          <div className="mt-5 flex justify-center">
+            <Link
+              href={categoryHref(activeCategory, "")}
+              className="inline-flex items-center gap-2 rounded-full border border-[#ba8a44]/40 bg-[#ba8a44]/10 px-4 py-2 text-xs font-medium capitalize text-[#eec876] transition hover:border-[#eec876] hover:text-white"
+            >
+              {activeTagLabel}
+              <X className="h-3.5 w-3.5" />
+              <span className="sr-only">Clear tag</span>
+            </Link>
+          </div>
         ) : null}
+
+        {showFeaturedOnPage ? <FeaturedPost post={featured} /> : null}
 
         {pageItems.length > 0 ? (
           <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
@@ -123,7 +114,7 @@ export default function BlogListing({
         {!showFeaturedOnPage && pageItems.length === 0 ? (
           <p className="mt-12 text-center text-sm text-white/60">
             {posts.length
-              ? "No articles in this category yet."
+              ? "No articles match this filter yet."
               : "No articles published yet."}
           </p>
         ) : null}
@@ -134,7 +125,7 @@ export default function BlogListing({
             currentPage={currentPage}
             totalPages={totalPages}
             hrefForPage={(pageNumber) =>
-              blogPageHref(activeCategory, pageNumber)
+              blogPageHref(activeCategory, activeTag, pageNumber)
             }
           />
         ) : null}

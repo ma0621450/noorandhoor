@@ -2,6 +2,7 @@ import PropertyHero from "@/components/common/PropertyHero";
 import BlogListing from "@/components/sections/blog/BlogListing";
 import { BLOG_CATEGORIES } from "@/components/sections/blog/blogData";
 import { getPublishedPosts } from "@/lib/blog/queries";
+import { tagSlug } from "@/lib/blog/tags";
 import { getCategoryFromSearchParams, getPageFromSearchParams } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +13,16 @@ export const metadata = {
     "Stay ahead with the latest market trends, buying tips, and neighbourhood guides from Noor & Hoor Properties.",
 };
 
+async function getTagFromSearchParams(searchParams) {
+  const params = await searchParams;
+  const raw = Array.isArray(params?.tag) ? params.tag[0] : params?.tag;
+  return tagSlug(String(raw || "").replace(/-/g, " "));
+}
+
 export default async function BlogPage({ searchParams }) {
-  const [activeCategory, posts, page] = await Promise.all([
+  const [activeCategory, activeTag, posts, page] = await Promise.all([
     getCategoryFromSearchParams(searchParams, BLOG_CATEGORIES),
+    getTagFromSearchParams(searchParams),
     getPublishedPosts(),
     getPageFromSearchParams(searchParams),
   ]);
@@ -24,6 +32,7 @@ export default async function BlogPage({ searchParams }) {
       <PropertyHero variant="blog" />
       <BlogListing
         activeCategory={activeCategory}
+        activeTag={activeTag}
         posts={posts}
         page={page}
       />

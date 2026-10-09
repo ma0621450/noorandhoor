@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import BlogTags from "@/components/ui/BlogTags";
 import MediaImage from "@/components/ui/MediaImage";
 
 const BlogCard = ({ blog }) => {
-  const { image, title, date, excerpt, slug, category } = blog;
+  const { image, title, date, excerpt, slug, category, tags } = blog;
   const href = slug ? `/blog/${slug}` : undefined;
 
   return (
@@ -41,6 +42,7 @@ const BlogCard = ({ blog }) => {
           <p className="line-clamp-3 text-xs leading-relaxed text-white">
             {excerpt}
           </p>
+          <BlogTags tags={tags} limit={3} />
           <span className="mt-1 flex w-fit items-center gap-1 text-xs font-semibold uppercase tracking-wide text-[#ba8a44] transition-all duration-300 group-hover:gap-2">
             Read Article
             <ArrowRight className="h-4 w-4" strokeWidth={2} />

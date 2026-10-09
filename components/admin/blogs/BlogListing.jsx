@@ -38,7 +38,8 @@ export default function BlogListing() {
       const matchesQuery =
         !needle ||
         blog.title.toLowerCase().includes(needle) ||
-        blog.excerpt.toLowerCase().includes(needle);
+        blog.excerpt.toLowerCase().includes(needle) ||
+        (blog.tags || []).some((tag) => tag.toLowerCase().includes(needle));
       const matchesCategory = category === ALL || blog.category === category;
       const matchesStatus = status === ALL || blog.status === status;
       return matchesQuery && matchesCategory && matchesStatus;
@@ -73,7 +74,7 @@ export default function BlogListing() {
         <SearchInput
           value={query}
           onChange={updateFilter(setQuery)}
-          placeholder="Search title or excerpt"
+          placeholder="Search title, excerpt, or tag"
         />
         <SelectField
           id="blog-category"
@@ -120,6 +121,11 @@ export default function BlogListing() {
                         <div className="min-w-0">
                           <p className="font-medium text-white">{blog.title}</p>
                           <p className="mt-1 line-clamp-1 text-xs text-white/45">{blog.excerpt}</p>
+                          {blog.tags?.length ? (
+                            <p className="mt-1 line-clamp-1 text-[11px] text-[#eec876]/80">
+                              {blog.tags.join(" · ")}
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                     </td>
@@ -169,6 +175,11 @@ export default function BlogListing() {
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-white">{blog.title}</p>
                     <p className="mt-1 text-xs text-white/45">{blog.category}</p>
+                    {blog.tags?.length ? (
+                      <p className="mt-1 line-clamp-2 text-[11px] text-[#eec876]/80">
+                        {blog.tags.join(" · ")}
+                      </p>
+                    ) : null}
                     <div className="mt-2 flex flex-wrap gap-2">
                       <StatusBadge status={blog.status} />
                       {blog.featuredOnHome ? <StatusBadge status="home" /> : null}
